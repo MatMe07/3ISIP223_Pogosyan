@@ -85,7 +85,7 @@ void Poisk(string txt)
 int vhod;
 do
 {
-    Console.Clear();
+    //Console.Clear();
     Console.Write("1. Вывод данных\n2. Статистика\n3. Сортировка по цене\n4. Конвертация валюты\n5. Поиск по названию\n0. Выход\nВведите цифру: ");
     vhod = Convert.ToInt32(Console.ReadLine());
     switch (vhod)
@@ -124,7 +124,7 @@ do
                 break;
             }
     }
-    Console.ReadLine();
+    //Console.ReadLine();
 }
 while(vhod != 0);
 Console.WriteLine();
