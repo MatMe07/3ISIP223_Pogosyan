@@ -16,8 +16,13 @@ namespace _3ISIP223_Pogosyan
         static void Main(string[] args)
         {
             List<string> category = new List<string>() { "продукты питания", "одежда", "игрушки", "электроника" };
-
+            //int df = 
+            for (int i = 0; i < 4; i++)
+            {
+                AddProd($"prod{i}", i+1.2, i+10, category[i]);
+            }
             int n = 0;
+            int id;
             do
             {
                 Console.Clear();
@@ -45,34 +50,27 @@ namespace _3ISIP223_Pogosyan
                             if (catNum > category.Count) Console.WriteLine("Такой категории нет.");
                             else { categor = category[catNum]; }
 
-                            int add = AddProd(name, price, count, categor);
-                            if (add > 0)
-                            {
-                                if (add == 1)
-                                {
-                                    Console.WriteLine("Ошибка: Некорректное количество. Количество товара должно быть положительным числом.");
-                                }
-                                else if (add == 2)
-                                {
-                                    Console.WriteLine("Ошибка: Некорректная цена. Цена товара должна быть положительным числом.");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Ошибка: Отсутствует название товара. Название не может быть пустым.");
-                                }
-                            }
-                            else
-                            {
-                                Console.WriteLine("Товар успешно доабавлен!.");
-                            }
-                                break;
+                            AddProd(name, price, count, categor);
+                            break;
                         }
                 case 2:
                         {
+                            Console.Write("Введите все необходимые данные продукта\nКод продукта (ID): ");
+                            id = Convert.ToInt32(Console.ReadLine());
+                            if (DelProd(id))
+                            {
+                                Console.WriteLine("Продукт успешно удален!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Товар не найден!");
+                            }
                             break;
                         }
                 case 3:
                         {
+                            Console.Write("Введите все необходимые данные продукта\nКод продукта (ID): ");
+                            id = Convert.ToInt32(Console.ReadLine());
                             break;
                         }
                 case 4:
@@ -85,6 +83,7 @@ namespace _3ISIP223_Pogosyan
                         }
                 case 6:
                         {
+                            PrintProducts();
                             break;
                         }
                 default: { Console.WriteLine("Такого пункта нет!!!!"); break; }
@@ -96,15 +95,34 @@ namespace _3ISIP223_Pogosyan
             Console.WriteLine("Удачи");
             
         }
-        static int AddProd(string name, double price, int count, string categoric)
+        static void AddProd(string name, double price, int count, string categoric)
         {
-            if (name.Length == 0) return 3;
-            else if (price <= 0) return 2;
-            else if (count <= 0) return 1;
+            int add = 0;
+            if (name.Length == 0) add = 3;
+            else if (price <= 0) add = 2;
+            else if (count <= 0) add = 1;
             Product prod = new Product(name, price, count, categoric);
-            if (!prod.Get_HaveStock()) return 4;
             products.Add(prod);
-            return 0;
+            if (add > 0)
+            {
+                if (add == 1)
+                {
+                    Console.WriteLine("Ошибка: Некорректное количество. Количество товара должно быть положительным числом.");
+                }
+                else if (add == 2)
+                {
+                    Console.WriteLine("Ошибка: Некорректная цена. Цена товара должна быть положительным числом.");
+                }
+                else 
+                {
+                    Console.WriteLine("Ошибка: Отсутствует название товара. Название не может быть пустым.");
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("Товар успешно доабавлен!.");
+            }
         }
 
         static bool DelProd(int id)
@@ -138,7 +156,7 @@ namespace _3ISIP223_Pogosyan
             {
                 if (prod.Get_ID() == id)
                 {
-                    if (prod.Get_countHaveStock() - count > 0) { 
+                    if (prod.Get_CountProdInStock() - count > 0) { 
                         prod.ReduceCount(count);
                         return true;
                     }
@@ -192,7 +210,7 @@ namespace _3ISIP223_Pogosyan
             Console.WriteLine("_____________________________________");
             foreach (Product prod in products)
             {
-                Console.WriteLine($"{prod.Get_ID} | {prod.Name} | {prod.Price} $ | {prod.Category}");
+                Console.WriteLine($"{prod.Get_ID()} | {prod.Name} | {prod.Price} $ | {prod.Category}");
             }
             Console.WriteLine("_____________________________________");
         }
@@ -200,29 +218,31 @@ namespace _3ISIP223_Pogosyan
 
     class Product
     {
-        private static int ID = 0;
+
+        private static int nextId = 1;
+        private  int ID;
         public string Name;
         public double Price;
         public int Count;
-        private static int HaveStock = 100;
+        private static int CountProdInStock;
         public string Category;
 
         public Product(string name, double price, int count, string category)
         {
-            ID++;
+            ID = nextId++;
             Name = name;
             Price = price;
             Count = count;
             Category = category;
-            HaveStock -= count;
+            CountProdInStock = count;
         }
 
-        public bool Get_HaveStock() { return HaveStock > 0; }
-        public int Get_countHaveStock() { return HaveStock; }
+        public bool Get_HaveProdInStock() { return CountProdInStock > 0; }
+        public int Get_CountProdInStock() { return CountProdInStock; }
         public int Get_ID() { return ID;}
 
-        public void UvelichCount(int count) { HaveStock += count; }
-        public void ReduceCount(int count) { HaveStock -= count; }
+        public void UvelichCount(int count) { CountProdInStock += count; }
+        public void ReduceCount(int count) { CountProdInStock -= count; }
 
     }
 
