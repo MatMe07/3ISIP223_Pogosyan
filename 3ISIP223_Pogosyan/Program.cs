@@ -71,6 +71,16 @@ namespace _3ISIP223_Pogosyan
                         {
                             Console.Write("Введите все необходимые данные продукта\nКод продукта (ID): ");
                             id = Convert.ToInt32(Console.ReadLine());
+                            Console.Write("Количество товаров: ");
+                            int count = Convert.ToInt32(Console.ReadLine());
+                            if (ZakazProd(id, count))
+                            {
+                                Console.WriteLine("Продукт заказан!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Товар не найден или Некорректное количество.!");
+                            }
                             break;
                         }
                 case 4:
@@ -137,8 +147,9 @@ namespace _3ISIP223_Pogosyan
             return false;
         }
 
-        static public bool AddCountProd(int id, int count)
+        static public bool ZakazProd(int id, int count)
         {
+            if (count < 0 ) return false;
             foreach (Product prod in products)
             {
                 if (prod.Get_ID() == id)
