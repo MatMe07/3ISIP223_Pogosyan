@@ -28,6 +28,18 @@ namespace _3ISIP223_Pogosyan
             ID++;
             return 1;
         }
+
+        bool DelProd(int id)
+        {
+            foreach (Product prod in products) { 
+                if (prod.Get_ID() == id)
+                {
+                    products.Remove(prod);
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     class Product
@@ -50,6 +62,7 @@ namespace _3ISIP223_Pogosyan
         }
 
         public bool Get_HaveStock() { return HaveStock > 0; }
+        public int Get_ID() { return ID;}
 
     }
 
