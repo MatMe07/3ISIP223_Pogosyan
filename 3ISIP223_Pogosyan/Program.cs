@@ -9,8 +9,10 @@ namespace _3ISIP223_Pogosyan
 {
     internal class Program
     {
-        private List<Product> products;
+        private static List<Product> products = new List<Product>();
         private int ID = 0;
+
+
         static void Main(string[] args)
         {
             List<string> category = new List<string>() { "продукты питания", "одежда", "игрушки", "электроника" };
@@ -18,13 +20,52 @@ namespace _3ISIP223_Pogosyan
             int n = 0;
             do
             {
+                Console.Clear();
                 Console.Write("=== УЧЕТ ТОВАРОВ В МАГАЗИНЕ ===\nВыберите действие:\n\n1. Добавить новый товар\n2. Удалить товар\n3. Заказать поставку товара\n4. Продать товар\n5. Поиск товаров\n6. Показать все товары\n0. Выйти из программы\n\nВведите номер команды: ");
                 n = Convert.ToInt32(Console.ReadLine());
                 switch (n) { 
                 case 0:break;
                 case 1:
                         {
-                            break;
+                            Console.Write("Введите все необходимые данные продукта\nНазвание: ");
+                            string name = Console.ReadLine();
+                            Console.Write("Цена: ");
+                            double price = Convert.ToDouble(Console.ReadLine());
+                            Console.Write("Количество: ");
+                            int count = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("-----------------------------");
+                            for (int i = 0; i < category.Count; i++)
+                            {
+                                Console.WriteLine($"{i}. {category[i]}");
+                            }
+                            Console.WriteLine("-----------------------------");
+                            Console.Write("Выберите из списка категорию: ");
+                            int catNum = Convert.ToInt32(Console.ReadLine());
+                            string categor = "NULL";
+                            if (catNum > category.Count) Console.WriteLine("Такой категории нет.");
+                            else { categor = category[catNum]; }
+
+                            int add = AddProd(name, price, count, categor);
+                            if (add > 0)
+                            {
+                                if (add == 1)
+                                {
+                                    Console.WriteLine("Ошибка: Некорректное количество. Количество товара должно быть положительным числом.");
+                                }
+                                else if (add == 2)
+                                {
+                                    Console.WriteLine("Ошибка: Некорректная цена. Цена товара должна быть положительным числом.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Ошибка: Отсутствует название товара. Название не может быть пустым.");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Товар успешно доабавлен!.");
+                            }
+                                break;
                         }
                 case 2:
                         {
@@ -48,23 +89,25 @@ namespace _3ISIP223_Pogosyan
                         }
                 default: { Console.WriteLine("Такого пункта нет!!!!"); break; }
                 }
+                Console.WriteLine("\nНажмите Enter");
+                Console.ReadLine();
             }
             while (n != 0);
             Console.WriteLine("Удачи");
-
+            
         }
-        int AddProd(string name, double price, int count, string categoric)
+        static int AddProd(string name, double price, int count, string categoric)
         {
-            if (name.Length == 0) return 2;
-            else if (price <= 0) return -1;
-            else if (count <= 0) return 0;
+            if (name.Length == 0) return 3;
+            else if (price <= 0) return 2;
+            else if (count <= 0) return 1;
             Product prod = new Product(name, price, count, categoric);
-            if (!prod.Get_HaveStock()) return 3;
+            if (!prod.Get_HaveStock()) return 4;
             products.Add(prod);
-            return 1;
+            return 0;
         }
 
-        bool DelProd(int id)
+        static bool DelProd(int id)
         {
             foreach (Product prod in products) { 
                 if (prod.Get_ID() == id)
@@ -76,7 +119,7 @@ namespace _3ISIP223_Pogosyan
             return false;
         }
 
-        bool AddCountProd(int id, int count)
+        static public bool AddCountProd(int id, int count)
         {
             foreach (Product prod in products)
             {
@@ -89,7 +132,7 @@ namespace _3ISIP223_Pogosyan
             return false;
         }
 
-        public bool DelCountProd(int id, int count) {
+        static public bool DelCountProd(int id, int count) {
 
             foreach (Product prod in products)
             {
@@ -105,7 +148,7 @@ namespace _3ISIP223_Pogosyan
             return false;
         }
 
-        public bool FindProdByID(int id)
+        static public bool FindProdByID(int id)
         {
             foreach (Product prod in products)
             {
@@ -117,7 +160,7 @@ namespace _3ISIP223_Pogosyan
             }
             return false;
         }
-        public bool FindProdByName(string name)
+        static public bool FindProdByName(string name)
         {
             int n = 0;
             foreach (Product prod in products)
@@ -130,7 +173,7 @@ namespace _3ISIP223_Pogosyan
             }
             return n > 0;
         }
-        public bool FindProdByCategory(string category)
+        static public bool FindProdByCategory(string category)
         {
             int n = 0;
             foreach (Product prod in products)
@@ -144,7 +187,7 @@ namespace _3ISIP223_Pogosyan
             return n > 0;
         }
 
-        void PrintProducts()
+        static public void PrintProducts()
         {
             Console.WriteLine("_____________________________________");
             foreach (Product prod in products)
