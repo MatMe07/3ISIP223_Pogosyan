@@ -15,6 +15,42 @@ namespace _3ISIP223_Pogosyan
         {
             List<string> category = new List<string>() { "продукты питания", "одежда", "игрушки", "электроника" };
 
+            int n = 0;
+            do
+            {
+                Console.Write("=== УЧЕТ ТОВАРОВ В МАГАЗИНЕ ===\nВыберите действие:\n\n1. Добавить новый товар\n2. Удалить товар\n3. Заказать поставку товара\n4. Продать товар\n5. Поиск товаров\n6. Показать все товары\n0. Выйти из программы\n\nВведите номер команды: ");
+                n = Convert.ToInt32(Console.ReadLine());
+                switch (n) { 
+                case 0:break;
+                case 1:
+                        {
+                            break;
+                        }
+                case 2:
+                        {
+                            break;
+                        }
+                case 3:
+                        {
+                            break;
+                        }
+                case 4:
+                        {
+                            break;
+                        }
+                case 5:
+                        {
+                            break;
+                        }
+                case 6:
+                        {
+                            break;
+                        }
+                default: { Console.WriteLine("Такого пункта нет!!!!"); break; }
+                }
+            }
+            while (n != 0);
+            Console.WriteLine("Удачи");
 
         }
         int AddProd(string name, double price, int count, string categoric)
@@ -22,10 +58,9 @@ namespace _3ISIP223_Pogosyan
             if (name.Length == 0) return 2;
             else if (price <= 0) return -1;
             else if (count <= 0) return 0;
-            Product prod = new Product(ID, name, price, count, categoric);
+            Product prod = new Product(name, price, count, categoric);
             if (!prod.Get_HaveStock()) return 3;
             products.Add(prod);
-            ID++;
             return 1;
         }
 
@@ -108,20 +143,30 @@ namespace _3ISIP223_Pogosyan
             }
             return n > 0;
         }
+
+        void PrintProducts()
+        {
+            Console.WriteLine("_____________________________________");
+            foreach (Product prod in products)
+            {
+                Console.WriteLine($"{prod.Get_ID} | {prod.Name} | {prod.Price} $ | {prod.Category}");
+            }
+            Console.WriteLine("_____________________________________");
+        }
     }
 
     class Product
     {
-        private int ID;
+        private static int ID = 0;
         public string Name;
         public double Price;
         public int Count;
         private static int HaveStock = 100;
         public string Category;
 
-        public Product(int iD, string name, double price, int count, string category)
+        public Product(string name, double price, int count, string category)
         {
-            ID = iD;
+            ID++;
             Name = name;
             Price = price;
             Count = count;
