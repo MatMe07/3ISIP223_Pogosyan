@@ -13,7 +13,7 @@ namespace _3ISIP223_Pogosyan
         private int ID = 0;
         static void Main(string[] args)
         {
-            List<string> categoric = new List<string>() { "продукты питания", "одежда", "игрушки", "электроника" };
+            List<string> category = new List<string>() { "продукты питания", "одежда", "игрушки", "электроника" };
 
 
         }
@@ -70,6 +70,44 @@ namespace _3ISIP223_Pogosyan
             return false;
         }
 
+        public bool FindProdByID(int id)
+        {
+            foreach (Product prod in products)
+            {
+                if (prod.Get_ID() == id)
+                {
+                    Console.WriteLine($"{prod.Get_ID} | {prod.Name} | {prod.Price} $ | {prod.Category}");
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool FindProdByName(string name)
+        {
+            int n = 0;
+            foreach (Product prod in products)
+            {
+                if (prod.Name.ToLower() == name.ToLower())
+                {
+                    Console.WriteLine($"{prod.Get_ID} | {prod.Name} | {prod.Price} $ | {prod.Category}");
+                    n++;
+                }
+            }
+            return n > 0;
+        }
+        public bool FindProdByCategory(string category)
+        {
+            int n = 0;
+            foreach (Product prod in products)
+            {
+                if (prod.Category.ToLower() == category.ToLower())
+                {
+                    Console.WriteLine($"{prod.Get_ID} | {prod.Name} | {prod.Price} $ | {prod.Category}");
+                    n++;
+                }
+            }
+            return n > 0;
+        }
     }
 
     class Product
@@ -79,15 +117,15 @@ namespace _3ISIP223_Pogosyan
         public double Price;
         public int Count;
         private static int HaveStock = 100;
-        public string Categoric;
+        public string Category;
 
-        public Product(int iD, string name, double price, int count, string categoric)
+        public Product(int iD, string name, double price, int count, string category)
         {
             ID = iD;
             Name = name;
             Price = price;
             Count = count;
-            Categoric = categoric;
+            Category = category;
             HaveStock -= count;
         }
 
