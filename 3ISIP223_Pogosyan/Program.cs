@@ -40,6 +40,36 @@ namespace _3ISIP223_Pogosyan
             }
             return false;
         }
+
+        bool AddCountProd(int id, int count)
+        {
+            foreach (Product prod in products)
+            {
+                if (prod.Get_ID() == id)
+                {
+                    prod.UvelichCount(count);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool DelCountProd(int id, int count) {
+
+            foreach (Product prod in products)
+            {
+                if (prod.Get_ID() == id)
+                {
+                    if (prod.Get_countHaveStock() - count > 0) { 
+                        prod.ReduceCount(count);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            return false;
+        }
+
     }
 
     class Product
@@ -62,7 +92,11 @@ namespace _3ISIP223_Pogosyan
         }
 
         public bool Get_HaveStock() { return HaveStock > 0; }
+        public int Get_countHaveStock() { return HaveStock; }
         public int Get_ID() { return ID;}
+
+        public void UvelichCount(int count) { HaveStock += count; }
+        public void ReduceCount(int count) { HaveStock -= count; }
 
     }
 
