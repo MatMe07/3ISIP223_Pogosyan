@@ -38,7 +38,7 @@ namespace _3ISIP223_Pogosyan
                             double price = Convert.ToDouble(Console.ReadLine());
                             Console.Write("Количество: ");
                             int count = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("-----------------------------");
+                            Console.WriteLine("Доступные категории:\n-----------------------------");
                             for (int i = 0; i < category.Count; i++)
                             {
                                 Console.WriteLine($"{i}. {category[i]}");
@@ -85,10 +85,60 @@ namespace _3ISIP223_Pogosyan
                         }
                 case 4:
                         {
+                            Console.Write("Введите все необходимые данные продукта\nКод продукта (ID): ");
+                            id = Convert.ToInt32(Console.ReadLine());
+                            Console.Write("Количество товаров: ");
+                            int count = Convert.ToInt32(Console.ReadLine());
+                            if (SellProd(id, count))
+                            {
+                                Console.WriteLine("Продукт успешно продан!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Товар не найден или Некорректное количество.!");
+                            }
                             break;
                         }
                 case 5:
                         {
+                            Console.WriteLine("=== ПОИСК ТОВАРОВ ===\nВыберите критерий поиска:\n\n1. Поиск по уникальному коду\n2. Поиск по названию\n3. Поиск по категории\n4. Вернуться в главное меню\n\nВведите номер команды: ");
+                            int poisk = Convert.ToInt32(Console.ReadLine());
+                            switch (poisk)
+                            {
+                                case 1:
+                                    {
+                                        Console.Write("Введите уникальный код товара (ID): ");
+                                        id = Convert.ToInt32(Console.ReadLine());
+                                        FindProdByID(id);
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        Console.Write("Введите название товара (ID): ");
+                                        string name = Console.ReadLine();
+                                        FindProdByName(name);
+                                        break;
+                                    }
+                                case 3:
+                                    {
+                                        Console.WriteLine("Доступные категории:");
+                                        for (int i = 0; i < category.Count; i++)
+                                        {
+                                            Console.WriteLine($"{i}. {category[i]}");
+                                        }
+                                        Console.Write("Выберите из списка категорию: ");
+                                        int catNum = Convert.ToInt32(Console.ReadLine());
+                                        string categor = "NULL";
+                                        if (catNum > category.Count) Console.WriteLine("Такой категории нет.");
+                                        else { categor = category[catNum]; }
+                                        break;
+                                    }
+                                case 4:  { break; }
+                                default: {
+                                        Console.WriteLine("Такого пункта нет!!!!");
+                                        break;
+                                    };
+                            }
                             break;
                         }
                 case 6:
@@ -161,7 +211,7 @@ namespace _3ISIP223_Pogosyan
             return false;
         }
 
-        static public bool DelCountProd(int id, int count) {
+        static public bool SellProd(int id, int count) {
 
             foreach (Product prod in products)
             {
@@ -171,6 +221,7 @@ namespace _3ISIP223_Pogosyan
                         prod.ReduceCount(count);
                         return true;
                     }
+                    Console.WriteLine("На складе не хватает товара для продажи!!");
                     return false;
                 }
             }
@@ -221,7 +272,7 @@ namespace _3ISIP223_Pogosyan
             Console.WriteLine("_____________________________________");
             foreach (Product prod in products)
             {
-                Console.WriteLine($"{prod.Get_ID()} | {prod.Name} | {prod.Price} $ | {prod.Category}");
+                Console.WriteLine($"{prod.Get_ID()} | {prod.Name} | {prod.Price} $ | {prod.Category} | {prod.Get_CountProdInStock()}");
             }
             Console.WriteLine("_____________________________________");
         }
@@ -234,8 +285,7 @@ namespace _3ISIP223_Pogosyan
         private  int ID;
         public string Name;
         public double Price;
-        public int Count;
-        private static int CountProdInStock;
+        private int CountProdInStock;
         public string Category;
 
         public Product(string name, double price, int count, string category)
@@ -243,7 +293,6 @@ namespace _3ISIP223_Pogosyan
             ID = nextId++;
             Name = name;
             Price = price;
-            Count = count;
             Category = category;
             CountProdInStock = count;
         }
