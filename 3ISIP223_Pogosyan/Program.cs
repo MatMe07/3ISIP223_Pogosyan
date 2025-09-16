@@ -1,4 +1,4 @@
-п»їusing System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
@@ -15,7 +15,8 @@ namespace _3ISIP223_Pogosyan
 
         static void Main(string[] args)
         {
-            List<string> category = new List<string>() { "РїСЂРѕРґСѓРєС‚С‹ РїРёС‚Р°РЅРёСЏ", "РѕРґРµР¶РґР°", "РёРіСЂСѓС€РєРё", "СЌР»РµРєС‚СЂРѕРЅРёРєР°" };
+            Console.OutputEncoding = Encoding.Unicode;
+            List<string> category = new List<string>() { "продукты питания", "одежда", "игрушки", "электроника" };
             //int df = 
             for (int i = 0; i < 4; i++)
             {
@@ -23,31 +24,33 @@ namespace _3ISIP223_Pogosyan
             }
             int n = 0;
             int id;
+            int poisk = 0;
             do
             {
                 Console.Clear();
-                Console.Write("=== РЈР§Р•Рў РўРћР’РђР РћР’ Р’ РњРђР“РђР—РРќР• ===\nР’С‹Р±РµСЂРёС‚Рµ РґРµР№СЃС‚РІРёРµ:\n\n1. Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІС‹Р№ С‚РѕРІР°СЂ\n2. РЈРґР°Р»РёС‚СЊ С‚РѕРІР°СЂ\n3. Р—Р°РєР°Р·Р°С‚СЊ РїРѕСЃС‚Р°РІРєСѓ С‚РѕРІР°СЂР°\n4. РџСЂРѕРґР°С‚СЊ С‚РѕРІР°СЂ\n5. РџРѕРёСЃРє С‚РѕРІР°СЂРѕРІ\n6. РџРѕРєР°Р·Р°С‚СЊ РІСЃРµ С‚РѕРІР°СЂС‹\n0. Р’С‹Р№С‚Рё РёР· РїСЂРѕРіСЂР°РјРјС‹\n\nР’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РєРѕРјР°РЅРґС‹: ");
+                Console.Write("=== УЧЕТ ТОВАРОВ В МАГАЗИНЕ ===\nВыберите действие:\n\n1. Добавить новый товар\n2. Удалить товар\n3. Заказать поставку товара\n4. Продать товар\n5. Поиск товаров\n6. Показать все товары\n0. Выйти из программы\n\nВведите номер команды: ");
                 n = Convert.ToInt32(Console.ReadLine());
                 switch (n) { 
                 case 0:break;
                 case 1:
                         {
-                            Console.Write("Р’РІРµРґРёС‚Рµ РІСЃРµ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РґР°РЅРЅС‹Рµ РїСЂРѕРґСѓРєС‚Р°\nРќР°Р·РІР°РЅРёРµ: ");
+
+                            Console.Clear();
+                            Console.Write("=== ДОБАВЛЕНИЕ НОВОГО ТОВАРА ===\n\nВведите название товара: : ");
                             string name = Console.ReadLine();
-                            Console.Write("Р¦РµРЅР°: ");
+                            Console.Write("Введите цену товара: : ");
                             double price = Convert.ToDouble(Console.ReadLine());
-                            Console.Write("РљРѕР»РёС‡РµСЃС‚РІРѕ: ");
+                            Console.Write("Введите количество товара: : ");
                             int count = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("Р”РѕСЃС‚СѓРїРЅС‹Рµ РєР°С‚РµРіРѕСЂРёРё:\n-----------------------------");
+                            Console.WriteLine("Выберите категорию:");
                             for (int i = 0; i < category.Count; i++)
                             {
-                                Console.WriteLine($"{i}. {category[i]}");
+                                Console.WriteLine($"{i+1}. {category[i]}");
                             }
-                            Console.WriteLine("-----------------------------");
-                            Console.Write("Р’С‹Р±РµСЂРёС‚Рµ РёР· СЃРїРёСЃРєР° РєР°С‚РµРіРѕСЂРёСЋ: ");
-                            int catNum = Convert.ToInt32(Console.ReadLine());
+                            Console.Write("Введите номер категории: ");
+                            int catNum = Convert.ToInt32(Console.ReadLine()); catNum--;
                             string categor = "NULL";
-                            if (catNum > category.Count) Console.WriteLine("РўР°РєРѕР№ РєР°С‚РµРіРѕСЂРёРё РЅРµС‚.");
+                            if (catNum > category.Count) Console.WriteLine("Такой категории нет.");
                             else { categor = category[catNum]; }
 
                             AddProd(name, price, count, categor);
@@ -55,104 +58,138 @@ namespace _3ISIP223_Pogosyan
                         }
                 case 2:
                         {
-                            Console.Write("Р’РІРµРґРёС‚Рµ РІСЃРµ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РґР°РЅРЅС‹Рµ РїСЂРѕРґСѓРєС‚Р°\nРљРѕРґ РїСЂРѕРґСѓРєС‚Р° (ID): ");
+                            Console.Clear();
+
+                            Console.Write("=== УДАЛЕНИЕ ТОВАРА ===\n\nВведите уникальный код товара для удаления: ");
                             id = Convert.ToInt32(Console.ReadLine());
                             if (DelProd(id))
                             {
-                                Console.WriteLine("РџСЂРѕРґСѓРєС‚ СѓСЃРїРµС€РЅРѕ СѓРґР°Р»РµРЅ!");
+                                Console.WriteLine("Товар успешно удален!");
                             }
                             else
                             {
-                                Console.WriteLine("РўРѕРІР°СЂ РЅРµ РЅР°Р№РґРµРЅ!");
+                                Console.WriteLine($"Товар с кодом {id} не найден!");
                             }
                             break;
                         }
                 case 3:
                         {
-                            Console.Write("Р’РІРµРґРёС‚Рµ РІСЃРµ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РґР°РЅРЅС‹Рµ РїСЂРѕРґСѓРєС‚Р°\nРљРѕРґ РїСЂРѕРґСѓРєС‚Р° (ID): ");
+                            Console.Clear();
+
+                            Console.Write("=== ЗАКАЗ ПОСТАВКИ ТОВАРА ===\n\nВведите уникальный код товара: ");
                             id = Convert.ToInt32(Console.ReadLine());
-                            Console.Write("РљРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕРІР°СЂРѕРІ: ");
+                            Console.Write("Введите количество для поставки: ");
                             int count = Convert.ToInt32(Console.ReadLine());
                             if (ZakazProd(id, count))
                             {
-                                Console.WriteLine("РџСЂРѕРґСѓРєС‚ Р·Р°РєР°Р·Р°РЅ!");
+                                Console.WriteLine("Поставка успешно оформлена!");
                             }
                             else
                             {
-                                Console.WriteLine("РўРѕРІР°СЂ РЅРµ РЅР°Р№РґРµРЅ РёР»Рё РќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ.!");
+                                Console.WriteLine($"Товар с кодом {id} не найден!");
                             }
                             break;
                         }
                 case 4:
                         {
-                            Console.Write("Р’РІРµРґРёС‚Рµ РІСЃРµ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РґР°РЅРЅС‹Рµ РїСЂРѕРґСѓРєС‚Р°\nРљРѕРґ РїСЂРѕРґСѓРєС‚Р° (ID): ");
+                            Console.Clear();
+
+                            Console.Write("=== ПРОДАЖА ТОВАРА ===\n\nВведите уникальный код товара: ");
                             id = Convert.ToInt32(Console.ReadLine());
-                            Console.Write("РљРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕРІР°СЂРѕРІ: ");
+                            Console.Write("Введите количество для продажи: ");
                             int count = Convert.ToInt32(Console.ReadLine());
                             if (SellProd(id, count))
                             {
-                                Console.WriteLine("РџСЂРѕРґСѓРєС‚ СѓСЃРїРµС€РЅРѕ РїСЂРѕРґР°РЅ!");
-                            }
-                            else
-                            {
-                                Console.WriteLine("РўРѕРІР°СЂ РЅРµ РЅР°Р№РґРµРЅ РёР»Рё РќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ.!");
+                                Console.WriteLine("Продажа успешно оформлена!");
                             }
                             break;
                         }
                 case 5:
                         {
-                            Console.WriteLine("=== РџРћРРЎРљ РўРћР’РђР РћР’ ===\nР’С‹Р±РµСЂРёС‚Рµ РєСЂРёС‚РµСЂРёР№ РїРѕРёСЃРєР°:\n\n1. РџРѕРёСЃРє РїРѕ СѓРЅРёРєР°Р»СЊРЅРѕРјСѓ РєРѕРґСѓ\n2. РџРѕРёСЃРє РїРѕ РЅР°Р·РІР°РЅРёСЋ\n3. РџРѕРёСЃРє РїРѕ РєР°С‚РµРіРѕСЂРёРё\n4. Р’РµСЂРЅСѓС‚СЊСЃСЏ РІ РіР»Р°РІРЅРѕРµ РјРµРЅСЋ\n\nР’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РєРѕРјР°РЅРґС‹: ");
-                            int poisk = Convert.ToInt32(Console.ReadLine());
-                            switch (poisk)
+                            Console.Clear();
+                            
+                            do
                             {
-                                case 1:
-                                    {
-                                        Console.Write("Р’РІРµРґРёС‚Рµ СѓРЅРёРєР°Р»СЊРЅС‹Р№ РєРѕРґ С‚РѕРІР°СЂР° (ID): ");
-                                        id = Convert.ToInt32(Console.ReadLine());
-                                        FindProdByID(id);
-                                        break;
-                                    }
-                                case 2:
-                                    {
-                                        Console.Write("Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ С‚РѕРІР°СЂР° (ID): ");
-                                        string name = Console.ReadLine();
-                                        FindProdByName(name);
-                                        break;
-                                    }
-                                case 3:
-                                    {
-                                        Console.WriteLine("Р”РѕСЃС‚СѓРїРЅС‹Рµ РєР°С‚РµРіРѕСЂРёРё:");
-                                        for (int i = 0; i < category.Count; i++)
+                                Console.Clear();
+                                Console.Write("=== ПОИСК ТОВАРОВ ===\nВыберите критерий поиска:\n\n1. Поиск по уникальному коду\n2. Поиск по названию\n3. Поиск по категории\n4. Вернуться в главное меню\n\nВведите номер команды: ");
+                                poisk = Convert.ToInt32(Console.ReadLine());
+                                switch (poisk)
+                                {
+                                    case 1:
                                         {
-                                            Console.WriteLine($"{i}. {category[i]}");
+                                            Console.Write("Введите уникальный код товара: ");
+                                            id = Convert.ToInt32(Console.ReadLine());
+                                            if (!FindProdByID(id)) 
+                                            { 
+                                                Console.WriteLine($"Товар с кодом {id} не найден!");
+                                            }
+                                            break;
                                         }
-                                        Console.Write("Р’С‹Р±РµСЂРёС‚Рµ РёР· СЃРїРёСЃРєР° РєР°С‚РµРіРѕСЂРёСЋ: ");
-                                        int catNum = Convert.ToInt32(Console.ReadLine());
-                                        string categor = "NULL";
-                                        if (catNum > category.Count) Console.WriteLine("РўР°РєРѕР№ РєР°С‚РµРіРѕСЂРёРё РЅРµС‚.");
-                                        else { categor = category[catNum]; }
-                                        break;
-                                    }
-                                case 4:  { break; }
-                                default: {
-                                        Console.WriteLine("РўР°РєРѕРіРѕ РїСѓРЅРєС‚Р° РЅРµС‚!!!!");
-                                        break;
-                                    };
+                                    case 2:
+                                        {
+                                            Console.Write("Введите название товара: ");
+                                            string name = Console.ReadLine();
+                                            if (!FindProdByName(name)) 
+                                            { 
+                                                Console.Write("Товары не найдены!");
+                                            }
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            Console.WriteLine("Доступные категории:");
+                                            for (int i = 1; i <= category.Count; i++)
+                                            {
+                                                Console.WriteLine($"{i}. {category[i]}");
+                                            }
+                                            Console.Write("Введите номер категории: ");
+                                            int catNum = Convert.ToInt32(Console.ReadLine()); catNum--;
+                                            string categor = "NULL";
+                                            if (catNum > category.Count) Console.WriteLine("Такой категории нет.");
+                                            else { categor = category[catNum]; }
+                                            if (!FindProdByCategory(categor))
+                                            {
+                                                Console.WriteLine("В выбранной категории товаров нет!");
+                                            }
+                                            break;
+                                        }
+                                    case 4:  { break; }
+                                    default: {
+                                            Console.WriteLine("Ошибка ввода! Пожалуйста, введите корректные данные.");
+                                            break;
+                                        };
+                                }
+                                if (poisk != 4)
+                                {
+                                    Console.WriteLine("\nНажмите Enter");
+                                    Console.ReadLine();
+                                }
                             }
+                            while (poisk < 4);
+                            
                             break;
                         }
                 case 6:
                         {
+                            Console.Clear();
+
+                            Console.WriteLine($"=== ВСЕ ТОВАРЫ В СИСТЕМЕ ===\n\nОбщее количество товаров: {products.Count}");
                             PrintProducts();
                             break;
                         }
-                default: { Console.WriteLine("РўР°РєРѕРіРѕ РїСѓРЅРєС‚Р° РЅРµС‚!!!!"); break; }
+                default: { Console.WriteLine("Ошибка ввода! Пожалуйста, введите корректные данные."); break; }
                 }
-                Console.WriteLine("\nРќР°Р¶РјРёС‚Рµ Enter");
-                Console.ReadLine();
+                
+                if (poisk != 4)
+                {
+                    Console.WriteLine("\nНажмите Enter");
+                    Console.ReadLine();
+                }
+                poisk = 0;
+                
             }
             while (n != 0);
-            Console.WriteLine("РЈРґР°С‡Рё");
+            Console.WriteLine("Удачи");
             
         }
         static void AddProd(string name, double price, int count, string categoric)
@@ -167,21 +204,22 @@ namespace _3ISIP223_Pogosyan
             {
                 if (add == 1)
                 {
-                    Console.WriteLine("РћС€РёР±РєР°: РќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ. РљРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕРІР°СЂР° РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Рј С‡РёСЃР»РѕРј.");
+                    Console.WriteLine("Ошибка: Некорректное количество. Количество товара должно быть положительным числом.");
                 }
                 else if (add == 2)
                 {
-                    Console.WriteLine("РћС€РёР±РєР°: РќРµРєРѕСЂСЂРµРєС‚РЅР°СЏ С†РµРЅР°. Р¦РµРЅР° С‚РѕРІР°СЂР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Рј С‡РёСЃР»РѕРј.");
+                    Console.WriteLine("Ошибка: Некорректная цена. Цена товара должна быть положительным числом.");
                 }
                 else 
                 {
-                    Console.WriteLine("РћС€РёР±РєР°: РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РЅР°Р·РІР°РЅРёРµ С‚РѕРІР°СЂР°. РќР°Р·РІР°РЅРёРµ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј.");
+                    Console.WriteLine("Ошибка: Отсутствует название товара. Название не может быть пустым.");
                 }
 
             }
             else
             {
-                Console.WriteLine("РўРѕРІР°СЂ СѓСЃРїРµС€РЅРѕ РґРѕР°Р±Р°РІР»РµРЅ!.");
+                Console.WriteLine("Товар успешно добавлен!");
+                Console.WriteLine($"Код вашего товара: {prod.Get_ID()}");
             }
         }
 
@@ -221,10 +259,11 @@ namespace _3ISIP223_Pogosyan
                         prod.ReduceCount(count);
                         return true;
                     }
-                    Console.WriteLine("РќР° СЃРєР»Р°РґРµ РЅРµ С…РІР°С‚Р°РµС‚ С‚РѕРІР°СЂР° РґР»СЏ РїСЂРѕРґР°Р¶Рё!!");
+                    Console.WriteLine("Недостаточно товара на складе!");
                     return false;
                 }
             }
+            Console.WriteLine($"Товар с кодом {id} не найден!");
             return false;
         }
 
@@ -234,7 +273,8 @@ namespace _3ISIP223_Pogosyan
             {
                 if (prod.Get_ID() == id)
                 {
-                    Console.WriteLine($"{prod.Get_ID} | {prod.Name} | {prod.Price} $ | {prod.Category}");
+                    Console.WriteLine($"Найден товар:\nКод: {prod.Get_ID()} | Название: {prod.Name} | Цена: {prod.Price} | В наличии: {prod.Get_CountProdInStock()} | Категория: {prod.Category}");
+
                     return true;
                 }
             }
@@ -247,7 +287,8 @@ namespace _3ISIP223_Pogosyan
             {
                 if (prod.Name.ToLower() == name.ToLower())
                 {
-                    Console.WriteLine($"{prod.Get_ID} | {prod.Name} | {prod.Price} $ | {prod.Category}");
+                    Console.WriteLine($"Код: {prod.Get_ID()} | Название: {prod.Name} | Цена: {prod.Price} | В наличии: {prod.Get_CountProdInStock()} | Категория: {prod.Category}");
+
                     n++;
                 }
             }
@@ -260,7 +301,8 @@ namespace _3ISIP223_Pogosyan
             {
                 if (prod.Category.ToLower() == category.ToLower())
                 {
-                    Console.WriteLine($"{prod.Get_ID} | {prod.Name} | {prod.Price} $ | {prod.Category}");
+                    Console.WriteLine($"Код: {prod.Get_ID()} | Название: {prod.Name} | Цена: {prod.Price} | В наличии: {prod.Get_CountProdInStock()} | Категория: {prod.Category}");
+
                     n++;
                 }
             }
@@ -269,12 +311,11 @@ namespace _3ISIP223_Pogosyan
 
         static public void PrintProducts()
         {
-            Console.WriteLine("_____________________________________");
+            if (products.Count == 0) { Console.WriteLine("В системе нет товаров!"); return; }
             foreach (Product prod in products)
             {
-                Console.WriteLine($"{prod.Get_ID()} | {prod.Name} | {prod.Price} $ | {prod.Category} | {prod.Get_CountProdInStock()}");
+                Console.WriteLine($"Код: {prod.Get_ID()} | Название: {prod.Name} | Цена: {prod.Price} | В наличии: {prod.Get_CountProdInStock()} | Категория: {prod.Category}");
             }
-            Console.WriteLine("_____________________________________");
         }
     }
 
