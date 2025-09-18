@@ -50,6 +50,17 @@ namespace _3ISIP223_Pogosyan
                             Console.WriteLine($"Количество предложений в тексте = {txt.shortWord}");
                             break;
                         }
+                    case 5:
+                        {
+                            Console.WriteLine($"Количество гласных в тексте = {txt.countGlasnie};");
+                            Console.WriteLine($"Количество согласных в тексте = {txt.countSoglasnie};");
+                            break;
+                        }
+                    case 6:
+                        {
+                            Console.WriteLine($"Самое длинное слово в тексте = {txt.longWord};");
+                            break;
+                        }
                 }
 
 
