@@ -10,34 +10,55 @@ namespace _3ISIP223_Pogosyan
 {
     internal class Program
     {
-
+        public static List<Text> lstText = new List<Text>();
         static void Main(string[] args)
         {
             //string txt = Console.ReadLine();
             int slov = 0;
             int n = 0;
-            string str = "Умер М. Ю. Лермонтов на Кавказе, но любил он его не поэтому! ";
+            string str = "";
             Text txt = new Text(str);
 
-            
-            //do
-            //{
-            //    Console.Clear();
-            //    Console.Write("Выберите действие:\n\n1. Ввод нового текста\n2. Вывод количества слов в тексте.\n3. Поиск самого короткого слова\n4. Подсчёт количества предложений\n5. Подсчёт количества гласных и согласных букв\n6. Поиск самого длинного слова\n7. Создание статистики по частоте встречаемости каждой буквы\n0. Выйти из программы\n\nВведите номер команды: ");
-            //    n = Convert.ToInt32(Console.ReadLine());
+            do
+            {
+                Console.Clear();
+                Console.Write("Выберите действие:\n\n1. Ввод нового текста. \n2. Вывод количества слов в тексте. \n3. Поиск самого короткого слова. \n4. Подсчёт количества предложений. \n5. Подсчёт количества гласных и согласных букв. \n6. Поиск самого длинного слова. \n7. Создание статистики по частоте встречаемости каждой буквы. \n8. Вывод статистики по прошлым текстам. \n0. Выйти из программы. \n\nВведите номер команды: ");
+                n = Convert.ToInt32(Console.ReadLine());
 
-            //    switch (n) 
-            //    {
-                    
-            //    }
+                switch (n)
+                {
+                    case 1:
+                        {
+                            Console.WriteLine("Введите новый текст: ");
+                            str = Console.ReadLine();
+                            txt = new Text(str);
+                            lstText.Add(txt);
+                            break;
+                        }
+                    case 2:
+                        {
+                            Console.WriteLine($"Количество слов в тексте = {txt.countWords}");
+                            break;
+                        }
+                    case 3:
+                        {
+                            Console.WriteLine($"Самое короткое слово в тексте = {txt.shortWord}");
+                            break;
+                        }
+                    case 4:
+                        {
+                            Console.WriteLine($"Количество предложений в тексте = {txt.shortWord}");
+                            break;
+                        }
+                }
 
 
-            //}
-            //while (n != 0);
+            }
+            while (n != 0);
 
         }
 
-        class Text
+        public class Text
         {
             public string text;
             public int countWords;
@@ -54,18 +75,16 @@ namespace _3ISIP223_Pogosyan
                 countSentences = 0;
                 countGlasnie = 0;
                 countSoglasnie = 0;
+
+                countWords = text.Length > 0 ? 1 : 0;
                 letterMap = new Dictionary<string, int>();
                 Stat();
             }
 
             public void Stat()
             {
-                countWords = 1;
-                string znakKonza = ".?!";
                 string word = "";
                 string simvol;
-
-
                 
                 for (int i = 0; i < text.Length; i++)
                 {
