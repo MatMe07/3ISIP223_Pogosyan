@@ -20,7 +20,7 @@ namespace _3ISIP223_Pogosyan
             
             for (int i = 0; i < 4; i++)
             {
-                AddProd($"prod{i}", i + 1.2, i + 10, janr[i]);
+                AddBook($"book{i}", $"author{i}", 2000+i, 20.0+i, janr[i]);
             }
             int n = 0;
             int id;
@@ -195,158 +195,60 @@ namespace _3ISIP223_Pogosyan
             Console.WriteLine("Удачи");
 
         }
-        static void AddProd(string name, double price, int count, string categoric)
+        static void AddBook(string name, string author, int year, double price, string janr)
         {
-            int add = 0;
-            if (name.Length == 0) add = 3;
-            else if (price <= 0) add = 2;
-            else if (count <= 0) add = 1;
-            Book prod = new Book(name, price, count, categoric);
-            library.Add(prod);
-            if (add > 0)
+            if (name.Length == 0)
             {
-                if (add == 1)
-                {
-                    Console.WriteLine("Ошибка: Некорректное количество. Количество товара должно быть положительным числом.");
-                }
-                else if (add == 2)
-                {
-                    Console.WriteLine("Ошибка: Некорректная цена. Цена товара должна быть положительным числом.");
-                }
-                else
-                {
-                    Console.WriteLine("Ошибка: Отсутствует название товара. Название не может быть пустым.");
-                }
+                Console.WriteLine("Ошибка: Отсутствует название книги. Название не может быть пустым.");
+                return;
+            }
+            else if (author.Length == 0)
+            {
+                Console.WriteLine("Ошибка: Отсутствует название автора. Название не может быть пустым.");
+                return;
+            }
+            else if (year < 1000 && year > 2025)
+            {
+                Console.WriteLine("Ошибка: Некорректный год. Год издания должен быть в диапазоне (1000 - 2025).");
 
+            }
+            else if (price <= 0)
+            {
+                Console.WriteLine("Ошибка: Некорректная цена. Цена товара должна быть положительным числом.");
+                return;
             }
             else
             {
-                Console.WriteLine("Товар успешно добавлен!");
-                Console.WriteLine($"Код вашего товара: {prod.Get_ID()}");
+                Book prod = new Book(name, author, year, price, janr);
+                library.Add(prod);
+                Console.WriteLine("Книга успешно добавлена!");
+                Console.WriteLine($"Код вашей книги: {prod.ID }");
             }
         }
 
-        static bool DelProd(int id)
-        {
-            foreach (Product prod in library)
-            {
-                if (prod.Get_ID() == id)
-                {
-                    library.Remove(prod);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        static public bool ZakazProd(int id, int count)
-        {
-            if (count < 0) return false;
-            foreach (Product prod in library)
-            {
-                if (prod.Get_ID() == id)
-                {
-                    prod.UvelichCount(count);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        static public bool SellProd(int id, int count)
-        {
-
-            foreach (Product prod in library)
-            {
-                if (prod.Get_ID() == id)
-                {
-                    if (prod.Get_CountProdInStock() - count > 0)
-                    {
-                        prod.ReduceCount(count);
-                        return true;
-                    }
-                    Console.WriteLine("Недостаточно товара на складе!");
-                    return false;
-                }
-            }
-            Console.WriteLine($"Товар с кодом {id} не найден!");
-            return false;
-        }
-
-        static public bool FindProdByID(int id)
-        {
-            foreach (Product prod in library)
-            {
-                if (prod.Get_ID() == id)
-                {
-                    Console.WriteLine($"Найден товар:\nКод: {prod.Get_ID()} | Название: {prod.Name} | Цена: {prod.Price} | В наличии: {prod.Get_CountProdInStock()} | Категория: {prod.janr}");
-
-                    return true;
-                }
-            }
-            return false;
-        }
-        static public bool FindProdByName(string name)
-        {
-            int n = 0;
-            foreach (Product prod in library)
-            {
-                if (prod.Name.ToLower() == name.ToLower())
-                {
-                    Console.WriteLine($"Код: {prod.Get_ID()} | Название: {prod.Name} | Цена: {prod.Price} | В наличии: {prod.Get_CountProdInStock()} | Категория: {prod.janr}");
-
-                    n++;
-                }
-            }
-            return n > 0;
-        }
-        static public bool FindProdByjanr(string janr)
-        {
-            int n = 0;
-            foreach (Product prod in library)
-            {
-                if (prod.janr.ToLower() == janr.ToLower())
-                {
-                    Console.WriteLine($"Код: {prod.Get_ID()} | Название: {prod.Name} | Цена: {prod.Price} | В наличии: {prod.Get_CountProdInStock()} | Категория: {prod.janr}");
-
-                    n++;
-                }
-            }
-            return n > 0;
-        }
-
-        static public void PrintProducts()
-        {
-            if (library.Count == 0) { Console.WriteLine("В системе нет товаров!"); return; }
-            foreach (Product prod in library)
-            {
-                Console.WriteLine($"Код: {prod.Get_ID()} | Название: {prod.Name} | Цена: {prod.Price} | В наличии: {prod.Get_CountProdInStock()} | Категория: {prod.janr}");
-            }
-        }
     }
 
     class Book
     {
 
         private static int nextId = 1;
-        private int ID;
+        public int ID { get;  private set; }
         public string Name;
         public string Author;
-        private DateTime Date;
+        private int Year;
         private double Price;
         public string Janr;
             
 
-        public Book(string name, string author, DateTime date, double price, string janr)
+        public Book(string name, string author, int year, double price, string janr)
         {
             ID = nextId++;
             Name = name;
             Author = author;
-            Date = date;
+            Year = year;
             Price = price;
             Janr = janr;
         }
-        
 
     }
 
