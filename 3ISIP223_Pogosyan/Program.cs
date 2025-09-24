@@ -232,6 +232,25 @@ namespace _3ISIP223_Pogosyan
                 return true;
             }
         }
+
+        static bool FindBook(string name, ref Book book)
+        {
+            var findBook = library.FirstOrDefault(p => p.Name == name);
+            if (findBook != null) { book = findBook;  return true; }
+            return false;
+        }
+        static bool FindBook(string author, ref Book book, int d)
+        {
+            var findBook = library.FirstOrDefault(p => p.Author == author);
+            if (findBook != null) { book = findBook; return true; }
+            return false;
+        }
+        static bool FindBook(string janr, ref Book book, double d)
+        {
+            var findBook = library.FirstOrDefault(p => p.Janr == janr);
+            if (findBook != null) { book = findBook; return true; }
+            return false;
+        }
     }
 
     class Book
