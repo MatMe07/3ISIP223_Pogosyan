@@ -200,22 +200,18 @@ namespace _3ISIP223_Pogosyan
             if (name.Length == 0)
             {
                 Console.WriteLine("Ошибка: Отсутствует название книги. Название не может быть пустым.");
-                return;
             }
             else if (author.Length == 0)
             {
                 Console.WriteLine("Ошибка: Отсутствует название автора. Название не может быть пустым.");
-                return;
             }
             else if (year < 1000 && year > 2025)
             {
                 Console.WriteLine("Ошибка: Некорректный год. Год издания должен быть в диапазоне (1000 - 2025).");
-
             }
             else if (price <= 0)
             {
                 Console.WriteLine("Ошибка: Некорректная цена. Цена товара должна быть положительным числом.");
-                return;
             }
             else
             {
@@ -226,6 +222,16 @@ namespace _3ISIP223_Pogosyan
             }
         }
 
+        static bool DelBook(int id)
+        {
+            var findBook = library.FirstOrDefault(p => p.ID == id);
+            if (findBook == null) { return false; }
+            else
+            {
+                library.Remove(findBook);
+                return true;
+            }
+        }
     }
 
     class Book
@@ -239,7 +245,6 @@ namespace _3ISIP223_Pogosyan
         private double Price;
         public string Janr;
             
-
         public Book(string name, string author, int year, double price, string janr)
         {
             ID = nextId++;
