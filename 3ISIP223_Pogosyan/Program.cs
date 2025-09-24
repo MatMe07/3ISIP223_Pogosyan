@@ -251,6 +251,19 @@ namespace _3ISIP223_Pogosyan
             if (findBook != null) { book = findBook; return true; }
             return false;
         }
+
+        static void SortLibraryByName()
+        {
+            library = library.OrderBy(p => p.Name).ToList();
+        }
+        static void SortLibraryByYera()
+        {
+            library = library.OrderBy(p => p.Year).ToList();
+        }
+        //static void PrintCheapANDExpencive()
+        //{
+        //    var CheapBook = library.Where(p => p.Price)
+        //}
     }
 
     class Book
@@ -260,8 +273,8 @@ namespace _3ISIP223_Pogosyan
         public int ID { get;  private set; }
         public string Name;
         public string Author;
-        private int Year;
-        private double Price;
+        public int Year;
+        public double Price;
         public string Janr;
             
         public Book(string name, string author, int year, double price, string janr)
