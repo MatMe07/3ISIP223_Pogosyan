@@ -17,184 +17,189 @@ namespace _3ISIP223_Pogosyan
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.Unicode;
-            List<string> janr = new List<string>() { "Комедия", "Драмма", "Ужасы", "Фантастика" };
-            AddBook($"book{1}", $"author{1}", 2000+1, 20.0+1, janr[1]);
+            List<string> janrLst = new List<string>() { "Комедия", "Драмма", "Ужасы", "Фантастика" };
+            AddBook($"book{1}", $"author{1}", 2000+1, 20.0+1, janrLst[1]);
 
             for (int i = 0; i < 4; i++)
             {
-                AddBook($"book{i}", $"author{i}", 2000+i, 20.0+i, janr[i]);
+                AddBook($"book{i}", $"author{i}", 2000+i, 20.0+i, janrLst[i]);
             }
             int n = 0;
             int id;
             int poisk = 0;
-            //do
-            //{
-            //    Console.Clear();
-            //    Console.Write("=== УЧЕТ ТОВАРОВ В МАГАЗИНЕ ===\nВыберите действие:\n\n1. Добавить новый товар\n2. Удалить товар\n3. Заказать поставку товара\n4. Продать товар\n5. Поиск товаров\n6. Показать все товары\n0. Выйти из программы\n\nВведите номер команды: ");
-            //    n = Convert.ToInt32(Console.ReadLine());
-            //    switch (n)
-            //    {
-            //        case 0: break;
-            //        case 1:
-            //            {
+            do
+            {
+                Console.Clear();
+                Console.Write("=== УЧЕТ КНИГ В БИБЛИОТЕКЕ ===\nВыберите действие:\n\n1. Добавить новую книгу\n2. Удалить книгу\n3. Поиск книг\n4. Отсортировать книги по названию.\n5. Отсортировать книги по году.\n6. Вывести самую дорогую и самую дешёвую книгу.\n7. Сгруппировать книги по авторам.\n8. Показать все книги.\n0. Выйти из программы.\n\nВведите номер команды: ");
+                n = Convert.ToInt32(Console.ReadLine());
+                switch (n)
+                {
+                    case 0: break;
+                    case 1:
+                        {
 
-            //                Console.Clear();
-            //                Console.Write("=== ДОБАВЛЕНИЕ НОВОГО ТОВАРА ===\n\nВведите название товара: : ");
-            //                string name = Console.ReadLine();
-            //                Console.Write("Введите цену товара: : ");
-            //                double price = Convert.ToDouble(Console.ReadLine());
-            //                Console.Write("Введите количество товара: : ");
-            //                int count = Convert.ToInt32(Console.ReadLine());
-            //                Console.WriteLine("Выберите категорию:");
-            //                for (int i = 0; i < janr.Count; i++)
-            //                {
-            //                    Console.WriteLine($"{i + 1}. {janr[i]}");
-            //                }
-            //                Console.Write("Введите номер категории: ");
-            //                int catNum = Convert.ToInt32(Console.ReadLine()); catNum--;
-            //                string categor = "NULL";
-            //                if (catNum > janr.Count) Console.WriteLine("Такой категории нет.");
-            //                else { categor = janr[catNum]; }
+                            Console.Clear();
+                            Console.Write("=== ДОБАВЛЕНИЕ НОВОЙ КНИГИ ===\n\nВведите название книги: ");
+                            string name = Console.ReadLine();
+                            Console.Write("Введите автора: ");
+                            string author = Console.ReadLine();
+                            Console.WriteLine("Выберите жанр:");
+                            for (int i = 0; i < janrLst.Count; i++)
+                            {
+                                Console.WriteLine($"{i + 1}. {janrLst[i]}");
+                            }
+                            Console.Write("Введите номер жанра: ");
+                            int catNum = Convert.ToInt32(Console.ReadLine()); catNum--;
+                            string janr = "NULL";
+                            if (catNum > janrLst.Count) Console.WriteLine("Такого жанра нет.");
+                            else { janr = janrLst[catNum]; }
 
-            //                AddProd(name, price, count, categor);
-            //                break;
-            //            }
-            //        case 2:
-            //            {
-            //                Console.Clear();
+                            Console.Write("Введите год издания: ");
+                            int year = Convert.ToInt32(Console.ReadLine());
+                            Console.Write("Введите цену товара: ");
+                            double price = Convert.ToDouble(Console.ReadLine());
 
-            //                Console.Write("=== УДАЛЕНИЕ ТОВАРА ===\n\nВведите уникальный код товара для удаления: ");
-            //                id = Convert.ToInt32(Console.ReadLine());
-            //                if (DelProd(id))
-            //                {
-            //                    Console.WriteLine("Товар успешно удален!");
-            //                }
-            //                else
-            //                {
-            //                    Console.WriteLine($"Товар с кодом {id} не найден!");
-            //                }
-            //                break;
-            //            }
-            //        case 3:
-            //            {
-            //                Console.Clear();
+                            AddBook(name, author,year, price , janr);
+                            break;
+                        }
+                    case 2:
+                        {
+                            Console.Clear();
 
-            //                Console.Write("=== ЗАКАЗ ПОСТАВКИ ТОВАРА ===\n\nВведите уникальный код товара: ");
-            //                id = Convert.ToInt32(Console.ReadLine());
-            //                Console.Write("Введите количество для поставки: ");
-            //                int count = Convert.ToInt32(Console.ReadLine());
-            //                if (ZakazProd(id, count))
-            //                {
-            //                    Console.WriteLine("Поставка успешно оформлена!");
-            //                }
-            //                else
-            //                {
-            //                    Console.WriteLine($"Товар с кодом {id} не найден!");
-            //                }
-            //                break;
-            //            }
-            //        case 4:
-            //            {
-            //                Console.Clear();
+                            Console.Write("=== УДАЛЕНИЕ КНИГИ ===\n\nВведите уникальный код книги для удаления: ");
+                            id = Convert.ToInt32(Console.ReadLine());
+                            if (DelBook(id))
+                            {
+                                Console.WriteLine("Книга успешно удалена!");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Книга с кодом {id} не найдена!");
+                            }
+                            break;
+                        }
+                    case 4:
+                        {
+                            Console.Clear();
 
-            //                Console.Write("=== ПРОДАЖА ТОВАРА ===\n\nВведите уникальный код товара: ");
-            //                id = Convert.ToInt32(Console.ReadLine());
-            //                Console.Write("Введите количество для продажи: ");
-            //                int count = Convert.ToInt32(Console.ReadLine());
-            //                if (SellProd(id, count))
-            //                {
-            //                    Console.WriteLine("Продажа успешно оформлена!");
-            //                }
-            //                break;
-            //            }
-            //        case 5:
-            //            {
-            //                Console.Clear();
+                            Console.Write("=== ОТСОРТИРОВАННЫЕ КНИГИ ПО НАЗВАНИЮ ===\n\n");
+                            SortLibraryByName();
+                            PrintLibrary();
+                            break;
+                        }
+                    case 5:
+                        {
+                            Console.Clear();
 
-            //                do
-            //                {
-            //                    Console.Clear();
-            //                    Console.Write("=== ПОИСК ТОВАРОВ ===\nВыберите критерий поиска:\n\n1. Поиск по уникальному коду\n2. Поиск по названию\n3. Поиск по категории\n4. Вернуться в главное меню\n\nВведите номер команды: ");
-            //                    poisk = Convert.ToInt32(Console.ReadLine());
-            //                    switch (poisk)
-            //                    {
-            //                        case 1:
-            //                            {
-            //                                Console.Write("Введите уникальный код товара: ");
-            //                                id = Convert.ToInt32(Console.ReadLine());
-            //                                if (!FindProdByID(id))
-            //                                {
-            //                                    Console.WriteLine($"Товар с кодом {id} не найден!");
-            //                                }
-            //                                break;
-            //                            }
-            //                        case 2:
-            //                            {
-            //                                Console.Write("Введите название товара: ");
-            //                                string name = Console.ReadLine();
-            //                                if (!FindProdByName(name))
-            //                                {
-            //                                    Console.Write("Товары не найдены!");
-            //                                }
-            //                                break;
-            //                            }
-            //                        case 3:
-            //                            {
-            //                                Console.WriteLine("Доступные категории:");
-            //                                for (int i = 1; i <= janr.Count; i++)
-            //                                {
-            //                                    Console.WriteLine($"{i}. {janr[i]}");
-            //                                }
-            //                                Console.Write("Введите номер категории: ");
-            //                                int catNum = Convert.ToInt32(Console.ReadLine()); catNum--;
-            //                                string categor = "NULL";
-            //                                if (catNum > janr.Count) Console.WriteLine("Такой категории нет.");
-            //                                else { categor = janr[catNum]; }
-            //                                if (!FindProdByjanr(categor))
-            //                                {
-            //                                    Console.WriteLine("В выбранной категории товаров нет!");
-            //                                }
-            //                                break;
-            //                            }
-            //                        case 4: { break; }
-            //                        default:
-            //                            {
-            //                                Console.WriteLine("Ошибка ввода! Пожалуйста, введите корректные данные.");
-            //                                break;
-            //                            }
-            //                            ;
-            //                    }
-            //                    if (poisk != 4)
-            //                    {
-            //                        Console.WriteLine("\nНажмите Enter");
-            //                        Console.ReadLine();
-            //                    }
-            //                }
-            //                while (poisk < 4);
+                            Console.Write("=== ОТСОРТИРОВАННЫЕ КНИГИ ПО ГОДУ ИЗДАНИЯ ===\n\n");
+                            SortLibraryByYear();
+                            PrintLibrary();
+                            break;
+                        }
+                    case 3:
+                        {
+                            Console.Clear();
 
-            //                break;
-            //            }
-            //        case 6:
-            //            {
-            //                Console.Clear();
+                            do
+                            {
+                                Console.Clear();
+                                Console.Write("=== ПОИСК КНИГ ===\nВыберите критерий поиска:\n\n1. Поиск по автору\n2. Поиск по названию\n3. Поиск по жанру\n4. Вернуться в главное меню\n\nВведите номер команды: ");
+                                poisk = Convert.ToInt32(Console.ReadLine());
+                                switch (poisk)
+                                {
+                                    case 1:
+                                        {
+                                            Console.Write("Введите автора: ");
+                                            string author = Console.ReadLine();
+                                            if (!FindBook(author, 1))
+                                            {
+                                                Console.WriteLine("Книги не найдены!");
+                                            }
+                                            break;
+                                        }
+                                    case 2:
+                                        {
+                                            Console.Write("Введите название книги: ");
+                                            string name = Console.ReadLine();
+                                            if (!FindBook(name))
+                                            {
+                                                Console.Write("Книги не найдены!");
+                                            }
+                                            break;
+                                        }
+                                    case 3:
+                                        {
+                                            Console.WriteLine("Доступные жанры:");
+                                            for (int i = 0; i < janrLst.Count; i++)
+                                            {
+                                                Console.WriteLine($"{i+1}. {janrLst[i]}");
+                                            }
+                                            Console.Write("Введите номер жанра: ");
+                                            int catNum = Convert.ToInt32(Console.ReadLine()); catNum--;
+                                            string categor = "NULL";
+                                            if (catNum > janrLst.Count) Console.WriteLine("Такого жанра нет.");
+                                            else { categor = janrLst[catNum]; }
+                                            if (!FindBook(categor, 2.0))
+                                            {
+                                                Console.WriteLine("Нет книг с выбранным жанром!");
+                                            }
+                                            break;
+                                        }
+                                    case 4: { break; }
+                                    default:
+                                        {
+                                            Console.WriteLine("Ошибка ввода! Пожалуйста, введите корректные данные.");
+                                            break;
+                                        }
+                                        ;
+                                }
+                                if (poisk != 4)
+                                {
+                                    Console.WriteLine("\nНажмите Enter");
+                                    Console.ReadLine();
+                                }
+                            }
+                            while (poisk < 4);
 
-            //                Console.WriteLine($"=== ВСЕ ТОВАРЫ В СИСТЕМЕ ===\n\nОбщее количество товаров: {library.Count}");
-            //                PrintProducts();
-            //                break;
-            //            }
-            //        default: { Console.WriteLine("Ошибка ввода! Пожалуйста, введите корректные данные."); break; }
-            //    }
+                            break;
+                        }
+                    case 8:
+                        {
+                            Console.Clear();
 
-            //    if (poisk != 4)
-            //    {
-            //        Console.WriteLine("\nНажмите Enter");
-            //        Console.ReadLine();
-            //    }
-            //    poisk = 0;
+                            Console.WriteLine($"=== ВСЕ ТОВАРЫ В СИСТЕМЕ ===\n\nОбщее количество книг: {library.Count}");
+                            PrintLibrary();
+                            break;
+                        }
+                    case 6: 
+                        {
+                            Console.Clear();
 
-            //}
-            //while (n != 0);
-            //Console.WriteLine("Удачи");
+                            Console.WriteLine($"=== САМАЯ ДОРОГАЯ И ДЕШЕВАЯ КНИГИ ===\n\n");
+                            PrintCheapANDExpencive();
+                            break;
+                        }
+                    case 7: 
+                        {
+                            Console.Clear();
+
+                            Console.WriteLine($"=== СГРУППИРОВАННЫЕ КНИГИ ПО АВТОРАМ ===\n\n");
+                            GroupByAuthor();
+                            break;
+                        }
+                    default: { Console.WriteLine("Ошибка ввода! Пожалуйста, введите корректные данные."); break; }
+                }
+
+                if (poisk != 4)
+                {
+                    Console.WriteLine("\nНажмите Enter");
+                    Console.ReadLine();
+                }
+                poisk = 0;
+
+            }
+            while (n != 0);
+            Console.WriteLine("Удачи");
 
 
         }
@@ -208,7 +213,7 @@ namespace _3ISIP223_Pogosyan
             {
                 Console.WriteLine("Ошибка: Отсутствует название автора. Название не может быть пустым.");
             }
-            else if (year < 1000 && year > 2025)
+            else if (year < 1000 || year > 2025)
             {
                 Console.WriteLine("Ошибка: Некорректный год. Год издания должен быть в диапазоне (1000 - 2025).");
             }
@@ -236,22 +241,37 @@ namespace _3ISIP223_Pogosyan
             }
         }
 
-        static bool FindBook(string name, ref Book book)
+        static bool FindBook(string name)
         {
-            var findBook = library.FirstOrDefault(p => p.Name == name);
-            if (findBook != null) { book = findBook;  return true; }
+            var findBook = library.Where(p => p.Name == name).ToList();
+            if (findBook != null)
+            {
+                foreach (var book in findBook)
+                    Console.WriteLine($"ID: {book.ID}; Название: {book.Name}; Автор: {book.Author}; Жанр: {book.Janr}; Год издания: {book.Year}; Цена: {book.Price}");
+                return true;
+            }
             return false;
         }
-        static bool FindBook(string author, ref Book book, int d)
+        static bool FindBook(string author, int d)
         {
-            var findBook = library.FirstOrDefault(p => p.Author == author);
-            if (findBook != null) { book = findBook; return true; }
+            var findBook = library.Where(p => p.Author == author).ToList();
+            if (findBook != null) {
+                foreach(var book in findBook) 
+                    Console.WriteLine($"ID: {book.ID}; Название: {book.Name}; Автор: {book.Author}; Жанр: {book.Janr}; Год издания: {book.Year}; Цена: {book.Price}");
+                return true;
+
+            }
             return false;
         }
-        static bool FindBook(string janr, ref Book book, double d)
+        static bool FindBook(string janr,double d)
         {
-            var findBook = library.FirstOrDefault(p => p.Janr == janr);
-            if (findBook != null) { book = findBook; return true; }
+            var findBook = library.Where(p => p.Janr == janr).ToList();
+            if (findBook != null)
+            {
+                foreach (var book in findBook)
+                    Console.WriteLine($"ID: {book.ID}; Название: {book.Name}; Автор: {book.Author}; Жанр: {book.Janr}; Год издания: {book.Year}; Цена: {book.Price}");
+                return true;
+            }
             return false;
         }
 
@@ -269,9 +289,9 @@ namespace _3ISIP223_Pogosyan
             Book CheapBook = library.OrderBy(p => p.Price).ToList()[0];
             Book ExpenciveBook = library.OrderByDescending(p => p.Price).ToList()[0];
             Console.WriteLine("Самая дешевая книга:");
-            Console.WriteLine($"ID: {CheapBook.ID}\nНазвание: {CheapBook.Name}\nАвтор: {CheapBook.Author}\nЖанр: {CheapBook.Janr}\nГод издания: {CheapBook.Year}\nЦена: {CheapBook.Price}");
+            Console.WriteLine($"ID: {CheapBook.ID}; Название: {CheapBook.Name}; Автор: {CheapBook.Author}; Жанр: {CheapBook.Janr}; Год издания: {CheapBook.Year}; Цена: {CheapBook.Price}");
             Console.WriteLine("\nСамая дорогая книга:");
-            Console.WriteLine($"ID: {ExpenciveBook.ID}\nНазвание: {ExpenciveBook.Name}\nАвтор: {ExpenciveBook.Author}\nЖанр: {ExpenciveBook.Janr}\nГод издания: {ExpenciveBook.Year}\nЦена: {ExpenciveBook.Price}");
+            Console.WriteLine($"ID: {ExpenciveBook.ID}; Название: {ExpenciveBook.Name}; Автор: {ExpenciveBook.Author}; Жанр: {ExpenciveBook.Janr}; Год издания: {ExpenciveBook.Year}; Цена: {ExpenciveBook.Price}");
         }
 
         static void GroupByAuthor()
@@ -282,8 +302,14 @@ namespace _3ISIP223_Pogosyan
 
             for(int i = 0; i < author.Count; i++) 
             {
-                Console.WriteLine($"У {author[i].Author} {countBook[i]} книги.");
+                Console.WriteLine($"Автор: {author[i].Author}, Количество книг: {countBook[i]}.");
             }
+        }
+
+        static void PrintLibrary()
+        {
+            foreach (var book in library)
+                Console.WriteLine($"ID: {book.ID}; Название: {book.Name}; Автор: {book.Author}; Жанр: {book.Janr}; Год издания: {book.Year}; Цена: {book.Price}");
         }
     }
 
