@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -256,14 +257,20 @@ namespace _3ISIP223_Pogosyan
         {
             library = library.OrderBy(p => p.Name).ToList();
         }
-        static void SortLibraryByYera()
+        static void SortLibraryByYear()
         {
             library = library.OrderBy(p => p.Year).ToList();
         }
-        //static void PrintCheapANDExpencive()
-        //{
-        //    var CheapBook = library.Where(p => p.Price)
-        //}
+
+        static void PrintCheapANDExpencive()
+        {
+            Book CheapBook = library.OrderBy(p => p.Price).ToList()[0];
+            Book ExpenciveBook = library.OrderByDescending(p => p.Price).ToList()[0];
+            Console.WriteLine("Самая дешевая книга:");
+            Console.WriteLine($"ID: {CheapBook.ID}\nНазвание: {CheapBook.Name}\nАвтор: {CheapBook.Author}\nЖанр: {CheapBook.Janr}\nГод издания: {CheapBook.Year}\nЦена: {CheapBook.Price}");
+            Console.WriteLine("\nСамая дорогая книга:");
+            Console.WriteLine($"ID: {ExpenciveBook.ID}\nНазвание: {ExpenciveBook.Name}\nАвтор: {ExpenciveBook.Author}\nЖанр: {ExpenciveBook.Janr}\nГод издания: {ExpenciveBook.Year}\nЦена: {ExpenciveBook.Price}");
+        }
     }
 
     class Book
