@@ -62,8 +62,53 @@ namespace _3ISIP223_Pogosyan
 
     }
 
+    class Teacher : Person
+    {
+        public static int NextId = 0;
+        public List<Course> Courses { get; set; }
+        public int Cabinet { get; set; }
+        public void InfoTeacher()
+        {
+
+        }
+
+        public Teacher(string fIO, DateOnly dateOfBirth, char gender, int cabinet) : base(fIO, dateOfBirth, gender)
+        { 
+            base.ID = NextId++; 
+            Cabinet = cabinet;
+        }
+
+    }
+
+    class Course
+    {
+        public string Name { get; set; }
+        public List<Student> Students { get; set; }
+
+        public int CountStudent { get; set; }
+
+        public Course(string name)
+        {
+            Name = name;
+        }
+
+        public bool AddStudent()
+        {
+            return true;
+        }
+        public void InfoCourse()
+        {
+
+        }
+    }
+
+    class University
+    {
+        public List<Course> Courses { get; set; }
+        public List<Student> Students { get; set; }
+        public List<Teacher> Teachers { get; set; }
 
 
-
+    }
 
 }
