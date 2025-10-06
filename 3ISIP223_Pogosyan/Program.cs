@@ -195,7 +195,36 @@ namespace _3ISIP223_Pogosyan
         {
             ID = NextId++;
         }
+        public void AddGrade(int courseId, int grade)
+        {
+            if (!Grades.ContainsKey(courseId))
+            {
+                Grades[courseId] = new List<int>();
+            }
+            Grades[courseId].Add(grade);
+        }
 
+        public List<int> GetGradesForCourse(int courseId)
+        {
+            return Grades.ContainsKey(courseId) ? Grades[courseId] : new List<int>();
+        }
+
+        public List<int> GetAllGrades()
+        {
+            return Grades.Values.SelectMany(g => g).ToList();
+        }
+
+        public double CalculateAverageGrade()
+        {
+            var allGrades = GetAllGrades();
+            return allGrades.Count != 0 ? allGrades.Average() : 0;
+        }
+
+        public double CalculateAverageGradeForCourse(int courseId)
+        {
+            var courseGrades = GetGradesForCourse(courseId);
+            return courseGrades.Count != 0 ? courseGrades.Average() : 0;
+        }
         public void InfoStudent()
         {
             PrintInfo();
@@ -228,29 +257,45 @@ namespace _3ISIP223_Pogosyan
 
     class Teacher : Person
     {
-        public static int NextId = 0;
-        public List<Course> Courses { get; set; }
+        public static int NextId = 1;
+        public List<Course> Courses { get; set; } = new List<Course>();
         public int Cabinet { get; set; }
-        public void InfoTeacher()
-        {
-
-        }
-
         public Teacher(string fIO, DateOnly dateOfBirth, char gender, int cabinet) : base(fIO, dateOfBirth, gender)
         {
-            base.ID = NextId++;
+            ID = NextId++;
             Cabinet = cabinet;
+        }
+
+        public void InfoTeacher()
+        {
+            PrintInfo();
+            Console.WriteLine($"Кабинет: {Cabinet}");
+            Console.WriteLine("Курсы:");
+            if (Courses.Count != 0)
+            {
+                foreach (var course in Courses)
+                {
+                    Console.WriteLine($"  - {course.Name} (ID: {course.ID})");
+                }
+            }
+            else
+            {
+                Console.WriteLine("  Нет назначенных курсов");
+            }
         }
 
     }
 
     class Course
     {
+        public static int NextId = 1;
+        public int ID { get; set; }
         public string Name { get; set; }
-        public List<Student> Students { get; set; }
-
-        public int CountStudent { get; set; }
-
+        public List<Student> Students { get; set; } = new List<Student>();
+        public Teacher Teacher { get; set; }
+        public int MaxStudents { get; set; }
+        public int CountStudent => Students.Count;
+        public bool IsFull => Students.Count >= MaxStudents;
         public Course(string name)
         {
             Name = name;
