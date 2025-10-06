@@ -175,32 +175,52 @@ namespace _3ISIP223_Pogosyan
             DateOfBirth = dateOfBirth;
             Gender = gender;
         }
+
+        public virtual void PrintInfo()
+        {
+            Console.WriteLine($"ФИО: {FIO}");
+            Console.WriteLine($"ID: {ID}");
+            Console.WriteLine($"Дата рождения: {DateOfBirth}");
+            Console.WriteLine($"Пол: {Gender}");
+        }
     }
 
     class Student : Person
     {
-        public static int NextId = 0;
-        public List<Course> Courses { get; set; }
-        public List<int> Marks { get; set; }
+        public static int NextId = 1;
+        public List<Course> Courses { get; set; } = new List<Course>();
+        public Dictionary<int, List<int>> Grades { get; set; } = new Dictionary<int, List<int>>();
 
         public Student(string fIO, DateOnly dateOfBirth, char gender) : base(fIO, dateOfBirth, gender)
         {
-            base.ID = NextId++;
-
+            ID = NextId++;
         }
 
-        public void InfoCourse()
-        {
-
-        }
         public void InfoStudent()
         {
+            PrintInfo();
+            Console.WriteLine("Курсы:");
+            if (Courses.Count != 0)
+            {
+                foreach (var course in Courses)
+                {
+                    var courseGrades = GetGradesForCourse(course.ID);
+                    double courseAverage = CalculateAverageGradeForCourse(course.ID);
+                    Console.WriteLine($"  - {course.Name} (ID: {course.ID})");
+                    Console.WriteLine($"    Оценки: {(courseGrades.Count != 0 ? string.Join(", ", courseGrades) : "нет оценок")}");
+                    if (courseGrades.Count != 0)
+                    {
+                        Console.WriteLine($"    Средний балл: {courseAverage}");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("  Нет записей на курсы");
+            }
 
-        }
-
-        public void InfoMarks()
-        {
-
+            double overallAverage = CalculateAverageGrade();
+            Console.WriteLine($"Общий средний балл: {(GetAllGrades().Count != 0 ? overallAverage.ToString("F2") : "нет оценок")}");
         }
 
 
