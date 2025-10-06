@@ -394,6 +394,33 @@ namespace _3ISIP223_Pogosyan
             }
         }
 
+        public void AddGradeToStudent(int studentId, int courseId, int grade)
+        {
+            var student = Students.FirstOrDefault(s => s.ID == studentId);
+            var course = Courses.FirstOrDefault(c => c.ID == courseId);
+
+            if (student == null)
+            {
+                Console.WriteLine("Студент не найден!");
+                return;
+            }
+
+            if (course == null)
+            {
+                Console.WriteLine("Курс не найден!");
+                return;
+            }
+
+            if (!student.Courses.Contains(course))
+            {
+                Console.WriteLine("Студент не записан на этот курс!");
+                return;
+            }
+
+            student.AddGrade(courseId, grade);
+            Console.WriteLine($"Студенту {student.FIO} выставлена оценка {grade} за курс {course.Name}");
+        }
+
 
     }
 
