@@ -244,6 +244,51 @@ namespace _3ISIP223_Pogosyan
             university.FindStudentInCourse(studentId, courseId);
         }
 
+        static void AddGradeToStudent()
+        {
+            Console.Write("Введите ID студента: ");
+            if (!int.TryParse(Console.ReadLine(), out int studentId))
+            {
+                Console.WriteLine("Неверный формат ID!");
+                return;
+            }
+
+            Console.Write("Введите ID курса: ");
+            if (!int.TryParse(Console.ReadLine(), out int courseId))
+            {
+                Console.WriteLine("Неверный формат ID!");
+                return;
+            }
+
+            Console.Write("Введите оценку (2-5): ");
+            if (!int.TryParse(Console.ReadLine(), out int grade) || grade < 2 || grade > 5)
+            {
+                Console.WriteLine("Неверная оценка! Допустимые значения: 2, 3, 4, 5");
+                return;
+            }
+
+            university.AddGradeToStudent(studentId, courseId, grade);
+        }
+
+        static void FindTeacherToCourse()
+        {
+            Console.Write("Введите ID преподавателя: ");
+            if (!int.TryParse(Console.ReadLine(), out int teacherId))
+            {
+                Console.WriteLine("Неверный формат ID!");
+                return;
+            }
+
+            Console.Write("Введите ID курса: ");
+            if (!int.TryParse(Console.ReadLine(), out int courseId))
+            {
+                Console.WriteLine("Неверный формат ID!");
+                return;
+            }
+
+            university.FindTeacherToCourse(teacherId, courseId);
+        }
+
     }
 
     class Person
