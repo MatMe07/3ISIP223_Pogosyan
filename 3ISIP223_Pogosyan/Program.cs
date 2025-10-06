@@ -348,10 +348,14 @@ namespace _3ISIP223_Pogosyan
 
     class University
     {
-        public List<Course> Courses { get; set; }
-        public List<Student> Students { get; set; }
-        public List<Teacher> Teachers { get; set; }
+        public List<Course> Courses { get; set; } = new List<Course>();
+        public List<Student> Students { get; set; } = new List<Student>();
+        public List<Teacher> Teachers { get; set; } = new List<Teacher>();
 
+        public void AddStudent(Student student)
+        {
+            Students.Add(student);
+        }
 
     }
 
