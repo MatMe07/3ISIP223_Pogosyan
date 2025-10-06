@@ -296,18 +296,53 @@ namespace _3ISIP223_Pogosyan
         public int MaxStudents { get; set; }
         public int CountStudent => Students.Count;
         public bool IsFull => Students.Count >= MaxStudents;
-        public Course(string name)
+        public Course(string name, int maxStudents = 30)
         {
+            ID = NextId++;
             Name = name;
+            MaxStudents = maxStudents;
         }
 
-        public bool AddStudent()
+        public bool AddStudent(Student student)
         {
-            return true;
+            if (IsFull)
+            {
+                Console.WriteLine($"Курс '{Name}' заполнен! Максимальное количество студентов: {MaxStudents}");
+                return false;
+            }
+
+            if (!Students.Contains(student))
+            {
+                Students.Add(student);
+                student.Courses.Add(this);
+                return true;
+            }
+            return false;
         }
         public void InfoCourse()
         {
-
+            Console.WriteLine($"Курс: {Name}");
+            Console.WriteLine($"ID: {ID}");
+            Console.WriteLine($"Преподаватель: {(Teacher != null ? Teacher.FIO : "не назначен")}");
+            Console.WriteLine($"Студентов: {CountStudent}/{MaxStudents} {(IsFull ? "(ЗАПОЛНЕН)" : "")}");
+            Console.WriteLine("Студенты:");
+            if (Students.Count != 0)
+            {
+                foreach (var student in Students)
+                {
+                    var studentGrades = student.GetGradesForCourse(ID);
+                    double averageGrade = student.CalculateAverageGradeForCourse(ID);
+                    Console.WriteLine($"  - {student.FIO} (ID: {student.ID})");
+                    if (studentGrades.Count != 0)
+                    {
+                        Console.WriteLine($"    Оценки: {string.Join(", ", studentGrades)} | Средний: {averageGrade}");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("  Нет записанных студентов");
+            }
         }
     }
 
