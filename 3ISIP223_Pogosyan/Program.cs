@@ -357,6 +357,44 @@ namespace _3ISIP223_Pogosyan
             Students.Add(student);
         }
 
+        public void AddTeacher(Teacher teacher)
+        {
+            Teachers.Add(teacher);
+        }
+
+        public void AddCourse(Course course)
+        {
+            Courses.Add(course);
+        }
+
+        public void FindStudentInCourse(int studentId, int courseId)
+        {
+            var student = Students.FirstOrDefault(s => s.ID == studentId);
+            var course = Courses.FirstOrDefault(c => c.ID == courseId);
+
+            if (student == null)
+            {
+                Console.WriteLine("Студент не найден!");
+                return;
+            }
+
+            if (course == null)
+            {
+                Console.WriteLine("Курс не найден!");
+                return;
+            }
+
+            if (course.AddStudent(student))
+            {
+                Console.WriteLine($"Студент {student.FIO} успешно записан на курс {course.Name}");
+            }
+            else
+            {
+                Console.WriteLine("Не удалось записать студента на курс!");
+            }
+        }
+
+
     }
 
 }
