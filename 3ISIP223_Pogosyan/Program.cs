@@ -65,7 +65,7 @@ namespace _3ISIP223_Pogosyan
                 {
                     case "1": AddStudent(); break;
                     case "2": PrintStudentInfo(); break;
-                    case "3": EnrollStudentInCourse(); break;
+                    case "3": FindStudentInCourse(); break;
                     case "4": AddGradeToStudent(); break;
                     case "5": university.PrintStudents(); break;
                     case "0": return;
@@ -96,7 +96,7 @@ namespace _3ISIP223_Pogosyan
                 {
                     case "1": AddTeacher(); break;
                     case "2": PrintTeacherInfo(); break;
-                    case "3": AssignTeacherToCourse(); break;
+                    case "3": FindTeacherToCourse(); break;
                     case "4": university.PrintTeachers(); break;
                     case "0": return;
                     default: Console.WriteLine("Неверный выбор!"); break;
@@ -289,6 +289,55 @@ namespace _3ISIP223_Pogosyan
             university.FindTeacherToCourse(teacherId, courseId);
         }
 
+        static void PrintStudentInfo()
+        {
+            Console.Write("Введите ID студента: ");
+            if (!int.TryParse(Console.ReadLine(), out int studentId))
+            {
+                Console.WriteLine("Неверный формат ID!");
+                return;
+            }
+
+            university.PrintStudentInfo(studentId);
+        }
+
+        static void PrintTeacherInfo()
+        {
+            Console.Write("Введите ID преподавателя: ");
+            if (!int.TryParse(Console.ReadLine(), out int teacherId))
+            {
+                Console.WriteLine("Неверный формат ID!");
+                return;
+            }
+
+            university.PrintTeacherInfo(teacherId);
+        }
+
+        static void CourseInfo()
+        {
+            Console.Write("Введите ID курса: ");
+            if (!int.TryParse(Console.ReadLine(), out int courseId))
+            {
+                Console.WriteLine("Неверный формат ID!");
+                return;
+            }
+
+            university.CourseInfo(courseId);
+        }
+
+        static void PrintStatistics()
+        {
+            Console.WriteLine("=== Статистика университета ===");
+            Console.WriteLine($"Количество студентов: {university.Students.Count}");
+            Console.WriteLine($"Количество преподавателей: {university.Teachers.Count}");
+            Console.WriteLine($"Количество курсов: {university.Courses.Count}");
+            var studentsWithGrades = university.Students.Where(s => s.GetAllGrades().Count != 0).ToList();
+            if (studentsWithGrades.Count != 0)
+            {
+                double overallAverage = studentsWithGrades.Average(s => s.CalculateAverageGrade());
+                Console.WriteLine($"Средний балл всех студентов: {overallAverage}");
+            }
+        }
     }
 
     class Person
