@@ -421,6 +421,28 @@ namespace _3ISIP223_Pogosyan
             Console.WriteLine($"Студенту {student.FIO} выставлена оценка {grade} за курс {course.Name}");
         }
 
+        public void FindTeacherToCourse(int teacherId, int courseId)
+        {
+            var teacher = Teachers.FirstOrDefault(t => t.ID == teacherId);
+            var course = Courses.FirstOrDefault(c => c.ID == courseId);
+
+            if (teacher == null)
+            {
+                Console.WriteLine("Преподаватель не найден!");
+                return;
+            }
+
+            if (course == null)
+            {
+                Console.WriteLine("Курс не найден!");
+                return;
+            }
+
+            course.Teacher = teacher;
+            teacher.Courses.Add(course);
+            Console.WriteLine($"Преподаватель {teacher.FIO} назначен на курс {course.Name}");
+        }
+
 
     }
 
