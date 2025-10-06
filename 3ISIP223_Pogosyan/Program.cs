@@ -208,6 +208,42 @@ namespace _3ISIP223_Pogosyan
             Console.WriteLine($"Преподаватель добавлен с ID: {teacher.ID}");
         }
 
+        static void AddCourse()
+        {
+            Console.Write("Введите название курса: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Введите максимальное количество студентов на курсе: ");
+            if (!int.TryParse(Console.ReadLine(), out int maxStudents) || maxStudents <= 0)
+            {
+                Console.WriteLine("Неверный формат! Установлено значение по умолчанию: 30");
+                maxStudents = 30;
+            }
+
+            Course course = new Course(name, maxStudents);
+            university.AddCourse(course);
+            Console.WriteLine($"Курс создан с ID: {course.ID}, максимальное количество студентов: {maxStudents}");
+        }
+
+        static void FindStudentInCourse()
+        {
+            Console.Write("Введите ID студента: ");
+            if (!int.TryParse(Console.ReadLine(), out int studentId))
+            {
+                Console.WriteLine("Неверный формат ID!");
+                return;
+            }
+
+            Console.Write("Введите ID курса: ");
+            if (!int.TryParse(Console.ReadLine(), out int courseId))
+            {
+                Console.WriteLine("Неверный формат ID!");
+                return;
+            }
+
+            university.FindStudentInCourse(studentId, courseId);
+        }
+
     }
 
     class Person
