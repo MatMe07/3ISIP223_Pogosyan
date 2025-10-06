@@ -95,7 +95,7 @@ namespace _3ISIP223_Pogosyan
                 switch (n)
                 {
                     case "1": AddTeacher(); break;
-                    case "2": ShowTeacherInfo(); break;
+                    case "2": PrintTeacherInfo(); break;
                     case "3": AssignTeacherToCourse(); break;
                     case "4": university.PrintTeachers(); break;
                     case "0": return;
@@ -151,13 +151,61 @@ namespace _3ISIP223_Pogosyan
                 switch (n)
                 {
                     case "1": university.PrintAll(); break;
-                    case "2": ShowStatistics(); break;
+                    case "2": PrintStatistics(); break;
                     case "0": return;
                     default: Console.WriteLine("Неверный выбор!"); break;
                 }
                 Console.WriteLine("Нажмите Enter!");
                 Console.ReadLine();
             }
+        }
+
+        static void AddStudent()
+        {
+            Console.Write("Введите ФИО студента: ");
+            string fio = Console.ReadLine();
+
+            Console.Write("Введите дату рождения (гггг-мм-дд): ");
+            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly dateOfBirth))
+            {
+                Console.WriteLine("Неверный формат даты!");
+                return;
+            }
+
+            Console.Write("Введите пол (M/Ж): ");
+            char gender = Console.ReadKey().KeyChar;
+            Console.WriteLine();
+
+            Student student = new Student(fio, dateOfBirth, gender);
+            university.AddStudent(student);
+            Console.WriteLine($"Студент добавлен с ID: {student.ID}");
+        }
+        static void AddTeacher()
+        {
+            Console.Write("Введите ФИО преподавателя: ");
+            string fio = Console.ReadLine();
+
+            Console.Write("Введите дату рождения (гггг-мм-дд): ");
+            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly dateOfBirth))
+            {
+                Console.WriteLine("Неверный формат даты!");
+                return;
+            }
+
+            Console.Write("Введите пол (M/Ж): ");
+            char gender = Console.ReadKey().KeyChar;
+            Console.WriteLine();
+
+            Console.Write("Введите номер кабинета: ");
+            if (!int.TryParse(Console.ReadLine(), out int cabinet))
+            {
+                Console.WriteLine("Неверный формат номера кабинета!");
+                return;
+            }
+
+            Teacher teacher = new Teacher(fio, dateOfBirth, gender, cabinet);
+            university.AddTeacher(teacher);
+            Console.WriteLine($"Преподаватель добавлен с ID: {teacher.ID}");
         }
 
     }
@@ -443,6 +491,103 @@ namespace _3ISIP223_Pogosyan
             Console.WriteLine($"Преподаватель {teacher.FIO} назначен на курс {course.Name}");
         }
 
+
+        public void PrintStudentInfo(int studentId)
+        {
+            var student = Students.FirstOrDefault(s => s.ID == studentId);
+            if (student != null)
+            {
+                student.InfoStudent();
+            }
+            else
+            {
+                Console.WriteLine("Студент не найден!");
+            }
+        }
+
+        public void PrintTeacherInfo(int teacherId)
+        {
+            var teacher = Teachers.FirstOrDefault(t => t.ID == teacherId);
+            if (teacher != null)
+            {
+                teacher.InfoTeacher();
+            }
+            else
+            {
+                Console.WriteLine("Преподаватель не найден!");
+            }
+        }
+
+        public void CourseInfo(int courseId)
+        {
+            var course = Courses.FirstOrDefault(c => c.ID == courseId);
+            if (course != null)
+            {
+                course.InfoCourse();
+            }
+            else
+            {
+                Console.WriteLine("Курс не найден!");
+            }
+        }
+
+        public void PrintStudents()
+        {
+            Console.WriteLine("=== Список всех студентов ===");
+            if (Students.Count != 0)
+            {
+                foreach (var student in Students)
+                {
+                    student.InfoStudent();
+                    Console.WriteLine("---");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Студентов нет в системе");
+            }
+        }
+
+        public void PrintTeachers()
+        {
+            Console.WriteLine("=== Список всех преподавателей ===");
+            if (Teachers.Count != 0)
+            {
+                foreach (var teacher in Teachers)
+                {
+                    teacher.InfoTeacher();
+                    Console.WriteLine("---");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Преподавателей нет в системе");
+            }
+        }
+
+        public void PrintCourses()
+        {
+            Console.WriteLine("=== Список всех курсов ===");
+            if (Courses.Count != 0)
+            {
+                foreach (var course in Courses)
+                {
+                    course.InfoCourse();
+                    Console.WriteLine("---");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Курсов нет в системе");
+            }
+        }
+
+        public void PrintAll()
+        {
+            PrintStudents();
+            PrintTeachers();
+            PrintCourses();
+        }
 
     }
 
