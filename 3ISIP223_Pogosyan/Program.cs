@@ -14,7 +14,8 @@ namespace _3ISIP223_Pogosyan
     {
         static void Main(string[] args)
         {
-
+            Game game = new Game();
+            game.GameStart();
         }
 
     }
@@ -28,6 +29,10 @@ namespace _3ISIP223_Pogosyan
         public string Name { get; set; }
         public int AttackWeapon {  get; set; }    
         public int Armor { get; set; }
+        public bool IsEvade { get; set; }
+        public bool IsBlock { get; set; }
+
+        public int CounMurders {  get; set; } 
 
         public Player(string name) 
         {
@@ -35,6 +40,9 @@ namespace _3ISIP223_Pogosyan
             AttackWeapon = 20;
             Armor = 40;
             Name = name;
+            CounMurders = 0;
+            IsEvade = false;
+            IsBlock = false;
         }
 
         public void InfoWeapon()
@@ -144,6 +152,7 @@ namespace _3ISIP223_Pogosyan
         public bool ChoiceChestOrEnemy => Convert.ToBoolean(random.Next(0, 2));
         public bool ChoiceGameStart => ChoiceChestOrEnemy;
         public Player player;
+        
 
         public int ToolsOfChest => random.Next(0, 3);
         public Game() 
@@ -152,32 +161,40 @@ namespace _3ISIP223_Pogosyan
             player = new Player(name);
         }
 
+
         public void InforEnemAndPlayer(Enemy vrag)
         {
-            if (vrag.IsAlive)
+            if (vrag != null)
             {
-                Console.WriteLine($"PlayerHp: {player.HP}, PlayerArmor: {player.Armor}  |  Vrag_name: {vrag.Name}, VragHp: {vrag.HP}, Zashita: {vrag.Defense}");
+                if (vrag.IsAlive)
+                {
+                    Console.WriteLine($"PlayerHp: {player.HP}, PlayerArmor: {player.Armor}  |  Vrag_name: {vrag.Name}, VragHp: {vrag.HP}, Zashita: {vrag.Defense}");
+                }
+                else
+                {
+                    Console.WriteLine($"PlayerHp: {player.HP}, PlayerArmor: {player.Armor}  |  Vrag_name: {vrag.Name} -- Umer");
+                }
             }
             else
             {
-                Console.WriteLine($"PlayerHp: {player.HP}, PlayerArmor: {player.Armor}  |  Vrag_name: {vrag.Name} -- Umer");
+                    Console.WriteLine($"PlayerHp: {player.HP}, PlayerArmor: {player.Armor}");
+
             }
         }
 
         public void GameStart()
         {
-            int n = 0;
+            char n;
             int RandEnemy = 0;
             bool HaveEnemy = false;
             Enemy vrag = null;
-            int boss = 1;
+            int step = 1;
             while (true)
             {
                 Console.Clear();
                 InforEnemAndPlayer(vrag);
                 if (ChoiceChestOrEnemy) // Enemy
                 {
-
                     if (!HaveEnemy)
                     {
                         RandEnemy = random.Next(0, 3);
@@ -205,15 +222,14 @@ namespace _3ISIP223_Pogosyan
                     }
                     
                     Console.Write("viberi!: ");
-                    n = Convert.ToInt32(Console.ReadLine());
+                    n = Convert.ToChar(Console.ReadLine().ToLower());
                     switch (n)
                     {
-                        case 0:
+                        case 'с':
                             {
-
                                 break;
                             }
-                        case 1://attack
+                        case 'а'://attack
                             {
                                 if (vrag.HaveDefense)
                                 {
@@ -223,41 +239,67 @@ namespace _3ISIP223_Pogosyan
                                 else
                                 {
                                     vrag.HP -= player.AttackWeapon;
-                                    vrag.HP = vrag.IsAlive ? vrag.HP : 0;
+                                    if (!vrag.IsAlive)
+                                    {
+                                        vrag.HP = 0;
+                                        player.CounMurders++; 
+                                    }
                                 }
                                 Console.Clear();
                                 InforEnemAndPlayer(vrag);
                                 break;
                             }
-                        case 2://Defence
+                        case 'з'://Defence
                             {
-
+                                bool Def40 = random.Next(1, 101) <= 40;
+                                if (Def40)
+                                {
+                                    Console.WriteLine("Uklanis");
+                                    player.IsEvade = true;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Ne povezlo: на 70-100% от защиты");
+                                    player.IsBlock = true; 
+                                }
                                 break;
 
                             }
                         default:
                             {
-
                                 break;
                             }
                     }
 
+                    AttackEnem(vrag);
 
 
                 }
 
                 else // Chest
                 {
+                    Console.WriteLine("hello CHest");
                     ChestChoice();
                 }
 
 
-                boss++;
+                step++;
+            }
+        }
+
+        public void AttackEnem(Enemy vrag)
+        {
+            Console.Clear();
+            InforEnemAndPlayer(vrag);
+            if (vrag.IsAlive) 
+            {
+                
             }
         }
 
         public void ChestChoice()
         {
+
             string chestName = "";
             switch (ToolsOfChest) 
             {
