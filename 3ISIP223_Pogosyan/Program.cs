@@ -25,14 +25,18 @@ namespace _3ISIP223_Pogosyan
 
     class Player
     {
-        public int HP { get; set; }
+        public double HP { get; set; }
         public string Name { get; set; }
-        public int AttackWeapon {  get; set; }    
-        public int Armor { get; set; }
+        public double AttackWeapon {  get; set; }    
+        public double Armor { get; set; }
         public bool IsEvade { get; set; }
         public bool IsBlock { get; set; }
+        public bool IsFrozen { get; set; }
+        public bool IsAlive => HP > 0;
 
-        public int CounMurders {  get; set; } 
+
+        public int CountMurders {  get; set; } 
+
 
         public Player(string name) 
         {
@@ -40,12 +44,17 @@ namespace _3ISIP223_Pogosyan
             AttackWeapon = 20;
             Armor = 40;
             Name = name;
-            CounMurders = 0;
+            CountMurders = 0;
             IsEvade = false;
             IsBlock = false;
+            IsFrozen = false;
         }
 
         public void InfoWeapon()
+        {
+
+        }
+        public void InfoAfterDeath()
         {
 
         }
@@ -70,6 +79,11 @@ namespace _3ISIP223_Pogosyan
             Attack = attack;
             Defense = defense;
         }
+
+        public virtual void AttackInfo()
+        {
+            Console.WriteLine("VragAtrackuet");
+        }
     }
 
     class Goblin: Enemy
@@ -82,12 +96,21 @@ namespace _3ISIP223_Pogosyan
         {
             ProcentKritAttack = 15;
         }
+        public override void AttackInfo()
+        {
+            Console.WriteLine($"Goblin attackuet. {(KritAttack ? "KritAttack":"ObichnAttack")}.");
+        }
     }
     class Skeleton : Enemy
     {
         public Skeleton() : base("Скелет", 35, 30)
         {
 
+        }
+
+        public override void AttackInfo()
+        {
+            Console.WriteLine("Skelet attackuet. Ignor zashitu.");
         }
     }
     class Magician : Enemy
@@ -98,6 +121,11 @@ namespace _3ISIP223_Pogosyan
         public Magician() : base("Маг", 40, 15)
         {
             ProcentFrozen = 25;
+        }
+        public override void AttackInfo()
+        {
+            if (!Frozen) Console.WriteLine("Маг атакует вас! Он бросает ледяную стрелу...");
+            else Console.WriteLine("Маг пытается заморозить вас... У него получилось! Вы пропустите следующий ход.");
         }
     }
 
@@ -152,18 +180,23 @@ namespace _3ISIP223_Pogosyan
         public bool ChoiceChestOrEnemy => Convert.ToBoolean(random.Next(0, 2));
         public bool ChoiceGameStart => ChoiceChestOrEnemy;
         public Player player;
-        
+        public int step {  get; set; }
+        public bool GameOver {  get; set; }
+
 
         public int ToolsOfChest => random.Next(0, 3);
         public Game() 
         {
             string name = "Name";
             player = new Player(name);
+            step = 1;
+            GameOver = false;
         }
 
 
         public void InforEnemAndPlayer(Enemy vrag)
         {
+            InfoZagalovok();
             if (vrag != null)
             {
                 if (vrag.IsAlive)
@@ -188,7 +221,7 @@ namespace _3ISIP223_Pogosyan
             int RandEnemy = 0;
             bool HaveEnemy = false;
             Enemy vrag = null;
-            int step = 1;
+            
             while (true)
             {
                 Console.Clear();
@@ -242,7 +275,7 @@ namespace _3ISIP223_Pogosyan
                                     if (!vrag.IsAlive)
                                     {
                                         vrag.HP = 0;
-                                        player.CounMurders++; 
+                                        player.CountMurders++; 
                                     }
                                 }
                                 Console.Clear();
@@ -289,12 +322,42 @@ namespace _3ISIP223_Pogosyan
 
         public void AttackEnem(Enemy vrag)
         {
+            if (!player.IsAlive) {player.InfoAfterDeath(); return; }
             Console.Clear();
             InforEnemAndPlayer(vrag);
+
             if (vrag.IsAlive) 
             {
-                
+                //Console.Clear();
+                //InforEnemAndPlayer(vrag);
+                vrag.AttackInfo();
+                if (player.IsEvade)
+                {
+                    player.IsEvade = false;
+                }
+                else
+                {
+                    if (player.IsBlock)
+                    {
+                        player.IsBlock = false;
+                        double randBlock = random.Next(70, 101);
+                        player.HP -= vrag.Attack - (randBlock * player.Armor) / 100.0;
+                        if (!player.IsAlive) player.HP = 0;
+                    }
+                    else
+
+                    {
+                        player.HP -= vrag.Attack;
+                        if (!player.IsAlive) player.HP = 0;
+                    }
+                }
+
             }
+        }
+
+        public void InfoZagalovok()
+        {
+
         }
 
         public void ChestChoice()
