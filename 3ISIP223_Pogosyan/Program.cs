@@ -231,7 +231,7 @@ namespace _3ISIP223_Pogosyan
         public Random random = new Random();
         public double ProcentFrozen { get; set; }
         public bool Frozen => random.Next(0, 101) <= ProcentFrozen ;
-        public Magician() : base("Маг", 40, 15)
+        public Magician() : base("Маг", 0, 15)
         {
             ProcentFrozen = 25;
         }
@@ -261,6 +261,10 @@ namespace _3ISIP223_Pogosyan
             Defense *= 1.2;
             ProcentKritAttack += 10;
         }
+        public override void Demo()
+        {
+            Console.WriteLine("Из тени появляется МАССИВНЫЙ гоблин в ржавых доспехах - это ВВГ!\n");
+        }
     }
     class Covalski : Skeleton
     {
@@ -270,6 +274,10 @@ namespace _3ISIP223_Pogosyan
             HP *= 2.5;
             Attack *= 1.3;
             Defense *= 1.4;
+        }
+        public override void Demo()
+        {
+            Console.WriteLine("Кости с грохотом слагаются в исполинскую фигуру - это КОВАЛЬСКИЙ!!\n");
         }
     }
     class Arhimag : Magician
@@ -282,6 +290,10 @@ namespace _3ISIP223_Pogosyan
             Defense *= 1.1;
             ProcentFrozen += 10;
         }
+        public override void Demo()
+        {
+            Console.WriteLine("Воздух замерзает. По стенам расползается иней. Это АРХИМАГ C++!\n");
+        }
     }
     class Pestov : Magician
     {
@@ -293,18 +305,25 @@ namespace _3ISIP223_Pogosyan
             Defense *= 0.6;
             ProcentFrozen += 15;
         }
+        public override void Demo()
+        {
+            Console.WriteLine("Тень отделяется от стены - это ПЕСТОВ С--! Движется неестественно, как сломанная анимация.\n");
+        }
     }
     class Game
     {
         public Random random = new Random();
 
         public bool ChoiceChestOrEnemy => Convert.ToBoolean(random.Next(0, 2));
-        public bool ChoiceGameStart => ChoiceChestOrEnemy;
+        //public bool ChoiceGameStart => ChoiceChestOrEnemy;
         public Player player;
-        public Enemy vrag = null;
-        public bool HaveEnemy => vrag != null;
+        public Enemy Vrag = null;
+        public Enemy Boss = null;
+        public bool HaveEnemy => Vrag != null;
         public int step {  get; set; }
         public bool GameOver {  get; set; }
+        public bool BosseStumles => true;
+        //public bool BosseStumles => step % 10 == 0;
 
 
         public int ToolsOfChest => random.Next(0, 3);
@@ -331,7 +350,18 @@ namespace _3ISIP223_Pogosyan
 
         public void StepInfo()
         {
-            Console.WriteLine($"\n\t\t\t\t======================== Ход {step} ========================\n");
+            if (BosseStumles)
+            {
+                string line = new string('■', 50);
+                Console.WriteLine(line.PadLeft(80));
+                Console.WriteLine($"{"ХОД".PadLeft(48)} {step} - АКТИВАЦИЯ БОССА");
+                //Console.WriteLine(new string('■', 50));
+                Console.WriteLine(line.PadLeft(80));
+            }
+            else
+            {
+                Console.WriteLine($"\n\t\t\t\t======================== Ход {step} ========================\n");
+            }
         }
 
         public void InforEnemAndPlayer()
@@ -342,16 +372,17 @@ namespace _3ISIP223_Pogosyan
                 player.PlayerInfo();
                 //if (HaveEnemy)
                 //{
-                    if (HaveEnemy && vrag.IsAlive)
-                    {
+                if (HaveEnemy && Vrag.IsAlive)
+                {
                         //Console.WriteLine($"PlayerHp: {player.HP}, PlayerArmor: {player.Armor}  |  Vrag_name: {vrag.Name}, VragHp: {vrag.HP}, Zashita: {vrag.Defense}");
                         Console.WriteLine();
-                        vrag.EnemyInfo();
-                    }
-                    //else
-                    //{
-                    //    vrag.LastWord();
-                    //}
+                        Vrag.EnemyInfo();
+                }
+                else if (Boss != null &&  Boss.IsAlive) 
+                {
+                    Console.WriteLine();
+                    Boss.EnemyInfo();
+                }
                 //}
                 Console.WriteLine(new string('─', 110));
 
@@ -367,7 +398,7 @@ namespace _3ISIP223_Pogosyan
         {
             while (true)
             {
-                Console.Write("Выберите действие:\n[А] АТАКА\n[З] ЗАЩИТА\n> ");
+                Console.Write("Выберите действие:\n[А] АТАКА     [З] ЗАЩИТА\n> ");
 
                 if (char.TryParse(Console.ReadLine().ToLower(), out n) && (n == 'а' || n == 'з'))
                 {
@@ -381,7 +412,9 @@ namespace _3ISIP223_Pogosyan
         public void GameStart()
         {
             char n;
+            char n_boss;
             int RandEnemy = 0;
+            int RandBosse = 0;
             //bool HaveEnemy = false;
 
             InfoStartGame();
@@ -390,52 +423,116 @@ namespace _3ISIP223_Pogosyan
                 Console.Clear();
                 InforEnemAndPlayer();
                 StepInfo();
-                if (true) // Enemy
+                if (!BosseStumles)
                 {
-                    if (!HaveEnemy)
+                    if (true) // Enemy
                     {
-                        RandEnemy = random.Next(0, 3);
-                        switch (RandEnemy)
+                        if (!HaveEnemy)
                         {
-                            case 0:
+                            RandEnemy = random.Next(0, 3);
+                            switch (RandEnemy)
+                            {
+                                case 0:
+                                    {
+                                        Vrag = new Skeleton();
+                                        break;
+                                    }
+                                case 1:
+                                    {
+                                        Vrag = new Magician();
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        Vrag = new Goblin();
+                                        break;
+                                    }
+                            }
+                            //HaveEnemy = true;
+                            //Console.Clear();
+                            //InforEnemAndPlayer(vrag);
+                            //Thread.Sleep(500);
+                            //StepInfo();
+                            Thread.Sleep(500);
+                            Console.WriteLine();
+                            MeetingEnemy();
+                        }
+
+                        InputPointMenu(out n);
+                        switch (n)
+                        {
+                            case 'а'://attack
                                 {
-                                    vrag = new Skeleton();
+                                    PointMenuAttack(Vrag);
                                     break;
                                 }
-                            case 1:
+                            case 'з'://Defence
                                 {
-                                    vrag = new Magician();
+                                    PointMenuDefense();
                                     break;
+
                                 }
-                            case 2:
+                            default:
                                 {
-                                    vrag = new Goblin();
+
                                     break;
                                 }
                         }
-                        //HaveEnemy = true;
-                        //Console.Clear();
-                        //InforEnemAndPlayer(vrag);
-                        //Thread.Sleep(500);
-                        //StepInfo();
-                        Thread.Sleep(500);
-                        Console.WriteLine();
-                        MeetingEnemy();
-                    }
 
-                    InputPointMenu(out n);
-                    switch (n)
+                        AttackEnem(Vrag);
+
+
+                    }
+                    else // Chest
+                    {
+                        Console.WriteLine("В луче света вы замечаете старый сундук в углу пещеры...");
+                        ChestChoice();
+                    }
+                }
+                else // boss
+                {
+                    RandBosse = random.Next(0, 4);
+                    switch (RandBosse)
+                    {
+                        case 0:
+                            {
+                                Boss = new VVG();
+                                break;
+                            }
+                        case 1:
+                            {
+                                Boss = new Covalski();
+                                break;
+                            }
+                        case 2:
+                            {
+                                Boss = new Arhimag();
+                                break;
+                            }
+                        case 3:
+                            {
+                                Boss = new Pestov();
+                                break;
+                            }
+                    }
+                    //Console.Clear();
+
+                    //Thread.Sleep(500);
+                    Console.WriteLine();
+                    MeetingBoss();
+
+                    InputPointMenu(out n_boss);
+                    switch (n_boss)
                     {
                         case 'а'://attack
                             {
-                                PointMenuAttack();
+                                PointMenuAttack(Boss);
                                 break;
                             }
                         case 'з'://Defence
                             {
                                 PointMenuDefense();
                                 break;
-
                             }
                         default:
                             {
@@ -444,28 +541,22 @@ namespace _3ISIP223_Pogosyan
                             }
                     }
 
-                    AttackEnem();
+                    AttackEnem(Boss);
 
 
                 }
 
-                else // Chest
-                {
-                    Console.WriteLine("В луче света вы замечаете старый сундук в углу пещеры...");
-                    ChestChoice();
-                }
 
-
-                step++;
+                    step++;
                 player.Progress++;
             }
             PlayerDied();
 
-
+            
 
         }
 
-        public void PointMenuAttack()
+        public void PointMenuAttack(Enemy vrag)
         {
             Console.WriteLine("\nВы замахиваетесь для атаки...");
             Thread.Sleep(500);
@@ -486,7 +577,7 @@ namespace _3ISIP223_Pogosyan
                 vrag.InfoHp();
                 Console.WriteLine();
             }
-            
+            //Console.ReadLine();
             //Console.Clear();
             //InforEnemAndPlayer(vrag);
         }
@@ -508,15 +599,15 @@ namespace _3ISIP223_Pogosyan
 
         public void MeetingBoss()
         {
-            Console.WriteLine($"!!! ХОД {step} - ТРЕВОГА !!!\r\nПочва под ногами содрогается. Воздух наполняется зловещей энергией...");
-            vrag.Demo();
+            Console.WriteLine();
+            Boss.Demo();
         }
         public void MeetingEnemy()
         {
             Console.WriteLine($"Вы слышите зловещее рычание из темноты...");
             Thread.Sleep(500);
-            Console.WriteLine($"Перед вами {vrag.Name}!\n");
-            vrag.EnemyInfo();
+            Console.WriteLine($"Перед вами {Vrag.Name}!\n");
+            Vrag.EnemyInfo();
             Console.WriteLine();
         }
 
@@ -550,28 +641,28 @@ namespace _3ISIP223_Pogosyan
             {
                 Console.WriteLine("Не хватило опыта и снаряжения для первого \nже серьезного противника.");
             }
-            else if (vrag.Name == "Гоблин")
+            else if (Vrag.Name == "Гоблин")
             {
                 Console.WriteLine("Критический удар гоблина пробил вашу защиту.");
             }
-            else if (vrag.Name == "Скелет")
+            else if (Vrag.Name == "Скелет")
             {
                 Console.WriteLine("Скелет проигнорировал вашу защиту и нанес \nсмертельный удар в ближнем бою.");
             }
-            else if (vrag.Name == "Маг")
-            {
-                Console.WriteLine("Маг нанес смертельный удар.");
-            }
+            //else if (vrag.Name == "Маг")
+            //{
+            //    Console.WriteLine("Маг нанес смертельный удар.");
+            //}
         }
 
-        public void AttackEnem()
+        public void AttackEnem(Enemy vrag)
         {
             if (!player.IsAlive) {player.InfoAfterDeath(); return; }
             //Console.Clear();
             //InforEnemAndPlayer(vrag);
             double attack = 0;
 
-            if (HaveEnemy && vrag.IsAlive) 
+            if (vrag != null && vrag.IsAlive) 
             {
                 //Console.Clear();
                 //InforEnemAndPlayer(vrag);
@@ -582,7 +673,7 @@ namespace _3ISIP223_Pogosyan
                 }
                 else
                 {
-                    if(vrag.Name == "Маг") { }
+                    if (vrag.Name == "Маг" && ((Magician)vrag).Frozen) { player.IsFrozen = true; }
                     else if (player.IsBlock)
                     {
                         player.IsBlock = false;
@@ -590,29 +681,26 @@ namespace _3ISIP223_Pogosyan
                         attack = vrag.Attack - (randBlock * player.Armor) / 100.0;
                         if (attack > player.HP) attack = player.HP;
                         player.HP -= attack;
-                        //if (!player.IsAlive) player.HP = 0;
                     }
                     else
                     {
                         attack = vrag.Attack - (vrag.Name == "Скелет" ? 0 : player.Armor);
-                        Console.WriteLine($"attack = {attack}");
                         if (attack > player.HP)
                             attack = player.HP;
 
                         player.HP -= attack;
-                        //if (!player.IsAlive) player.HP = 0;
                     }
 
                     Thread.Sleep(500);
                     //Console.WriteLine($"{vrag.Name} яростно бросается на вас! Вы получаете {attack} урона.");
                     vrag.AttackInfo(attack);
-                    if (vrag.Name == "Маг" && ((Magician)vrag).Frozen) { player.IsFrozen = true; }
 
                     player.InfoHp();
                 }
                 Console.WriteLine("\n\nНажмите Enter, чтобы продолжить...");
                 Console.ReadLine();
             }
+
         }
 
 
