@@ -86,7 +86,7 @@ namespace _3ISIP223_Pogosyan
 
         public void PlayerInfo()
         {
-            Console.Write($"==================================================\r\n");
+            Console.WriteLine($"==================================================");
             InfoHp();
             Console.WriteLine($" | Оружие: {NameWeapon} (АТК: {AttackWeapon}) | Доспехи: {NameArmor} (ЗАЩ: {Armor})");
         }
@@ -265,8 +265,8 @@ namespace _3ISIP223_Pogosyan
 
         public void InfoStartGame()
         {
-            Console.WriteLine("=== ДОБРО ПОЖАЛОВАТЬ В ПОДЗЕМЕЛЬЕ РОКА! ===\r\n");
-            Console.WriteLine("\r\nНажмите Enter, чтобы начать...");
+            Console.WriteLine("\t\t\t======================= ДОБРО ПОЖАЛОВАТЬ В ПОДЗЕМЕЛЬЕ РОКА! =======================\n");
+            Console.WriteLine("\nНажмите Enter, чтобы начать...");
             Console.ReadLine();
         }
 
@@ -294,6 +294,21 @@ namespace _3ISIP223_Pogosyan
             }
             Console.WriteLine($"==================================================");
 
+        }
+
+        public void InputPointMenu(out char n)
+        {
+            while (true)
+            {
+                Console.Write("Выберите действие:\n[А] АТАКА\n[З] ЗАЩИТА\n> ");
+
+                if (char.TryParse(Console.ReadLine().ToLower(), out n) && (n == 'а' || n == 'з'))
+                {
+                    break;
+                }
+
+                Console.WriteLine("Неверное действие!\n");
+            }
         }
 
         public void GameStart()
@@ -342,8 +357,7 @@ namespace _3ISIP223_Pogosyan
                         MeetingEnemy(vrag);
                     }
 
-                    Console.Write("Выберите действие:\n[А] АТАКА\n[З] ЗАЩИТА\n> ");
-                    n = Convert.ToChar(Console.ReadLine().ToLower());
+                    InputPointMenu(out n); 
                     switch (n)
                     {
                         case 'с':
@@ -373,6 +387,7 @@ namespace _3ISIP223_Pogosyan
                             }
                         default:
                             {
+                                
                                 break;
                             }
                     }
@@ -471,7 +486,7 @@ namespace _3ISIP223_Pogosyan
 
                     player.InfoHp();
                 }
-                Console.WriteLine("\r\nНажмите Enter, чтобы продолжить...");
+                Console.WriteLine("\n\nНажмите Enter, чтобы продолжить...");
                 Console.ReadLine();
             }
         }
