@@ -14,8 +14,35 @@ namespace _3ISIP223_Pogosyan
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
-            game.GameStart();
+            char n = 'н';
+            int gameStep = 0;
+            while (n != 'в')
+            {
+                while (gameStep!= 0)
+                {
+                    Console.Write("\n[Н] Начать заново   [В] Выйти\n> ");
+                    if (char.TryParse(Console.ReadLine().ToLower(), out n) && (n == 'в' || n == 'н'))
+                    {
+                        break;
+                    }
+                }
+                switch (n)
+                {
+                    case 'н':
+                        {
+                            Game game = new Game();
+                            game.GameStart();
+                            gameStep++;
+                            break;
+                        }
+                    case 'в':
+                        {
+                            break;
+                        }
+                }
+
+            }
+
         }
 
     }
@@ -35,23 +62,30 @@ namespace _3ISIP223_Pogosyan
         public bool IsBlock { get; set; }
         public bool IsFrozen { get; set; }
         public bool IsAlive => HP > 0;
-
-
-        public int CountMurders {  get; set; } 
+        public int Progress { get; set; }
+        public int CountAttackEnemies { get; set; }
+        public int CountOpenChests { get; set; }
+        public int CountAttackBosses { get; set; }
+        public string LastEnemy { get; set; }
+        
 
 
         public Player(string name) 
         {
-            HP = 100;
-            AttackWeapon = 30;
+            HP = 5;
+            AttackWeapon = 100;
             Armor = 20;
             Name = name;
-            CountMurders = 0;
             IsEvade = false;
             IsBlock = false;
             IsFrozen = false;
             NameWeapon = "Чапалах";
             NameArmor = "Доспехи Ланнистеров";
+            Progress = 1;
+            CountAttackEnemies = 0;
+            CountOpenChests = 0;
+            CountAttackBosses = 0;
+            LastEnemy = "NONE";
         }
 
         public void InfoWeapon()
@@ -70,14 +104,14 @@ namespace _3ISIP223_Pogosyan
         public void InfoHp()
         {
             //Console.Write("HP: ");
-            Console.Write($"[{Name}] HP: ");
+            Console.Write($"{$"[{Name}]".PadRight(10)} HP: █");
 
             int hpProc = Convert.ToInt32(HP / 10);
-            for (int i = 0; i < hpProc; i++)
+            for (int i = 1; i < hpProc; i++)
             {
                 Console.Write("█");
             }
-            for (int i = 0; i < 10 - hpProc; i++)
+            for (int i = 1; i < 10 - hpProc; i++)
             {
                 Console.Write(" ");
             }
@@ -86,7 +120,7 @@ namespace _3ISIP223_Pogosyan
 
         public void PlayerInfo()
         {
-            Console.WriteLine($"==================================================");
+            Console.WriteLine(new string('─', 110));
             InfoHp();
             Console.WriteLine($" | Оружие: {NameWeapon} (АТК: {AttackWeapon}) | Доспехи: {NameArmor} (ЗАЩ: {Armor})");
         }
@@ -115,13 +149,15 @@ namespace _3ISIP223_Pogosyan
         }
         public void InfoHp()
         {
-            Console.Write($"[{Name}] HP: ");
+            //Console.Write($"[{Name}] HP: █");
+            Console.Write($"{$"[{Name}]".PadRight(10)} HP: █");
+
             int hpProc = Convert.ToInt32(HP / 10);
-            for (int i = 0; i < hpProc; i++)
+            for (int i = 1; i < hpProc; i++)
             {
                 Console.Write("█");
             }
-            for (int i = 0; i < 10 - hpProc; i++)
+            for (int i = 1; i < 10 - hpProc; i++)
             {
                 Console.Write(" ");
             }
@@ -167,6 +203,11 @@ namespace _3ISIP223_Pogosyan
             }
         }
 
+        public override void LastWord()
+        {
+            Console.WriteLine("Гоблин издает предсмертный визг и падает замертво.");
+        }
+
     }
     class Skeleton : Enemy
     {
@@ -178,6 +219,11 @@ namespace _3ISIP223_Pogosyan
         public override void AttackInfo(double atack)
         {
             Console.WriteLine($"\nСкелет проходит сквозь вашу защиту! Ваши доспехи бесполезны! {atack} урона!");
+        }
+
+        public override void LastWord()
+        {
+            Console.WriteLine("Скелет рассыпается в кучу костей с оглушительным лязгом.");
         }
     }
     class Magician : Enemy
@@ -196,6 +242,11 @@ namespace _3ISIP223_Pogosyan
             Thread.Sleep(1000);
             if (!Frozen) Console.WriteLine("У него не получилось! Вам удалось увернуться от ледяных оков!");
             else Console.WriteLine("У него получилось! Вы пропускаете следующий ход!");
+        }
+
+        public override void LastWord()
+        {
+            Console.WriteLine("Маг издает последнее заклинание, которое рассеивается вместе с его жизнью.");
         }
     }
 
@@ -250,6 +301,8 @@ namespace _3ISIP223_Pogosyan
         public bool ChoiceChestOrEnemy => Convert.ToBoolean(random.Next(0, 2));
         public bool ChoiceGameStart => ChoiceChestOrEnemy;
         public Player player;
+        public Enemy vrag = null;
+        public bool HaveEnemy => vrag != null;
         public int step {  get; set; }
         public bool GameOver {  get; set; }
 
@@ -257,7 +310,7 @@ namespace _3ISIP223_Pogosyan
         public int ToolsOfChest => random.Next(0, 3);
         public Game() 
         {
-            string name = "Name";
+            string name = "Player1";
             player = new Player(name);
             step = 1;
             GameOver = false;
@@ -265,8 +318,14 @@ namespace _3ISIP223_Pogosyan
 
         public void InfoStartGame()
         {
+            Console.Clear();
             Console.WriteLine("\t\t\t======================= ДОБРО ПОЖАЛОВАТЬ В ПОДЗЕМЕЛЬЕ РОКА! =======================\n");
-            Console.WriteLine("\nНажмите Enter, чтобы начать...");
+            Console.WriteLine("Прежде чем начать, представься:\n");
+            Console.Write("Введите ваше имя:\n> ");
+            string NamePlayer = Console.ReadLine();
+            if (NamePlayer == null || NamePlayer == "") NamePlayer = "Player1";
+            player.Name = NamePlayer;
+            Console.WriteLine("\n\nНажмите Enter, чтобы начать...");
             Console.ReadLine();
         }
 
@@ -275,24 +334,32 @@ namespace _3ISIP223_Pogosyan
             Console.WriteLine($"\n\t\t\t\t======================== Ход {step} ========================\n");
         }
 
-        public void InforEnemAndPlayer(Enemy vrag)
+        public void InforEnemAndPlayer()
         {
             //InfoZagalovok();
-            player.PlayerInfo();
-            if (vrag != null)
+            if (player.IsAlive)
             {
-                if (vrag.IsAlive)
-                {
-                    //Console.WriteLine($"PlayerHp: {player.HP}, PlayerArmor: {player.Armor}  |  Vrag_name: {vrag.Name}, VragHp: {vrag.HP}, Zashita: {vrag.Defense}");
-                    Console.WriteLine();
-                    vrag.EnemyInfo();
-                }
-                else
-                {
-                    vrag.LastWord();
-                }
+                player.PlayerInfo();
+                //if (HaveEnemy)
+                //{
+                    if (HaveEnemy && vrag.IsAlive)
+                    {
+                        //Console.WriteLine($"PlayerHp: {player.HP}, PlayerArmor: {player.Armor}  |  Vrag_name: {vrag.Name}, VragHp: {vrag.HP}, Zashita: {vrag.Defense}");
+                        Console.WriteLine();
+                        vrag.EnemyInfo();
+                    }
+                    //else
+                    //{
+                    //    vrag.LastWord();
+                    //}
+                //}
+                Console.WriteLine(new string('─', 110));
+
             }
-            Console.WriteLine($"==================================================");
+            else
+            {
+
+            }
 
         }
 
@@ -315,14 +382,13 @@ namespace _3ISIP223_Pogosyan
         {
             char n;
             int RandEnemy = 0;
-            bool HaveEnemy = false;
-            Enemy vrag = null;
+            //bool HaveEnemy = false;
 
-            InfoStartGame(); 
-            while (true)
+            InfoStartGame();
+            while (player.IsAlive)
             {
                 Console.Clear();
-                InforEnemAndPlayer(vrag);
+                InforEnemAndPlayer();
                 StepInfo();
                 if (true) // Enemy
                 {
@@ -347,52 +413,38 @@ namespace _3ISIP223_Pogosyan
                                     break;
                                 }
                         }
-                        HaveEnemy = true;
+                        //HaveEnemy = true;
                         //Console.Clear();
                         //InforEnemAndPlayer(vrag);
                         //Thread.Sleep(500);
                         //StepInfo();
                         Thread.Sleep(500);
                         Console.WriteLine();
-                        MeetingEnemy(vrag);
+                        MeetingEnemy();
                     }
 
-                    InputPointMenu(out n); 
+                    InputPointMenu(out n);
                     switch (n)
                     {
-                        case 'с':
-                            {
-                                break;
-                            }
                         case 'а'://attack
                             {
-                                PointMenuAttack(vrag);
+                                PointMenuAttack();
                                 break;
                             }
                         case 'з'://Defence
                             {
-                                bool Def40 = random.Next(1, 101) <= 40;
-                                if (Def40)
-                                {
-                                    Console.WriteLine("Uklanis");
-                                    player.IsEvade = true;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Ne povezlo: на 70-100% от защиты");
-                                    player.IsBlock = true; 
-                                }
+                                PointMenuDefense();
                                 break;
 
                             }
                         default:
                             {
-                                
+
                                 break;
                             }
                     }
 
-                    AttackEnem(vrag);
+                    AttackEnem();
 
 
                 }
@@ -405,10 +457,15 @@ namespace _3ISIP223_Pogosyan
 
 
                 step++;
+                player.Progress++;
             }
+            PlayerDied();
+
+
+
         }
 
-        public void PointMenuAttack(Enemy vrag)
+        public void PointMenuAttack()
         {
             Console.WriteLine("\nВы замахиваетесь для атаки...");
             Thread.Sleep(500);
@@ -418,8 +475,11 @@ namespace _3ISIP223_Pogosyan
             if (!vrag.IsAlive)
             {
                 vrag.HP = 0;
-                player.CountMurders++;
                 vrag.LastWord();
+                player.CountAttackEnemies++;
+                vrag = null;
+                Console.WriteLine("\n\nНажмите Enter, чтобы продолжить...");
+                Console.ReadLine();
             }
             else
             {
@@ -431,12 +491,27 @@ namespace _3ISIP223_Pogosyan
             //InforEnemAndPlayer(vrag);
         }
 
-        public void MeetingBoss(Enemy vrag)
+        public void PointMenuDefense()
+        {
+            bool Def40 = random.Next(1, 101) <= 40;
+            if (Def40)
+            {
+                Console.WriteLine("Uklanis");
+                player.IsEvade = true;
+            }
+            else
+            {
+                Console.WriteLine("Ne povezlo: на 70-100% от защиты");
+                player.IsBlock = true;
+            }
+        }
+
+        public void MeetingBoss()
         {
             Console.WriteLine($"!!! ХОД {step} - ТРЕВОГА !!!\r\nПочва под ногами содрогается. Воздух наполняется зловещей энергией...");
             vrag.Demo();
         }
-        public void MeetingEnemy(Enemy vrag)
+        public void MeetingEnemy()
         {
             Console.WriteLine($"Вы слышите зловещее рычание из темноты...");
             Thread.Sleep(500);
@@ -445,14 +520,58 @@ namespace _3ISIP223_Pogosyan
             Console.WriteLine();
         }
 
-        public void AttackEnem(Enemy vrag)
+        public void PlayerDied()
+        {
+            int box = 60;
+            int boxStat = 40;
+            Console.Clear();
+            Console.WriteLine(new string('*', box));
+            Console.WriteLine("GAME OVER".PadLeft(box/2));
+            Console.WriteLine(new string('*', box));
+            Console.WriteLine("\n\n");
+
+            var sb = new StringBuilder();
+            //sb.AppendLine($"┌ {"СТАТИСТИКА".Pa} ┐");
+            sb.AppendLine("┌───────────── СТАТИСТИКА ─────────────┐");
+            sb.AppendLine($"| {" ".PadRight(boxStat-4)} |");
+            sb.AppendLine($"| {$"Пройдено ходов: {player.Progress}".PadRight(boxStat-4)} |");
+            sb.AppendLine($"| {$"Повержено врагов: {player.CountAttackEnemies}".PadRight(boxStat-4)} |");
+            sb.AppendLine($"| {$"Открыто сундуков: {player.CountOpenChests}".PadRight(boxStat-4)} |");
+            sb.AppendLine($"| {$"Убито боссов: {player.CountAttackBosses}".PadRight(boxStat-4)} |");
+            sb.AppendLine($"| {" ".PadRight(boxStat-4)} |");
+            sb.AppendLine($"| {$"Последний враг: {player.LastEnemy}".PadRight(boxStat-4)} |");
+            sb.AppendLine($"| {$"Оружие: {player.NameWeapon}".PadRight(boxStat-4)} |");
+            sb.AppendLine($"| {$"Доспехи: {player.NameArmor}".PadRight(boxStat-4)} |");
+            sb.AppendLine($"| {" ".PadRight(boxStat-4)} |");
+            sb.AppendLine($"└{new string('─', boxStat-2)}┘");
+            Console.WriteLine(sb.ToString());
+            Console.WriteLine("============ ПРИЧИНА ГИБЕЛИ ============");
+            if (player.CountAttackEnemies == 1)
+            {
+                Console.WriteLine("Не хватило опыта и снаряжения для первого \nже серьезного противника.");
+            }
+            else if (vrag.Name == "Гоблин")
+            {
+                Console.WriteLine("Критический удар гоблина пробил вашу защиту.");
+            }
+            else if (vrag.Name == "Скелет")
+            {
+                Console.WriteLine("Скелет проигнорировал вашу защиту и нанес \nсмертельный удар в ближнем бою.");
+            }
+            else if (vrag.Name == "Маг")
+            {
+                Console.WriteLine("Маг нанес смертельный удар.");
+            }
+        }
+
+        public void AttackEnem()
         {
             if (!player.IsAlive) {player.InfoAfterDeath(); return; }
             //Console.Clear();
             //InforEnemAndPlayer(vrag);
             double attack = 0;
 
-            if (vrag.IsAlive) 
+            if (HaveEnemy && vrag.IsAlive) 
             {
                 //Console.Clear();
                 //InforEnemAndPlayer(vrag);
@@ -469,14 +588,19 @@ namespace _3ISIP223_Pogosyan
                         player.IsBlock = false;
                         double randBlock = random.Next(70, 101);
                         attack = vrag.Attack - (randBlock * player.Armor) / 100.0;
+                        if (attack > player.HP) attack = player.HP;
                         player.HP -= attack;
-                        if (!player.IsAlive) player.HP = 0;
+                        //if (!player.IsAlive) player.HP = 0;
                     }
                     else
                     {
                         attack = vrag.Attack - (vrag.Name == "Скелет" ? 0 : player.Armor);
+                        Console.WriteLine($"attack = {attack}");
+                        if (attack > player.HP)
+                            attack = player.HP;
+
                         player.HP -= attack;
-                        if (!player.IsAlive) player.HP = 0;
+                        //if (!player.IsAlive) player.HP = 0;
                     }
 
                     Thread.Sleep(500);
