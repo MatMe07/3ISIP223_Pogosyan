@@ -199,11 +199,11 @@ namespace _3ISIP223_Pogosyan
         {
             if (KritAttack)
             {
-                Console.WriteLine($"\nГоблин издает боевой клич и наносит подлый удар! КРИТИЧЕСКИЙ УРОН! {atack} урона!");
+                Console.WriteLine($"\n{Name} издает боевой клич и наносит подлый удар! КРИТИЧЕСКИЙ УРОН! {atack} урона!");
             }
             else
             {
-                Console.WriteLine($"\nГоблин атакует вас! Вы получаете {atack} урона.");
+                Console.WriteLine($"\n{Name} атакует вас! Вы получаете {atack} урона.");
 
             }
         }
@@ -218,12 +218,12 @@ namespace _3ISIP223_Pogosyan
     {
         public Skeleton() : base("Скелет", 12, 2, 20)
         {
-            UniqSkill = "Игнорирует защиту игрока";
+            UniqSkill = "Игнор брони";
         }
 
         public override void AttackInfo(double atack)
         {
-            Console.WriteLine($"\nСкелет проходит сквозь вашу защиту! Ваши доспехи бесполезны! {atack} урона!");
+            Console.WriteLine($"\n{Name} проходит сквозь вашу защиту! Ваши доспехи бесполезны! {atack} урона!");
         }
 
         public override void LastWord()
@@ -235,24 +235,29 @@ namespace _3ISIP223_Pogosyan
     {
         public Random random = new Random();
         public double ProcentFrozen { get; set; }
-        public bool Frozen => random.Next(0, 101) <= ProcentFrozen ;
-        public Magician() : base("Маг", 0, 1, 20)
+        public bool IsFroz { get; set; }
+        public bool Frozen => (!IsFroz && random.Next(0, 101) <= ProcentFrozen);
+        public Magician() : base("Маг", 14, 1, 15)
         {
-            ProcentFrozen = 25;
+            ProcentFrozen = 20;
+            IsFroz = false;
             UniqSkill = "Шанс заморозки на 1 ход";
         }
         public override void AttackInfo(double attack)
         {
 
-            Console.WriteLine("\nМаг произносит древнее заклинание, он пытается заморозить вас...");
-            Thread.Sleep(1000);
-            if (!Frozen) Console.WriteLine("У него не получилось! Вам удалось увернуться от ледяных оков!");
-            else Console.WriteLine("У него получилось! Вы пропускаете следующий ход!");
+            if (Frozen)
+            {
+                Console.WriteLine($"\n{Name} произносит древнее заклинание, он пытается заморозить вас...");
+                Thread.Sleep(1000);
+                Console.WriteLine("У него получилось! Вы пропускаете следующий ход!");
+            }
+            Console.WriteLine($"\n{Name} атакует вас! Вы получаете {attack} урона.");
         }
 
         public override void LastWord()
         {
-            Console.WriteLine("Маг издает последнее заклинание, которое рассеивается вместе с его жизнью.");
+            Console.WriteLine($"{Name} издает последнее заклинание, которое рассеивается вместе с его жизнью.");
         }
     }
 
@@ -271,6 +276,7 @@ namespace _3ISIP223_Pogosyan
         }
         public override void Demo()
         {
+
             Console.WriteLine("Из тени появляется МАССИВНЫЙ гоблин в ржавых доспехах - это ВВГ!\n");
         }
     }
@@ -283,7 +289,7 @@ namespace _3ISIP223_Pogosyan
             MaxHP *= 2.5;
             Attack *= 1.3;
             Defense *= 1.4;
-            UniqSkill = "Игнорирует любую защиту";
+            UniqSkill = "Игнор брони";
         }
         public override void Demo()
         {
@@ -446,7 +452,8 @@ namespace _3ISIP223_Pogosyan
                     {
                         if (!HaveEnemy)
                         {
-                            RandEnemy = random.Next(0, 3);
+                            RandEnemy = 1;
+                            //RandEnemy = random.Next(0, 3);
                             switch (RandEnemy)
                             {
                                 case 0:
@@ -477,7 +484,11 @@ namespace _3ISIP223_Pogosyan
                         }
                         if (player.IsFrozen)
                         {
-                            player.IsFrozen = false;
+                            Console.WriteLine();
+                            Console.WriteLine($"\t\t\t\t================= ВЫ ЗАМОРОЖЕНЫ! =================");
+                            Console.WriteLine("\t\t\t\tВы не можете действовать из-за магического льда.");
+
+                            player.IsFrozen = false; 
                         }
                         else
                         {
@@ -547,11 +558,16 @@ namespace _3ISIP223_Pogosyan
 
                         //Thread.Sleep(500);
                         Console.WriteLine();
+
                         MeetingBoss();
                     }
 
                     if (player.IsFrozen)
                     {
+                        Console.WriteLine();
+                        Console.WriteLine($"\t\t\t\t================= ВЫ ЗАМОРОЖЕНЫ! =================");
+                        Console.WriteLine("\t\t\t\tВы не можете действовать из-за магического льда.");
+
                         player.IsFrozen = false;
                     }
                     else
@@ -595,12 +611,13 @@ namespace _3ISIP223_Pogosyan
 
         public void WinOverBoss()
         {
+
             Console.Clear();
             //InforEnemAndPlayer();
             string line = new string('▓', 50);
             string lineBottom = new string('─', 50);
             Console.WriteLine(line.PadLeft(80));
-            Console.WriteLine($"{"ХОД".PadLeft(40)} БОСС ПОВЕРЖЕН - {Boss.Name} УНИЧТОЖЕН");
+            Console.WriteLine($"{" ".PadLeft(40)}БОСС ПОВЕРЖЕН - {Boss.Name} УНИЧТОЖЕН");
             //Console.WriteLine(new string('■', 50));
             Console.WriteLine(line.PadLeft(80));
             Console.WriteLine($"\n{"Ходов".PadLeft(42)} затрачено: {StepSpendWinOverBoss}, Потеряно HP: {Math.Round(HPLostWinOverBoss, 2)}");
@@ -622,9 +639,9 @@ namespace _3ISIP223_Pogosyan
                 vrag.LastWord();
                 if (Boss != null)
                 {
+                    Thread.Sleep(1100);
                     player.CountAttackBosses++;
                     WinOverBoss();
-
                 }
                 else
                 {
@@ -646,15 +663,14 @@ namespace _3ISIP223_Pogosyan
 
         public void PointMenuDefense()
         {
+            Console.WriteLine("Вы выбрали ЗАЩИТУ...");
             bool Def40 = random.Next(1, 101) <= 40;
             if (Def40)
             {
-                Console.WriteLine("Uklanis");
                 player.IsEvade = true;
             }
             else
             {
-                Console.WriteLine("Ne povezlo: на 70-100% от защиты");
                 player.IsBlock = true;
             }
         }
@@ -662,7 +678,9 @@ namespace _3ISIP223_Pogosyan
         public void MeetingBoss()
         {
             Console.WriteLine();
+            Thread.Sleep(700);
             Boss.Demo();
+            Thread.Sleep(600);
             Boss.EnemyInfo();
             Console.WriteLine();
         }
@@ -737,11 +755,14 @@ namespace _3ISIP223_Pogosyan
                 }
                 else
                 {
-                    if (vrag.Name == "Маг" && ((Magician)vrag).Frozen) { player.IsFrozen = true; }
-                    else if (vrag.Attack == 0) { }
-                    else if (player.IsBlock)
+
+                    if (player.IsBlock)
                     {
-                        player.IsBlock = false;
+                        Console.WriteLine("Уклонение не удалось! Но вы подставляете свой щит...");
+                        if (vrag.UniqSkill.Contains("замороз") && ((Magician)vrag).Frozen)
+                        {
+                            player.IsFrozen = true;
+                        }
                         double randBlock = random.Next(70, 101);
                         attack = vrag.Attack - (randBlock * player.Armor) / 100.0;
                         if (attack > player.HP)
@@ -751,9 +772,14 @@ namespace _3ISIP223_Pogosyan
                         }
                         player.HP -= attack;
 
+                        player.IsBlock = false;
                     }
                     else
                     {
+                        if (vrag.UniqSkill.Contains("замороз") && ((Magician)vrag).Frozen)
+                        {
+                            player.IsFrozen = true;
+                        }
                         attack = vrag.Attack - (vrag.Name == "Скелет" ? 0 : player.Armor);
                         if (attack > player.HP)
                         {
@@ -766,6 +792,7 @@ namespace _3ISIP223_Pogosyan
 
                     Thread.Sleep(500);
                     //Console.WriteLine($"{vrag.Name} яростно бросается на вас! Вы получаете {attack} урона.");
+                    attack = Math.Round(attack, 2);
                     vrag.AttackInfo(attack);
                     if (Boss != null) { HPLostWinOverBoss += attack; }
 
