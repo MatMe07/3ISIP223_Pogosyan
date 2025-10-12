@@ -190,7 +190,7 @@ namespace _3ISIP223_Pogosyan
         public double ProcentKritAttack { get; set; }
         public bool KritAttack => random.Next(0, 101) <= ProcentKritAttack;
 
-        public Goblin() : base("Гоблин", 10, 3, 20)
+        public Goblin(string name, double attack, double defense, double hp) : base(name, attack, defense, hp)
         {
             ProcentKritAttack = 15;
             UniqSkill = "Шанс критического удара";
@@ -216,7 +216,7 @@ namespace _3ISIP223_Pogosyan
     }
     class Skeleton : Enemy
     {
-        public Skeleton() : base("Скелет", 12, 2, 20)
+        public Skeleton(string name, double attack, double defense, double hp) : base(name, attack, defense, hp)
         {
             UniqSkill = "Игнор брони";
         }
@@ -236,8 +236,17 @@ namespace _3ISIP223_Pogosyan
         public Random random = new Random();
         public double ProcentFrozen { get; set; }
         public bool IsFroz { get; set; }
-        public bool Frozen => (!IsFroz && random.Next(0, 101) <= ProcentFrozen);
-        public Magician() : base("Маг", 14, 1, 15)
+        public bool FrozenProc => random.Next(0, 101) <= ProcentFrozen;
+        public bool Frozen() {
+            //(!IsFroz && random.Next(0, 101) <= ProcentFrozen);
+            if (!IsFroz)
+            {
+                return FrozenProc;
+            }
+            return true;
+        }
+
+        public Magician(string name, double attack, double defense, double hp) : base(name, attack, defense, hp)
         {
             ProcentFrozen = 20;
             IsFroz = false;
@@ -246,7 +255,7 @@ namespace _3ISIP223_Pogosyan
         public override void AttackInfo(double attack)
         {
 
-            if (Frozen)
+            if (Frozen())
             {
                 Console.WriteLine($"\n{Name} произносит древнее заклинание, он пытается заморозить вас...");
                 Thread.Sleep(1000);
@@ -264,9 +273,8 @@ namespace _3ISIP223_Pogosyan
     class VVG : Goblin
     {
         
-        public VVG()
+        public VVG(string name, double attack, double defense, double hp) : base(name, attack, defense, hp)
         {
-            Name = "ВВГ";
             HP *= 2.0;
             MaxHP *= 2.0;
             Attack *= 1.5;
@@ -282,9 +290,8 @@ namespace _3ISIP223_Pogosyan
     }
     class Covalski : Skeleton
     {
-        public Covalski()
+        public Covalski(string name, double attack, double defense, double hp) : base(name, attack, defense, hp)
         {
-            Name = "Ковальский";
             HP *= 2.5;
             MaxHP *= 2.5;
             Attack *= 1.3;
@@ -298,9 +305,8 @@ namespace _3ISIP223_Pogosyan
     }
     class Arhimag : Magician
     {
-        public Arhimag()
+        public Arhimag(string name, double attack, double defense, double hp) : base(name, attack, defense, hp)
         {
-            Name = "Архимаг C++";
             HP *= 1.8;
             MaxHP *= 1.8;
             Attack *= 1.6;
@@ -315,9 +321,8 @@ namespace _3ISIP223_Pogosyan
     }
     class Pestov : Magician
     {
-        public Pestov()
+        public Pestov(string name, double attack, double defense, double hp) : base(name, attack, defense, hp)
         {
-            Name = "Пестов С--";
             HP *= 1.3;
             MaxHP *= 1.3;
             Attack *= 1.8;
@@ -448,7 +453,7 @@ namespace _3ISIP223_Pogosyan
                 StepInfo();
                 if (!BosseStumles && (Boss == null))
                 {
-                    if (true) // Enemy
+                    if (false) // Enemy
                     {
                         if (!HaveEnemy)
                         {
@@ -458,17 +463,17 @@ namespace _3ISIP223_Pogosyan
                             {
                                 case 0:
                                     {
-                                        Vrag = new Skeleton();
+                                        Vrag = new Skeleton("Скелет", 12, 2, 20);
                                         break;
                                     }
                                 case 1:
                                     {
-                                        Vrag = new Magician();
+                                        Vrag = new Magician("Маг", 14, 1, 15);
                                         break;
                                     }
                                 case 2:
                                     {
-                                        Vrag = new Goblin();
+                                        Vrag = new Goblin("Гоблин", 10, 3, 20);
                                         break;
                                     }
                             }
@@ -487,7 +492,7 @@ namespace _3ISIP223_Pogosyan
                             Console.WriteLine();
                             Console.WriteLine($"\t\t\t\t================= ВЫ ЗАМОРОЖЕНЫ! =================");
                             Console.WriteLine("\t\t\t\tВы не можете действовать из-за магического льда.");
-
+                            ((Magician)Vrag).IsFroz = false;
                             player.IsFrozen = false; 
                         }
                         else
@@ -522,7 +527,6 @@ namespace _3ISIP223_Pogosyan
                     }
                     else // Chest
                     {
-                        Console.WriteLine("В луче света вы замечаете старый сундук в углу пещеры...");
                         ChestChoice();
                     }
                 }
@@ -535,22 +539,22 @@ namespace _3ISIP223_Pogosyan
                         {
                             case 0:
                                 {
-                                    Boss = new VVG();
+                                    Boss = new VVG("ВВГ", 10, 3, 20);
                                     break;
                                 }
                             case 1:
                                 {
-                                    Boss = new Covalski();
+                                    Boss = new Covalski("Ковальский", 12, 2, 20);
                                     break;
                                 }
                             case 2:
                                 {
-                                    Boss = new Arhimag();
+                                    Boss = new Arhimag("Архимаг C++", 14, 1, 15);
                                     break;
                                 }
                             case 3:
                                 {
-                                    Boss = new Pestov();
+                                    Boss = new Pestov("Пестов С--", 14, 1, 15);
                                     break;
                                 }
                         }
@@ -567,6 +571,7 @@ namespace _3ISIP223_Pogosyan
                         Console.WriteLine();
                         Console.WriteLine($"\t\t\t\t================= ВЫ ЗАМОРОЖЕНЫ! =================");
                         Console.WriteLine("\t\t\t\tВы не можете действовать из-за магического льда.");
+                        ((Magician)Boss).IsFroz = false;
 
                         player.IsFrozen = false;
                     }
@@ -723,18 +728,34 @@ namespace _3ISIP223_Pogosyan
             {
                 Console.WriteLine("Не хватило опыта и снаряжения для первого \nже серьезного противника.");
             }
-            else if (Vrag.Name == "Гоблин")
+            else if (player.LastEnemy == "Гоблин")
             {
                 Console.WriteLine("Критический удар гоблина пробил вашу защиту.");
             }
-            else if (Vrag.Name == "Скелет")
+            else if (player.LastEnemy == "Скелет")
             {
                 Console.WriteLine("Скелет проигнорировал вашу защиту и нанес \nсмертельный удар в ближнем бою.");
             }
-            //else if (vrag.Name == "Маг")
-            //{
-            //    Console.WriteLine("Маг нанес смертельный удар.");
-            //}
+            else if (player.LastEnemy == "Маг")
+            {
+                Console.WriteLine("Маг нанес смертельный удар.");
+            }
+            else if (player.LastEnemy == "ВВГ")
+            {
+                Console.WriteLine("Мощный критический удар ВВГ сокрушил вашу защиту.");
+            }
+            else if (player.LastEnemy == "Ковальский")
+            {
+                Console.WriteLine("Ковальский полностью проигнорировал вашу защиту.");
+            }
+            else if (player.LastEnemy == "Пестов С--")
+            {
+                Console.WriteLine("Мощное заклинание Пестова прожгло вашу защиту.");
+            }
+            else if (player.LastEnemy == "Архимаг C++")
+            {
+                Console.WriteLine("Заклинание Архимага пробило все уровни защиты.");
+            }
         }
 
         public void AttackEnem(Enemy vrag)
@@ -759,8 +780,9 @@ namespace _3ISIP223_Pogosyan
                     if (player.IsBlock)
                     {
                         Console.WriteLine("Уклонение не удалось! Но вы подставляете свой щит...");
-                        if (vrag.UniqSkill.Contains("замороз") && ((Magician)vrag).Frozen)
+                        if (vrag.UniqSkill.Contains("замороз") && ((Magician)vrag).Frozen())
                         {
+                            ((Magician)vrag).IsFroz = true;
                             player.IsFrozen = true;
                         }
                         double randBlock = random.Next(70, 101);
@@ -776,8 +798,10 @@ namespace _3ISIP223_Pogosyan
                     }
                     else
                     {
-                        if (vrag.UniqSkill.Contains("замороз") && ((Magician)vrag).Frozen)
+                        if (vrag.UniqSkill.Contains("замороз") && ((Magician)vrag).Frozen())
                         {
+                            ((Magician)vrag).IsFroz = true;
+
                             player.IsFrozen = true;
                         }
                         attack = vrag.Attack - (vrag.Name == "Скелет" ? 0 : player.Armor);
@@ -807,21 +831,31 @@ namespace _3ISIP223_Pogosyan
 
         public void ChestChoice()
         {
-
+            Console.WriteLine("В луче света вы замечаете старый сундук в углу пещеры...");
+            Console.WriteLine("Вы открываете сундук и находите...");
+            Thread.Sleep(600);
             string chestName = "";
             switch (ToolsOfChest) 
             {
                 case 0: 
                     { 
-                        chestName = "Лечебное зелье";
+                        chestName = "Целебное зелье";
+                        Console.WriteLine("[ЦЕЛЕБНОЕ ЗЕЛЬЕ] - мгновенно восстанавливает все здоровье");
+                        Console.WriteLine("Вы выпиваете зелье! Теплота разливается по телу. \nЗдоровье полностью восстановлено!");
+                        player.InfoHp();
                         player.HP = 100;
-                        Console.WriteLine(chestName);   
                         break;
                     }
                 case 1:
                     {
-                        chestName = "Оружие";
-                        int RandAttackWeapon = random.Next(15, 51);
+                        int RandAttackWeapon = random.Next(1, 25);
+                        if (RandAttackWeapon <= 5) chestName = "Ржавый кинжал";
+                        else if (RandAttackWeapon <= 12) chestName = "Стальной меч";
+                        else if (RandAttackWeapon <= 16) chestName = "Секира воина";
+                        else if (RandAttackWeapon <= 18) chestName = "Легендарный меч заката";
+                        else if (RandAttackWeapon <= 22) chestName = "Огненный клинок";
+                        else if (RandAttackWeapon <= 25) chestName = "Посох всевластия";
+                        chestName = "Легендарный меч";
                         Console.WriteLine();
                         player.InfoWeapon();
                         Console.WriteLine();
