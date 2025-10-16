@@ -9,14 +9,14 @@
           <Key>
             <PropertyRef Name="ID_Client" />
           </Key>
-          <Property Name="ID_Client" Type="int" Nullable="false" />
+          <Property Name="ID_Client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="ID_Order" />
           </Key>
-          <Property Name="ID_Order" Type="int" Nullable="false" />
+          <Property Name="ID_Order" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_Client" Type="int" Nullable="false" />
           <Property Name="ID_Salon" Type="int" Nullable="false" />
           <Property Name="price" Type="float" Nullable="false" />
@@ -26,7 +26,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ID_Sklad" Type="int" Nullable="false" />
           <Property Name="Money" Type="float" Nullable="false" />
@@ -36,14 +36,14 @@
           <Key>
             <PropertyRef Name="ID_Shop" />
           </Key>
-          <Property Name="ID_Shop" Type="int" Nullable="false" />
+          <Property Name="ID_Shop" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_ShopZapchast" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ShopZapchast">
           <Key>
             <PropertyRef Name="ID_ShopZapchast" />
           </Key>
-          <Property Name="ID_ShopZapchast" Type="int" Nullable="false" />
+          <Property Name="ID_ShopZapchast" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Price" Type="float" Nullable="false" />
           <Property Name="Count" Type="int" Nullable="false" />
@@ -52,7 +52,7 @@
           <Key>
             <PropertyRef Name="ID_Sklad" />
           </Key>
-          <Property Name="ID_Sklad" Type="int" Nullable="false" />
+          <Property Name="ID_Sklad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_SkladZapch" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ID_Shop" Type="int" Nullable="false" />
@@ -61,7 +61,7 @@
           <Key>
             <PropertyRef Name="ID_SkladZapch" />
           </Key>
-          <Property Name="ID_SkladZapch" Type="int" Nullable="false" />
+          <Property Name="ID_SkladZapch" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_Sklad" Type="int" Nullable="false" />
           <Property Name="ID_Zapchast" Type="int" Nullable="false" />
         </EntityType>
@@ -69,7 +69,7 @@
           <Key>
             <PropertyRef Name="ID_Zapchast" />
           </Key>
-          <Property Name="ID_Zapchast" Type="int" Nullable="false" />
+          <Property Name="ID_Zapchast" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Count" Type="int" Nullable="false" />
           <Property Name="Price" Type="float" Nullable="false" />
@@ -205,7 +205,7 @@
           <Key>
             <PropertyRef Name="ID_Client" />
           </Key>
-          <Property Name="ID_Client" Type="Int32" Nullable="false" />
+          <Property Name="ID_Client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_Client" FromRole="Client" ToRole="Order" />
         </EntityType>
@@ -213,7 +213,7 @@
           <Key>
             <PropertyRef Name="ID_Order" />
           </Key>
-          <Property Name="ID_Order" Type="Int32" Nullable="false" />
+          <Property Name="ID_Order" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_Client" Type="Int32" Nullable="false" />
           <Property Name="ID_Salon" Type="Int32" Nullable="false" />
           <Property Name="price" Type="Double" Nullable="false" />
@@ -225,7 +225,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ID_Sklad" Type="Int32" Nullable="false" />
           <Property Name="Money" Type="Double" Nullable="false" />
@@ -237,7 +237,7 @@
           <Key>
             <PropertyRef Name="ID_Shop" />
           </Key>
-          <Property Name="ID_Shop" Type="Int32" Nullable="false" />
+          <Property Name="ID_Shop" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_ShopZapchast" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ShopZapchast" Relationship="Self.FK_Shop_ShopZapchast" FromRole="Shop" ToRole="ShopZapchast" />
           <NavigationProperty Name="Sklad" Relationship="Self.FK_Sklad_Shop" FromRole="Shop" ToRole="Sklad" />
@@ -246,7 +246,7 @@
           <Key>
             <PropertyRef Name="ID_ShopZapchast" />
           </Key>
-          <Property Name="ID_ShopZapchast" Type="Int32" Nullable="false" />
+          <Property Name="ID_ShopZapchast" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Price" Type="Double" Nullable="false" />
           <Property Name="Count" Type="Int32" Nullable="false" />
@@ -256,7 +256,7 @@
           <Key>
             <PropertyRef Name="ID_Sklad" />
           </Key>
-          <Property Name="ID_Sklad" Type="Int32" Nullable="false" />
+          <Property Name="ID_Sklad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_SkladZapch" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ID_Shop" Type="Int32" Nullable="false" />
@@ -268,7 +268,7 @@
           <Key>
             <PropertyRef Name="ID_SkladZapch" />
           </Key>
-          <Property Name="ID_SkladZapch" Type="Int32" Nullable="false" />
+          <Property Name="ID_SkladZapch" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_Sklad" Type="Int32" Nullable="false" />
           <Property Name="ID_Zapchast" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Sklad" Relationship="Self.FK_SkladZapch_Sklad" FromRole="SkladZapch" ToRole="Sklad" />
@@ -278,7 +278,7 @@
           <Key>
             <PropertyRef Name="ID_Zapchast" />
           </Key>
-          <Property Name="ID_Zapchast" Type="Int32" Nullable="false" />
+          <Property Name="ID_Zapchast" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Count" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Double" Nullable="false" />
@@ -368,7 +368,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PogEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="PogEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="Order" EntityType="Self.Order" />
           <EntitySet Name="Salon" EntityType="Self.Salon" />
@@ -411,7 +411,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище PogModelContainer" CdmEntityContainer="PogEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PogModelContainer" CdmEntityContainer="PogEntities1">
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="PogModel.Client">
               <MappingFragment StoreEntitySet="Client">

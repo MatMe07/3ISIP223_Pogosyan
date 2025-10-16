@@ -13,10 +13,10 @@ namespace _3ISIP223_Pogosyan2
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PogEntities : DbContext
+    public partial class PogEntities1 : DbContext
     {
-        public PogEntities()
-            : base("name=PogEntities")
+        public PogEntities1()
+            : base("name=PogEntities1")
         {
         }
     
