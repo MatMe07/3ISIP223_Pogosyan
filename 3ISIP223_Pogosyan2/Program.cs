@@ -11,7 +11,10 @@ namespace _3ISIP223_Pogosyan2
 
         static void Main(string[] args)
         {
-            
+            foreach (var arg in Core.context.Client.ToList())
+            {
+                Console.WriteLine(arg.Name);
+            }
         }
     }
 
@@ -25,7 +28,7 @@ namespace _3ISIP223_Pogosyan2
 
         public double GetMoney()
         {
-            return Core.context.Salon
+            return 2.6;
         } 
     }
 

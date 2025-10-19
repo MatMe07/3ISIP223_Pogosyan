@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36221.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3ISIP223_Pogosyan2", "3ISIP223_Pogosyan2\3ISIP223_Pogosyan2.csproj", "{629DD352-FB76-40D1-91AB-2685BD9DF236}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3ISIP223_PogosyanHouse", "3ISIP223_PogosyanHouse\3ISIP223_PogosyanHouse.csproj", "{E404A708-121F-4B8D-8228-CCD18159D9B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{629DD352-FB76-40D1-91AB-2685BD9DF236}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{629DD352-FB76-40D1-91AB-2685BD9DF236}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{629DD352-FB76-40D1-91AB-2685BD9DF236}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E404A708-121F-4B8D-8228-CCD18159D9B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E404A708-121F-4B8D-8228-CCD18159D9B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E404A708-121F-4B8D-8228-CCD18159D9B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E404A708-121F-4B8D-8228-CCD18159D9B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
