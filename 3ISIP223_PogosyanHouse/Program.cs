@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace _3ISIP223_PogosyanHouse
 {
@@ -208,7 +209,7 @@ namespace _3ISIP223_PogosyanHouse
             }
 
         }
-        public void ManageSklad()
+        public void ManageSkladMenu()
         {
             Console.Clear();
             string lineRavno = new string('=', Width);
@@ -231,6 +232,47 @@ namespace _3ISIP223_PogosyanHouse
 
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"[1] Вернуться в главное меню".PadRight(Width - 4)} |");
+            Console.WriteLine(lineRavno);
+            int n = 0;
+            Input("Ваш выбор", out n, 1, 1);
+            switch (n)
+            {
+                case 1:
+                    {
+                        break;
+                    }
+            }
+        }
+        public void BuyZapchastMenu()
+        {
+            Console.Clear();
+            string lineRavno = new string('=', Width);
+            string line = new string('-', Width - 2);
+            Console.WriteLine(lineRavno);
+            Console.WriteLine(CenterText("УПРАВЛЕНИЕ СКЛАДОМ", Width));
+            Console.WriteLine(lineRavno);
+            int col0 = 3;
+            int col1 = (Width - 9) / 2;
+            int col2 = Width / 7;
+            int col3 = Width - col2-1;
+            Console.WriteLine($"| {"№".ToString().PadRight(col0)}| {$"{"Деталь".PadRight(col1)}| {"Цена".PadRight(col2)} | Наличие".PadRight(col3)} |");
+            Console.WriteLine($"|{line}|");
+
+            foreach (var element in db.zapchasts)
+            {
+                Console.WriteLine($"| {element.ID_Zapchast.ToString().PadRight(col0)}| {$"{element.Name.PadRight(col1)}| {element.PokupkaPrice.ToString().PadRight(col2)} | {db.GetZapchastCount(element.ID_Zapchast)}".PadRight(col3)} |");
+            }
+            Console.WriteLine($"|{line}|");
+            Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Баланс:  {db.GetMoney()} руб.".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+            int numZapch = 0;
+            Input("| Введите номер детали для заказа", out numZapch, 1, db.zapchasts.Count());
+            int countZapch = 0;
+            Input("| Введите количество", out countZapch, 1, 30);
+            Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"[1] Подтвердить заказ".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"[0] Вернуться в главное меню".PadRight(Width - 4)} |");
             Console.WriteLine(lineRavno);
             int n = 0;
             Input("Ваш выбор", out n, 1, 1);
@@ -278,11 +320,12 @@ namespace _3ISIP223_PogosyanHouse
                         }
                     case 2:
                         {
-                            ManageSklad();
+                            ManageSkladMenu();
                             break;
                         }
                     case 3:
                         {
+                            BuyZapchastMenu();  
                             break;
                         }
                     case 4:
