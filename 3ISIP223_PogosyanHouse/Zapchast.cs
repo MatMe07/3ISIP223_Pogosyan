@@ -25,7 +25,7 @@ namespace _3ISIP223_PogosyanHouse
         public int ID_Zapchast { get; set; }
         public string Name { get; set; }
         public double PokupkaPrice { get; set; }
-        public int SalePrice { get; set; }
+        public double SalePrice { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClientQueue> ClientQueues { get; set; }

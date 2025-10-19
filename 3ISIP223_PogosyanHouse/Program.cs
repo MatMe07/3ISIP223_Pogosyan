@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
@@ -24,9 +25,17 @@ namespace _3ISIP223_PogosyanHouse
     class WorkingWithDatabase
     {
         public Salon salon;
+        public Order order;
+        public List<ClientQueue> clientQueues;
+        public List<Zapchast> zapchasts;
+        public List<Sklad> sklad;
+
         public WorkingWithDatabase()
         {
             salon = Core.MYSalon.Salons.FirstOrDefault();
+            zapchasts = Core.MYSalon.Zapchasts.ToList();
+            sklad = Core.MYSalon.Sklads.ToList();
+            clientQueues = Core.MYSalon.ClientQueues.OrderBy(s => s.Position).ToList();
 
             if (salon == null)
             {
@@ -34,11 +43,57 @@ namespace _3ISIP223_PogosyanHouse
                 {
                     Name = "MY Salon",
                     Money = 10000,
+                    Nacenka = .3,
+                    PenaltyOtkaz = 500,
+                    PenaltyWrong = 2.0,
+                    CountClients = 0,
+                    SuccessfulRemont = 0,
+                    CountFaild = 0,
+                    CountOtkaz = 0,
                 };
                 Core.MYSalon.Salons.Add(salon);
                 Core.MYSalon.SaveChanges();
             }
 
+            //order = CreateOrderFromQueue(GetNextClient());
+
+        }
+
+        public int GetCountINSkladZapchast() => sklad.Sum(s => s.Count);
+        public int GetCountClientQueue() => clientQueues.Count;
+        public int GetZapchastCount(int id)
+        {
+            var skladIt = sklad.FirstOrDefault(s => s.ID_Zapchast== id);
+            return skladIt == null ? 0 : skladIt.Count;
+        }
+        public bool CheckZapchast(int id)
+        {
+
+            return true;
+        }
+
+        public ClientQueue GetNextClient()
+        {
+            return clientQueues.FirstOrDefault();
+        }
+
+        public Order CreateOrderFromQueue(ClientQueue clientQueue)
+        {
+            //Console.WriteLine()
+            var zapchast = zapchasts.FirstOrDefault(s => s.ID_Zapchast == clientQueue.ID_Zapchast);
+            //Console.WriteLine("hello");
+            if (zapchast == null) return null;
+            //Console.WriteLine($"{clientQueue.ID_Client}, {clientQueue.ID_Zapchast}, {zapchast.SalePrice}, {DateTime.Now}");
+            var order = new Order
+            {
+                ID_Client = clientQueue.ID_Client,
+                ID_Zapchast = clientQueue.ID_Zapchast,
+                Price = zapchast.SalePrice,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
+            };
+
+            return order;
         }
 
         public double GetMoney() => salon.Money;
@@ -47,12 +102,12 @@ namespace _3ISIP223_PogosyanHouse
 
     class Game
     {
-        public WorkingWithDatabase Database { get; set; }
-        public double Money => Database.GetMoney();
+        public WorkingWithDatabase db { get; set; }
+        public double Money => db.GetMoney();
         public int Width { get; private set; } = 60;
         public Game()
         {
-            Database = new WorkingWithDatabase();
+            db = new WorkingWithDatabase();
 
         }
         public string CenterText(string text, int width)
@@ -63,13 +118,14 @@ namespace _3ISIP223_PogosyanHouse
         }
         public void StartMenu()
         {
+            Console.Clear();
             string line = new string('=', Width);
             Console.WriteLine(line);
-            Console.WriteLine(CenterText(Database.GetName(), Width));
+            Console.WriteLine(CenterText(db.GetName(), Width));
             Console.WriteLine(line);
-            Console.WriteLine($"| {$"Текущий баланс:     {Database.GetMoney()}".PadRight(Width - 4)} |");
-            Console.WriteLine($"| {$"Клиентов в очереди: {Database.GetMoney()}".PadRight(Width - 4)} |");
-            Console.WriteLine($"| {$"Состояние склада:   {Database.GetMoney()}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Текущий баланс:     {db.GetMoney()}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Клиентов в очереди: {db.GetCountClientQueue()}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Состояние склада:   {db.GetCountINSkladZapchast()} дет.".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"Доступные действия:".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
@@ -80,6 +136,76 @@ namespace _3ISIP223_PogosyanHouse
             Console.WriteLine($"| {$"[5] Финансовая отчетность".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"[0] Выход из программы".PadRight(Width - 4)} |");
             Console.WriteLine(line);
+        }
+        public void ServiceMenu()
+        {
+            Console.Clear();
+
+            string line = new string('=', Width);
+            Console.WriteLine(line);
+            Console.WriteLine(CenterText("ОБСЛУЖИВАНИЕ КЛИЕНТА", Width));
+            Console.WriteLine(line);
+            var nextClient = db.GetNextClient();
+            //if (nextClient != null)
+            //{
+            var order = db.CreateOrderFromQueue(nextClient);
+            bool hasZapchast = db.CheckZapchast(order.ID_Zapchast);
+            int zapchastCount = db.GetZapchastCount(order.ID_Zapchast);
+            //}
+            
+            Console.WriteLine($"| {$"Клиент:            {nextClient.Client.Name}".PadRight(Width - 4)} |");
+            //}
+            Console.WriteLine($"| {$"Требуемая деталь:  {nextClient.Zapchast.Name}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Стоимость ремонта: {order.Price} руб.".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+            if (hasZapchast)
+            {
+                Console.WriteLine($"| {$"Статус детали:     В НАЛИЧИИ ({zapchastCount} шт.)".PadRight(Width - 4)} |");
+                Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+                Console.WriteLine($"| {$"Варианты действий:".PadRight(Width - 4)} |");
+                Console.WriteLine($"| {$"[1] Выполнить ремонт".PadRight(Width - 4)} |");
+            }
+            else { 
+
+                Console.WriteLine($"| {$"Статус детали:     ОТСУТСТВУЕТ НА СКЛАДЕ".PadRight(Width - 4)} |");
+                Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+                Console.WriteLine($"| {$"Варианты действий:".PadRight(Width - 4)} |");
+                Console.WriteLine($"| {$"[1] Заказать деталь и принять заказ (риск)".PadRight(Width - 4)} |");
+            }
+            Console.WriteLine($"| {$"[2] Отказать в обслуживании".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"[3] Вернуться в главное меню".PadRight(Width - 4)} |");
+            Console.WriteLine(line);
+
+            int n = 0;
+            Input("Ваш выбор", out n, 1, 3);
+            switch (n)
+            {
+                case 1:
+                    {
+                        if (hasZapchast)
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                            break;
+                    }
+                case 2:
+                    {
+                        break;
+                    }
+                case 3:
+                    {
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+
         }
 
         public void Input(string text, out int n, int start, int end)
@@ -103,7 +229,6 @@ namespace _3ISIP223_PogosyanHouse
             int n = 0;
             while (true)
             {
-                Console.Clear();
                 StartMenu();
                 Input("Выберите действие", out n, 0, 5);
                 switch (n)
@@ -114,6 +239,7 @@ namespace _3ISIP223_PogosyanHouse
                         }
                     case 1:
                         {
+                            ServiceMenu();  
                             break;
                         }
                     case 2:
