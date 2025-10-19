@@ -284,6 +284,27 @@ namespace _3ISIP223_PogosyanHouse
                     }
             }
         }
+        public void StatisticMenu()
+        {
+            Console.Clear();
+            string line = new string('=', Width);
+            Console.WriteLine(line);
+            Console.WriteLine(CenterText("СТАТИСТИКА", Width));
+            Console.WriteLine(line);
+            Console.WriteLine($"| {$"Общие показатели:".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"- Всего клиентов:          {db.GetCountClientQueue()}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"- Успешных ремонтов:       {db.GetCountClientQueue()}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"- Отказов:                 {db.GetCountClientQueue()}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"- Неудачных ремонтов:      {db.GetCountClientQueue()}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Финансовые показатели:".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"- Общий доход:             {db.GetCountClientQueue()} руб.".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"- Общие расходы:           {db.GetCountClientQueue()} руб.".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"- Чистая прибыль:          {db.GetCountClientQueue()} руб.".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"[1] Вернуться в главное меню".PadRight(Width - 4)} |");
+            Console.WriteLine(line);
+        }
         public void Input(string text, out int n, int start, int end)
         {
             while (true)
@@ -330,6 +351,7 @@ namespace _3ISIP223_PogosyanHouse
                         }
                     case 4:
                         {
+                            StatisticMenu();
                             break;
                         }
                     case 5:
