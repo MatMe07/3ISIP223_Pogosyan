@@ -26,14 +26,11 @@ namespace _3ISIP223_PogosyanHouse
         }
     
         public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<ClientQueue> ClientQueues { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public virtual DbSet<Salon> Salons { get; set; }
-        public virtual DbSet<Shop> Shops { get; set; }
-        public virtual DbSet<ShopZapchast> ShopZapchasts { get; set; }
         public virtual DbSet<Sklad> Sklads { get; set; }
-        public virtual DbSet<SkladZapch> SkladZapches { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<Zapchast> Zapchasts { get; set; }
     }
 }

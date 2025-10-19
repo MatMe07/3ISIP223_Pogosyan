@@ -12,12 +12,12 @@ namespace _3ISIP223_PogosyanHouse
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class Transaction
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int ID_Transaction { get; set; }
+        public string TypeOperations { get; set; }
+        public string Summa { get; set; }
+        public string Description { get; set; }
+        public System.DateTime Date { get; set; }
     }
 }

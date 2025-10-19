@@ -17,15 +17,21 @@ namespace _3ISIP223_PogosyanHouse
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Zapchast()
         {
-            this.SkladZapches = new HashSet<SkladZapch>();
+            this.ClientQueues = new HashSet<ClientQueue>();
+            this.Orders = new HashSet<Order>();
+            this.Sklads = new HashSet<Sklad>();
         }
     
         public int ID_Zapchast { get; set; }
         public string Name { get; set; }
-        public int Count { get; set; }
-        public double Price { get; set; }
+        public double PokupkaPrice { get; set; }
+        public int SalePrice { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SkladZapch> SkladZapches { get; set; }
+        public virtual ICollection<ClientQueue> ClientQueues { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sklad> Sklads { get; set; }
     }
 }

@@ -16,11 +16,13 @@ namespace _3ISIP223_PogosyanHouse
     {
         public int ID_Salon { get; set; }
         public string Name { get; set; }
-        public int ID_Sklad { get; set; }
         public double Money { get; set; }
-        public int ID_Order { get; set; }
-    
-        public virtual Order Order { get; set; }
-        public virtual Sklad Sklad { get; set; }
+        public double Nacenka { get; set; }
+        public double PenaltyOtkaz { get; set; }
+        public double PenaltyWrong { get; set; }
+        public int CountClients { get; set; }
+        public int SuccessfulRemont { get; set; }
+        public int CountOtkaz { get; set; }
+        public int CountFaild { get; set; }
     }
 }

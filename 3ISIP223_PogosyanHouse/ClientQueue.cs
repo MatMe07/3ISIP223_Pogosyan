@@ -12,19 +12,14 @@ namespace _3ISIP223_PogosyanHouse
     using System;
     using System.Collections.Generic;
     
-    public partial class Shop
+    public partial class ClientQueue
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Shop()
-        {
-            this.Sklads = new HashSet<Sklad>();
-        }
+        public int ID_ClientQueue { get; set; }
+        public int ID_Client { get; set; }
+        public int ID_Zapchast { get; set; }
+        public int Position { get; set; }
     
-        public int ID_Shop { get; set; }
-        public int ID_ShopZapchast { get; set; }
-    
-        public virtual ShopZapchast ShopZapchast { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sklad> Sklads { get; set; }
+        public virtual Client Client { get; set; }
+        public virtual Zapchast Zapchast { get; set; }
     }
 }

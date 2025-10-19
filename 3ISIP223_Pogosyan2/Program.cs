@@ -11,7 +11,8 @@ namespace _3ISIP223_Pogosyan2
 
         static void Main(string[] args)
         {
-            foreach (var arg in Core.context.Client.ToList())
+            List<Client> cl = Core.context.Client.ToList();
+            foreach (var arg in cl)
             {
                 Console.WriteLine(arg.Name);
             }
