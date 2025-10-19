@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="51b455a273ab48e39e039eaeb07a720d" Name="Diagram1">
+        <EntityTypeShape EntityType="SalonModel.Client" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalonModel.Order" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalonModel.PurchaseOrder" Width="1.5" PointX="7.5" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalonModel.Salon" Width="1.5" PointX="7.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalonModel.Shop" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalonModel.ShopZapchast" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalonModel.Sklad" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalonModel.SkladZapch" Width="1.5" PointX="10.5" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalonModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalonModel.Zapchast" Width="1.5" PointX="8.25" PointY="13.375" IsExpanded="true" />
+        <AssociationConnector Association="SalonModel.FK_Order_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="SalonModel.FK_Salon_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="SalonModel.FK__PurchaseO__ID_Sh__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="SalonModel.FK__PurchaseO__ID_Sk__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="SalonModel.FK_Salon_Sklad" ManuallyRouted="false" />
+        <AssociationConnector Association="SalonModel.FK_Shop_ShopZapchast" ManuallyRouted="false" />
+        <AssociationConnector Association="SalonModel.FK_Sklad_Shop1" ManuallyRouted="false" />
+        <AssociationConnector Association="SalonModel.FK_SkladZapch_Sklad1" ManuallyRouted="false" />
+        <AssociationConnector Association="SalonModel.FK_SkladZapch_Zapchast" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
