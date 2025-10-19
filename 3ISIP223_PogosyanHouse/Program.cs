@@ -60,6 +60,7 @@ namespace _3ISIP223_PogosyanHouse
         }
 
         public int GetCountINSkladZapchast() => sklad.Sum(s => s.Count);
+        public int GetCountINZapchastDelivery() => sklad.Sum(s => s.InDelivery);
         public int GetCountClientQueue() => clientQueues.Count;
         public int GetZapchastCount(int id)
         {
@@ -207,7 +208,40 @@ namespace _3ISIP223_PogosyanHouse
             }
 
         }
+        public void ManageSklad()
+        {
+            Console.Clear();
+            string lineRavno = new string('=', Width);
+            string line = new string('-', Width-2);
+            Console.WriteLine(lineRavno);
+            Console.WriteLine(CenterText("УПРАВЛЕНИЕ СКЛАДОМ", Width));
+            Console.WriteLine(lineRavno);
+            int col1 = (Width - 6) / 2;
+            int col2 = Width / 6;
+            int col3 = Width -4;
+            Console.WriteLine($"| {$"{"Деталь".PadRight(col1)}| {"Наличие".PadRight(col2)} | В доставке".PadRight(col3)} |");
+            Console.WriteLine($"|{line}|");
+            foreach( var element in db.sklad)
+            {
+                Console.WriteLine($"| {$"{element.Zapchast.Name.PadRight(col1)}| {element.Count.ToString().PadRight(col2)} | {(element.InDelivery == 0 ? "-" : element.InDelivery.ToString())}".PadRight(col3)} |");
+            }
+            Console.WriteLine($"|{line}|");
+            Console.WriteLine($"| {$"Итого на складе: {db.GetCountINSkladZapchast()} дет.".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Ожидается поставок: {db.GetCountINZapchastDelivery()} дет.".PadRight(Width - 4)} |");
 
+            Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"[1] Вернуться в главное меню".PadRight(Width - 4)} |");
+            Console.WriteLine(lineRavno);
+            int n = 0;
+            Input("Ваш выбор", out n, 1, 1);
+            switch (n)
+            {
+                case 1:
+                    {
+                        break;
+                    }
+            }
+        }
         public void Input(string text, out int n, int start, int end)
         {
             while (true)
@@ -244,6 +278,7 @@ namespace _3ISIP223_PogosyanHouse
                         }
                     case 2:
                         {
+                            ManageSklad();
                             break;
                         }
                     case 3:
@@ -264,7 +299,7 @@ namespace _3ISIP223_PogosyanHouse
                             break;
                         }
                 }
-                Console.WriteLine("Нажмите Enter для продолжения...");
+                Console.WriteLine("\nНажмите Enter для продолжения...");
                 Console.ReadLine();
 
             }
