@@ -132,10 +132,11 @@ namespace _3ISIP223_PogosyanHouse
             Console.WriteLine($"| {$"Доступные действия:".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"[1] Обслужить следующего клиента".PadRight(Width - 4)} |");
-            Console.WriteLine($"| {$"[2] Управление складом".PadRight(Width - 4)} |");
-            Console.WriteLine($"| {$"[3] Закупка запчастей".PadRight(Width - 4)} |");
-            Console.WriteLine($"| {$"[4] Просмотр статистики".PadRight(Width - 4)} |");
-            Console.WriteLine($"| {$"[5] Финансовая отчетность".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"[2] Список ожидающих клиентов".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"[3] Управление складом".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"[4] Закупка запчастей".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"[5] Просмотр статистики".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"[6] Финансовая отчетность".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"[0] Выход из программы".PadRight(Width - 4)} |");
             Console.WriteLine(line);
         }
@@ -346,15 +347,20 @@ namespace _3ISIP223_PogosyanHouse
                         }
                     case 3:
                         {
-                            BuyZapchastMenu();  
+                            ManageSkladMenu();
                             break;
                         }
                     case 4:
                         {
-                            StatisticMenu();
+                            BuyZapchastMenu();  
                             break;
                         }
                     case 5:
+                        {
+                            StatisticMenu();
+                            break;
+                        }
+                    case 6:
                         {
                             break;
                         }
