@@ -24,5 +24,6 @@ namespace _3ISIP223_PogosyanHouse
         public int SuccessfulRemont { get; set; }
         public int CountOtkaz { get; set; }
         public int CountFaild { get; set; }
+        public System.DateTime StartDate { get; set; }
     }
 }

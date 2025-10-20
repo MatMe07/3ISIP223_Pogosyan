@@ -46,6 +46,7 @@
           <Property Name="SuccessfulRemont" Type="int" Nullable="false" />
           <Property Name="CountOtkaz" Type="int" Nullable="false" />
           <Property Name="CountFaild" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Sklad">
           <Key>
@@ -74,7 +75,7 @@
           <Property Name="ID_Zapchast" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="PokupkaPrice" Type="float" Nullable="false" />
-          <Property Name="SalePrice" Type="float" />
+          <Property Name="SalePrice" Type="float" Nullable="false" />
         </EntityType>
         <Association Name="FK_ClientQueue_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
@@ -216,6 +217,7 @@
           <Property Name="SuccessfulRemont" Type="Int32" Nullable="false" />
           <Property Name="CountOtkaz" Type="Int32" Nullable="false" />
           <Property Name="CountFaild" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="Sklad">
           <Key>
@@ -245,10 +247,10 @@
           <Property Name="ID_Zapchast" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PokupkaPrice" Type="Double" Nullable="false" />
-          <Property Name="SalePrice" Type="Double" />
           <NavigationProperty Name="ClientQueues" Relationship="Self.FK_ClientQueue_Zapchast" FromRole="Zapchast" ToRole="ClientQueue" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Zapchast" FromRole="Zapchast" ToRole="Order" />
           <NavigationProperty Name="Sklads" Relationship="Self.FK_Sklad_Zapchast" FromRole="Zapchast" ToRole="Sklad" />
+          <Property Name="SalePrice" Type="Double" Nullable="false" />
         </EntityType>
         <Association Name="FK_ClientQueue_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
@@ -378,6 +380,7 @@
           <EntitySetMapping Name="Salons">
             <EntityTypeMapping TypeName="SalonModel.Salon">
               <MappingFragment StoreEntitySet="Salon">
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="ID_Salon" ColumnName="ID_Salon" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Money" ColumnName="Money" />
@@ -416,10 +419,10 @@
           <EntitySetMapping Name="Zapchasts">
             <EntityTypeMapping TypeName="SalonModel.Zapchast">
               <MappingFragment StoreEntitySet="Zapchast">
+                <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
                 <ScalarProperty Name="ID_Zapchast" ColumnName="ID_Zapchast" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="PokupkaPrice" ColumnName="PokupkaPrice" />
-                <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -30,6 +30,7 @@ namespace _3ISIP223_PogosyanHouse
         public List<ClientQueue> clientQueues;
         public List<Zapchast> zapchasts;
         public List<Sklad> sklad;
+        public List<Transaction> transactions;
 
         public WorkingWithDatabase()
         {
@@ -37,6 +38,7 @@ namespace _3ISIP223_PogosyanHouse
             zapchasts = Core.MYSalon.Zapchasts.ToList();
             sklad = Core.MYSalon.Sklads.ToList();
             clientQueues = Core.MYSalon.ClientQueues.OrderBy(s => s.Position).ToList();
+            transactions = Core.MYSalon.Transactions.ToList();
 
             if (salon == null)
             {
@@ -51,6 +53,7 @@ namespace _3ISIP223_PogosyanHouse
                     SuccessfulRemont = 0,
                     CountFaild = 0,
                     CountOtkaz = 0,
+                    StartDate = DateTime.Now,
                 };
                 Core.MYSalon.Salons.Add(salon);
                 Core.MYSalon.SaveChanges();
@@ -114,8 +117,8 @@ namespace _3ISIP223_PogosyanHouse
         }
         public string CenterText(string text, int width)
         {
-            int left = (Width - text.Length - 2) / 2;
-            int right = Width - text.Length - left - 2;
+            int left = (width - text.Length - 2) / 2;
+            int right = width - text.Length - left - 2;
             return $"|{new string(' ', left)}{text}{new string(' ', right)}|";
         }
         public void StartMenu()
@@ -244,7 +247,7 @@ namespace _3ISIP223_PogosyanHouse
                     }
             }
         }
-        public void BuyZapchastMenu()
+        public void BuyZapchastMenu(int idZapchast = -1)
         {
             Console.Clear();
             string lineRavno = new string('=', Width);
@@ -255,7 +258,7 @@ namespace _3ISIP223_PogosyanHouse
             int col0 = 3;
             int col1 = (Width - 9) / 2;
             int col2 = Width / 7;
-            int col3 = Width - col2-1;
+            int col3 = Width - col2 - 1;
             Console.WriteLine($"| {"№".ToString().PadRight(col0)}| {$"{"Деталь".PadRight(col1)}| {"Цена".PadRight(col2)} | Наличие".PadRight(col3)} |");
             Console.WriteLine($"|{line}|");
 
@@ -268,7 +271,15 @@ namespace _3ISIP223_PogosyanHouse
             Console.WriteLine($"| {$"Баланс:  {db.GetMoney()} руб.".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
             int numZapch = 0;
-            Input("| Введите номер детали для заказа", out numZapch, 1, db.zapchasts.Count());
+            if (idZapchast == -1)
+            {
+                Input("| Введите номер детали для заказа", out numZapch, 1, db.zapchasts.Count());
+            }
+            else
+            {
+
+            Console.WriteLine($"| Введите номер детали для заказа: {idZapchast.ToString().PadRight(Width - 4)} |");
+            }
             int countZapch = 0;
             Input("| Введите количество", out countZapch, 1, 30);
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
@@ -276,10 +287,14 @@ namespace _3ISIP223_PogosyanHouse
             Console.WriteLine($"| {$"[0] Вернуться в главное меню".PadRight(Width - 4)} |");
             Console.WriteLine(lineRavno);
             int n = 0;
-            Input("Ваш выбор", out n, 1, 1);
+            Input("Ваш выбор", out n, 0, 1);
             switch (n)
             {
                 case 1:
+                    {
+                        break;
+                    }
+                default:
                     {
                         break;
                     }
@@ -306,6 +321,144 @@ namespace _3ISIP223_PogosyanHouse
             Console.WriteLine($"| {$"[1] Вернуться в главное меню".PadRight(Width - 4)} |");
             Console.WriteLine(line);
         }
+
+        public void InfoClient(int id)
+        {
+            Console.Clear();
+            string lineRavno = new string('=', Width);
+            string line = new string('-', Width - 2);
+            var client = db.clientQueues.First(s => s.ID_ClientQueue == id);
+            Console.WriteLine(lineRavno);
+            Console.WriteLine(CenterText("ПОДРОБНАЯ ИНФОРМАЦИЯ О КЛИЕНТЕ", Width));
+            Console.WriteLine(lineRavno);
+            Console.WriteLine($"| {$"Клиент:            {client.Client.Name}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Позиция в очереди: {client.Position}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Требуемая деталь:  {client.Zapchast.Name}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Стоимость ремонта: {client.Zapchast.SalePrice} руб.".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Цена закупки:      {client.Zapchast.PokupkaPrice} руб.".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Наценка:           {client.Zapchast.SalePrice - client.Zapchast.PokupkaPrice} руб.".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+            int countZapchast = db.GetZapchastCount(client.ID_Zapchast);
+            Console.WriteLine($"| {$"Наличие на складе: {countZapchast}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Статус доставки:   {  (countZapchast == 0 ? "Требуется" : "Не требуется") }".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Действия:".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"[1] Вернуться в главное меню".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"[2] Перейти к закупке этой детали".PadRight(Width - 4)} |");
+            Console.WriteLine(lineRavno);
+            int n = 0;
+            Input("Ваш выбор", out n, 1, 2);
+            switch (n)
+            {
+                default:
+                    {
+                        break;
+                    }
+                case 2:
+                    {
+                        BuyZapchastMenu(client.ID_Zapchast);
+                        break;
+                    }
+            }
+        }
+
+        public void ListClientQueueMenu()
+        {
+            Console.Clear();
+            string lineRavno = new string('=', Width);
+            string line = new string('-', Width - 2);
+            Console.WriteLine(lineRavno);
+            Console.WriteLine(CenterText("ОЧЕРЕДЬ ОЖИДАЮЩИХ КЛИЕНТОВ", Width));
+            Console.WriteLine(lineRavno);
+            int col1 = 4;
+            int col2 = (Width - 4) / 3;
+            int col3 = Width - 4;
+            Console.WriteLine($"| {$"{"Поз.".PadRight(col1)}| {"Клиент".PadRight(col2)} | Деталь".PadRight(col3)} |");
+            Console.WriteLine($"|{line}|");
+            int i = 1;
+            foreach (var element in db.clientQueues)
+            {
+                Console.WriteLine($"| {$"{i++.ToString().PadRight(col1)}| {element.Client.Name.ToString().PadRight(col2)} | {element.Zapchast.Name}".PadRight(col3)} |");
+            }
+            Console.WriteLine($"|{line}|");
+            Console.WriteLine($"| {$"Всего в очереди: {db.GetCountClientQueue()} кл.".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+            for (int k = 1; k < i; k++)
+            {
+                
+                Console.WriteLine($"| {$"[{k}] Подробнее о клиенте {k}".PadRight(Width - 4)} |");
+            }
+            Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"[0] Вернуться в главное меню".PadRight(Width - 4)} |");
+            Console.WriteLine(lineRavno);
+            int n = 0;
+            Input("Ваш выбор", out n, 0, i);
+            switch (n)
+            {
+                case 0:
+                    {
+                        break;
+                    }
+                default:
+                    {
+                        InfoClient(n);
+                        break;
+                    }
+            }
+        }
+
+        public void TransactionInfo()
+        {
+            Console.Clear();
+            int TransactWidth = Width + 20;
+            string lineRavno = new string('=', TransactWidth);
+            string line = new string('-', TransactWidth - 2);
+            Console.WriteLine(lineRavno);
+            Console.WriteLine(CenterText("ФИНАНСОВАЯ ОТЧЕТНОСТЬ", TransactWidth));
+            Console.WriteLine(lineRavno);
+            int col0 = 11;
+            int col1 = (TransactWidth - 4) / 3;
+            int col2 = (TransactWidth) / 9;
+            int col3 = TransactWidth - col0 - 6;
+            Console.WriteLine($"| {"Дата".ToString().PadRight(col0)}| {$"{"Тип операции".PadRight(col1)}| {"Сумма".PadRight(col2)} | Описание".PadRight(col3)} |");
+            Console.WriteLine($"|{line}|");
+
+            //double dox
+
+            if (db.transactions.Count > 0)
+            { 
+                foreach (var element in db.transactions)
+                {
+                    Console.WriteLine($"| {element.Date.ToString("dd.MM.yyyy").PadRight(col0)}| {$"{element.TypeOperations.PadRight(col1)}| {element.Summa.ToString().PadRight(col2)} | {element.Description}".PadRight(col3)} |");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"| {DateTime.Now.ToString("dd.MM.yyyy").PadRight(col0)}| {$"{"Стартовый капитал".PadRight(col1)}| {"+10000".PadRight(col2)} | Начало работы".PadRight(col3)} |");
+
+            }
+
+            Console.WriteLine($"|{line}|");
+            Console.WriteLine($"| {$" ".PadRight(TransactWidth - 4)} |");
+            Console.WriteLine($"| {$"Баланс:  {db.GetMoney()} руб.".PadRight(TransactWidth - 4)} |");
+            Console.WriteLine($"| {$" ".PadRight(TransactWidth - 4)} |");
+            Console.WriteLine($"| {$"[1] Подтвердить заказ".PadRight(TransactWidth - 4)} |");
+            Console.WriteLine($"| {$"[0] Вернуться в главное меню".PadRight(TransactWidth - 4)} |");
+            Console.WriteLine(lineRavno);
+            int n = 0;
+            Input("Ваш выбор", out n, 0, 1);
+            switch (n)
+            {
+                case 1:
+                    {
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+        }
         public void Input(string text, out int n, int start, int end)
         {
             while (true)
@@ -328,7 +481,7 @@ namespace _3ISIP223_PogosyanHouse
             while (true)
             {
                 StartMenu();
-                Input("Выберите действие", out n, 0, 5);
+                Input("Выберите действие", out n, 0, 6);
                 switch (n)
                 {
                     case 0:
@@ -342,7 +495,7 @@ namespace _3ISIP223_PogosyanHouse
                         }
                     case 2:
                         {
-                            ManageSkladMenu();
+                            ListClientQueueMenu();
                             break;
                         }
                     case 3:
@@ -362,6 +515,7 @@ namespace _3ISIP223_PogosyanHouse
                         }
                     case 6:
                         {
+                            TransactionInfo();
                             break;
                         }
                     default:
