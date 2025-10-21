@@ -14,20 +14,16 @@ namespace _3ISIP223_Pogosyan2
     
     public partial class Salon
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Salon()
-        {
-            this.Order = new HashSet<Order>();
-        }
-    
-        public int ID { get; set; }
+        public int ID_Salon { get; set; }
         public string Name { get; set; }
-        public int ID_Sklad { get; set; }
         public double Money { get; set; }
-        public int ID_Order { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Order { get; set; }
-        public virtual Sklad Sklad { get; set; }
+        public double Nacenka { get; set; }
+        public double PenaltyOtkaz { get; set; }
+        public double PenaltyWrong { get; set; }
+        public int CountClients { get; set; }
+        public int SuccessfulRemont { get; set; }
+        public int CountOtkaz { get; set; }
+        public int CountFaild { get; set; }
+        public System.DateTime StartDate { get; set; }
     }
 }

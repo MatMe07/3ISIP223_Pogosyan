@@ -13,10 +13,10 @@ namespace _3ISIP223_Pogosyan2
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PogEntities1 : DbContext
+    public partial class SalonEntities : DbContext
     {
-        public PogEntities1()
-            : base("name=PogEntities1")
+        public SalonEntities()
+            : base("name=SalonEntities")
         {
         }
     
@@ -25,13 +25,12 @@ namespace _3ISIP223_Pogosyan2
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Client> Client { get; set; }
-        public virtual DbSet<Order> Order { get; set; }
-        public virtual DbSet<Salon> Salon { get; set; }
-        public virtual DbSet<Shop> Shop { get; set; }
-        public virtual DbSet<ShopZapchast> ShopZapchast { get; set; }
-        public virtual DbSet<Sklad> Sklad { get; set; }
-        public virtual DbSet<SkladZapch> SkladZapch { get; set; }
-        public virtual DbSet<Zapchast> Zapchast { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<ClientQueue> ClientQueues { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Salon> Salons { get; set; }
+        public virtual DbSet<Sklad> Sklads { get; set; }
+        public virtual DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<Zapchast> Zapchasts { get; set; }
     }
 }

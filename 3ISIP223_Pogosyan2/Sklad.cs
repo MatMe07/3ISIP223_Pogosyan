@@ -14,22 +14,12 @@ namespace _3ISIP223_Pogosyan2
     
     public partial class Sklad
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Sklad()
-        {
-            this.Salon = new HashSet<Salon>();
-            this.SkladZapch = new HashSet<SkladZapch>();
-        }
-    
         public int ID_Sklad { get; set; }
-        public int ID_SkladZapch { get; set; }
-        public string Name { get; set; }
-        public int ID_Shop { get; set; }
+        public int ID_Zapchast { get; set; }
+        public int Count { get; set; }
+        public int InDelivery { get; set; }
+        public int DeliveryProgress { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Salon> Salon { get; set; }
-        public virtual Shop Shop { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SkladZapch> SkladZapch { get; set; }
+        public virtual Zapchast Zapchast { get; set; }
     }
 }

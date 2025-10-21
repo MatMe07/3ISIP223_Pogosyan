@@ -12,19 +12,12 @@ namespace _3ISIP223_Pogosyan2
     using System;
     using System.Collections.Generic;
     
-    public partial class Shop
+    public partial class Transaction
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Shop()
-        {
-            this.Sklad = new HashSet<Sklad>();
-        }
-    
-        public int ID_Shop { get; set; }
-        public int ID_ShopZapchast { get; set; }
-    
-        public virtual ShopZapchast ShopZapchast { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sklad> Sklad { get; set; }
+        public int ID_Transaction { get; set; }
+        public string TypeOperations { get; set; }
+        public string Summa { get; set; }
+        public string Description { get; set; }
+        public System.DateTime Date { get; set; }
     }
 }

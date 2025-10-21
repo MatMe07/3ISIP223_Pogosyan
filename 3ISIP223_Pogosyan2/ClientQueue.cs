@@ -12,20 +12,14 @@ namespace _3ISIP223_Pogosyan2
     using System;
     using System.Collections.Generic;
     
-    public partial class ShopZapchast
+    public partial class ClientQueue
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ShopZapchast()
-        {
-            this.Shop = new HashSet<Shop>();
-        }
+        public int ID_ClientQueue { get; set; }
+        public int ID_Client { get; set; }
+        public int ID_Zapchast { get; set; }
+        public int Position { get; set; }
     
-        public int ID_ShopZapchast { get; set; }
-        public string Name { get; set; }
-        public double Price { get; set; }
-        public int Count { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Shop> Shop { get; set; }
+        public virtual Client Client { get; set; }
+        public virtual Zapchast Zapchast { get; set; }
     }
 }

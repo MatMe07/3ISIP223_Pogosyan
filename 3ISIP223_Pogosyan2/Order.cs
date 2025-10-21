@@ -16,11 +16,12 @@ namespace _3ISIP223_Pogosyan2
     {
         public int ID_Order { get; set; }
         public int ID_Client { get; set; }
-        public int ID_Salon { get; set; }
-        public double price { get; set; }
-        public string probliem { get; set; }
+        public int ID_Zapchast { get; set; }
+        public double Price { get; set; }
+        public System.DateTime StartDate { get; set; }
+        public System.DateTime EndDate { get; set; }
     
         public virtual Client Client { get; set; }
-        public virtual Salon Salon { get; set; }
+        public virtual Zapchast Zapchast { get; set; }
     }
 }

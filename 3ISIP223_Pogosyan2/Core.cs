@@ -8,6 +8,6 @@ namespace _3ISIP223_Pogosyan2
 {
     internal class Core
     {
-        public static PogEntities1 context = new PogEntities1();
+        public static SalonEntities MYSalon = new SalonEntities();
     }
 }
