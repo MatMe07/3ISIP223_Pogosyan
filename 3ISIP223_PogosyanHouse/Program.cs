@@ -71,7 +71,45 @@ namespace _3ISIP223_PogosyanHouse
         public int GetCountClientQueue() => clientQueues.Count;
         public int GetTotalClient() => salon.CountClients;
 
+        public void BuyZapchast(int id, int countZapchast)
+        {
+            var zapchast = zapchasts.First(s => s.ID_Zapchast == id);
+            var skladZapchast = sklad.FirstOrDefault(s => s.ID_Zapchast == id);
+            if (skladZapchast == null)
+            {
+                Sklad zapch = new Sklad
+                {
+                    ID_Zapchast = id,
+                    Count = 0,
+                    InDelivery = countZapchast,
+                    DeliveryProgress = 2,
+                };
+                Core.MYSalon.Sklads.Add(zapch);
+                Core.MYSalon.SaveChanges();
+            }
+            else
+            {
+                Core.MYSalon.Sklads.First(s=>s.ID_Zapchast == id).DeliveryProgress = 2;
+                Core.MYSalon.SaveChanges();
+            }
+        }
+        public void ChangeDeliveryProgress()
+        {
+            foreach(var sklad in Core.MYSalon.Sklads.ToList())
+            {
+                if (sklad.DeliveryProgress>0) sklad.DeliveryProgress--;
+                if (sklad.DeliveryProgress == 0) 
+                {
+                    sklad.Count = sklad.InDelivery;
+                    sklad.InDelivery = 0;
+                }
+
+            }
+            Core.MYSalon.SaveChanges();
+        }
+
         public double GetPenaltyOtkaz() => salon.PenaltyOtkaz;
+        public double GetFailWrong() => salon.PenaltyWrong;
         public int GetTotalSuccesfulRemont() => salon.SuccessfulRemont;
         public int GetTotalCountOtkaz() => salon.CountOtkaz;
         public int GetTotalCountFaild() => salon.CountFaild;
@@ -228,10 +266,7 @@ namespace _3ISIP223_PogosyanHouse
                     }
                 case 2:
                     {
-                        break;
-                    }
-                case 3:
-                    {
+                        OtkazRemont(nextClient.ID_Client);
                         break;
                     }
                 default:
@@ -264,6 +299,7 @@ namespace _3ISIP223_PogosyanHouse
 
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"[1] Вернуться в главное меню".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"[2] Прогресс доставки".PadRight(Width - 4)} |");
             Console.WriteLine(lineRavno);
             int n = 0;
             Input("Ваш выбор", out n, 1, 1);
@@ -271,6 +307,11 @@ namespace _3ISIP223_PogosyanHouse
             {
                 case 1:
                     {
+                        break;
+                    }
+                case 2:
+                    {
+                        DeliveryZapchast();
                         break;
                     }
             }
@@ -533,7 +574,7 @@ namespace _3ISIP223_PogosyanHouse
             Console.WriteLine(lineRavno);
             Console.WriteLine(CenterText("ОПЕРАЦИЯ УСПЕШНА", Width));
             Console.WriteLine(lineRavno);
-            Console.WriteLine($"| {$"Клиент:            {client.Client.Name}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Клиент: {client.Client.Name}".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"Деталь: {zapchast.Name}".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"Получено: {zapchast.SalePrice} руб.".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"Остаток на складе: {db.GetZapchastCount(zapchast.ID_Zapchast)} шт.".PadRight(Width - 4)} |");
@@ -558,7 +599,7 @@ namespace _3ISIP223_PogosyanHouse
             Console.WriteLine(lineRavno);
             Console.WriteLine(CenterText("ОТКАЗ В ОБСЛУЖИВАНИИ", Width));
             Console.WriteLine(lineRavno);
-            Console.WriteLine($"| {$"Клиент:            {client.Client.Name}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Клиент: {client.Client.Name}".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"Деталь: {zapchast.Name}".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"Штраф: {db.GetPenaltyOtkaz()} руб.".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"Текущий баланс: {db.GetMoney()} шт.".PadRight(Width - 4)} |");
@@ -568,30 +609,84 @@ namespace _3ISIP223_PogosyanHouse
             Console.WriteLine(lineRavno);
             Console.ReadLine();
         }
-        public void DeliveryZapchast(int id)
+        public void FaildRemont(int id)
         {
             Console.Clear();
             string lineRavno = new string('-', Width);
-            //var client = db.clientQueues.First(s => s.ID_ClientQueue == id);
-            var zapchast = db.zapchasts.First(s => s.ID_Zapchast == id);
-            //db.AddTransaction(
-            //    "Штраф",
-            //    $"-{db.GetPenaltyOtkaz()}",
-            //    $"Отказ: {client.Client.Name}"
-            //    );
-            //db.ChangeMoney(-db.GetPenaltyOtkaz());
+            var client = db.clientQueues.First(s => s.ID_ClientQueue == id);
+            var zapchast = client.Zapchast;
+            db.AddTransaction(
+                "Штраф",
+                $"-{db.GetPenaltyOtkaz()}",
+                $"Ошибка: {client.Client.Name}"
+                );
+            db.ChangeMoney(-db.GetFailWrong());
             Console.WriteLine(lineRavno);
-            Console.WriteLine(CenterText("ПОСТУПЛЕНИЕ ПОСТАВКИ", Width));
+            Console.WriteLine(CenterText("НЕУДАЧНЫЙ РЕМОНТ", Width));
             Console.WriteLine(lineRavno);
-            Console.WriteLine($"| {$"Получены детали:".PadRight(Width - 4)} |");
-            //foreach (var )
-            //Console.WriteLine($"| {$"> {}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Клиент: {client.Client.Name}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Ошибка: установлена неверная деталь".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Штраф: {db.GetFailWrong()} руб.".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Текущий баланс: {db.GetMoney()} шт.".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"Для продолжения нажмите Enter...".PadRight(Width - 4)} |");
             Console.WriteLine(lineRavno);
             Console.ReadLine();
         }
+        public void DeliveryZapchast()
+        {
+            Console.Clear();
+            string lineRavno = new string('-', Width);
+            //var client = db.clientQueues.First(s => s.ID_ClientQueue == id);
+            Console.WriteLine(lineRavno);
+            Console.WriteLine(CenterText("ОБНОВЛЕНИЕ ДОСТАВКИ", Width));
+            Console.WriteLine(lineRavno);
+            Console.WriteLine($"| {$"Статус поставки изменен:".PadRight(Width - 4)} |");
+            foreach (var zapch in db.sklad)
+            {
+                Console.WriteLine($"| {$"> {zapch.Zapchast.Name} ({zapch.InDelivery} шт.) - через {zapch.DeliveryProgress} клиента".PadRight(Width - 4)} |");
+            }
+            Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Для продолжения нажмите Enter...".PadRight(Width - 4)} |");
+            Console.WriteLine(lineRavno);
+            Console.ReadLine();
+        }
+        public void SuccesfulDeliveryZapchast()
+        {
+            Console.Clear();
+            string lineRavno = new string('-', Width);
+            //var client = db.clientQueues.First(s => s.ID_ClientQueue == id);
+            Console.WriteLine(lineRavno);
+            Console.WriteLine(CenterText("ПОСТАВКА ПРИБЫЛА!", Width));
+            Console.WriteLine(lineRavno);
+            Console.WriteLine($"| {$"Получены детали:".PadRight(Width - 4)} |");
+            foreach (var zapch in db.sklad)
+            {
+                //if (zapch.DeliveryProgress)
+                Console.WriteLine($"| {$"> {zapch.Zapchast.Name} - {zapch.InDelivery} шт.".PadRight(Width - 4)} |");
+            }
+            Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Для продолжения нажмите Enter...".PadRight(Width - 4)} |");
+            Console.WriteLine(lineRavno);
+            Console.ReadLine();
+        }
+
+        public void BuyZapchast(int id, int count)
+        {
+            var zapchast = db.zapchasts.First(s => s.ID_Zapchast == id);
+            db.AddTransaction(
+                "Расход",
+                $"-{db.GetPenaltyOtkaz()}",
+                $"Закупка деталей"
+                );
+            db.ChangeMoney(-(zapchast.SalePrice*count));
+            db.BuyZapchast(id, count);
+        }
+
+
 
         public void StartGame()
         {
