@@ -64,11 +64,18 @@ namespace _3ISIP223_PogosyanHouse
         }
 
         public int GetCountINSkladZapchast() => sklad.Sum(s => s.Count);
+        public double TotalProceeds = 0;
+        public double TotalExpences = 0;
+        public double NetProfit = 0;
         public int GetCountINZapchastDelivery() => sklad.Sum(s => s.InDelivery);
         public int GetCountClientQueue() => clientQueues.Count;
+        public int GetTotalClient() => salon.CountClients;
+        public int GetTotalSuccesfulRemont() => salon.SuccessfulRemont;
+        public int GetTotalCountOtkaz() => salon.CountOtkaz;
+        public int GetTotalCountFaild() => salon.CountFaild;
         public int GetZapchastCount(int id)
         {
-            var skladIt = sklad.FirstOrDefault(s => s.ID_Zapchast== id);
+            var skladIt = sklad.FirstOrDefault(s => s.ID_Zapchast == id);
             return skladIt == null ? 0 : skladIt.Count;
         }
         public bool CheckZapchast(int id)
@@ -158,7 +165,7 @@ namespace _3ISIP223_PogosyanHouse
             bool hasZapchast = db.CheckZapchast(order.ID_Zapchast);
             int zapchastCount = db.GetZapchastCount(order.ID_Zapchast);
             //}
-            
+
             Console.WriteLine($"| {$"Клиент:            {nextClient.Client.Name}".PadRight(Width - 4)} |");
             //}
             Console.WriteLine($"| {$"Требуемая деталь:  {nextClient.Zapchast.Name}".PadRight(Width - 4)} |");
@@ -171,7 +178,8 @@ namespace _3ISIP223_PogosyanHouse
                 Console.WriteLine($"| {$"Варианты действий:".PadRight(Width - 4)} |");
                 Console.WriteLine($"| {$"[1] Выполнить ремонт".PadRight(Width - 4)} |");
             }
-            else { 
+            else
+            {
 
                 Console.WriteLine($"| {$"Статус детали:     ОТСУТСТВУЕТ НА СКЛАДЕ".PadRight(Width - 4)} |");
                 Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
@@ -196,7 +204,7 @@ namespace _3ISIP223_PogosyanHouse
                         {
 
                         }
-                            break;
+                        break;
                     }
                 case 2:
                     {
@@ -217,16 +225,16 @@ namespace _3ISIP223_PogosyanHouse
         {
             Console.Clear();
             string lineRavno = new string('=', Width);
-            string line = new string('-', Width-2);
+            string line = new string('-', Width - 2);
             Console.WriteLine(lineRavno);
             Console.WriteLine(CenterText("УПРАВЛЕНИЕ СКЛАДОМ", Width));
             Console.WriteLine(lineRavno);
             int col1 = (Width - 6) / 2;
             int col2 = Width / 6;
-            int col3 = Width -4;
+            int col3 = Width - 4;
             Console.WriteLine($"| {$"{"Деталь".PadRight(col1)}| {"Наличие".PadRight(col2)} | В доставке".PadRight(col3)} |");
             Console.WriteLine($"|{line}|");
-            foreach( var element in db.sklad)
+            foreach (var element in db.sklad)
             {
                 Console.WriteLine($"| {$"{element.Zapchast.Name.PadRight(col1)}| {element.Count.ToString().PadRight(col2)} | {(element.InDelivery == 0 ? "-" : element.InDelivery.ToString())}".PadRight(col3)} |");
             }
@@ -278,7 +286,7 @@ namespace _3ISIP223_PogosyanHouse
             else
             {
 
-            Console.WriteLine($"| Введите номер детали для заказа: {idZapchast.ToString().PadRight(Width - 4)} |");
+                Console.WriteLine($"| Введите номер детали для заказа: {idZapchast.ToString().PadRight(Width - 4)} |");
             }
             int countZapch = 0;
             Input("| Введите количество", out countZapch, 1, 30);
@@ -308,15 +316,15 @@ namespace _3ISIP223_PogosyanHouse
             Console.WriteLine(CenterText("СТАТИСТИКА", Width));
             Console.WriteLine(line);
             Console.WriteLine($"| {$"Общие показатели:".PadRight(Width - 4)} |");
-            Console.WriteLine($"| {$"- Всего клиентов:          {db.GetCountClientQueue()}".PadRight(Width - 4)} |");
-            Console.WriteLine($"| {$"- Успешных ремонтов:       {db.GetCountClientQueue()}".PadRight(Width - 4)} |");
-            Console.WriteLine($"| {$"- Отказов:                 {db.GetCountClientQueue()}".PadRight(Width - 4)} |");
-            Console.WriteLine($"| {$"- Неудачных ремонтов:      {db.GetCountClientQueue()}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"- Всего клиентов:        {db.GetTotalClient()}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"- Успешных ремонтов:     {db.GetTotalSuccesfulRemont()}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"- Отказов:               {db.GetTotalCountOtkaz()}".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"- Неудачных ремонтов:    {db.GetTotalCountFaild()}".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"Финансовые показатели:".PadRight(Width - 4)} |");
-            Console.WriteLine($"| {$"- Общий доход:             {db.GetCountClientQueue()} руб.".PadRight(Width - 4)} |");
-            Console.WriteLine($"| {$"- Общие расходы:           {db.GetCountClientQueue()} руб.".PadRight(Width - 4)} |");
-            Console.WriteLine($"| {$"- Чистая прибыль:          {db.GetCountClientQueue()} руб.".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"- Общий доход:           {db.TotalProceeds} руб.".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"- Общие расходы:         {db.TotalExpences} руб.".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"- Чистая прибыль:        {db.NetProfit} руб.".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"[1] Вернуться в главное меню".PadRight(Width - 4)} |");
             Console.WriteLine(line);
@@ -340,7 +348,7 @@ namespace _3ISIP223_PogosyanHouse
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
             int countZapchast = db.GetZapchastCount(client.ID_Zapchast);
             Console.WriteLine($"| {$"Наличие на складе: {countZapchast}".PadRight(Width - 4)} |");
-            Console.WriteLine($"| {$"Статус доставки:   {  (countZapchast == 0 ? "Требуется" : "Не требуется") }".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"Статус доставки:   {(countZapchast == 0 ? "Требуется" : "Не требуется")}".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"Действия:".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"[1] Вернуться в главное меню".PadRight(Width - 4)} |");
@@ -385,7 +393,7 @@ namespace _3ISIP223_PogosyanHouse
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
             for (int k = 1; k < i; k++)
             {
-                
+
                 Console.WriteLine($"| {$"[{k}] Подробнее о клиенте {k}".PadRight(Width - 4)} |");
             }
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
@@ -422,37 +430,52 @@ namespace _3ISIP223_PogosyanHouse
             int col3 = TransactWidth - col0 - 6;
             Console.WriteLine($"| {"Дата".ToString().PadRight(col0)}| {$"{"Тип операции".PadRight(col1)}| {"Сумма".PadRight(col2)} | Описание".PadRight(col3)} |");
             Console.WriteLine($"|{line}|");
+            Console.WriteLine($"| {db.salon.StartDate.ToString("dd.MM.yyyy").PadRight(col0)}| {$"{"Стартовый капитал".PadRight(col1)}| {"+10000".PadRight(col2)} | Начало работы".PadRight(col3)} |");
 
+            double proceeds = 0;
+            double expenses = 0;
             //double dox
 
             if (db.transactions.Count > 0)
-            { 
+            {
                 foreach (var element in db.transactions)
                 {
                     Console.WriteLine($"| {element.Date.ToString("dd.MM.yyyy").PadRight(col0)}| {$"{element.TypeOperations.PadRight(col1)}| {element.Summa.ToString().PadRight(col2)} | {element.Description}".PadRight(col3)} |");
+                    switch (element.TypeOperations)
+                    {
+                        case "Доход":
+                            {
+                                proceeds += Convert.ToDouble(element.Summa);
+                                break;
+                            }
+                        case "Расход":
+                            {
+                                expenses += Convert.ToDouble(element.Summa);
+                                break;
+                            }
+                        default:
+                            {
+                                break;
+                            }
+                    }
                 }
             }
-            else
-            {
-                Console.WriteLine($"| {DateTime.Now.ToString("dd.MM.yyyy").PadRight(col0)}| {$"{"Стартовый капитал".PadRight(col1)}| {"+10000".PadRight(col2)} | Начало работы".PadRight(col3)} |");
 
-            }
 
             Console.WriteLine($"|{line}|");
             Console.WriteLine($"| {$" ".PadRight(TransactWidth - 4)} |");
-            Console.WriteLine($"| {$"Баланс:  {db.GetMoney()} руб.".PadRight(TransactWidth - 4)} |");
+            Console.WriteLine($"| {$"Итого доходов:  {proceeds} руб.".PadRight(TransactWidth - 4)} |");
+            Console.WriteLine($"| {$"Итого расходов:  {expenses} руб.".PadRight(TransactWidth - 4)} |");
+            Console.WriteLine($"| {$"Текущий баланс:  {db.GetMoney()} руб.".PadRight(TransactWidth - 4)} |");
             Console.WriteLine($"| {$" ".PadRight(TransactWidth - 4)} |");
-            Console.WriteLine($"| {$"[1] Подтвердить заказ".PadRight(TransactWidth - 4)} |");
+            Console.WriteLine($"| {$"Период:  с {db.salon.StartDate.ToString("dd.MM.yyyy")} по {DateTime.Now.ToString("dd.MM.yyyy")}".PadRight(TransactWidth - 4)} |");
+            Console.WriteLine($"| {$" ".PadRight(TransactWidth - 4)} |");
             Console.WriteLine($"| {$"[0] Вернуться в главное меню".PadRight(TransactWidth - 4)} |");
             Console.WriteLine(lineRavno);
             int n = 0;
-            Input("Ваш выбор", out n, 0, 1);
+            Input("Ваш выбор", out n, 0, 0);
             switch (n)
             {
-                case 1:
-                    {
-                        break;
-                    }
                 default:
                     {
                         break;
@@ -490,7 +513,7 @@ namespace _3ISIP223_PogosyanHouse
                         }
                     case 1:
                         {
-                            ServiceMenu();  
+                            ServiceMenu();
                             break;
                         }
                     case 2:
@@ -505,7 +528,7 @@ namespace _3ISIP223_PogosyanHouse
                         }
                     case 4:
                         {
-                            BuyZapchastMenu();  
+                            BuyZapchastMenu();
                             break;
                         }
                     case 5:
