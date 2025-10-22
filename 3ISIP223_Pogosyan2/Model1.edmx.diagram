@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0e6dfa3b483841ac86b87ed65d8e6b83" Name="Diagram1">
+      <Diagram DiagramId="0e6dfa3b483841ac86b87ed65d8e6b83" Name="Diagram1" ZoomLevel="103">
         <EntityTypeShape EntityType="SalonModel.Client" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SalonModel.ClientQueue" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SalonModel.Order" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalonModel.ClientQueue" Width="1.5" PointX="6.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalonModel.Order" Width="1.5" PointX="0.5" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SalonModel.Salon" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SalonModel.Sklad" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalonModel.Sklad" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SalonModel.Transaction" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SalonModel.Zapchast" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalonModel.Zapchast" Width="1.5" PointX="3.125" PointY="5.375" IsExpanded="true" />
         <AssociationConnector Association="SalonModel.FK_ClientQueue_Client" ManuallyRouted="false" />
         <AssociationConnector Association="SalonModel.FK_Order_Client" ManuallyRouted="false" />
         <AssociationConnector Association="SalonModel.FK_ClientQueue_Zapchast" ManuallyRouted="false" />

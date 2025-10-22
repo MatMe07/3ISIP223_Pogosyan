@@ -9,7 +9,7 @@
         <EntityTypeShape EntityType="SalonModel.ClientQueue" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SalonModel.Order" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SalonModel.Salon" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SalonModel.Sklad" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SalonModel.Sklad" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="SalonModel.Transaction" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SalonModel.Zapchast" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
         <AssociationConnector Association="SalonModel.FK_ClientQueue_Client" ManuallyRouted="false" />

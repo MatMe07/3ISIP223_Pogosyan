@@ -24,7 +24,7 @@ namespace _3ISIP223_Pogosyan2
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<ClientQueue> ClientQueues { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
