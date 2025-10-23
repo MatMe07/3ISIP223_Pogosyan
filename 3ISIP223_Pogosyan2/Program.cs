@@ -1,5 +1,4 @@
-﻿using _3ISIP223_Pogosyan2;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -29,10 +28,13 @@ namespace _3ISIP223_Pogosyan2
         public Salon salon;
         public Order order;
         public List<ClientQueue> clientQueues;
+        public List<Client> clients;
         public List<Zapchast> zapchasts;
         public List<Sklad> sklad;
         public List<Transaction> transactions;
-        public bool IsDelivery {  get; set; }
+        public Random random = new Random();
+
+        public bool IsDelivery { get; set; }
 
         public WorkingWithDatabase()
         {
@@ -41,6 +43,7 @@ namespace _3ISIP223_Pogosyan2
             sklad = Core.MYSalon.Sklads.ToList();
             clientQueues = Core.MYSalon.ClientQueues.OrderBy(s => s.Position).ToList();
             transactions = Core.MYSalon.Transactions.ToList();
+            clients = Core.MYSalon.Clients.ToList();
 
 
             if (salon == null)
@@ -74,8 +77,9 @@ namespace _3ISIP223_Pogosyan2
                 Core.MYSalon.Transactions.Add(transationSalon);
                 Core.MYSalon.SaveChanges();
             }
-            
 
+            AddClientTOQueu();
+            UpdateValues();
             //order = CreateOrderFromQueue(GetNextClient());
 
         }
@@ -83,16 +87,62 @@ namespace _3ISIP223_Pogosyan2
         public int GetCountINSkladZapchast() => sklad.Sum(s => s.Count);
         public double TotalProceeds = 0;
         public double TotalExpences = 0;
-        public double NetProfit = 0;
         public int GetCountINZapchastDelivery() => sklad.Sum(s => s.InDelivery);
         public int GetCountClientQueue() => clientQueues.Count;
         public int GetTotalClient() => salon.CountClients;
 
+        public void UpdateValues()
+        {
+            foreach (var tr in transactions)
+            {
+                switch (tr.TypeOperations)
+                {
+                    case "Стартовый капитал": break;
+                    case "Доход":
+                        {
+                            TotalProceeds += Math.Abs(Convert.ToDouble(tr.Summa));
+                            break;
+                        }
+                    default:
+                        {
+                            TotalExpences += Math.Abs(Convert.ToDouble(tr.Summa));
+                            break;
+                        }
+                }
+            }
+        }
+
+        public void AddCountClients()
+        {
+            salon.CountClients++;
+            Core.MYSalon.SaveChanges();
+        }
+
+        public void AddTotalSuccesfulRemont()
+        {
+            salon.SuccessfulRemont++;
+            Core.MYSalon.SaveChanges();
+        }
+        public void AddTotalCountOtkaz()
+        {
+            salon.CountOtkaz++;
+            Core.MYSalon.SaveChanges();
+        }
+        public void AddTotalCountFaild()
+        {
+            salon.CountFaild++;
+            Core.MYSalon.SaveChanges();
+        }
+
+
+
         public bool DecreaseCountZapchast(int id)
         {
-            if (Core.MYSalon.Sklads.FirstOrDefault(s => s.ID_Zapchast == id)!= null && Core.MYSalon.Sklads.FirstOrDefault(s => s.ID_Zapchast == id).Count != 0) { 
+            if (Core.MYSalon.Sklads.FirstOrDefault(s => s.ID_Zapchast == id) != null && Core.MYSalon.Sklads.FirstOrDefault(s => s.ID_Zapchast == id).Count != 0)
+            {
                 Core.MYSalon.Sklads.First(s => s.ID_Zapchast == id).Count--;
                 Core.MYSalon.SaveChanges();
+                sklad = Core.MYSalon.Sklads.ToList();
                 return true;
             }
             return false;
@@ -101,7 +151,7 @@ namespace _3ISIP223_Pogosyan2
         public void BuyZapchast(int id, int countZapchast)
         {
             var zapchast = zapchasts.First(s => s.ID_Zapchast == id);
-            var skladZapchast = sklad.FirstOrDefault(s => s.ID_Zapchast == id);
+            var skladZapchast = Core.MYSalon.Sklads.ToList().LastOrDefault(s => s.ID_Zapchast == id);
             if (skladZapchast == null)
             {
                 Sklad zapch = new Sklad
@@ -116,9 +166,27 @@ namespace _3ISIP223_Pogosyan2
             }
             else
             {
-                Core.MYSalon.Sklads.First(s => s.ID_Zapchast == id).DeliveryProgress = 2;
+                if(skladZapchast.DeliveryProgress == -1)
+                {
+                    skladZapchast.DeliveryProgress = 2;
+                    skladZapchast.InDelivery = countZapchast;
+
+                }
+                    
+                else
+                {
+                    Sklad zapch = new Sklad
+                    {
+                        ID_Zapchast = id,
+                        Count = 0,
+                        InDelivery = countZapchast,
+                        DeliveryProgress = 2,
+                    };
+                    Core.MYSalon.Sklads.Add(zapch);
+                }
                 Core.MYSalon.SaveChanges();
             }
+            sklad = Core.MYSalon.Sklads.ToList();
         }
         public void ChangeDeliveryProgress()
         {
@@ -130,10 +198,71 @@ namespace _3ISIP223_Pogosyan2
                     sklad.Count = sklad.InDelivery;
                     sklad.InDelivery = 0;
                     IsDelivery = true;
+                    sklad.DeliveryProgress = -1;
                 }
 
             }
             Core.MYSalon.SaveChanges();
+            sklad = Core.MYSalon.Sklads.ToList();
+        }
+
+        public void StatusDelivered()
+        {
+            int cop = 0;
+            foreach (var sklad in Core.MYSalon.Sklads.ToList())
+            {
+                if (sklad.DeliveryProgress == 0)
+                {
+                    IsDelivery = false;
+                    sklad.DeliveryProgress = -1;
+                }
+            }
+
+            foreach (var sklad1 in Core.MYSalon.Sklads.ToList())
+            {
+                bool flag = false;
+                Sklad sk = null;
+                foreach (var sklad2 in Core.MYSalon.Sklads.ToList())
+                {
+                    if (sklad1.ID_Zapchast == sklad2.ID_Zapchast && sklad1.DeliveryProgress == -1)
+                    {
+                        flag = true;
+                        sk = sklad2;
+                        sklad1.Count += sklad2.Count;
+                        Core.MYSalon.Sklads.Remove(sklad2);
+                        Core.MYSalon.SaveChanges();
+
+                    }
+                }
+                if (flag)
+                {
+                    Core.MYSalon.Sklads.Remove(sk);
+                    Core.MYSalon.SaveChanges();
+                }
+            }
+
+            Core.MYSalon.SaveChanges();
+            sklad = Core.MYSalon.Sklads.ToList();
+        }
+
+
+
+        public void AddClientTOQueu()
+        {
+            if (clientQueues.Count >= 3) return;
+            int countClient = clients.Count;
+            int idClient = random.Next(1, countClient);
+            int countZapch = zapchasts.Count;
+            int idZapch = random.Next(1, countZapch);
+            ClientQueue cli = new ClientQueue
+            {
+                ID_Client = idClient,
+                ID_Zapchast = idZapch,
+                Position = (clientQueues.Count ==0  ? 0 :  clientQueues.Last().Position + 1),
+            };
+            Core.MYSalon.ClientQueues.Add(cli);
+            Core.MYSalon.SaveChanges();
+            clientQueues = Core.MYSalon.ClientQueues.ToList();
         }
 
         public double GetPenaltyOtkaz() => salon.PenaltyOtkaz;
@@ -148,8 +277,8 @@ namespace _3ISIP223_Pogosyan2
         }
         public bool CheckZapchast(int id)
         {
-
-            return true;
+            var zapch = Core.MYSalon.Sklads.FirstOrDefault(s => s.ID_Zapchast == id);
+            return (zapch != null && zapch.Count > 0);
         }
 
         public ClientQueue GetNextClient()
@@ -181,7 +310,7 @@ namespace _3ISIP223_Pogosyan2
 
         public void GoodByeClient(int pos)
         {
-            var cli = Core.MYSalon.ClientQueues.First(s=>s.Position == pos);
+            var cli = Core.MYSalon.ClientQueues.First(s => s.Position == pos);
             clientQueues.Remove(cli);
             Core.MYSalon.ClientQueues.Remove(cli);
             Core.MYSalon.SaveChanges();
@@ -296,7 +425,7 @@ namespace _3ISIP223_Pogosyan2
                         {
                             if (db.DecreaseCountZapchast(order.ID_Zapchast))
                             {
-                                SuccesfulRemont(nextClient.ID_Client);
+                                SuccesfulRemont(nextClient.ID_ClientQueue);
                             }
                             else
                             {
@@ -307,13 +436,15 @@ namespace _3ISIP223_Pogosyan2
                         }
                         else
                         {
+                            BuyZapchast(order.ID_Zapchast, 1);
+
                             FaildRemont(nextClient.ID_ClientQueue);
                         }
                         break;
                     }
                 case 2:
                     {
-                        OtkazRemont(nextClient.ID_Client);
+                        OtkazRemont(nextClient.ID_ClientQueue);
                         break;
                     }
                 default:
@@ -338,7 +469,7 @@ namespace _3ISIP223_Pogosyan2
             Console.WriteLine($"|{line}|");
             foreach (var element in db.sklad)
             {
-                Console.WriteLine($"| {$"{element.Zapchast.Name.PadRight(col1)}| {element.Count.ToString().PadRight(col2)} | {(element.InDelivery == 0 ? "-" : element.InDelivery.ToString())}".PadRight(col3)} |");
+                Console.WriteLine($"| {$"{element.Zapchast.Name.PadRight(col1)}| {element.Count.ToString().PadRight(col2)} | {(element.DeliveryProgress == -1 ? "-" : element.InDelivery.ToString())}".PadRight(col3)} |");
             }
             Console.WriteLine($"|{line}|");
             Console.WriteLine($"| {$"Итого на складе: {db.GetCountINSkladZapchast()} дет.".PadRight(Width - 4)} |");
@@ -397,7 +528,7 @@ namespace _3ISIP223_Pogosyan2
                 Console.WriteLine($"| Введите номер детали для заказа: {idZapchast.ToString().PadRight(Width - 4)} |");
             }
             int countZapch = 0;
-            Input("| Введите количество", out countZapch, 1, 30);
+            Input("| Введите количество", out countZapch, 0, 30);
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"[1] Подтвердить заказ".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"[0] Вернуться в главное меню".PadRight(Width - 4)} |");
@@ -433,7 +564,7 @@ namespace _3ISIP223_Pogosyan2
             Console.WriteLine($"| {$"Финансовые показатели:".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"- Общий доход:           {db.TotalProceeds} руб.".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"- Общие расходы:         {db.TotalExpences} руб.".PadRight(Width - 4)} |");
-            Console.WriteLine($"| {$"- Чистая прибыль:        {db.NetProfit} руб.".PadRight(Width - 4)} |");
+            Console.WriteLine($"| {$"- Чистая прибыль:        {db.TotalProceeds - db.TotalExpences} руб.".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
             Console.WriteLine($"| {$"[1] Вернуться в главное меню".PadRight(Width - 4)} |");
             Console.WriteLine(line);
@@ -453,7 +584,7 @@ namespace _3ISIP223_Pogosyan2
             Console.Clear();
             string lineRavno = new string('=', Width);
             string line = new string('-', Width - 2);
-            var client = db.clientQueues.First(s => s.ID_ClientQueue == pos);
+            var client = db.clientQueues.First(s => s.Position == pos);
             Console.WriteLine(lineRavno);
             Console.WriteLine(CenterText("ПОДРОБНАЯ ИНФОРМАЦИЯ О КЛИЕНТЕ", Width));
             Console.WriteLine(lineRavno);
@@ -568,7 +699,7 @@ namespace _3ISIP223_Pogosyan2
                             }
                         case "Расход":
                             {
-                                expenses += Convert.ToDouble(element.Summa);
+                                expenses += Math.Abs(Convert.ToDouble(element.Summa));
                                 break;
                             }
                         default:
@@ -582,8 +713,8 @@ namespace _3ISIP223_Pogosyan2
 
             Console.WriteLine($"|{line}|");
             Console.WriteLine($"| {$" ".PadRight(TransactWidth - 4)} |");
-            Console.WriteLine($"| {$"Итого доходов:  {proceeds} руб.".PadRight(TransactWidth - 4)} |");
-            Console.WriteLine($"| {$"Итого расходов:  {expenses} руб.".PadRight(TransactWidth - 4)} |");
+            Console.WriteLine($"| {$"Итого доходов:  {db.TotalProceeds} руб.".PadRight(TransactWidth - 4)} |");
+            Console.WriteLine($"| {$"Итого расходов:  {db.TotalExpences} руб.".PadRight(TransactWidth - 4)} |");
             Console.WriteLine($"| {$"Текущий баланс:  {db.GetMoney()} руб.".PadRight(TransactWidth - 4)} |");
             Console.WriteLine($"| {$" ".PadRight(TransactWidth - 4)} |");
             Console.WriteLine($"| {$"Период:  с {db.salon.StartDate.ToString("dd.MM.yyyy")} по {DateTime.Now.ToString("dd.MM.yyyy")}".PadRight(TransactWidth - 4)} |");
@@ -628,6 +759,7 @@ namespace _3ISIP223_Pogosyan2
                 $"Ремонт: {client.Client.Name}"
                 );
             db.ChangeMoney(zapchast.SalePrice);
+            db.TotalProceeds += zapchast.SalePrice;
             Console.WriteLine(lineRavno);
             Console.WriteLine(CenterText("ОПЕРАЦИЯ УСПЕШНА", Width));
             Console.WriteLine(lineRavno);
@@ -643,6 +775,9 @@ namespace _3ISIP223_Pogosyan2
             db.ChangeDeliveryProgress();
             SuccesfulDeliveryZapchast();
             db.GoodByeClient(client.Position);
+            db.AddClientTOQueu();
+            db.AddCountClients();
+            db.AddTotalSuccesfulRemont();
         }
         public void OtkazRemont(int id)
         {
@@ -656,6 +791,7 @@ namespace _3ISIP223_Pogosyan2
                 $"Отказ: {client.Client.Name}"
                 );
             db.ChangeMoney(-db.GetPenaltyOtkaz());
+            db.TotalExpences -= db.GetPenaltyOtkaz();
             Console.WriteLine(lineRavno);
             Console.WriteLine(CenterText("ОТКАЗ В ОБСЛУЖИВАНИИ", Width));
             Console.WriteLine(lineRavno);
@@ -672,7 +808,9 @@ namespace _3ISIP223_Pogosyan2
 
             SuccesfulDeliveryZapchast();
             db.GoodByeClient(client.Position);
-
+            db.AddClientTOQueu();
+            db.AddCountClients();
+            db.AddTotalCountOtkaz();
         }
         public void FaildRemont(int id)
         {
@@ -683,10 +821,12 @@ namespace _3ISIP223_Pogosyan2
             double fail = zapchast.PokupkaPrice * db.GetFailWrong();
             db.AddTransaction(
                 "Штраф",
-                $"-{ fail}",
+                $"-{fail}",
                 $"Ошибка: {client.Client.Name}"
                 );
             db.ChangeMoney(-fail);
+            db.TotalExpences -= db.GetFailWrong();
+
             Console.WriteLine(lineRavno);
             Console.WriteLine(CenterText("НЕУДАЧНЫЙ РЕМОНТ", Width));
             Console.WriteLine(lineRavno);
@@ -703,7 +843,9 @@ namespace _3ISIP223_Pogosyan2
 
             SuccesfulDeliveryZapchast();
             db.GoodByeClient(client.Position);
-
+            db.AddClientTOQueu();
+            db.AddCountClients();
+            db.AddTotalCountFaild();
         }
         public void DeliveryZapchast()
         {
@@ -716,7 +858,7 @@ namespace _3ISIP223_Pogosyan2
             Console.WriteLine($"| {$"Статус поставки:".PadRight(Width - 4)} |");
             foreach (var zapch in db.sklad)
             {
-                if( zapch.DeliveryProgress != -1)
+                if (zapch.DeliveryProgress != -1)
                     Console.WriteLine($"| {$"> {zapch.Zapchast.Name} ({zapch.InDelivery} шт.) - через {zapch.DeliveryProgress} клиента".PadRight(Width - 4)} |");
             }
             Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
@@ -739,27 +881,31 @@ namespace _3ISIP223_Pogosyan2
                 foreach (var zapch in db.sklad)
                 {
                     //if (zapch.DeliveryProgress)
-                    Console.WriteLine($"| {$"> {zapch.Zapchast.Name} - {zapch.InDelivery} шт.".PadRight(Width - 4)} |");
+                    if (zapch.DeliveryProgress != -1)
+                        Console.WriteLine($"| {$"> {zapch.Zapchast.Name} - {zapch.InDelivery} шт.".PadRight(Width - 4)} |");
                 }
                 Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
                 Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
                 Console.WriteLine($"| {$"Для продолжения нажмите Enter...".PadRight(Width - 4)} |");
                 Console.WriteLine(lineRavno);
                 Console.ReadLine();
-                db.IsDelivery = false;
+                db.StatusDelivered();
             }
         }
 
         public void BuyZapchast(int id, int count)
         {
             var zapchast = db.zapchasts.First(s => s.ID_Zapchast == id);
+            double pokupka = zapchast.PokupkaPrice * count;
             db.AddTransaction(
                 "Расход",
-                $"-{zapchast.PokupkaPrice * count}",
+                $"-{pokupka}",
                 $"Закупка деталей"
                 );
-            db.ChangeMoney(-(zapchast.PokupkaPrice * count));
+            db.ChangeMoney(-pokupka);
             db.BuyZapchast(id, count);
+            db.TotalExpences -= pokupka;
+
         }
 
 
