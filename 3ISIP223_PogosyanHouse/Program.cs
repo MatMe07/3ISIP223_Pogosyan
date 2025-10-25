@@ -798,7 +798,7 @@ namespace _3ISIP223_PogosyanHouse
                 $"Отказ: {client.Client.Name}"
                 );
             db.ChangeMoney(-db.GetPenaltyOtkaz());
-            db.TotalExpences -= db.GetPenaltyOtkaz();
+            db.TotalExpences += db.GetPenaltyOtkaz();
             Console.WriteLine(lineRavno);
             Console.WriteLine(CenterText("ОТКАЗ В ОБСЛУЖИВАНИИ", Width));
             Console.WriteLine(lineRavno);
@@ -832,7 +832,7 @@ namespace _3ISIP223_PogosyanHouse
                 $"Ошибка: {client.Client.Name}"
                 );
             db.ChangeMoney(-fail);
-            db.TotalExpences -= db.GetFailWrong();
+            db.TotalExpences += db.GetFailWrong();
 
             Console.WriteLine(lineRavno);
             Console.WriteLine(CenterText("НЕУДАЧНЫЙ РЕМОНТ", Width));
@@ -905,6 +905,10 @@ namespace _3ISIP223_PogosyanHouse
         {
             var zapchast = db.zapchasts.First(s => s.ID_Zapchast == id);
             double pokupka = zapchast.PokupkaPrice * count;
+            if (db.GetMoney() < pokupka)
+            {
+                Console.WriteLine("Недостаточно средств для покупки!");
+            }
             db.AddTransaction(
                 "Расход",
                 $"-{pokupka}",
