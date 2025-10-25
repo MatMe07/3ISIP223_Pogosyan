@@ -29,6 +29,7 @@ namespace _3ISIP223_PogosyanHouse1
         public List<Product> Products { get; set; }
         public List<Korzina> Korzina { get; set; }
         public List<OrderHistory> OrderHistories { get; set; }
+        public List<PVZ> Pvzs { get; set; }
 
         public PVZ pvzUser { get; set; } = null;
 
@@ -38,6 +39,7 @@ namespace _3ISIP223_PogosyanHouse1
             Products = Core.Marketplace.Products.ToList();
             OrderHistories = Core.Marketplace.OrderHistories.ToList();  
             Korzina = Core.Marketplace.Korzinas.ToList();
+            Pvzs = Core.Marketplace.PVZs.ToList();
 
             //User = new User
             //{
@@ -48,6 +50,11 @@ namespace _3ISIP223_PogosyanHouse1
             User = Core.Marketplace.Users.FirstOrDefault();
 
             if (User.PVZ != null) pvzUser = User.PVZ;
+        }
+
+        public void ChangePVZUser(int id)
+        {
+            pvzUser = Pvzs.FirstOrDefault(s => s.ID_PVZ == id);
         }
 
         // Регистрация пользователя
@@ -143,24 +150,27 @@ namespace _3ISIP223_PogosyanHouse1
 
         }
 
-        public void MakingOneOrder(int idPvz, Korzina korz) 
+        public bool MakingOneOrder(int idPvz, int idProd, int count, decimal price) 
         {
             Order order = new Order
             {
-                ID_PVZ = idPvz,
                 ID_User = User.ID_User,
+                ID_PVZ = idPvz,
                 Created_Date = DateTime.Now,
-                TotalPrice = korz.Product.Price * korz.CountProduct,
+                TotalPrice = price * count,
             };
+            Core.Marketplace.Orders.Add(order);
+            Core.Marketplace.SaveChanges();
             OrderHistory orderHistory = new OrderHistory
             {
                 ID_Order = order.ID_Order,
-                ID_Product = korz.ID_Product,
-                CountProduct = korz.CountProduct,
+                ID_Product = idProd,
+                CountProduct = count,
             };
             OrderHistories.Add(orderHistory);
             Core.Marketplace.OrderHistories.Add(orderHistory);
             Core.Marketplace.SaveChanges();
+            return true;
         }
 
 
@@ -181,7 +191,13 @@ namespace _3ISIP223_PogosyanHouse1
         // 3. Сохранить выбранный ПВЗ для заказа
         public void ReadPVZ()
         {
-
+            int i = 0;
+            foreach(var pvz in Pvzs)
+            {
+                Console.WriteLine($"[{i+1}] {pvz.Address}");
+                Console.WriteLine($"    {pvz.Phone}");
+                Console.WriteLine($"    {pvz.Schedule}\n");
+            }
         }
     }
 
@@ -349,12 +365,13 @@ namespace _3ISIP223_PogosyanHouse1
         {
             Console.Clear();
             Console.WriteLine("AllProducts");
-            int N = 0;
+            int N = 1;
             foreach(var product in Db.Products)
             {
-                Console.WriteLine($"{N+1} | {product.Name} | {product.Price} | {product.Categor.Name}");
+                Console.WriteLine($"{N++} | {product.Name} | {product.Price} | {product.Categor.Name}");
                 Console.WriteLine($"  | {product.Description.Substring(0, 17)}... |         |");
             }
+            N--;
             Console.WriteLine($"[1-{N}] Выбрать товар");
             Console.WriteLine("[Ф] Фильтр по категориям");
             Console.WriteLine("[В] Вернуться в меню");
@@ -439,6 +456,7 @@ namespace _3ISIP223_PogosyanHouse1
         // 5. Показать подтверждение заказа
         public void MakingOrder()
         {
+            Console.WriteLine("Oformlenie zakaza");
 
         }
 
@@ -451,7 +469,6 @@ namespace _3ISIP223_PogosyanHouse1
 
         }
 
-
         // Покупка одного товара
         // 1. Пользователь выбирает товар из каталога
         // 2. Запрашивается количество
@@ -460,10 +477,105 @@ namespace _3ISIP223_PogosyanHouse1
         // 5. Показывается подтверждение покупки
         public void MakingOneProductOrder(int idProd, int count)
         {
-            int idPvz;
-            if (Db.pvzUser != null) { idPvz = Db.pvzUser.ID_PVZ; }
-            else { idPvz = 0; }
-            Db.MakingOneOrder(idPvz, Db.GetKorzina(idProd, count));
+            Console.Clear();
+            Console.WriteLine("Oformlenie zakaza");
+            int idPvz = -1;
+            int N = Db.Pvzs.Count;
+            Product product = Db.Products.FirstOrDefault(s => s.ID_Product == idProd);
+            if (Db.pvzUser != null)
+            {
+                idPvz = Db.pvzUser.ID_PVZ;
+                Console.WriteLine($"Текущий ПВЗ: {Db.pvzUser.Address}");
+                Console.WriteLine();
+            }
+
+            if (idPvz == -1)
+            {
+                Console.WriteLine("Выберите пункт выдачи:");
+                Console.WriteLine();
+
+                for (int i = 0; i < N; i++)
+                {
+                    var pvz = Db.Pvzs[i];
+                    Console.WriteLine($"[{i + 1}] {pvz.Address}");
+                    Console.WriteLine($"    {pvz.Schedule} | {pvz.Phone}");
+                    Console.WriteLine();
+                }
+            }
+            
+            Console.WriteLine("Состав заказа:");
+            decimal totalPrice = product.Price * count;
+            Console.WriteLine($"• {product.Name} x{count} = {totalPrice} ₽");
+            Console.WriteLine($"ИТОГО: {totalPrice} ₽");
+
+            int choice;
+
+            if (idPvz == -1)
+            {
+                Console.WriteLine($"[1-{N}] Выбрать ПВЗ");
+                Console.WriteLine("[0] Отмена");
+                Input("Выберите действие: ", out choice, 0, N);
+
+                if (choice == 0)
+                {
+                    Console.WriteLine("⚠ Заказ отменен");
+                    return;
+                }
+
+                idPvz = Db.Pvzs[choice - 1].ID_PVZ;
+            }
+            else
+            {
+                Console.WriteLine("[1] Подтвердить заказ");
+                Console.WriteLine("[2] Изменить ПВЗ");
+                Console.WriteLine("[0] Отмена");
+                Input("Выберите действие: ", out choice, 0, 2);
+
+                switch (choice)
+                {
+                    case 0:
+                        Console.WriteLine("⚠ Заказ отменен");
+                        return;
+                    case 1:
+                        break;
+                    case 2:
+                        Console.WriteLine("\nВыберите новый пункт выдачи:");
+                        for (int i = 0; i < N; i++)
+                        {
+                            var pvz = Db.Pvzs[i];
+                            Console.WriteLine($"[{i + 1}] {pvz.Address}");
+                        }
+
+                        Input("Выберите ПВЗ: ", out int pvzChoice, 1, N);
+                        idPvz = Db.Pvzs[pvzChoice - 1].ID_PVZ;
+                        break;
+                }
+            }
+            Db.ChangePVZUser(idPvz);
+
+            bool success = Db.MakingOneOrder(idPvz, idProd, count, totalPrice);
+
+            if (success)
+            {
+                Console.Clear();
+                Console.WriteLine("╔══════════════════════════════════╗");
+                Console.WriteLine("║        ЗАКАЗ ОФОРМЛЕН!          ║");
+                Console.WriteLine("╠══════════════════════════════════╣");
+                Console.WriteLine($"Товар: {product.Name} x{count}");
+                Console.WriteLine($"Сумма: {totalPrice} ₽");
+                Console.WriteLine($"ПВЗ: {Db.Pvzs.First(p => p.ID_PVZ == idPvz).Address}");
+                Console.WriteLine();
+                Console.WriteLine("Заказ будет ждать вас в пункте");
+                Console.WriteLine("выдачи в течение 3 дней");
+                Console.WriteLine("╚══════════════════════════════════╝");
+            }
+            else
+            {
+                Console.WriteLine("✗ Ошибка при оформлении заказа!");
+            }
+
+            Console.WriteLine("[Enter] Вернуться в меню");
+            Console.ReadLine();
         }
 
 
