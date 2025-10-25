@@ -30,6 +30,8 @@ namespace _3ISIP223_PogosyanHouse1
         public List<Korzina> Korzina { get; set; }
         public List<OrderHistory> OrderHistories { get; set; }
 
+        public PVZ pvzUser { get; set; } = null;
+
         public WorkingWhithDateBase()
         {
 
@@ -45,6 +47,7 @@ namespace _3ISIP223_PogosyanHouse1
             //Core.Marketplace.SaveChanges();
             User = Core.Marketplace.Users.FirstOrDefault();
 
+            if (User.PVZ != null) pvzUser = User.PVZ;
         }
 
         // Регистрация пользователя
@@ -98,13 +101,24 @@ namespace _3ISIP223_PogosyanHouse1
 
         }
 
+        public Korzina GetKorzina(int id, int count)
+        {
+            Korzina korzina = new Korzina
+            {
+                ID_Product = id,
+                ID_User = User.ID_User,
+                CountProduct = count
+            };
+            return korzina;
+        }
+
 
         // Оформление заказа
         // 1. Рассчитать итоговую стоимость
         // 2. Создать заказ в таблице Orders
         // 3. Перенести товары в OrderHistory
         // 4. Очистить корзину
-        public void MakingOrder(int idPvz, bool OneProduct = false, )
+        public void MakingOrder(int idPvz)
         {
 
                 foreach (var korz in Korzina)
@@ -118,7 +132,7 @@ namespace _3ISIP223_PogosyanHouse1
                     };
                     OrderHistory orderHistory = new OrderHistory
                     {
-                        Order = order,
+                        ID_Order = order.ID_Order,
                         ID_Product = korz.ID_Product,
                         CountProduct = korz.CountProduct,
                     };
@@ -140,7 +154,7 @@ namespace _3ISIP223_PogosyanHouse1
             };
             OrderHistory orderHistory = new OrderHistory
             {
-                Order = order,
+                ID_Order = order.ID_Order,
                 ID_Product = korz.ID_Product,
                 CountProduct = korz.CountProduct,
             };
@@ -446,7 +460,10 @@ namespace _3ISIP223_PogosyanHouse1
         // 5. Показывается подтверждение покупки
         public void MakingOneProductOrder(int idProd, int count)
         {
-            Order 
+            int idPvz;
+            if (Db.pvzUser != null) { idPvz = Db.pvzUser.ID_PVZ; }
+            else { idPvz = 0; }
+            Db.MakingOneOrder(idPvz, Db.GetKorzina(idProd, count));
         }
 
 
