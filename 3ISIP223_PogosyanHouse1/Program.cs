@@ -52,17 +52,39 @@ namespace _3ISIP223_PogosyanHouse1
             if (User.PVZ != null) pvzUser = User.PVZ;
         }
 
+        public bool UserRegistered() => User.IsRegistered;
+
         public void ChangePVZUser(int id)
         {
             pvzUser = Pvzs.FirstOrDefault(s => s.ID_PVZ == id);
         }
 
+        public bool CheckLogin(string login)
+        {
+            if (Core.Marketplace.Users.ToList().FirstOrDefault(s => s.Login == login) != null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
         // Регистрация пользователя
         // 1. Создать запись в БД с флагом IsRegistered = true
         // 2. Вернуться в главное меню
-        public bool SignUp()
+        public void SignUp(string login, string password, string name)
         {
-            return true;
+            User newUser = new User
+            {
+                Login = login,
+                Password = password,
+                Name = name,
+                IsRegistered = true,
+                Created_Date = DateTime.Now,
+            };
+            Core.Marketplace.Users.Add(newUser);
+            User = newUser;
+            Core.Marketplace.SaveChanges();
         }
 
         // Вход пользователя
@@ -279,11 +301,13 @@ namespace _3ISIP223_PogosyanHouse1
                     case 1:
                         {
                             SignInMenu();
+                            if (Db.UserRegistered()) MenuSignInUser();
                             break;
                         }
                     case 2:
                         {
                             SignUpMenu();
+                            if (Db.UserRegistered()) MenuSignInUser();
                             break;
                         }
                     case 3:
@@ -303,6 +327,40 @@ namespace _3ISIP223_PogosyanHouse1
 
         }
 
+        public bool CheckInputLogin(string login)
+        {
+            if(login.Length == 0) {
+                Console.WriteLine("Ошибка: Логин не может быть пустым!");
+                return false; 
+            }
+            if (login == "0") return true;
+
+            if (login.Length < 3 || login.Length > 20) {
+                Console.WriteLine("Ошибка: Логин должен содержать от 3 до 20 символов!");
+                return false; 
+            }
+            if(!Db.CheckLogin(login)) {
+                Console.WriteLine("Ошибка: Этот логин уже занят!");
+                return false; 
+            }
+            Console.WriteLine("✅ Логин доступен для регистрации!");
+            return true;
+        }
+        public bool CheckInputPassword(string password)
+        {
+            if (password.Length == 0)
+            {
+                Console.WriteLine("Ошибка: Пароль не может быть пустым!");
+                return false;
+            }
+            if (password == "0") return true;
+            if (password.Length < 6 || password.Length > 20)
+            {
+                Console.WriteLine("Ошибка: Пароль должен содержать от 6 до 20 символов!");
+                return false;
+            }
+            return true;
+        }
 
         // Выход из аккаунта
         // 1. Сбросить данные текущего пользователя
@@ -318,7 +376,75 @@ namespace _3ISIP223_PogosyanHouse1
         // 3. Подтвердить пароль
         public void SignUpMenu()
         {
+            Console.Clear();
+            Console.WriteLine("РЕГИСТРАЦИЯ              ");
+            Console.WriteLine("Для возврата в меню введите '0' в любое поле");
+            string login;
+            while (true) { 
+                Console.Write("Login: \n>");
+                if(CheckInputLogin( login = Console.ReadLine()  ))
+                {
+                    break;
+                }
+            }
+            if (login == "0")
+            {
+                Console.WriteLine("⚠️  Регистрация отменена");
+                return;
+            }
+            string password;
+            while (true) { 
+                Console.Write("Password: \n>");
+                if(CheckInputPassword( password = Console.ReadLine()))
+                {
+                    break;
+                }
+            }
+            if (password == "0")
+            {
+                Console.WriteLine("⚠️  Регистрация отменена");
+                return;
+            }
+            string confirmPassword;
+            while (true) { 
+                Console.Write("Confirm Password: \n>");
+                confirmPassword = Console.ReadLine();
+                if(confirmPassword == password || password == "0")
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Ошибка: Пароли не совпадают!");
+                }
+            }
+            if (confirmPassword == "0")
+            {
+                Console.WriteLine("⚠️  Регистрация отменена");
+                return;
+            }
+            string name;
+            while (true)
+            {
+                Console.Write("Name: \n>");
+                name = Console.ReadLine();
+                if (name == "0")
+                {
+                    break;
+                }
+                else if (name.Length == 0) { Console.WriteLine("Ошибка: Имя не может быть пустым!"); }
+                else if (name.Length < 3 || name.Length > 20) { Console.WriteLine("Ошибка: Имя должно содержать от 2 до 20 символов!"); }
+                else break;
+            }
+            if (name == "0")
+            {
+                Console.WriteLine("⚠️  Регистрация отменена");
+                return;
+            }
 
+            Db.SignUp(login, password, name);
+            Console.WriteLine("✅ Регистрация прошла успешно!");
+            return;
         }
 
         // Меню Входа
@@ -332,7 +458,7 @@ namespace _3ISIP223_PogosyanHouse1
         // 2. Перейти к выбранному функционалу
         public void MenuSignInUser()
         {
-
+            
         }
 
         // Работа с корзиной
@@ -409,30 +535,47 @@ namespace _3ISIP223_PogosyanHouse1
             Console.WriteLine();
             Console.WriteLine($"{product.Description}");
             Console.WriteLine();
-            Console.WriteLine("║ [1] Добавить в корзину           ║\r\n║ [2] Купить сейчас                ║\r\n║ [3] Вернуться в меню ");
-            int n;
-            Input("Выберите действие [1-3]", out n, 1, 3);
-            switch (n)
+            if (Db.UserRegistered())
             {
-                case 1:
-                    {
-                        int count;
-                        Input("Count", out count, 1, 20);
-                        AddProductToKorzina(idProd, count);
-                        break;
-                    }
-                case 2:
-                    {
-                        int count;
-                        Input("Count", out count, 1, 20);
-                        MakingOneProductOrder(idProd, count);    
-                        break;
-                    }
-                case 3:
-                    {
+                Console.WriteLine("║ [1] Добавить в корзину           ║\r\n║ [2] Купить сейчас                ║\r\n║ [3] Вернуться в меню ");
+                int n;
+                Input("Выберите действие [1-3]", out n, 1, 3);
+                switch (n)
+                {
+                    case 1:
+                        {
+                            int count;
+                            Input("Count", out count, 1, 20);
+                            AddProductToKorzina(idProd, count);
+                            break;
+                        }
+                    case 2:
+                        {
+                            int count;
+                            Input("Count", out count, 1, 20);
+                            MakingOneProductOrder(idProd, count);    
+                            break;
+                        }
+                    case 3:
+                        {
 
-                        break;
-                    }
+                            break;
+                        }
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("║ [1] Вернуться в меню ");
+                int n;
+                Input("Выберите действие [1-3]", out n, 1, 1);
+                switch (n)
+                {
+                    case 1:
+                        {
+                            break;
+                        }
+                }
             }
 
         }
@@ -505,7 +648,7 @@ namespace _3ISIP223_PogosyanHouse1
             
             Console.WriteLine("Состав заказа:");
             decimal totalPrice = product.Price * count;
-            Console.WriteLine($"• {product.Name} x{count} = {totalPrice} ₽");
+            Console.WriteLine($"> {product.Name} x{count} = {totalPrice} ₽");
             Console.WriteLine($"ИТОГО: {totalPrice} ₽");
 
             int choice;
@@ -558,23 +701,18 @@ namespace _3ISIP223_PogosyanHouse1
             if (success)
             {
                 Console.Clear();
-                Console.WriteLine("╔══════════════════════════════════╗");
                 Console.WriteLine("║        ЗАКАЗ ОФОРМЛЕН!          ║");
-                Console.WriteLine("╠══════════════════════════════════╣");
                 Console.WriteLine($"Товар: {product.Name} x{count}");
                 Console.WriteLine($"Сумма: {totalPrice} ₽");
                 Console.WriteLine($"ПВЗ: {Db.Pvzs.First(p => p.ID_PVZ == idPvz).Address}");
                 Console.WriteLine();
-                Console.WriteLine("Заказ будет ждать вас в пункте");
-                Console.WriteLine("выдачи в течение 3 дней");
-                Console.WriteLine("╚══════════════════════════════════╝");
             }
             else
             {
-                Console.WriteLine("✗ Ошибка при оформлении заказа!");
+                Console.WriteLine("Ошибка при оформлении заказа!");
             }
 
-            Console.WriteLine("[Enter] Вернуться в меню");
+            Console.WriteLine("Нажмите [Enter] Вернуться в меню");
             Console.ReadLine();
         }
 
