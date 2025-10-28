@@ -18,6 +18,7 @@ namespace _3ISIP223_PogosyanHouse1
         public int ID_User { get; set; }
         public int ID_Product { get; set; }
         public int CountProduct { get; set; }
+        public decimal TotalPrice { get; set; }
     
         public virtual Product Product { get; set; }
         public virtual User User { get; set; }
