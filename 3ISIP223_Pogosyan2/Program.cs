@@ -217,7 +217,7 @@ namespace _3ISIP223_Pogosyan2
                     sklad.DeliveryProgress = -1;
                 }
             }
-
+           
             foreach (var sklad1 in Core.MYSalon.Sklads.ToList())
             {
                 bool flag = false;
@@ -236,7 +236,7 @@ namespace _3ISIP223_Pogosyan2
                 }
                 if (flag)
                 {
-                    Core.MYSalon.Sklads.Remove(sk);
+                    Core.MYSalon.Sklads.Remove(sk);// Тут
                     Core.MYSalon.SaveChanges();
                 }
             }
