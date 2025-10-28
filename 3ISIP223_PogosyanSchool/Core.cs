@@ -8,5 +8,6 @@ namespace _3ISIP223_PogosyanSchool
 {
     internal class Core
     {
+        public static MarketplaceEntities Marketplace = new MarketplaceEntities();
     }
 }
