@@ -85,6 +85,14 @@ namespace _3ISIP223_PogosyanSchool
             Core.Marketplace.Users.Add(newUser);
             User = newUser;
             Core.Marketplace.SaveChanges();
+            ChangeParametrs();
+        }
+
+        public void ChangePVZ(int idPVZ)
+        {
+            User.ID_PVZ = idPVZ;
+            Core.Marketplace.Users.First(u=>u.ID_User==User.ID_User).ID_PVZ = idPVZ;
+            Core.Marketplace.SaveChanges();
         }
 
         // Вход пользователя
@@ -111,15 +119,6 @@ namespace _3ISIP223_PogosyanSchool
 
 
 
-        // Поиск товаров
-        // 1. Найти товары по названию/описанию
-        // 2. Вернуть результаты
-        public void FindProduct()
-        {
-
-        }
-
-
         // Добавление товара в корзину
         // 1. Добавить запись в таблицу Korzina
         public void AddProductToKorzina(int id, int count)
@@ -128,7 +127,8 @@ namespace _3ISIP223_PogosyanSchool
             {
                 ID_Product = id,
                 ID_User = User.ID_User,
-                CountProduct = count
+                CountProduct = count,
+                TotalPrice = count*Products.First(s=>s.ID_Product == id).Price,
             };
             Korzina.Add(korzina);
             Core.Marketplace.Korzinas.Add(korzina);
@@ -138,20 +138,25 @@ namespace _3ISIP223_PogosyanSchool
         public void ClearKorzina()
         {
             Korzina.Clear();
-            foreach (var kor in Core.Marketplace.Korzinas.ToList())
+            foreach (var kor in Core.Marketplace.Korzinas.Where(s => s.ID_User == User.ID_User).ToList())
             {
                 Core.Marketplace.Korzinas.Remove(kor);
             }
             Core.Marketplace.SaveChanges();
         }
 
-
-        // Просмотр корзины
-        // 1. Вернуть список товаров
-        public void ReadKorzina()
+        // Удаление товара из корзины
+        // 1. Пользователь выбирает товар для удаления
+        // 2. Подтверждает удаление
+        // 3. Удаляет запись из базы данных
+        // 4. Показывает обновленную корзину
+        public void DeleteProduct(int idProd)
         {
-
+            Core.Marketplace.Korzinas.Remove(Korzina[idProd]);
+            Core.Marketplace.SaveChanges();
+            Korzina = Core.Marketplace.Korzinas.Where(s => s.ID_User == User.ID_User).ToList();
         }
+
 
         public Korzina GetKorzina(int id, int count)
         {
@@ -162,6 +167,18 @@ namespace _3ISIP223_PogosyanSchool
                 CountProduct = count
             };
             return korzina;
+        }
+
+        public void ChangeCountProduct(int idProd, int count)
+        {
+            var korz = Core.Marketplace.Korzinas.Where(s => s.ID_User == User.ID_User).ToList().First(s => s.ID_Korzina == Korzina[idProd].ID_Korzina);
+            korz.CountProduct = count ;
+            korz.TotalPrice =  count * korz.Product.Price ;
+
+
+
+            Core.Marketplace.SaveChanges();
+            Korzina = Core.Marketplace.Korzinas.Where(s => s.ID_User == User.ID_User).ToList();
         }
 
         public int FilterCategory()
@@ -180,7 +197,7 @@ namespace _3ISIP223_PogosyanSchool
         // 2. Создать заказ в таблице Orders
         // 3. Перенести товары в OrderHistory
         // 4. Очистить корзину
-        public void MakingOrder(int idPvz)
+        public bool MakingOrder(int idPvz)
         {
 
             foreach (var korz in Korzina)
@@ -202,8 +219,10 @@ namespace _3ISIP223_PogosyanSchool
                 Core.Marketplace.OrderHistories.Add(orderHistory);
             }
             Core.Marketplace.SaveChanges();
+            return true;
 
         }
+
 
         public bool MakingOneOrder(int idPvz, int idProd, int count, decimal price)
         {
@@ -536,6 +555,7 @@ namespace _3ISIP223_PogosyanSchool
                         }
                     case 3:
                         {
+                            OrderHistory();
                             break;
                         }
                     case 4:
@@ -586,6 +606,10 @@ namespace _3ISIP223_PogosyanSchool
                         {
                             Console.WriteLine("\nКорзина пуста!");
                         }
+                        else
+                        {
+                            //MakingOrder(idProd, count);
+                        }
                         break;
                     }
                 case "О":
@@ -600,6 +624,7 @@ namespace _3ISIP223_PogosyanSchool
                     }
                 default:
                     {
+                        ChangeProduct(int.Parse(n)-1);
                         break;
                     }
             }
@@ -751,15 +776,7 @@ namespace _3ISIP223_PogosyanSchool
         }
 
 
-        // Удаление товара из корзины
-        // 1. Пользователь выбирает товар для удаления
-        // 2. Подтверждает удаление
-        // 3. Удаляет запись из базы данных
-        // 4. Показывает обновленную корзину
-        public void DeleteProduct()
-        {
 
-        }
 
         // Оформление заказа
         // 1. Показать список доступных ПВЗ
@@ -769,9 +786,143 @@ namespace _3ISIP223_PogosyanSchool
         // 5. Показать подтверждение заказа
         public void MakingOrder()
         {
+            Console.Clear();
             Console.WriteLine("Oformlenie zakaza");
+            int idPvz = -1;
+            int N = Db.Pvzs.Count;
+            if (Db.pvzUser != null)
+            {
+                idPvz = Db.pvzUser.ID_PVZ;
+                Console.WriteLine($"Текущий ПВЗ: {Db.pvzUser.Address}");
+                Console.WriteLine();
+            }
+
+            if (idPvz == -1)
+            {
+                Console.WriteLine("Выберите пункт выдачи:");
+                Console.WriteLine();
+
+                for (int i = 0; i < N; i++)
+                {
+                    var pvz = Db.Pvzs[i];
+                    Console.WriteLine($"[{i + 1}] {pvz.Address}");
+                    Console.WriteLine($"    {pvz.Schedule} | {pvz.Phone}");
+                    Console.WriteLine();
+                }
+            }
+
+            Console.WriteLine("Состав заказа:");
+            decimal totalPrice = 0;
+            foreach(var korz in Db.Korzina)
+            {
+                Console.WriteLine($"> {korz.Product.Name} x{korz.CountProduct} = {korz.TotalPrice} ₽");
+                totalPrice += korz.TotalPrice;
+            }
+            Console.WriteLine($"ИТОГО: {totalPrice} ₽");
+
+            int choice;
+
+            if (idPvz == -1)
+            {
+                Console.WriteLine($"[1-{N}] Выбрать ПВЗ");
+                Console.WriteLine("[0] Отмена");
+                Input("Выберите действие: ", out choice, 0, N);
+
+                if (choice == 0)
+                {
+                    Console.WriteLine("⚠ Заказ отменен");
+                    return;
+                }
+
+                idPvz = Db.Pvzs[choice - 1].ID_PVZ;
+            }
+            else
+            {
+                Console.WriteLine("[1] Подтвердить заказ");
+                Console.WriteLine("[2] Изменить ПВЗ");
+                Console.WriteLine("[0] Отмена");
+                Input("Выберите действие: ", out choice, 0, 2);
+
+                switch (choice)
+                {
+                    case 0:
+                        Console.WriteLine("⚠ Заказ отменен");
+                        return;
+                    case 1:
+                        break;
+                    case 2:
+                        Console.WriteLine("\nВыберите новый пункт выдачи:");
+                        for (int i = 0; i < N; i++)
+                        {
+                            var pvz = Db.Pvzs[i];
+                            Console.WriteLine($"[{i + 1}] {pvz.Address}");
+                        }
+
+                        Input("Выберите ПВЗ: ", out int pvzChoice, 1, N);
+                        idPvz = Db.Pvzs[pvzChoice - 1].ID_PVZ;
+                        break;
+                }
+            }
+            Db.ChangePVZUser(idPvz);
+
+            bool success = Db.MakingOrder(idPvz);
+
+            if (success)
+            {
+                Console.Clear();
+                Console.WriteLine("║        ЗАКАЗ ОФОРМЛЕН!          ║");
+                //Console.WriteLine($"Товар: {product.Name} x{count}"); // Все товары
+                Console.WriteLine($"Сумма: {totalPrice} ₽");
+                Console.WriteLine($"ПВЗ: {Db.Pvzs.First(p => p.ID_PVZ == idPvz).Address}");
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("Ошибка при оформлении заказа!");
+            }
+
+            Console.WriteLine("Нажмите [Enter] Вернуться в меню");
+            Console.ReadLine();
+        }
+
+        public void ChangeProduct(int idProd)
+        {
+
+            Console.Clear();
+            Korzina product = Db.Korzina[idProd];
+            if (product == null)
+            {
+                Console.WriteLine("null");
+                Console.ReadLine();
+                return;
+            }
+            Console.WriteLine(product.Product.Name);
+            Console.WriteLine($"Текущее количество: {product.CountProduct}");
+            int newCount;
+            Input("Новое количество", out newCount, 1, 20);
+            Console.WriteLine("1. Сохранить\n2. Удалить\n3. Отмена");
+            int n;
+            Input("Выберите действие[1-3]", out n, 1, 3);
+            switch (n)
+            {
+                case 1:
+                    {
+                        Db.ChangeCountProduct(idProd, newCount);
+                        break;
+                    }
+                case 2:
+                    {
+                        Db.DeleteProduct(idProd);
+                        break;
+                    }
+                case 3:
+                    {
+                        break;
+                    }
+            }
 
         }
+
 
         // Просмотр истории заказов
         // 1. Получить заказы текущего пользователя из БД
@@ -779,7 +930,8 @@ namespace _3ISIP223_PogosyanSchool
         // 3. Показать состав каждого заказа
         public void OrderHistory()
         {
-
+            Console.Clear();
+            Console.WriteLine();
         }
 
         // Покупка одного товара
