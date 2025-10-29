@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище MarketplaceModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище MarketplaceModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Categors">
           <Key>
             <PropertyRef Name="ID_Category" />
@@ -20,6 +20,7 @@
           <Property Name="ID_User" Type="int" Nullable="false" />
           <Property Name="ID_Product" Type="int" Nullable="false" />
           <Property Name="CountProduct" Type="int" Nullable="false" />
+          <Property Name="TotalPrice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderHistory">
           <Key>
@@ -208,8 +209,7 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MarketplaceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -231,6 +231,7 @@
           <Property Name="CountProduct" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Product" Relationship="Self.FK_Korzina_Products" FromRole="Korzina" ToRole="Products" />
           <NavigationProperty Name="User" Relationship="Self.FK_Korzina_Users" FromRole="Korzina" ToRole="Users" />
+          <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="OrderHistory">
           <Key>
@@ -449,6 +450,7 @@
           <EntitySetMapping Name="Korzinas">
             <EntityTypeMapping TypeName="MarketplaceModel.Korzina">
               <MappingFragment StoreEntitySet="Korzina">
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
                 <ScalarProperty Name="ID_Korzina" ColumnName="ID_Korzina" />
                 <ScalarProperty Name="ID_User" ColumnName="ID_User" />
                 <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />

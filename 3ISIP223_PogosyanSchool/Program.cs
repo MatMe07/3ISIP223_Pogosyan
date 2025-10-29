@@ -25,7 +25,7 @@ namespace _3ISIP223_PogosyanSchool
     class WorkingWhithDateBase
     {
 
-        public User User { get; set; }
+        public User User { get; set; } = null;
         public List<Product> Products { get; set; }
         public List<Korzina> Korzina { get; set; }
         public List<OrderHistory> OrderHistories { get; set; }
@@ -49,7 +49,7 @@ namespace _3ISIP223_PogosyanSchool
             //Core.Marketplace.SaveChanges();
             User = Core.Marketplace.Users.FirstOrDefault();
 
-            if (User.PVZ != null) pvzUser = User.PVZ;
+            if (User != null && User.PVZ != null) pvzUser = User.PVZ;
         }
 
         public bool UserRegistered() => User.IsRegistered;
@@ -91,9 +91,21 @@ namespace _3ISIP223_PogosyanSchool
         // 1. Проверить существование пользователя в БД
         // 2. Сравнить введенный пароль с хранимым
         // 3. Если успешно - войти в личный кабинет
-        public bool SignIn()
+        public bool SignIn(string login, string password)
         {
-            return false;
+            User us = Core.Marketplace.Users.FirstOrDefault(s => s.Login == login);
+            if (us == null) { return false; }
+            if (us.Password != password) { return false; }
+            User = us;
+            if (us.PVZ != null) pvzUser = us.PVZ;
+            ChangeParametrs();
+            return true;
+        }
+
+        public void ChangeParametrs()
+        {
+            Korzina = Core.Marketplace.Korzinas.Where(s => s.ID_User == User.ID_User).ToList();
+            OrderHistories = Core.Marketplace.OrderHistories.Where(us => us.Order.ID_User == User.ID_User).ToList();
         }
 
 
@@ -123,6 +135,17 @@ namespace _3ISIP223_PogosyanSchool
             Core.Marketplace.SaveChanges();
         }
 
+        public void ClearKorzina()
+        {
+            Korzina.Clear();
+            foreach (var kor in Core.Marketplace.Korzinas.ToList())
+            {
+                Core.Marketplace.Korzinas.Remove(kor);
+            }
+            Core.Marketplace.SaveChanges();
+        }
+
+
         // Просмотр корзины
         // 1. Вернуть список товаров
         public void ReadKorzina()
@@ -141,6 +164,16 @@ namespace _3ISIP223_PogosyanSchool
             return korzina;
         }
 
+        public int FilterCategory()
+        {
+            int N = 2;
+            foreach (var cat in Core.Marketplace.Categors.ToList())
+            {
+                Console.WriteLine($"[{N++}] {cat.Name} ({Products.Count(s => s.ID_Category == cat.ID_Category)} тов.)");
+            }
+            N--;
+            return N;
+        }
 
         // Оформление заказа
         // 1. Рассчитать итоговую стоимость
@@ -456,7 +489,21 @@ namespace _3ISIP223_PogosyanSchool
         // Меню Входа
         public void SignInMenu()
         {
-
+            Console.Clear();
+            Console.WriteLine(" ВХОД В СИСТЕМУ");
+            string login, password;
+            Console.Write("Login: ");
+            login = Console.ReadLine();
+            Console.Write("Password: ");
+            password = Console.ReadLine();
+            if (!Db.SignIn(login, password))
+            {
+                Console.WriteLine("\nНеверный логин или пароль!\nПопробуйте снова или зарегистрируйтесь.");
+            }
+            else
+            {
+                Console.WriteLine($"\nАвторизация успешна! Добро пожаловать, {Db.User.Name}!");
+            }
         }
 
         // Меню авторизованного пользователя
@@ -464,7 +511,40 @@ namespace _3ISIP223_PogosyanSchool
         // 2. Перейти к выбранному функционалу
         public void MenuSignInUser()
         {
+            int n;
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine($"ДОБРО ПОЖАЛОВАТЬ, {Db.User.Name}!");
+                Console.WriteLine("1. Каталог товаров");
+                Console.WriteLine($"2. Моя корзина ({Db.Korzina.Count})");
+                Console.WriteLine("3. История заказов");
+                Console.WriteLine("4. Выйти из аккаунта");
 
+                Input("Выберите действие [1-4]", out n, 1, 4);
+                switch (n)
+                {
+                    case 1:
+                        {
+                            AllProductMenu();
+                            break;
+                        }
+                    case 2:
+                        {
+                            Korzina();
+                            break;
+                        }
+                    case 3:
+                        {
+                            break;
+                        }
+                    case 4:
+                        {
+                            break;
+                        }
+                }
+
+            }
         }
 
         // Работа с корзиной
@@ -473,7 +553,56 @@ namespace _3ISIP223_PogosyanSchool
         // 3. Предложить: изменить количество, удалить товар, оформить заказ, вернуться
         public void Korzina()
         {
+            Console.Clear();
+            Console.WriteLine("КОРЗИНА");
+            int N = 1;
+            decimal totalPrice = 0;
+            foreach (var korz in Db.Korzina)
+            {
 
+                Console.WriteLine($"{N++}. {korz.Product.Name}      x{korz.CountProduct}     {korz.TotalPrice} Руб. ");
+                totalPrice += korz.TotalPrice;
+            }
+            Console.WriteLine();
+            Console.WriteLine($"Итого:   {totalPrice} Руб. ");
+            Console.WriteLine();
+            N--;
+            if (N != 0)
+            {
+                Console.WriteLine($"[1-{N}] Изменить товар    [З] Оформить заказ        ║\r\n║ [О] Очистить корзину      [B] Вернуться             ");
+            }
+            else
+            {
+                Console.WriteLine($"[З] Оформить заказ        ║\r\n║ [О] Очистить корзину      [B] Вернуться             ");
+            }
+            string n;
+            List<string> list = new List<string> { "З", "О", "В" };
+            InputCheckWord("Выберите действие", out n, list, 1, N);
+            switch (n)
+            {
+                case "З":
+                    {
+                        if (N == 0)
+                        {
+                            Console.WriteLine("\nКорзина пуста!");
+                        }
+                        break;
+                    }
+                case "О":
+                    {
+                        if (N != 0) Db.ClearKorzina();
+                        Korzina();
+                        break;
+                    }
+                case "В":
+                    {
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
         }
 
 
@@ -493,16 +622,30 @@ namespace _3ISIP223_PogosyanSchool
         // 2. Отобразить список товаров с ценами и описаниями
         // 3. Предложить фильтрацию по категориям или по дате
         // 4. Для авторизованных пользователей показать опцию добавления в корзину
-        public void AllProductMenu()
+        public void AllProductMenu(int idCategor = 0)
         {
             Console.Clear();
-            Console.WriteLine("AllProducts");
             int N = 1;
-            foreach (var product in Db.Products)
+            Console.WriteLine("КАТАЛОГ ТОВАРОВ");
+            List<int> listID = new List<int>();
+            if (idCategor == 0)
             {
-                Console.WriteLine($"{N++} | {product.Name} | {product.Price} | {product.Categor.Name}");
-                Console.WriteLine($"  | {product.Description.Substring(0, 17)}... |         |");
+                foreach (var product in Db.Products)
+                {
+                    Console.WriteLine($"{N++} | {product.Name} | {product.Price} | {product.Categor.Name}");
+                    Console.WriteLine($"  | {product.Description.Substring(0, 17)}... |         |");
+                }
             }
+            else
+            {
+                foreach (var product in Db.Products.Where(pr => pr.ID_Category == idCategor).ToList())
+                {
+                    Console.WriteLine($"{N++} | {product.Name} | {product.Price} | {product.Categor.Name}");
+                    Console.WriteLine($"  | {product.Description.Substring(0, 17)}... |         |");
+                    listID.Add(product.ID_Product);
+                }
+            }
+
             N--;
             Console.WriteLine($"[1-{N}] Выбрать товар");
             Console.WriteLine("[Ф] Фильтр по категориям");
@@ -517,6 +660,7 @@ namespace _3ISIP223_PogosyanSchool
             {
                 case "Ф":
                     {
+                        FilterCategoryMenu();
                         break;
                     }
                 case "В":
@@ -525,7 +669,8 @@ namespace _3ISIP223_PogosyanSchool
                     }
                 default:
                     {
-                        InfoProduct(int.Parse(n));
+                        int int_n = int.Parse(n);
+                        InfoProduct(idCategor == 0 ? int_n : listID[int_n - 1]);
                         break;
                     }
             }
@@ -585,6 +730,24 @@ namespace _3ISIP223_PogosyanSchool
                 }
             }
 
+        }
+
+        public void FilterCategoryMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("ФИЛЬТР КАТЕГОРИЙ ");
+            Console.WriteLine("[1] Все категории (18 товаров)");
+            int N = Db.FilterCategory();
+            int n;
+            Input($"Выберите категорию [1-{N}]", out n, 1, N);
+            switch (n)
+            {
+                default:
+                    {
+                        AllProductMenu(n - 1);
+                        break;
+                    }
+            }
         }
 
 
