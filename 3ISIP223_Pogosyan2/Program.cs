@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using _3ISIP223_Pogosyan2;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -81,6 +83,7 @@ namespace _3ISIP223_Pogosyan2
             AddClientTOQueu();
             UpdateValues();
             //order = CreateOrderFromQueue(GetNextClient());
+            JoinDublicZapch();
 
         }
 
@@ -166,13 +169,13 @@ namespace _3ISIP223_Pogosyan2
             }
             else
             {
-                if(skladZapchast.DeliveryProgress == -1)
+                if (skladZapchast.DeliveryProgress == -1)
                 {
                     skladZapchast.DeliveryProgress = 2;
                     skladZapchast.InDelivery = countZapchast;
 
                 }
-                    
+
                 else
                 {
                     Sklad zapch = new Sklad
@@ -196,9 +199,7 @@ namespace _3ISIP223_Pogosyan2
                 if (sklad.DeliveryProgress == 0)
                 {
                     sklad.Count = sklad.InDelivery;
-                    sklad.InDelivery = 0;
                     IsDelivery = true;
-                    sklad.DeliveryProgress = -1;
                 }
 
             }
@@ -206,38 +207,45 @@ namespace _3ISIP223_Pogosyan2
             sklad = Core.MYSalon.Sklads.ToList();
         }
 
+
         public void StatusDelivered()
         {
-            int cop = 0;
-            foreach (var sklad in Core.MYSalon.Sklads.ToList())
-            {
-                if (sklad.DeliveryProgress == 0)
-                {
-                    IsDelivery = false;
-                    sklad.DeliveryProgress = -1;
-                }
-            }
-           
-            foreach (var sklad1 in Core.MYSalon.Sklads.ToList())
-            {
-                bool flag = false;
-                Sklad sk = null;
-                foreach (var sklad2 in Core.MYSalon.Sklads.ToList())
-                {
-                    if (sklad1.ID_Zapchast == sklad2.ID_Zapchast && sklad1.DeliveryProgress == -1)
-                    {
-                        flag = true;
-                        sk = sklad2;
-                        sklad1.Count += sklad2.Count;
-                        Core.MYSalon.Sklads.Remove(sklad2);
-                        Core.MYSalon.SaveChanges();
+            var zapchIsDelivered = Core.MYSalon.Sklads
+                .Where(s => s.DeliveryProgress == 0)
+                .ToList();
 
-                    }
-                }
-                if (flag)
+            foreach (var sklad in zapchIsDelivered)
+            {
+                sklad.DeliveryProgress = -1;
+                sklad.InDelivery = 0;
+            }
+
+            Core.MYSalon.SaveChanges();
+
+            IsDelivery = false;
+            JoinDublicZapch();
+        }
+
+        public void JoinDublicZapch()
+        {
+            var ZapchInSklad = Core.MYSalon.Sklads
+                .Where(s => s.DeliveryProgress == -1)
+                .ToList();
+            var groupZapch = ZapchInSklad
+                .GroupBy(s => s.ID_Zapchast)
+                .Where(g => g.Count() > 1);
+
+            foreach (var group in groupZapch)
+            {
+                var zap = group.First();
+
+                int totalCount = group.Sum(s => s.Count);
+
+                zap.Count = totalCount;
+                var duplicates = group.Skip(1).ToList();
+                foreach (var dupl in duplicates)
                 {
-                    Core.MYSalon.Sklads.Remove(sk);// Тут
-                    Core.MYSalon.SaveChanges();
+                    Core.MYSalon.Sklads.Remove(dupl);
                 }
             }
 
@@ -258,7 +266,7 @@ namespace _3ISIP223_Pogosyan2
             {
                 ID_Client = idClient,
                 ID_Zapchast = idZapch,
-                Position = (clientQueues.Count ==0  ? 0 :  clientQueues.Last().Position + 1),
+                Position = (clientQueues.Count == 0 ? 0 : clientQueues.Last().Position + 1),
             };
             Core.MYSalon.ClientQueues.Add(cli);
             Core.MYSalon.SaveChanges();
@@ -791,7 +799,7 @@ namespace _3ISIP223_Pogosyan2
                 $"Отказ: {client.Client.Name}"
                 );
             db.ChangeMoney(-db.GetPenaltyOtkaz());
-            db.TotalExpences -= db.GetPenaltyOtkaz();
+            db.TotalExpences += db.GetPenaltyOtkaz();
             Console.WriteLine(lineRavno);
             Console.WriteLine(CenterText("ОТКАЗ В ОБСЛУЖИВАНИИ", Width));
             Console.WriteLine(lineRavno);
@@ -825,7 +833,7 @@ namespace _3ISIP223_Pogosyan2
                 $"Ошибка: {client.Client.Name}"
                 );
             db.ChangeMoney(-fail);
-            db.TotalExpences -= db.GetFailWrong();
+            db.TotalExpences += db.GetFailWrong();
 
             Console.WriteLine(lineRavno);
             Console.WriteLine(CenterText("НЕУДАЧНЫЙ РЕМОНТ", Width));
@@ -881,7 +889,7 @@ namespace _3ISIP223_Pogosyan2
                 foreach (var zapch in db.sklad)
                 {
                     //if (zapch.DeliveryProgress)
-                    if (zapch.DeliveryProgress != -1)
+                    if (zapch.DeliveryProgress == 0)
                         Console.WriteLine($"| {$"> {zapch.Zapchast.Name} - {zapch.InDelivery} шт.".PadRight(Width - 4)} |");
                 }
                 Console.WriteLine($"| {$" ".PadRight(Width - 4)} |");
@@ -890,6 +898,7 @@ namespace _3ISIP223_Pogosyan2
                 Console.WriteLine(lineRavno);
                 Console.ReadLine();
                 db.StatusDelivered();
+
             }
         }
 
@@ -897,6 +906,10 @@ namespace _3ISIP223_Pogosyan2
         {
             var zapchast = db.zapchasts.First(s => s.ID_Zapchast == id);
             double pokupka = zapchast.PokupkaPrice * count;
+            if (db.GetMoney() < pokupka)
+            {
+                Console.WriteLine("Недостаточно средств для покупки!");
+            }
             db.AddTransaction(
                 "Расход",
                 $"-{pokupka}",
