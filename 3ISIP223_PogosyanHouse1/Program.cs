@@ -666,7 +666,7 @@ namespace _3ISIP223_PogosyanHouse1
         {
             Console.Clear();
             int N = 1;
-            Console.WriteLine("КАТАЛОГ ТОВАРОВ");
+            Console.WriteLine("КАТАЛОГ ТОВАРОВ!");
             List<int> listID = new List<int>();
             if (idCategor == 0)
             {
