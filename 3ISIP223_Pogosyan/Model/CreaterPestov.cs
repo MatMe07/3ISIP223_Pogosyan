@@ -11,7 +11,7 @@ namespace _3ISIP223_Pogosyan.Model
     {
         public override Enemy CreateEnemy()
         {
-            return new Pestov("Пестов С--", 14, 1, 15);
+            return new Pestov("Пестов С--", random.Next(15, 25), random.Next(5, 10), random.Next(30, 60));
         }
     }
 }

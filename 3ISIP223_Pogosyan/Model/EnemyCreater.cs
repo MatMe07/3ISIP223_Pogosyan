@@ -14,14 +14,25 @@ namespace _3ISIP223_Pogosyan.Model
         public EnemyCreater()
         {
             Enemies = new List<Factory>();
-            Enemies.Add(new CreaterGoblin());
-            Enemies.Add(new CreaterMag());
-            Enemies.Add(new CreaterSkeleton());
+            AddEnemy(new CreaterGoblin());
+            AddEnemy(new CreaterMag());
+            AddEnemy(new CreaterSkeleton());
+
+            Bosses = new List<Factory>();
+            AddBoss(new CreaterArhimag());
+            AddBoss(new CreaterCovalski());
+            AddBoss(new CreaterPestov());
+            AddBoss(new CreaterVVG());
+
         }
 
         public void AddEnemy(Factory enemy)
         {
             Enemies.Add(enemy);
+        }
+        public void AddBoss(Factory enemy)
+        {
+            Bosses.Add(enemy);
         }
 
         public Factory CreateEnemy(int n)

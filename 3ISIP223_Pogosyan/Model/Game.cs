@@ -12,10 +12,8 @@ namespace _3ISIP223_Pogosyan.Model
         public RandomCLS random = new RandomCLS();
 
         //public bool ChoiceChestOrEnemy => false;
-        public bool ChoiceChestOrEnemy => Convert.ToBoolean(random.Next(0, 2));
+        public bool ChoiceChestOrEnemy => random.Next(0, 100) < 50;
 
-        //public bool IsChest { get; set; }
-        //public bool ChoiceGameStart => ChoiceChestOrEnemy;
         public Player player;
         public Enemy Vrag = null;
         public Enemy Boss = null;
@@ -26,10 +24,9 @@ namespace _3ISIP223_Pogosyan.Model
         public double HPLostWinOverBoss { get; set; }
         public bool GameOver { get; set; }
         //public bool BosseStumles => true;
-        public bool BosseStumles => step % 10 == 0;
+        public bool BosseStumles => step % 2 == 0;
 
 
-        public int ToolsOfChest => random.Next(0, 3);
         public Game()
         {
             string name = "Player1";
@@ -134,39 +131,13 @@ namespace _3ISIP223_Pogosyan.Model
                 StepInfo();
                 if (!BosseStumles && (Boss == null))
                 {
-                    if (true) // Enemy
+                    if (ChoiceChestOrEnemy) // Enemy
                     {
                         if (!HaveEnemy)
                         {
-                            //RandEnemy = 1;
                             RandEnemy = random.Next(0, vrags.Enemies.Count);
                             Vrag = vrags.CreateEnemy(RandEnemy).CreateEnemy();
 
-                            //switch (RandEnemy)
-                            //{
-                            //    case 0:
-                            //        {
-                            //            Vrag = new Skeleton("Скелет", 12, 2, 20);
-                            //            break;
-                            //        }
-                            //    case 1:
-                            //        {
-                            //            Vrag = new Magician("Маг", 14, 1, 15);
-                            //            break;
-                            //        }
-                            //    case 2:
-                            //        {
-                            //            Vrag = new Goblin("Гоблин", 10, 3, 20);
-                            //            break;
-                            //        }
-                            //}
-
-
-                            //HaveEnemy = true;
-                            //Console.Clear();
-                            //InforEnemAndPlayer(vrag);
-                            //Thread.Sleep(500);
-                            //StepInfo( );
                             StepSpendWinOverBoss = 0;
                             Thread.Sleep(500);
                             Console.WriteLine();
@@ -484,145 +455,145 @@ namespace _3ISIP223_Pogosyan.Model
         public void ChestChoice()
         {
             player.CountOpenChests++;
-            Console.WriteLine("В луче света вы замечаете старый сундук в углу пещеры...");
-            Console.WriteLine("Вы открываете сундук и находите...\n");
-            string line = new string('═', 40);
-            Thread.Sleep(900);
-            string chestName = "";
-            switch (ToolsOfChest)
-            {
-                case 0:
-                    {
-                        Console.WriteLine(line.PadLeft(70));
-                        Console.WriteLine($"{"".PadLeft(42)} ЦЕЛЕБНОЕ ЗЕЛЬЕ");
-                        //Console.WriteLine(new string('■', 50));
-                        Console.WriteLine(line.PadLeft(70));
 
-                        chestName = "ЦЕЛЕБНОЕ ЗЕЛЬЕ";
-                        Console.WriteLine("\n'Мгновенно восстанавливает все здоровье'\n");
-                        if (player.HP < 100)
-                        {
-                            player.HP = 100;
-                            Console.WriteLine("> Вы выпиваете зелье! \n> Здоровье полностью восстановлено!");
-                        }
-                        else
-                        {
-                            Console.WriteLine("> Ваше здоровье уже полное! Зелье не нужно.");
-                        }
-                        player.InfoHp();
-                        break;
-                    }
-                case 1:
-                    {
-                        int RandAttackWeapon = random.Next(1, 25);
-                        if (RandAttackWeapon <= 5) chestName = "РЖАВЫЙ МЕЧ";
-                        else if (RandAttackWeapon <= 12) chestName = "СТАЛЬНОЙ МЕЧ";
-                        else if (RandAttackWeapon <= 16) chestName = "БАНАНОВЫЙ ПИСТОЛЕТ";
-                        else if (RandAttackWeapon <= 18) chestName = "МАМИНА ШЛЕПАНКА";
-                        else if (RandAttackWeapon <= 22) chestName = "ОГНЕННЫЙ КЛИНОК";
-                        else if (RandAttackWeapon <= 25) chestName = "МОЛОТ ТОРА";
-                        else chestName = "ОТЦОВСКИЙ РЕМЕНЬ";
-                        Console.WriteLine(line.PadLeft(70));
-                        Console.WriteLine($"{"".PadLeft(36)} {chestName} (АТАКА: {RandAttackWeapon})");
-                        //Console.WriteLine(new string('■', 50));
-                        Console.WriteLine(line.PadLeft(70));
+            Chest chest = new Chest(random);
+            chest.Open().StartItem(player);
 
-                        //Console.WriteLine($"\nАТАКА: {RandAttackWeapon}\n");
-                        int sizeBox = 36;
-                        Console.WriteLine("\n\n┌───────────── СРАВНЕНИЕ ─────────────┐");
-                        Console.WriteLine($"| {$" ".PadRight(sizeBox)}|");
-                        Console.WriteLine($"| {$"Текущее: {player.InfoWeapon()}".PadRight(sizeBox)}|");
-                        Console.WriteLine($"| {$"Новое: {chestName} (АТК: {RandAttackWeapon})".PadRight(sizeBox)}|");
-                        Console.WriteLine($"| {$" ".PadRight(sizeBox)}|");
-                        Console.WriteLine("└─────────────────────────────────────┘");
+            //string chestName = "";
+            //switch (ToolsOfChest)
+            //{
+            //    case 0:
+            //        {
+            //            Console.WriteLine(line.PadLeft(70));
+            //            Console.WriteLine($"{"".PadLeft(42)} ЦЕЛЕБНОЕ ЗЕЛЬЕ");
+            //            //Console.WriteLine(new string('■', 50));
+            //            Console.WriteLine(line.PadLeft(70));
 
-                        char choice = 'о';
-                        while (choice != 'в')
-                        {
-                            Console.Write("\n[В] Взять новый предмет\n[О] Оставить старый\n> ");
-                            if (char.TryParse(Console.ReadLine().ToLower(), out choice) && (choice == 'о' || choice == 'в'))
-                            {
-                                break;
-                            }
-                        }
-                        switch (choice)
-                        {
-                            case 'в':
-                                {
-                                    player.AttackWeapon = RandAttackWeapon;
-                                    player.NameWeapon = chestName;
-                                    Console.WriteLine($"\nВы экипировали: {chestName}");
-                                    player.PlayerInfo();
-                                    break;
-                                }
-                            case 'о':
-                                {
-                                    Console.WriteLine("\nВы с сожалением оставляете предмет в сундуке...");
-                                    break;
-                                }
-                        }
+            //            chestName = "ЦЕЛЕБНОЕ ЗЕЛЬЕ";
+            //            Console.WriteLine("\n'Мгновенно восстанавливает все здоровье'\n");
+            //            if (player.HP < 100)
+            //            {
+            //                player.HP = 100;
+            //                Console.WriteLine("> Вы выпиваете зелье! \n> Здоровье полностью восстановлено!");
+            //            }
+            //            else
+            //            {
+            //                Console.WriteLine("> Ваше здоровье уже полное! Зелье не нужно.");
+            //            }
+            //            player.InfoHp();
+            //            break;
+            //        }
+            //    case 1:
+            //        {
+            //            int RandAttackWeapon = random.Next(1, 25);
+            //            if (RandAttackWeapon <= 5) chestName = "РЖАВЫЙ МЕЧ";
+            //            else if (RandAttackWeapon <= 12) chestName = "СТАЛЬНОЙ МЕЧ";
+            //            else if (RandAttackWeapon <= 16) chestName = "БАНАНОВЫЙ ПИСТОЛЕТ";
+            //            else if (RandAttackWeapon <= 18) chestName = "МАМИНА ШЛЕПАНКА";
+            //            else if (RandAttackWeapon <= 22) chestName = "ОГНЕННЫЙ КЛИНОК";
+            //            else if (RandAttackWeapon <= 25) chestName = "МОЛОТ ТОРА";
+            //            else chestName = "ОТЦОВСКИЙ РЕМЕНЬ";
+            //            Console.WriteLine(line.PadLeft(70));
+            //            Console.WriteLine($"{"".PadLeft(36)} {chestName} (АТАКА: {RandAttackWeapon})");
+            //            //Console.WriteLine(new string('■', 50));
+            //            Console.WriteLine(line.PadLeft(70));
 
-                        break;
-                    }
-                case 2:
-                    {
-                        chestName = "";
-                        int RandArmor = random.Next(1, 30);
-                        if (RandArmor <= 7) chestName = "КРОССОВКИ 'АБИБАС'";
-                        else if (RandArmor <= 10) chestName = "ПИЖАМА ШЕЛДОНА";
-                        else if (RandArmor <= 14) chestName = "ПЛАЩ ГАРРИ ПОТТЕРА";
-                        else if (RandArmor <= 18) chestName = "БРОНЯ ЖЕЛЕЗНОГО ЧЕЛОВЕКА";
-                        else if (RandArmor <= 23) chestName = "МАГИЧЕСКАЯ КАРТА ТИНЬКОФФ";
-                        else chestName = "КУРТКА БЭТМЕНА";
+            //            //Console.WriteLine($"\nАТАКА: {RandAttackWeapon}\n");
+            //            int sizeBox = 36;
+            //            Console.WriteLine("\n\n┌───────────── СРАВНЕНИЕ ─────────────┐");
+            //            Console.WriteLine($"| {$" ".PadRight(sizeBox)}|");
+            //            Console.WriteLine($"| {$"Текущее: {player.InfoWeapon()}".PadRight(sizeBox)}|");
+            //            Console.WriteLine($"| {$"Новое: {chestName} (АТК: {RandAttackWeapon})".PadRight(sizeBox)}|");
+            //            Console.WriteLine($"| {$" ".PadRight(sizeBox)}|");
+            //            Console.WriteLine("└─────────────────────────────────────┘");
 
-                        Console.WriteLine(line.PadLeft(70));
-                        Console.WriteLine($"{"".PadLeft(37)} {chestName} (ЗАЩИТА: {RandArmor})");
-                        Console.WriteLine(line.PadLeft(70));
+            //            char choice = 'о';
+            //            while (choice != 'в')
+            //            {
+            //                Console.Write("\n[В] Взять новый предмет\n[О] Оставить старый\n> ");
+            //                if (char.TryParse(Console.ReadLine().ToLower(), out choice) && (choice == 'о' || choice == 'в'))
+            //                {
+            //                    break;
+            //                }
+            //            }
+            //            switch (choice)
+            //            {
+            //                case 'в':
+            //                    {
+            //                        player.AttackWeapon = RandAttackWeapon;
+            //                        player.NameWeapon = chestName;
+            //                        Console.WriteLine($"\nВы экипировали: {chestName}");
+            //                        player.PlayerInfo();
+            //                        break;
+            //                    }
+            //                case 'о':
+            //                    {
+            //                        Console.WriteLine("\nВы с сожалением оставляете предмет в сундуке...");
+            //                        break;
+            //                    }
+            //            }
 
-                        int sizeBox = 46;
-                        Console.WriteLine("\n\n┌────────────────── СРАВНЕНИЕ ──────────────────┐");
-                        Console.WriteLine($"| {$" ".PadRight(sizeBox)}|");
-                        Console.WriteLine($"| {$"Текущее: {player.InfoArmor()}".PadRight(sizeBox)}|");
-                        Console.WriteLine($"| {$"Новое: {chestName} (ЗАЩ: {RandArmor})".PadRight(sizeBox)}|");
-                        Console.WriteLine($"| {$" ".PadRight(sizeBox)}|");
-                        Console.WriteLine("└───────────────────────────────────────────────┘");
+            //            break;
+            //        }
+            //    case 2:
+            //        {
+            //            chestName = "";
+            //            int RandArmor = random.Next(1, 30);
+            //            if (RandArmor <= 7) chestName = "КРОССОВКИ 'АБИБАС'";
+            //            else if (RandArmor <= 10) chestName = "ПИЖАМА ШЕЛДОНА";
+            //            else if (RandArmor <= 14) chestName = "ПЛАЩ ГАРРИ ПОТТЕРА";
+            //            else if (RandArmor <= 18) chestName = "БРОНЯ ЖЕЛЕЗНОГО ЧЕЛОВЕКА";
+            //            else if (RandArmor <= 23) chestName = "МАГИЧЕСКАЯ КАРТА ТИНЬКОФФ";
+            //            else chestName = "КУРТКА БЭТМЕНА";
+
+            //            Console.WriteLine(line.PadLeft(70));
+            //            Console.WriteLine($"{"".PadLeft(37)} {chestName} (ЗАЩИТА: {RandArmor})");
+            //            Console.WriteLine(line.PadLeft(70));
+
+            //            int sizeBox = 46;
+            //            Console.WriteLine("\n\n┌────────────────── СРАВНЕНИЕ ──────────────────┐");
+            //            Console.WriteLine($"| {$" ".PadRight(sizeBox)}|");
+            //            Console.WriteLine($"| {$"Текущее: {player.InfoArmor()}".PadRight(sizeBox)}|");
+            //            Console.WriteLine($"| {$"Новое: {chestName} (ЗАЩ: {RandArmor})".PadRight(sizeBox)}|");
+            //            Console.WriteLine($"| {$" ".PadRight(sizeBox)}|");
+            //            Console.WriteLine("└───────────────────────────────────────────────┘");
 
 
-                        char choice = 'о';
+            //            char choice = 'о';
 
-                        while (choice != 'в')
-                        {
-                            Console.Write("\n[В] Взять новый предмет\n[О] Оставить старый\n> ");
-                            if (char.TryParse(Console.ReadLine().ToLower(), out choice) && (choice == 'о' || choice == 'в'))
-                            {
-                                break;
-                            }
-                        }
-                        switch (choice)
-                        {
-                            case 'в':
-                                {
-                                    player.Armor = RandArmor;
-                                    player.NameArmor = chestName;
-                                    Console.WriteLine($"\nВы экипировали: {chestName}");
-                                    player.PlayerInfo();
-                                    break;
-                                }
-                            case 'о':
-                                {
-                                    Console.WriteLine("\nВы с сожалением оставляете предмет в сундуке...");
-                                    break;
-                                }
-                        }
-                        break;
-                    }
+            //            while (choice != 'в')
+            //            {
+            //                Console.Write("\n[В] Взять новый предмет\n[О] Оставить старый\n> ");
+            //                if (char.TryParse(Console.ReadLine().ToLower(), out choice) && (choice == 'о' || choice == 'в'))
+            //                {
+            //                    break;
+            //                }
+            //            }
+            //            switch (choice)
+            //            {
+            //                case 'в':
+            //                    {
+            //                        player.Armor = RandArmor;
+            //                        player.NameArmor = chestName;
+            //                        Console.WriteLine($"\nВы экипировали: {chestName}");
+            //                        player.PlayerInfo();
+            //                        break;
+            //                    }
+            //                case 'о':
+            //                    {
+            //                        Console.WriteLine("\nВы с сожалением оставляете предмет в сундуке...");
+            //                        break;
+            //                    }
+            //            }
+            //            break;
+            //        }
 
-                default:
-                    {
-                        break;
-                    }
-            }
-            //IsChest = false;
+            //    default:
+            //        {
+            //            break;
+            //        }
+            //}
+            ////IsChest = false;
             Console.WriteLine("\n\nНажмите Enter, чтобы начать...");
             Console.ReadLine();
         }
