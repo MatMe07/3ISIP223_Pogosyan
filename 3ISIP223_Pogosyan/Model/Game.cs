@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_Pogosyan.Model.Units;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace _3ISIP223_Pogosyan.Model
 {
     internal class Game
     {
-        public Random random = new Random();
+        public RandomCLS random = new RandomCLS();
 
         //public bool ChoiceChestOrEnemy => false;
         public bool ChoiceChestOrEnemy => Convert.ToBoolean(random.Next(0, 2));
@@ -18,6 +19,7 @@ namespace _3ISIP223_Pogosyan.Model
         public Player player;
         public Enemy Vrag = null;
         public Enemy Boss = null;
+        public EnemyCreater vrags = null;
         public bool HaveEnemy => Vrag != null;
         public int step { get; set; }
         public int StepSpendWinOverBoss { get; set; }
@@ -36,6 +38,7 @@ namespace _3ISIP223_Pogosyan.Model
             GameOver = false;
             StepSpendWinOverBoss = 0;
             HPLostWinOverBoss = 0;
+            vrags = new EnemyCreater();
         }
 
         public void InfoStartGame()
@@ -131,35 +134,39 @@ namespace _3ISIP223_Pogosyan.Model
                 StepInfo();
                 if (!BosseStumles && (Boss == null))
                 {
-                    if (ChoiceChestOrEnemy) // Enemy
+                    if (true) // Enemy
                     {
                         if (!HaveEnemy)
                         {
-                            RandEnemy = 1;
-                            //RandEnemy = random.Next(0, 3);
-                            switch (RandEnemy)
-                            {
-                                case 0:
-                                    {
-                                        Vrag = new Skeleton("Скелет", 12, 2, 20);
-                                        break;
-                                    }
-                                case 1:
-                                    {
-                                        Vrag = new Magician("Маг", 14, 1, 15);
-                                        break;
-                                    }
-                                case 2:
-                                    {
-                                        Vrag = new Goblin("Гоблин", 10, 3, 20);
-                                        break;
-                                    }
-                            }
+                            //RandEnemy = 1;
+                            RandEnemy = random.Next(0, vrags.Enemies.Count);
+                            Vrag = vrags.CreateEnemy(RandEnemy).CreateEnemy();
+
+                            //switch (RandEnemy)
+                            //{
+                            //    case 0:
+                            //        {
+                            //            Vrag = new Skeleton("Скелет", 12, 2, 20);
+                            //            break;
+                            //        }
+                            //    case 1:
+                            //        {
+                            //            Vrag = new Magician("Маг", 14, 1, 15);
+                            //            break;
+                            //        }
+                            //    case 2:
+                            //        {
+                            //            Vrag = new Goblin("Гоблин", 10, 3, 20);
+                            //            break;
+                            //        }
+                            //}
+
+
                             //HaveEnemy = true;
                             //Console.Clear();
                             //InforEnemAndPlayer(vrag);
                             //Thread.Sleep(500);
-                            //StepInfo();
+                            //StepInfo( );
                             StepSpendWinOverBoss = 0;
                             Thread.Sleep(500);
                             Console.WriteLine();
@@ -214,30 +221,31 @@ namespace _3ISIP223_Pogosyan.Model
                 {
                     if (Boss == null)
                     {
-                        RandBosse = random.Next(0, 4);
-                        switch (RandBosse)
-                        {
-                            case 0:
-                                {
-                                    Boss = new VVG("ВВГ", 10, 3, 20);
-                                    break;
-                                }
-                            case 1:
-                                {
-                                    Boss = new Covalski("Ковальский", 12, 2, 20);
-                                    break;
-                                }
-                            case 2:
-                                {
-                                    Boss = new Arhimag("Архимаг C++", 14, 1, 15);
-                                    break;
-                                }
-                            case 3:
-                                {
-                                    Boss = new Pestov("Пестов С--", 14, 1, 15);
-                                    break;
-                                }
-                        }
+                        RandBosse = random.Next(0, vrags.Bosses.Count);
+                        Boss = vrags.CreateBosses(RandBosse).CreateEnemy();
+                        //switch (RandBosse)
+                        //{
+                        //    case 0:
+                        //        {
+                        //            Boss = new VVG("ВВГ", 10, 3, 20);
+                        //            break;
+                        //        }
+                        //    case 1:
+                        //        {
+                        //            Boss = new Covalski("Ковальский", 12, 2, 20);
+                        //            break;
+                        //        }
+                        //    case 2:
+                        //        {
+                        //            Boss = new Arhimag("Архимаг C++", 14, 1, 15);
+                        //            break;
+                        //        }
+                        //    case 3:
+                        //        {
+                        //            Boss = new Pestov("Пестов С--", 14, 1, 15);
+                        //            break;
+                        //        }
+                        //}
                         //Console.Clear();
 
                         //Thread.Sleep(500);
@@ -403,39 +411,6 @@ namespace _3ISIP223_Pogosyan.Model
             sb.AppendLine($"| {" ".PadRight(boxStat - 4)} |");
             sb.AppendLine($"└{new string('─', boxStat - 2)}┘");
             Console.WriteLine(sb.ToString());
-            Console.WriteLine("============ ПРИЧИНА ГИБЕЛИ ============");
-            if (player.CountAttackEnemies == 1)
-            {
-                Console.WriteLine("Не хватило опыта и снаряжения для первого \nже серьезного противника.");
-            }
-            else if (player.LastEnemy == "Гоблин")
-            {
-                Console.WriteLine("Критический удар гоблина пробил вашу защиту.");
-            }
-            else if (player.LastEnemy == "Скелет")
-            {
-                Console.WriteLine("Скелет проигнорировал вашу защиту и нанес \nсмертельный удар в ближнем бою.");
-            }
-            else if (player.LastEnemy == "Маг")
-            {
-                Console.WriteLine("Маг нанес смертельный удар.");
-            }
-            else if (player.LastEnemy == "ВВГ")
-            {
-                Console.WriteLine("Мощный критический удар ВВГ сокрушил вашу защиту.");
-            }
-            else if (player.LastEnemy == "Ковальский")
-            {
-                Console.WriteLine("Ковальский полностью проигнорировал вашу защиту.");
-            }
-            else if (player.LastEnemy == "Пестов С--")
-            {
-                Console.WriteLine("Мощное заклинание Пестова прожгло вашу защиту.");
-            }
-            else if (player.LastEnemy == "Архимаг C++")
-            {
-                Console.WriteLine("Заклинание Архимага пробило все уровни защиты.");
-            }
         }
 
         public void AttackEnem(Enemy vrag)

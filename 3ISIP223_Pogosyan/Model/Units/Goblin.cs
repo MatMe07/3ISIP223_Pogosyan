@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _3ISIP223_Pogosyan.Model
+namespace _3ISIP223_Pogosyan.Model.Units
 {
     internal class Goblin : Enemy
     {

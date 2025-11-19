@@ -44,23 +44,4 @@ namespace _3ISIP223_Pogosyan
     }
 
 
-
-
-
-    
-    
-
-
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-
 }

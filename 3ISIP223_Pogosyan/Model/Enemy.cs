@@ -28,6 +28,7 @@ namespace _3ISIP223_Pogosyan.Model
             MaxHP = hp;
         }
 
+
         public virtual void AttackInfo(double atack)
         {
             Console.WriteLine("VragAtrackuet");
