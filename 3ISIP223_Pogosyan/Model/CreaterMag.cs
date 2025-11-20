@@ -11,7 +11,7 @@ namespace _3ISIP223_Pogosyan.Model
     {
         public override Enemy CreateEnemy()
         {
-            return new Magician("Маг", random.Next(10, 16), random.Next(1, 4), random.Next(12, 19));
+            return new Magician("Маг", RandomCLS.Next(10, 16), RandomCLS.Next(1, 4), RandomCLS.Next(12, 19));
         }
 
     }

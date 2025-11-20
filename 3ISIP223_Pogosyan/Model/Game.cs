@@ -136,7 +136,7 @@ namespace _3ISIP223_Pogosyan.Model
                         if (!HaveEnemy)
                         {
                             RandEnemy = RandomCLS.Next(0, vrags.Enemies.Count);
-                            Vrag = vrags.CreateEnemy(RandEnemy).CreateEnemy();
+                            Vrag = vrags.CreateEnemy(3).CreateEnemy();
 
                             StepSpendWinOverBoss = 0;
                             Thread.Sleep(500);
@@ -291,7 +291,7 @@ namespace _3ISIP223_Pogosyan.Model
         {
             Console.WriteLine("\nВы замахиваетесь для атаки...");
             Thread.Sleep(500);
-            double attack = Math.Max(0, player.AttackWeapon - vrag.Defense);
+            double attack = Math.Max(0, player.AttackWeapon - 2 - vrag.Defense);
             if (attack > vrag.HP) attack = vrag.HP;
             attack = Math.Round(attack, 2);
             vrag.HP -= attack;
@@ -401,7 +401,7 @@ namespace _3ISIP223_Pogosyan.Model
                 }
                 else
                 {
-
+                    
                     if (!player.IsFrozen && vrag.UniqSkill.Contains("замороз") && ((Magician)vrag).Frozen())
                     {
                         ((Magician)vrag).IsFroz = true;
@@ -412,10 +412,7 @@ namespace _3ISIP223_Pogosyan.Model
                     {
                         attack = vrag.Attack;
                     }
-                    if (vrag is Slug)
-                    {
-                        attack = player.AttackWeapon - 2;
-                    }
+
                     else if (player.IsBlock)
                     {
                         Console.WriteLine("Уклонение не удалось! Но вы подставляете свой щит...");

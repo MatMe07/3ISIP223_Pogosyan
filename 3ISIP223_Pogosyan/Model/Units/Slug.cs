@@ -11,7 +11,16 @@ namespace _3ISIP223_Pogosyan.Model.Units
         
         public Slug(string name, double attack, double defense, double hp) : base(name, attack, defense, hp)
         {
+            UniqSkill = "";
+        }
+        public override void AttackInfo(double attack)
+        {
+            Console.WriteLine($"\n{Name} атакует вас! Вы получаете {attack} урона.");
+        }
 
+        public override void LastWord()
+        {
+            Console.WriteLine("Слизень падает замертво.");
         }
     }
 }

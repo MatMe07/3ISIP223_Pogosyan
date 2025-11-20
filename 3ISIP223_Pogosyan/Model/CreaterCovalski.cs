@@ -11,7 +11,7 @@ namespace _3ISIP223_Pogosyan.Model
     {
         public override Enemy CreateEnemy()
         {
-            return new Covalski("Ковальский", random.Next(15, 25), random.Next(10, 20), random.Next(40, 70));
+            return new Covalski("Ковальский", RandomCLS.Next(15, 25), RandomCLS.Next(10, 20), RandomCLS.Next(40, 70));
         }
     }
 }

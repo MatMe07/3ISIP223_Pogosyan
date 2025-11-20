@@ -11,7 +11,7 @@ namespace _3ISIP223_Pogosyan.Model
     {
         public override Enemy CreateEnemy()
         {
-            return new VVG("ВВГ", random.Next(10, 25), random.Next(12, 15), random.Next(30, 50));
+            return new VVG("ВВГ", RandomCLS.Next(10, 25), RandomCLS.Next(12, 15), RandomCLS.Next(30, 50));
         }
     }
 }
