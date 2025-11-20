@@ -8,11 +8,9 @@ namespace _3ISIP223_Pogosyan.Model
 {
     internal class Chest
     {
-        private RandomCLS random;
 
-        public Chest(RandomCLS randomCLS)
+        public Chest()
         {
-            random = randomCLS;
         }
 
         public Item Open()
@@ -23,7 +21,7 @@ namespace _3ISIP223_Pogosyan.Model
             //string line = new string('═', 40);
             Thread.Sleep(900);
 
-            int randChest = random.Next(0, 3);
+            int randChest = RandomCLS.Next(0, 3);
             string chestName = "";
             switch (randChest)
             {
@@ -34,7 +32,7 @@ namespace _3ISIP223_Pogosyan.Model
                 case 1:
                     {
                         
-                        int RandAttackWeapon = random.Next(1, 25);
+                        int RandAttackWeapon = RandomCLS.Next(1, 25);
                         if (RandAttackWeapon <= 5) chestName = "РЖАВЫЙ МЕЧ";
                         else if (RandAttackWeapon <= 12) chestName = "СТАЛЬНОЙ МЕЧ";
                         else if (RandAttackWeapon <= 16) chestName = "БАНАНОВЫЙ ПИСТОЛЕТ";
@@ -47,7 +45,7 @@ namespace _3ISIP223_Pogosyan.Model
                     case 2:
                     {
                         
-                        int RandArmor = random.Next(1, 30);
+                        int RandArmor = RandomCLS.Next(1, 30);
                         if (RandArmor <= 7) chestName = "КРОССОВКИ 'АБИБАС'";
                         else if (RandArmor <= 10) chestName = "ПИЖАМА ШЕЛДОНА";
                         else if (RandArmor <= 14) chestName = "ПЛАЩ ГАРРИ ПОТТЕРА";

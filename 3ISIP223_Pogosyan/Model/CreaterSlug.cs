@@ -5,15 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace _3ISIP223_Pogosyan.Model
 {
-    internal class CreaterGoblin : Factory
+    internal class CreaterSlug : Factory
     {
+        public CreaterSlug() { }
         public override Enemy CreateEnemy()
         {
-            return new Goblin("Гоблин", RandomCLS.Next(10, 20), RandomCLS.Next(3, 7), RandomCLS.Next(15, 25));
+            return new Slug("Слизень", RandomCLS.Next(7, 15), RandomCLS.Next(1, 5), RandomCLS.Next(14, 23) );
         }
-
     }
 }

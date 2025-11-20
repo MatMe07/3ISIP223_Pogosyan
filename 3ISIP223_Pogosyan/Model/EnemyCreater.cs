@@ -17,6 +17,7 @@ namespace _3ISIP223_Pogosyan.Model
             AddEnemy(new CreaterGoblin());
             AddEnemy(new CreaterMag());
             AddEnemy(new CreaterSkeleton());
+            AddEnemy(new CreaterSlug());
 
             Bosses = new List<Factory>();
             AddBoss(new CreaterArhimag());

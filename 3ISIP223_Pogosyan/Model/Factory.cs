@@ -8,7 +8,7 @@ namespace _3ISIP223_Pogosyan.Model
 {
     abstract internal class Factory
     {
-        public RandomCLS random = new RandomCLS();
+        
         public abstract Enemy CreateEnemy();
     }
 

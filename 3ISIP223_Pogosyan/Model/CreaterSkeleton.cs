@@ -11,7 +11,7 @@ namespace _3ISIP223_Pogosyan.Model
     {
         public override Enemy CreateEnemy()
         {
-            return new Skeleton("Скелет", random.Next(7, 15), random.Next(1, 5), random.Next(14, 23));
+            return new Skeleton("Скелет", RandomCLS.Next(7, 15), RandomCLS.Next(1, 5), RandomCLS.Next(14, 23));
         }
     }
 }

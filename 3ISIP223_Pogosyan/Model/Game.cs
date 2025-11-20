@@ -9,10 +9,10 @@ namespace _3ISIP223_Pogosyan.Model
 {
     internal class Game
     {
-        public RandomCLS random = new RandomCLS();
+
 
         //public bool ChoiceChestOrEnemy => false;
-        public bool ChoiceChestOrEnemy => random.Next(0, 100) < 50;
+        public bool ChoiceChestOrEnemy => RandomCLS.Next(0, 100) >= 50;
 
         public Player player;
         public Enemy Vrag = null;
@@ -24,7 +24,7 @@ namespace _3ISIP223_Pogosyan.Model
         public double HPLostWinOverBoss { get; set; }
         public bool GameOver { get; set; }
         //public bool BosseStumles => true;
-        public bool BosseStumles => step % 2 == 0;
+        public bool BosseStumles => step % 10 == 0;
 
 
         public Game()
@@ -135,7 +135,7 @@ namespace _3ISIP223_Pogosyan.Model
                     {
                         if (!HaveEnemy)
                         {
-                            RandEnemy = random.Next(0, vrags.Enemies.Count);
+                            RandEnemy = RandomCLS.Next(0, vrags.Enemies.Count);
                             Vrag = vrags.CreateEnemy(RandEnemy).CreateEnemy();
 
                             StepSpendWinOverBoss = 0;
@@ -192,7 +192,7 @@ namespace _3ISIP223_Pogosyan.Model
                 {
                     if (Boss == null)
                     {
-                        RandBosse = random.Next(0, vrags.Bosses.Count);
+                        RandBosse = RandomCLS.Next(0, vrags.Bosses.Count);
                         Boss = vrags.CreateBosses(RandBosse).CreateEnemy();
                         //switch (RandBosse)
                         //{
@@ -328,7 +328,7 @@ namespace _3ISIP223_Pogosyan.Model
         public void PointMenuDefense()
         {
             Console.WriteLine("Вы выбрали ЗАЩИТУ...");
-            bool Def40 = random.Next(1, 101) <= 40;
+            bool Def40 = RandomCLS.Next(1, 101) <= 40;
             if (Def40)
             {
                 player.IsEvade = true;
@@ -412,10 +412,14 @@ namespace _3ISIP223_Pogosyan.Model
                     {
                         attack = vrag.Attack;
                     }
+                    if (vrag is Slug)
+                    {
+                        attack = player.AttackWeapon - 2;
+                    }
                     else if (player.IsBlock)
                     {
                         Console.WriteLine("Уклонение не удалось! Но вы подставляете свой щит...");
-                        double randBlock = random.Next(70, 101) / 100.0;
+                        double randBlock = RandomCLS.Next(70, 101) / 100.0;
                         attack = Math.Max(0, vrag.Attack - (randBlock * player.Armor));
                         player.IsBlock = false;
                     }
@@ -456,7 +460,7 @@ namespace _3ISIP223_Pogosyan.Model
         {
             player.CountOpenChests++;
 
-            Chest chest = new Chest(random);
+            Chest chest = new Chest();
             chest.Open().StartItem(player);
 
             //string chestName = "";
@@ -485,7 +489,7 @@ namespace _3ISIP223_Pogosyan.Model
             //        }
             //    case 1:
             //        {
-            //            int RandAttackWeapon = random.Next(1, 25);
+            //            int RandAttackWeapon = RandomCLS.Next(1, 25);
             //            if (RandAttackWeapon <= 5) chestName = "РЖАВЫЙ МЕЧ";
             //            else if (RandAttackWeapon <= 12) chestName = "СТАЛЬНОЙ МЕЧ";
             //            else if (RandAttackWeapon <= 16) chestName = "БАНАНОВЫЙ ПИСТОЛЕТ";
@@ -538,7 +542,7 @@ namespace _3ISIP223_Pogosyan.Model
             //    case 2:
             //        {
             //            chestName = "";
-            //            int RandArmor = random.Next(1, 30);
+            //            int RandArmor = RandomCLS.Next(1, 30);
             //            if (RandArmor <= 7) chestName = "КРОССОВКИ 'АБИБАС'";
             //            else if (RandArmor <= 10) chestName = "ПИЖАМА ШЕЛДОНА";
             //            else if (RandArmor <= 14) chestName = "ПЛАЩ ГАРРИ ПОТТЕРА";
