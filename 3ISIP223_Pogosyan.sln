@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36221.1 d17.14
+VisualStudioVersion = 17.14.36221.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3ISIP223_Pogosyan", "3ISIP223_Pogosyan\3ISIP223_Pogosyan.csproj", "{625B77D2-BD35-408A-8781-64973F7CFE79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3ISIP223_PogosyanWPF", "3ISIP223_PogosyanWPF\3ISIP223_PogosyanWPF.csproj", "{D6AD6737-1E35-4817-B023-3D0FE4BC3C6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{625B77D2-BD35-408A-8781-64973F7CFE79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{625B77D2-BD35-408A-8781-64973F7CFE79}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{625B77D2-BD35-408A-8781-64973F7CFE79}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{625B77D2-BD35-408A-8781-64973F7CFE79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6AD6737-1E35-4817-B023-3D0FE4BC3C6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6AD6737-1E35-4817-B023-3D0FE4BC3C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6AD6737-1E35-4817-B023-3D0FE4BC3C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6AD6737-1E35-4817-B023-3D0FE4BC3C6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
