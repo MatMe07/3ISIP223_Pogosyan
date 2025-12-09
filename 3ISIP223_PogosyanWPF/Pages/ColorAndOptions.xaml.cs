@@ -22,15 +22,18 @@ namespace _3ISIP223_PogosyanWPF.Pages
     {
         private Image Image;
         private decimal TotalPrcePage = 0;
+        private decimal DefaultPrice;
+
         private TextBlock TotalPrice;
         public ColorAndOptions(Image image , TextBlock totalPrice)
         {
             InitializeComponent();
             TotalPrice = totalPrice ;
             Image = image;
+            decimal.TryParse(totalPrice.Text, out DefaultPrice);
 
             //CheckBox
-            foreach(var opt in CarConfig.Instance.dopOptinons)
+            foreach (var opt in CarConfig.Instance.dopOptinons)
             {
                 CheckBox checkBox = new CheckBox();
                 checkBox.Content = opt.Name;
@@ -46,8 +49,8 @@ namespace _3ISIP223_PogosyanWPF.Pages
             {
                 TotalPrcePage += CarConfig.Instance.Car.Color.Price;
             }
-            TotalPrcePage += 
-            TotalPrice.Text = $"Итого: {TotalPrcePage.ToString()} ₽";
+            TotalPrcePage += DefaultPrice;
+            TotalPrice.Text = TotalPrcePage.ToString();
         }
 
         private void ComboColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -71,8 +74,8 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 CarConfig.Instance.Car.DopOptinon.Remove(CarConfig.Instance.dopOptinons.FirstOrDefault(s => s.Name == check.Content.ToString()));
 
             }
-            TotalPrcePage = CarConfig.Instance.Car.DopOptinon.Sum(d => d.Price) + CarConfig.Instance.Car.Color.Price;
-            TotalPrice.Text = $"Итого: {TotalPrcePage.ToString()} ₽";
+            TotalPrcePage = DefaultPrice + CarConfig.Instance.Car.DopOptinon.Sum(d => d.Price) + CarConfig.Instance.Car.Color.Price;
+            TotalPrice.Text = TotalPrcePage.ToString();
 
 
             //switch (check.Content)

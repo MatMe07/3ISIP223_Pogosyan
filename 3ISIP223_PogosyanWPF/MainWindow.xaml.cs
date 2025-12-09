@@ -35,8 +35,8 @@ namespace _3ISIP223_PogosyanWPF
 
             pages = new List<Page>
             {
-               new  ModelAndTypeEngine(CarImage),
-               new ColorAndOptions(CarImage),
+               new  ModelAndTypeEngine(CarImage, TotalPrice),
+               new ColorAndOptions(CarImage, TotalPrice),
                new CalculatTotalCostAndParameters(CarImage),
                new KreditParameters(),
                new ContactDetailsAndSummary(),
