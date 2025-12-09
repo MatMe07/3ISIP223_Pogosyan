@@ -20,9 +20,12 @@ namespace _3ISIP223_PogosyanWPF.Pages
     /// </summary>
     public partial class CalculatTotalCostAndParameters : Page
     {
-        public CalculatTotalCostAndParameters()
+        private Image ImageCar;
+        public CalculatTotalCostAndParameters(Image image)
         {
             InitializeComponent();
+            ImageCar = image;
+            
         }
     }
 }

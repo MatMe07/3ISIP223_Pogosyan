@@ -11,7 +11,7 @@ namespace _3ISIP223_PogosyanWPF
     {
         private static CarConfig _instance = new CarConfig();
 
-        public static List<ColorOption> colors = new List<ColorOption> {
+        public List<ColorOption> colors = new List<ColorOption> {
             new ColorOption("Blue", 0),
             new ColorOption("Red", 5000),
             new ColorOption("Black", 3000),
@@ -50,7 +50,7 @@ namespace _3ISIP223_PogosyanWPF
         public List<DopOptinon> dopOptinons = new List<DopOptinon>
         {
             new DopOptinon("Персональная гравировка на порогах", 1_500_000),
-            new DopOptinon("Карбон-керамические тормоза ", 800_000),
+            new DopOptinon("Карбон-керамические тормоза", 800_000),
             new DopOptinon("Режим отслеживания", 200_000),
             new DopOptinon("Коврики с подсветкой", 40_000),
         };

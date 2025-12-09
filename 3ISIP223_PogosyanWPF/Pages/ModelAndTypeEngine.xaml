@@ -23,7 +23,7 @@
             </StackPanel>
             <TextBlock x:Name="txtF" Text="f" HorizontalAlignment="Center"/>
         </StackPanel>
-        <TextBlock x:Name="TotalPrice" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="5" Grid.Column="1" Text="Итого: 8100000 ₽"/>
+        <!--<TextBlock x:Name="TotalPrice" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="5" Grid.Column="1" Text="Итого: 8100000 ₽"/>-->
 
     </Grid>
 </Page>

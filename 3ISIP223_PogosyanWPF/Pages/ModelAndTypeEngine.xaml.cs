@@ -29,11 +29,13 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 "Camaro",
             };
         private decimal TotalPrcePage;
-        public ModelAndTypeEngine(Image image)
+        private TextBlock TotalPrice;
+        public ModelAndTypeEngine(Image image, TextBlock totalPrice)
         {
             InitializeComponent();
             imageCar = image;
-            engins = CarConfig.Instance.Car.Model.Engines.Select(s=>s.Type).ToList();
+            TotalPrice = totalPrice;
+            engins = CarConfig.Instance.Car.Model.Engines.Select(s => s.Type).ToList();
 
             ComboModel.ItemsSource = models;
             ComboModel.SelectedIndex = models.IndexOf(CarConfig.Instance.Car.Model.Name);

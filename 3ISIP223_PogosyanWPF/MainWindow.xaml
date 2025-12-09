@@ -26,7 +26,14 @@
         <Grid Grid.Column="1" Grid.Row="0" >
             <Image x:Name="CarImage" Source="/Img/BMWRed.png"/>
         </Grid>
+
+        <Frame x:Name="TotalFrame" Grid.Row="0" Grid.Column="0" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Margin="5" Grid.Column="1">
+            <TextBlock Text="Итого:" Margin="5 5 0 5" FontSize="15"/>
+            <TextBlock x:Name="TotalPrice"  Margin="5" Text="8100000" FontSize="15"/>
+            <TextBlock Margin="0 5 5 5" Text="₽" FontSize="15"/>
             
-        <Frame x:Name="TotalFrame" Grid.Row="0" Grid.Column="0" NavigationUIVisibility="Hidden" />
+        </StackPanel>
+
     </Grid>
 </Window>

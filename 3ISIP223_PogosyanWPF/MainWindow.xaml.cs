@@ -21,17 +21,29 @@ namespace _3ISIP223_PogosyanWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private int page = 0;
+        private List<Page> pages = new List<Page>();
 
         public MainWindow()
         {
 
             InitializeComponent();
             CarConfig.Instance.Car.Model = CarConfig.Instance.carModels[0];
-            CarConfig.Instance.Car.Color = CarConfig.colors[0];
+            CarConfig.Instance.Car.Color = CarConfig.Instance.colors[0];
             CarConfig.Instance.Car.Engine = CarConfig.Instance.Car.Model.Engines[0];
+            CarConfig.Instance.Car.DopOptinon = new List<DopOptinon>();
 
-            TotalFrame.Navigate(new ModelAndTypeEngine(CarImage));
+            pages = new List<Page>
+            {
+               new  ModelAndTypeEngine(CarImage),
+               new ColorAndOptions(CarImage),
+               new CalculatTotalCostAndParameters(CarImage),
+               new KreditParameters(),
+               new ContactDetailsAndSummary(),
+            };
 
+            TotalFrame.Navigate(pages[0]);
+            UpdateButtons();
         }
 
         private void ModelAndTypeEngine_Navigated(object sender, NavigationEventArgs e)
@@ -42,12 +54,27 @@ namespace _3ISIP223_PogosyanWPF
 
         private void ForwardButton_OnClick(object sender, RoutedEventArgs e)
         {
-            
-            TotalFrame.Navigate(new ColorAndOptions(CarImage));
+            if (page < pages.Count)
+            {
+                page++;
+                TotalFrame.Navigate(pages[page]);
+            }
+            UpdateButtons();
 
         }
 
         private void BackButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            //if ()
+            if (page >= 0)
+            {
+                page--;
+                TotalFrame.Navigate(pages[page]);
+            }
+            UpdateButtons();
+        }
+
+        private void UpdateButtons()
         {
 
         }

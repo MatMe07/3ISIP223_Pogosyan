@@ -16,14 +16,14 @@
 
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Тип двигателя:" Margin="5" />
-                <ComboBox x:Name="ComboTypeEngine" Width="140" Margin="5" SelectionChanged="ComboTypeEngine_SelectionChanged"/>
-                <TextBlock x:Name="DopPrice" Text="+ 0 ₽" Margin="5" />
-
+                <TextBlock Text="Доп. опции:" Margin="5" />
+                <StackPanel x:Name="StackOptions" Orientation="Vertical">
+                    
+                </StackPanel>
             </StackPanel>
-            <TextBlock x:Name="txtF" Text="f" HorizontalAlignment="Center"/>
+            <!--<TextBlock x:Name="txtF" Text="f" HorizontalAlignment="Center"/>-->
         </StackPanel>
-        <TextBlock x:Name="TotalPrice" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="5" Grid.Column="1" Text="Итого: 8100000 ₽"/>
+        <!--<TextBlock x:Name="TotalPrice" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="5" Grid.Column="1" Text="Итого: 8100000 ₽"/>-->
 
     </Grid>
 </Page>
