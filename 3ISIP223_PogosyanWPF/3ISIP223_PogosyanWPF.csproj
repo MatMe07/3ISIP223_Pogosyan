@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CarConfig.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,6 +64,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CarModel.cs" />
+    <Compile Include="ColorOption.cs" />
+    <Compile Include="DopOptinon.cs" />
+    <Compile Include="Engine.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -89,6 +94,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyCar.cs" />
     <Compile Include="Pages\CalculatTotalCostAndParameters.xaml.cs">
       <DependentUpon>CalculatTotalCostAndParameters.xaml</DependentUpon>
     </Compile>
@@ -128,6 +134,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\BMWBlack.png" />
+    <Resource Include="Img\BMWBlue.png" />
+    <Resource Include="Img\BMWRed.png" />
+    <Resource Include="Img\BMWWite.png" />
+    <Resource Include="Img\BugattiBlack.png" />
+    <Resource Include="Img\BugattiBlue.png" />
+    <Resource Include="Img\BugattiRed.png" />
+    <Resource Include="Img\BugattiWite.png" />
+    <Resource Include="Img\CamaroBlack.png" />
+    <Resource Include="Img\CamaroBlue.png" />
+    <Resource Include="Img\CamaroRed.png" />
+    <Resource Include="Img\CamaroWite.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
