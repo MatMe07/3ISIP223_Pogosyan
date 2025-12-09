@@ -30,7 +30,7 @@ namespace _3ISIP223_PogosyanWPF
             CarConfig.Instance.Car.Color = CarConfig.colors[0];
             CarConfig.Instance.Car.Engine = CarConfig.Instance.Car.Model.Engines[0];
 
-            ModelAndTypeEngine.Navigate(new ModelAndTypeEngine(CarImage));
+            TotalFrame.Navigate(new ModelAndTypeEngine(CarImage));
 
         }
 
@@ -42,6 +42,8 @@ namespace _3ISIP223_PogosyanWPF
 
         private void ForwardButton_OnClick(object sender, RoutedEventArgs e)
         {
+            
+            TotalFrame.Navigate(new ColorAndOptions(CarImage));
 
         }
 

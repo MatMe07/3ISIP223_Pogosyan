@@ -11,19 +11,19 @@
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Модель:" Margin="10" />
-                <ComboBox x:Name="ComboModel" Width="90" Margin="10" SelectionChanged="ComboModel_SelectionChanged" />
+                <TextBlock Text="Модель:" Margin="5" />
+                <ComboBox x:Name="ComboModel" Width="90" Margin="5" SelectionChanged="ComboModel_SelectionChanged" />
                 
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Тип двигателя:" Margin="10" />
-                <ComboBox x:Name="ComboTypeEngine" Width="140" Margin="10" SelectionChanged="ComboTypeEngine_SelectionChanged"/>
-                <TextBlock x:Name="DopPrice" Text="+ 0 ₽" Margin="10" />
+                <TextBlock Text="Тип двигателя:" Margin="5" />
+                <ComboBox x:Name="ComboTypeEngine" Width="140" Margin="5" SelectionChanged="ComboTypeEngine_SelectionChanged"/>
+                <TextBlock x:Name="DopPrice" Text="+ 0 ₽" Margin="5" />
                 
             </StackPanel>
             <TextBlock x:Name="txtF" Text="f" HorizontalAlignment="Center"/>
         </StackPanel>
-        <TextBlock x:Name="TotalPrice" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="10" Grid.Column="1" Text="Итого: 8100000 ₽"/>
+        <TextBlock x:Name="TotalPrice" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Margin="5" Grid.Column="1" Text="Итого: 8100000 ₽"/>
 
     </Grid>
 </Page>

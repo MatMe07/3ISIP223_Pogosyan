@@ -20,9 +20,11 @@ namespace _3ISIP223_PogosyanWPF.Pages
     /// </summary>
     public partial class ColorAndOptions : Page
     {
-        public ColorAndOptions()
+        private Image Image;
+        public ColorAndOptions(Image image )
         {
             InitializeComponent();
+            Image = image;
         }
     }
 }

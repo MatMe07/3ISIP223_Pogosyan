@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="680">
+        Title="MainWindow" Height="450" Width="690">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -19,14 +19,14 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10">
             <!--<TextBlock x:Name="TitleTextBlock" Margin="5" VerticalAlignment="Center"/>-->
-            <Button x:Name="BackButton" Grid.Row="0" Content="Назад" Width="100" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Center" Click="ForwardButton_OnClick"/>
-            <Button x:Name="ForwardButton" Grid.Row="0" Content="Далее" Width="100" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Center" Click="BackButton_OnClick"/>
+            <Button x:Name="BackButton" Grid.Row="0" Content="Назад" Width="100" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Center" Click="BackButton_OnClick"/>
+            <Button x:Name="ForwardButton" Grid.Row="0" Content="Далее" Width="100" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Center" Click="ForwardButton_OnClick"/>
         </StackPanel>
 
         <Grid Grid.Column="1" Grid.Row="0" >
             <Image x:Name="CarImage" Source="/Img/BMWRed.png"/>
         </Grid>
             
-        <Frame x:Name="ModelAndTypeEngine" Grid.Row="0" Grid.Column="0" NavigationUIVisibility="Hidden" />
+        <Frame x:Name="TotalFrame" Grid.Row="0" Grid.Column="0" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>
