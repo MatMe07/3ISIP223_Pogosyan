@@ -10,5 +10,11 @@ namespace _3ISIP223_PogosyanWPF
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
+
+        public DopOptinon(string name, decimal price)
+        {
+            Name = name;    
+            Price = price;
+        }
     }
 }

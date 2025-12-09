@@ -46,6 +46,14 @@ namespace _3ISIP223_PogosyanWPF
                  153_000_000
                 ),
         };
+        
+        public List<DopOptinon> dopOptinons = new List<DopOptinon>
+        {
+            new DopOptinon("Персональная гравировка на порогах", 1_500_000),
+            new DopOptinon("Карбон-керамические тормоза ", 800_000),
+            new DopOptinon("Режим отслеживания", 200_000),
+            new DopOptinon("Коврики с подсветкой", 40_000),
+        };
         public MyCar Car { get; } = new MyCar();
         private CarConfig() { } 
         public static CarConfig Instance

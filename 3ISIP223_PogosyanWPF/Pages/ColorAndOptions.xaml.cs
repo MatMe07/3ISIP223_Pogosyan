@@ -26,5 +26,10 @@ namespace _3ISIP223_PogosyanWPF.Pages
             InitializeComponent();
             Image = image;
         }
+
+        private void ComboColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
