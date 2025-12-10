@@ -6,9 +6,19 @@
       xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="CalculatTotalCostAndParameters" Background="White">
+      Title="CalculatTotalCostAndParameters" Background="White" Loaded="Page_Loaded">
 
     <Grid>
-        
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock x:Name="TextModel" Text="Модель: " FontSize="14" Margin="3"/>
+            <TextBlock x:Name="TextEngine" Text="Тип двигателя: " FontSize="14" Margin="3"/>
+            <TextBlock x:Name="TextColor" Text="Цвет: " FontSize="14" Margin="3"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Доп. опции: " FontSize="13" Margin="3"/>
+                <TextBlock x:Name="StackDopOptions" FontSize="14" Margin="3"/>
+            </StackPanel>
+            <TextBlock x:Name="TextTotalPrice" Text="Итоговая стоимость: " FontSize="14" Margin="3"/>
+
+        </StackPanel>
     </Grid>
 </Page>

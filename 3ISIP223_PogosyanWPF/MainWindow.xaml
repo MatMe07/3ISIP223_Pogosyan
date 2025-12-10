@@ -29,9 +29,9 @@
 
         <Frame x:Name="TotalFrame" Grid.Row="0" Grid.Column="0" NavigationUIVisibility="Hidden"  />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Margin="5" Grid.Column="1">
-            <TextBlock Text="Итого:" Margin="5 5 0 5" FontSize="15"/>
-            <TextBlock x:Name="TotalPrice"  Margin="5" Text="0" FontSize="15"/>
-            <TextBlock Margin="0 5 5 5" Text="₽" FontSize="15"/>
+            <!--<TextBlock Text="" Margin="5 5 0 5" FontSize="15"/>-->
+            <TextBlock x:Name="TotalPrice"  Margin="5" Text="Итого: 0 ₽" FontSize="15"/>
+            <!--<TextBlock Margin="0 5 5 5" Text="" FontSize="15"/>-->
             
         </StackPanel>
 

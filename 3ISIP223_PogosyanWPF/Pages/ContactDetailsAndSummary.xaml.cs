@@ -24,5 +24,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
         {
             InitializeComponent();
         }
+
     }
 }

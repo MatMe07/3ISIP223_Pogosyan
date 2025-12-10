@@ -21,11 +21,33 @@ namespace _3ISIP223_PogosyanWPF.Pages
     public partial class CalculatTotalCostAndParameters : Page
     {
         private Image ImageCar;
+        private List<DopOptinon> DopOptinonList;
         public CalculatTotalCostAndParameters(Image image)
         {
             InitializeComponent();
             ImageCar = image;
-            
+            Load();
+            DopOptinonList = new List<DopOptinon>();
+
+        }
+
+        private void Load()
+        {
+            TextModel.Text = $"Модель: {CarConfig.Instance.Car.Model.Name}";
+            TextEngine.Text = $"Тип двигателя: {CarConfig.Instance.Car.Engine.Type}";
+            TextColor.Text = $"Цвет: {CarConfig.Instance.Car.Color.Name}";
+            TextTotalPrice.Text = $"Итоговая стоимость: {CarConfig.Instance.Car.CalculateTotalPrice()} ₽";
+            string dopOpt = "";
+            foreach (var opt in CarConfig.Instance.Car.DopOptinon)
+            {
+                dopOpt += $"{(CarConfig.Instance.Car.DopOptinon.IndexOf(opt) == 0 ? "" : "\n") }✓ {opt.Name}";
+            }
+            StackDopOptions.Text = dopOpt.Length > 0 ? dopOpt : "Не выбраны";
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Load();
         }
     }
 }

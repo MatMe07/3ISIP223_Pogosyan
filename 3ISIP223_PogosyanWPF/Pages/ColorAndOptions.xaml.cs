@@ -61,7 +61,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
         private void ChangeTotalPrce()
         {
             TotalPrcePage = CarConfig.Instance.Car.CalculateTotalPrice();
-            TotalPrice.Text = TotalPrcePage.ToString();
+            TotalPrice.Text = $"Итого: {TotalPrcePage} ₽";
         }
 
         private void CheckBox_Click(object sender, RoutedEventArgs e)

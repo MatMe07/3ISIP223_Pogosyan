@@ -50,7 +50,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
         private void ChangeTotalPrce()
         {
             TotalPrcePage = CarConfig.Instance.Car.CalculateTotalPrice();
-            TotalPrice.Text = TotalPrcePage.ToString();
+            TotalPrice.Text = $"Итого: {TotalPrcePage} ₽"; 
         }
 
         private void ComboModel_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -85,5 +85,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
             DopPrice.Text = $"+ {CarConfig.Instance.Car.Engine.Price} ₽";
             ChangeTotalPrce();
         }
+
     }
 }
