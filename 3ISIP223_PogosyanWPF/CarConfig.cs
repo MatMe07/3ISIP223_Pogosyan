@@ -54,7 +54,8 @@ namespace _3ISIP223_PogosyanWPF
             new DopOptinon("Режим отслеживания", 200_000),
             new DopOptinon("Коврики с подсветкой", 40_000),
         };
-        public MyCar Car { get; } = new MyCar();
+             
+        public MyCar Car { get; set; }
         private CarConfig() { } 
         public static CarConfig Instance
             { get { return _instance; } }

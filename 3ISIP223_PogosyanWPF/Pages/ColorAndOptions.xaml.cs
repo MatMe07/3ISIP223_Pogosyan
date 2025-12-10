@@ -21,16 +21,13 @@ namespace _3ISIP223_PogosyanWPF.Pages
     public partial class ColorAndOptions : Page
     {
         private Image Image;
-        private decimal TotalPrcePage = 0;
-        private decimal DefaultPrice;
-
+        private double TotalPrcePage = 0;
         private TextBlock TotalPrice;
         public ColorAndOptions(Image image , TextBlock totalPrice)
         {
             InitializeComponent();
-            TotalPrice = totalPrice ;
             Image = image;
-            decimal.TryParse(totalPrice.Text, out DefaultPrice);
+            TotalPrice = totalPrice;
 
             //CheckBox
             foreach (var opt in CarConfig.Instance.dopOptinons)
@@ -43,21 +40,28 @@ namespace _3ISIP223_PogosyanWPF.Pages
             }
             ComboColor.ItemsSource = CarConfig.Instance.colors.Select(col => col.Name);
             ComboColor.SelectedIndex = CarConfig.Instance.colors.IndexOf(CarConfig.Instance.Car.Color);
-            if (CarConfig.Instance.Car.DopOptinon.Count > 0)
-                TotalPrcePage += CarConfig.Instance.Car.DopOptinon.Sum(d => d.Price);
-            else
-            {
-                TotalPrcePage += CarConfig.Instance.Car.Color.Price;
-            }
-            TotalPrcePage += DefaultPrice;
-            TotalPrice.Text = TotalPrcePage.ToString();
+            //if (CarConfig.Instance.Car.DopOptinon.Count > 0)
+            //    TotalPrcePage += CarConfig.Instance.Car.DopOptinon.Sum(d => d.Price);
+            //else
+            //{
+            //    TotalPrcePage += CarConfig.Instance.Car.Color.Price;
+            //}
+            ChangeTotalPrce();
         }
 
         private void ComboColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox combo = sender as ComboBox;
             if (combo == null) return;
+            CarConfig.Instance.Car.Color = CarConfig.Instance.colors.FirstOrDefault(x=>x.Name == combo.SelectedValue.ToString());
             Image.Source = new BitmapImage( new Uri($"{CarConfig.Instance.Car.PathImage}", UriKind.Relative));
+            ChangeTotalPrce();
+        }
+
+        private void ChangeTotalPrce()
+        {
+            TotalPrcePage = CarConfig.Instance.Car.CalculateTotalPrice();
+            TotalPrice.Text = TotalPrcePage.ToString();
         }
 
         private void CheckBox_Click(object sender, RoutedEventArgs e)
@@ -74,8 +78,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 CarConfig.Instance.Car.DopOptinon.Remove(CarConfig.Instance.dopOptinons.FirstOrDefault(s => s.Name == check.Content.ToString()));
 
             }
-            TotalPrcePage = DefaultPrice + CarConfig.Instance.Car.DopOptinon.Sum(d => d.Price) + CarConfig.Instance.Car.Color.Price;
-            TotalPrice.Text = TotalPrcePage.ToString();
+            ChangeTotalPrce();
 
 
             //switch (check.Content)

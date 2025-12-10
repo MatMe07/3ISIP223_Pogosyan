@@ -10,9 +10,9 @@ namespace _3ISIP223_PogosyanWPF
     {
         public string Name { get; set; }
         public List<Engine> Engines { get; set; }
-        public decimal BasePrice {  get; set; }
+        public double BasePrice {  get; set; }
 
-        public CarModel(string name, List<Engine> engine, decimal price) {
+        public CarModel(string name, List<Engine> engine, double price) {
             Name = name;
             Engines = engine;   
             BasePrice = price;

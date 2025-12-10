@@ -9,9 +9,9 @@ namespace _3ISIP223_PogosyanWPF
     internal class ColorOption
     {
         public string Name {  get; set; }
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
-        public ColorOption(string name, decimal price)
+        public ColorOption(string name, double price)
         {
             Name = name;
             Price = price;

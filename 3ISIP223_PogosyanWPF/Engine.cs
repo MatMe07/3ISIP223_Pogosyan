@@ -9,9 +9,9 @@ namespace _3ISIP223_PogosyanWPF
     internal class Engine
     {
         public string Type { get; set; }
-        public decimal Price { get; set; }
+        public double Price { get; set; }
 
-        public Engine(string type, decimal price) {
+        public Engine(string type, double price) {
             Type = type;
             Price = price;
         }

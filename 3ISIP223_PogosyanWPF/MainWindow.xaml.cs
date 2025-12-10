@@ -28,6 +28,8 @@ namespace _3ISIP223_PogosyanWPF
         {
 
             InitializeComponent();
+            CarConfig.Instance.Car = new MyCar(CarConfig.Instance.colors[0], CarConfig.Instance.carModels[0].Engines[0], CarConfig.Instance.carModels[0]);
+
             CarConfig.Instance.Car.Model = CarConfig.Instance.carModels[0];
             CarConfig.Instance.Car.Color = CarConfig.Instance.colors[0];
             CarConfig.Instance.Car.Engine = CarConfig.Instance.Car.Model.Engines[0];
@@ -54,7 +56,7 @@ namespace _3ISIP223_PogosyanWPF
 
         private void ForwardButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (page < pages.Count)
+            if (page+1 < pages.Count)
             {
                 page++;
                 TotalFrame.Navigate(pages[page]);
@@ -66,7 +68,7 @@ namespace _3ISIP223_PogosyanWPF
         private void BackButton_OnClick(object sender, RoutedEventArgs e)
         {
             //if ()
-            if (page >= 0)
+            if (page-1 >= 0)
             {
                 page--;
                 TotalFrame.Navigate(pages[page]);

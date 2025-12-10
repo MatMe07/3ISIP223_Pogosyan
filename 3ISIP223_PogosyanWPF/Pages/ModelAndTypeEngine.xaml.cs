@@ -28,15 +28,14 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 "Bugatti",
                 "Camaro",
             };
-        private decimal TotalPrcePage;
-        private decimal DefaultPrice;
+        private double TotalPrcePage;
+        private double DefaultPrice;
         private TextBlock TotalPrice;
         public ModelAndTypeEngine(Image image, TextBlock totalPrice)
         {
             InitializeComponent();
             imageCar = image;
             TotalPrice = totalPrice;
-            decimal.TryParse(totalPrice.Text, out DefaultPrice);
             engins = CarConfig.Instance.Car.Model.Engines.Select(s => s.Type).ToList();
 
             ComboModel.ItemsSource = models;
@@ -46,7 +45,12 @@ namespace _3ISIP223_PogosyanWPF.Pages
             ComboTypeEngine.SelectedIndex = engins.IndexOf(CarConfig.Instance.Car.Engine.Type);
             //Car.Engine = options[0];
             //TotalPrice.Text = $"Итого: {MyCar.Auto.Price.ToString()} ₽";
-            TotalPrcePage = DefaultPrice + CarConfig.Instance.Car.Model.BasePrice + CarConfig.Instance.Car.Engine.Price;
+            ChangeTotalPrce();
+        }
+        private void ChangeTotalPrce()
+        {
+            TotalPrcePage = CarConfig.Instance.Car.CalculateTotalPrice();
+            TotalPrice.Text = TotalPrcePage.ToString();
         }
 
         private void ComboModel_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -66,8 +70,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
             ComboTypeEngine.SelectedIndex = typeEngine == -1 ? 0 : typeEngine;
 
             imageCar.Source = new BitmapImage(new Uri($"{CarConfig.Instance.Car.PathImage}", UriKind.Relative));
-            TotalPrcePage = DefaultPrice +  CarConfig.Instance.Car.Model.BasePrice + CarConfig.Instance.Car.Engine.Price;
-            TotalPrice.Text = TotalPrcePage.ToString();
+            ChangeTotalPrce();
 
         }
 
@@ -80,8 +83,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 CarConfig.Instance.Car.Engine = CarConfig.Instance.Car.Model.Engines.FirstOrDefault(car => car.Type == comboBox.SelectedItem.ToString());
 
             DopPrice.Text = $"+ {CarConfig.Instance.Car.Engine.Price} ₽";
-            TotalPrcePage = DefaultPrice + CarConfig.Instance.Car.Model.BasePrice + CarConfig.Instance.Car.Engine.Price;
-            TotalPrice.Text = TotalPrcePage.ToString();
+            ChangeTotalPrce();
         }
     }
 }
