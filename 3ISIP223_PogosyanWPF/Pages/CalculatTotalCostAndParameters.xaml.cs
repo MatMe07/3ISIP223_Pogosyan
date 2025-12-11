@@ -22,17 +22,20 @@ namespace _3ISIP223_PogosyanWPF.Pages
     {
         private Image ImageCar;
         private List<DopOptinon> DopOptinonList;
-        public CalculatTotalCostAndParameters(Image image)
+        private Frame TotalFrame;
+        public CalculatTotalCostAndParameters(Image image, Frame frame)
         {
             InitializeComponent();
             ImageCar = image;
             Load();
             DopOptinonList = new List<DopOptinon>();
+            TotalFrame = frame;
 
         }
 
         private void Load()
         {
+            if (TotalFrame != null) Grid.SetColumnSpan(TotalFrame, 1);
             TextModel.Text = $"Модель: {CarConfig.Instance.Car.Model.Name}";
             TextEngine.Text = $"Тип двигателя: {CarConfig.Instance.Car.Engine.Type}";
             TextColor.Text = $"Цвет: {CarConfig.Instance.Car.Color.Name}";

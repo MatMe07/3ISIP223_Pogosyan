@@ -39,12 +39,13 @@ namespace _3ISIP223_PogosyanWPF
             {
                new  ModelAndTypeEngine(CarImage, TotalPrice),
                new ColorAndOptions(CarImage, TotalPrice),
-               new CalculatTotalCostAndParameters(CarImage),
-               new KreditParameters(),
+               new CalculatTotalCostAndParameters(CarImage, TotalFrame),
+               new KreditParameters(TotalFrame),
                new ContactDetailsAndSummary(),
             };
 
             TotalFrame.Navigate(pages[0]);
+            //Grid.SetColumnSpan(TotalFrame, 2);
             UpdateButtons();
         }
 

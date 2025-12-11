@@ -19,8 +19,8 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10">
             <!--<TextBlock x:Name="TitleTextBlock" Margin="5" VerticalAlignment="Center"/>-->
-            <Button x:Name="BackButton" Grid.Row="0" Content="Назад" Width="100" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Center" Click="BackButton_OnClick"/>
-            <Button x:Name="ForwardButton" Grid.Row="0" Content="Далее" Width="100" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Center" Click="ForwardButton_OnClick"/>
+            <Button x:Name="BackButton" Grid.Row="0" Content="Назад" Width="100"  Margin="5" Click="BackButton_OnClick"/>
+            <Button x:Name="ForwardButton" Grid.Row="0" Content="Далее" Width="100"  Margin="5" Click="ForwardButton_OnClick"/>
         </StackPanel>
 
         <Grid Grid.Column="1" Grid.Row="0" >
