@@ -23,6 +23,7 @@ namespace _3ISIP223_PogosyanWPF
     {
         private int page = 0;
         private List<Page> pages = new List<Page>();
+        private int step = 1;
 
         public MainWindow()
         {
@@ -47,6 +48,12 @@ namespace _3ISIP223_PogosyanWPF
             TotalFrame.Navigate(pages[0]);
             //Grid.SetColumnSpan(TotalFrame, 2);
             UpdateButtons();
+            
+        }
+
+        private void ChangeStepProgressBar()
+        {
+            progress.Value = step;
         }
 
         private void ModelAndTypeEngine_Navigated(object sender, NavigationEventArgs e)
@@ -60,6 +67,8 @@ namespace _3ISIP223_PogosyanWPF
             if (page+1 < pages.Count)
             {
                 page++;
+                step++;
+                ChangeStepProgressBar();
                 TotalFrame.Navigate(pages[page]);
             }
             UpdateButtons();
@@ -72,6 +81,8 @@ namespace _3ISIP223_PogosyanWPF
             if (page-1 >= 0)
             {
                 page--;
+                step--;
+                ChangeStepProgressBar();
                 TotalFrame.Navigate(pages[page]);
             }
             UpdateButtons();
