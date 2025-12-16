@@ -53,6 +53,8 @@ namespace _3ISIP223_PogosyanWPF.Pages
             SumKredit.Text = $"Cумма кредита: {s} ₽";  
             SumVznos.Text = $"Cумма первоначального взноса: {p} ₽";
             MonthPrice.Text = $"Ежемесячный платёж: {A} ₽";
+            CarConfig.Instance.Car.MonthPrice = A;
+            CarConfig.Instance.Car.SrokKredit = n;
 
 
         }

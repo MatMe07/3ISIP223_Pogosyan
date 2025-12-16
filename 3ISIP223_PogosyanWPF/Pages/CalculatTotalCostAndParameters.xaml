@@ -9,7 +9,7 @@
       Title="CalculatTotalCostAndParameters" Background="White" Loaded="Page_Loaded">
 
     <Grid>
-        <StackPanel VerticalAlignment="Center">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="360">
             <TextBlock x:Name="TextModel" Text="Модель: " FontSize="14" Margin="3"/>
             <TextBlock x:Name="TextEngine" Text="Тип двигателя: " FontSize="14" Margin="3"/>
             <TextBlock x:Name="TextColor" Text="Цвет: " FontSize="14" Margin="3"/>

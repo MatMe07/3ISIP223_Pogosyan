@@ -58,7 +58,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
             ComboBox comboBox = sender as ComboBox;
 
 
-            txtF.Text = comboBox.SelectedItem.ToString();
+            //txtF.Text = comboBox.SelectedItem.ToString();
 
             CarConfig.Instance.Car.Model = CarConfig.Instance.carModels.FirstOrDefault(car => car.Name == comboBox.SelectedItem.ToString());
 

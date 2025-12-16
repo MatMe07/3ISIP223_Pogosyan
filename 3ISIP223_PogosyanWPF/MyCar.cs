@@ -16,6 +16,12 @@ namespace _3ISIP223_PogosyanWPF
         public string PathImage => $"Img/{Model.Name}{Color.Name}.png";
         public  List<DopOptinon> DopOptinon { get; set; }
 
+        public string ClientName { get; set; }
+        public string ClientTelephon { get; set; }
+        public string ClientEmail { get; set; }
+        public double MonthPrice { get; set; }
+        public int SrokKredit { get; set; }
+
         //public double TotalPrice { get; set; } = 0;
 
         public MyCar(ColorOption color, Engine engine, CarModel model) 

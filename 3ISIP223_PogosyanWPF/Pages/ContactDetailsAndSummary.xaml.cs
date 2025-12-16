@@ -38,16 +38,20 @@ namespace _3ISIP223_PogosyanWPF.Pages
         private void textName_TextChanged(object sender, TextChangedEventArgs e)
         {
 
-            bntBack = ((TextBox)sender).Text.Length > 0;
-
-
             UpdateButton();
         }
 
         private void textTelephon_TextChanged(object sender, TextChangedEventArgs e)
         {
-            bntBack = ((TextBox)sender).Text.Length > 0;
 
+            UpdateButton();
+        }
+
+        public void resetData()
+        {
+            textTelephon.Text = "";
+            textName.Text = "";
+            textEmail.Text = "";
             UpdateButton();
         }
 
@@ -57,19 +61,39 @@ namespace _3ISIP223_PogosyanWPF.Pages
             bool lenTelephon = textTelephon.Text.Length == 11;
             bool nameLen = textName.Text.Length > 1;
             btnSend.IsEnabled = ( emailZnak  ) && ( lenTelephon  ) && ( nameLen  );
-            bntBack = false;
+            if (emailZnak) CarConfig.Instance.Car.ClientEmail = textEmail.Text;
+            if ( lenTelephon ) CarConfig.Instance.Car.ClientTelephon = textTelephon.Text;
+            if ( nameLen ) CarConfig.Instance.Car.ClientName = textName.Text;
+            bntBack = textEmail.Text.Length > 0 || textName.Text.Length > 0 || textTelephon.Text.Length > 0;
         }
 
 
         private void textEmail_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //TextBox textBox = sender as TextBox ;
-
-            bntBack = ((TextBox)sender).Text.Length > 0;
-
+            //TextBox textBox = sender as TextBox 
             UpdateButton();
 
         }
 
+        private void btnSend_Click(object sender, RoutedEventArgs e)
+        {
+            string text = $"Заявка успешно оформлена!\n\n" +
+                 $"Клиент: {CarConfig.Instance.Car.ClientName}\n" +
+                 $"Телефон: {CarConfig.Instance.Car.ClientTelephon}\n" +
+                 $"Email: {CarConfig.Instance.Car.ClientEmail}\n\n" +
+                 $"Выбранная модель: {CarConfig.Instance.Car.Model.Name}\n" +
+                 $"Двигатель: {CarConfig.Instance.Car.Engine.Type}\n" +
+                 $"Цвет: {CarConfig.Instance.Car.Color.Name}\n" +
+                 $"Стоимость автомобиля: {CarConfig.Instance.Car.CalculateTotalPrice()} руб.\n" +
+                 $"Срок кредита: {CarConfig.Instance.Car.SrokKredit} месяцев\n" +
+                 $"Ежемесячный платеж: {CarConfig.Instance.Car.MonthPrice} руб.\n\n" +
+                 $"Спасибо за заявку!";
+
+            var result = MessageBox.Show(text, "Заявка", MessageBoxButton.OKCancel, MessageBoxImage.None);
+            if (result == MessageBoxResult.OK)
+            {
+                Application.Current.Shutdown();
+            }
+        }
     }
 }

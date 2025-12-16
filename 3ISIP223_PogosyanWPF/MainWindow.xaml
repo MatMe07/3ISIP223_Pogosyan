@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="850">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -24,11 +24,11 @@
         </StackPanel>
 
         <Grid Grid.Column="1" Grid.Row="0" >
-            <Image x:Name="CarImage" Source="/Img/BMWRed.png"/>
+            <Image x:Name="CarImage" Source="/Img/BMWRed.png" Margin="10"/>
         </Grid>
 
         <Frame x:Name="TotalFrame" Grid.Row="0" Grid.Column="0"  NavigationUIVisibility="Hidden"  />
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Margin="5" Grid.Column="1">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Width="406">
             <!--<TextBlock Text="" Margin="5 5 0 5" FontSize="15"/>-->
             <!--<TextBlock Text="" Margin="5 5 0 5" FontSize="15"/>-->
             <ProgressBar x:Name="progress" Minimum="0" Maximum="5" Width="235" Margin="5" Value="1" />

@@ -9,14 +9,14 @@
       Title="ColorAndOptions" Background="White">
 
     <Grid>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="336">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Цвет:" Margin="5" />
-                <ComboBox x:Name="ComboColor" Width="90" Margin="5" SelectionChanged="ComboColor_SelectionChanged" />
+                <TextBlock Text="Цвет:" FontSize="14" Margin="5" />
+                <ComboBox x:Name="ComboColor" Width="90" FontSize="14" Margin="5" SelectionChanged="ComboColor_SelectionChanged" />
 
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Доп. опции:" Margin="5" />
+                <TextBlock Text="Доп. опции:" FontSize="14" Margin="5" />
                 <StackPanel x:Name="StackOptions" Orientation="Vertical">
                     
                 </StackPanel>
