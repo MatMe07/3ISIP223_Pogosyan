@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="690">
+        Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -27,7 +27,7 @@
             <Image x:Name="CarImage" Source="/Img/BMWRed.png"/>
         </Grid>
 
-        <Frame x:Name="TotalFrame" Grid.Row="0" Grid.Column="0" NavigationUIVisibility="Hidden"  />
+        <Frame x:Name="TotalFrame" Grid.Row="0" Grid.Column="0"  NavigationUIVisibility="Hidden"  />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Margin="5" Grid.Column="1">
             <!--<TextBlock Text="" Margin="5 5 0 5" FontSize="15"/>-->
             <!--<TextBlock Text="" Margin="5 5 0 5" FontSize="15"/>-->

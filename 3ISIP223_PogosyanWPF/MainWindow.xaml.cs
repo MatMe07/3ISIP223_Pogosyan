@@ -24,6 +24,7 @@ namespace _3ISIP223_PogosyanWPF
         private int page = 0;
         private List<Page> pages = new List<Page>();
         private int step = 1;
+        private static bool BtnBack { get; set; } =  true;
 
         public MainWindow()
         {
@@ -78,13 +79,42 @@ namespace _3ISIP223_PogosyanWPF
         private void BackButton_OnClick(object sender, RoutedEventArgs e)
         {
             //if ()
+            
             if (page-1 >= 0)
             {
-                page--;
-                step--;
-                ChangeStepProgressBar();
-                TotalFrame.Navigate(pages[page]);
+                if (TotalFrame.Content is ContactDetailsAndSummary pageContact)
+                {
+                    if (pageContact.bntBack)
+                    {
+                        var result = MessageBox.Show("Есть несохранённые изменения. Покинуть страницу?", "Подтверждение", MessageBoxButton.YesNo);
+                        if (result == MessageBoxResult.Yes) 
+                        {
+                            page--;
+                            step--;
+                            ChangeStepProgressBar();
+                            TotalFrame.Navigate(pages[page]);
+                        }
+                    }
+                    else
+                    {
+                        page--;
+                        step--;
+                        ChangeStepProgressBar();
+                        TotalFrame.Navigate(pages[page]);
+                    }
+                }
+                else
+                {
+                    page--;
+                    step--;
+                    ChangeStepProgressBar();
+                    TotalFrame.Navigate(pages[page]);
+                }
+
+
             }
+
+            
             UpdateButtons();
         }
 
