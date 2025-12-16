@@ -18,31 +18,31 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Vertical" Grid.Row="0">
-            <TextBlock Text="Первоначальный взнос (%): " FontSize="14" Margin="5"/>
+            <TextBlock Text="Первоначальный взнос (%): " Style="{StaticResource SubtitleText}" Margin="5"/>
             <TextBox x:Name="textProcent" Margin="5 0 5 10" HorizontalAlignment="Left"  Width="70" FontSize="14"  PreviewTextInput="textProcent_PreviewTextInput" TextChanged="textProcent_TextChanged_1" />
 
         </StackPanel>
         
         <StackPanel Orientation="Vertical" Grid.Row="1">
-            <TextBlock Text="Срок кредита: " FontSize="14" Margin="5"/>
+            <TextBlock Text="Срок кредита: "  Style="{StaticResource SubtitleText}" Margin="5"/>
             <StackPanel Orientation="Horizontal">
                 <Slider Width="150" Maximum="96" Minimum="12" Margin="5" IsSnapToTickEnabled="True" ValueChanged="Slider_ValueChanged"/>
-                <TextBlock x:Name="CountMounth" Text="12 мес." FontSize="14" Margin="5"/>                
+                <TextBlock x:Name="CountMounth" Text="12 мес." Style="{StaticResource SubtitleText}" FontSize="14" Margin="5"/>                
             </StackPanel>
 
 
         </StackPanel>   
         
         <StackPanel Orientation="Horizontal" Grid.Row="2">
-            <TextBlock Text="Годовая ставка: 12%" FontSize="14" Margin="5"/>
+            <TextBlock Text="Годовая ставка: 12%" Style="{StaticResource SubtitleText}" Margin="5"/>
         </StackPanel>
         
 
         
         <StackPanel Grid.Row="3">
-            <TextBlock x:Name="SumVznos" Text="Cумма первоначального взноса: 0 ₽" FontSize="14" Margin="5"/>
-            <TextBlock x:Name="SumKredit" Text="Cумма кредита: 0 ₽" FontSize="14" Margin="5"/>
-            <TextBlock x:Name="MonthPrice" Text="Ежемесячный платёж: 0 ₽" FontSize="14" Margin="5"/>
+            <TextBlock x:Name="SumVznos"  Style="{StaticResource SubtitleText}" Text="Cумма первоначального взноса: 0 ₽" Margin="5"/>
+            <TextBlock x:Name="SumKredit"  Style="{StaticResource SubtitleText}" Text="Cумма кредита: 0 ₽" Margin="5"/>
+            <TextBlock x:Name="MonthPrice"  Style="{StaticResource SubtitleText}" Text="Ежемесячный платёж: 0 ₽" Margin="5"/>
 
         </StackPanel>
         

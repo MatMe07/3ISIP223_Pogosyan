@@ -11,13 +11,13 @@
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="336">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Цвет:" FontSize="14" Margin="5" />
+                <TextBlock Text="Цвет:" Style="{StaticResource SubtitleText}" Margin="5" />
                 <ComboBox x:Name="ComboColor" Width="90" FontSize="14" Margin="5" SelectionChanged="ComboColor_SelectionChanged" />
 
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Доп. опции:" FontSize="14" Margin="5" />
-                <StackPanel x:Name="StackOptions" Orientation="Vertical">
+                <TextBlock Text="Доп. опции:"  Style="{StaticResource SubtitleText}"  Margin="5" />
+                <StackPanel x:Name="StackOptions" Orientation="Vertical" >
                     
                 </StackPanel>
             </StackPanel>
