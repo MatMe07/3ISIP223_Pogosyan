@@ -23,6 +23,12 @@ namespace _3ISIP223_PogosyanWPF.Pages
         public _1AllProductsPage()
         {
             InitializeComponent();
+
+        }
+
+        private void btnKorzina_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new _2KorzinaPage());
         }
     }
 }

@@ -175,11 +175,20 @@
       <DependentUpon>ModelOnlineShop.edmx</DependentUpon>
       <LastGenOutput>ModelOnlineShop.cs</LastGenOutput>
     </Content>
+    <Resource Include="ProductsImages\headphones.jpg" />
+    <Resource Include="ProductsImages\jeans.jpg" />
+    <Resource Include="ProductsImages\keyboard.jpg" />
+    <Resource Include="ProductsImages\laptop.jpg" />
+    <Resource Include="ProductsImages\monitor.jpg" />
+    <Resource Include="ProductsImages\mouse.jpg" />
+    <Resource Include="ProductsImages\phone1.jpg" />
+    <Resource Include="ProductsImages\tshirt.jpg" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

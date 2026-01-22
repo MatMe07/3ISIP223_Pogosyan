@@ -9,6 +9,38 @@
       Title="_1AllProductsPage" Background="White">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button x:Name="btnKorzina" Content="Корзина" Padding="3" FontSize="16" Margin="10" Click="btnKorzina_Click" />
+            <!--<Button Content="Корзина"/>-->
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <ListBox x:Name="lstProducts" ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel Width="100" Height="190">
+                            
+                            <Image Source="{Binding PathImg}" Margin="5"/>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Price, StringFormat=' {0} ₽' }" FontWeight="Black" Margin="3" FontSize="15"/>
+                                <TextBlock Text="{Binding Name}" Margin="3" FontSize="15" />
+                                <Button Content="Добавить" Padding="3"  Margin="3" FontSize="15"/>
+                            </StackPanel>
+
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                
+                
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </StackPanel>
     </Grid>
 </Page>
