@@ -23,7 +23,8 @@ namespace _3ISIP223_PogosyanWPF.Pages
         public _1AllProductsPage()
         {
             InitializeComponent();
-
+            DataContext = MarWorkWithDatabase.withDatabase;
+            
         }
 
         private void btnKorzina_Click(object sender, RoutedEventArgs e)

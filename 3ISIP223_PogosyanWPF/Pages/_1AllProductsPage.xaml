@@ -18,15 +18,15 @@
             <!--<Button Content="Корзина"/>-->
         </StackPanel>
         <StackPanel Grid.Row="1">
-            <ListBox x:Name="lstProducts" ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}"  >
+            <ListBox x:Name="lstProducts" ItemsSource="{Binding Products}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <WrapPanel Width="100" Height="190">
+                        <WrapPanel Width="300" Height="190">
                             
                             <Image Source="{Binding PathImg}" Margin="5"/>
                             <StackPanel>
                                 <TextBlock Text="{Binding Price, StringFormat=' {0} ₽' }" FontWeight="Black" Margin="3" FontSize="15"/>
-                                <TextBlock Text="{Binding Name}" Margin="3" FontSize="15" />
+                                <TextBlock Text="{Binding PathImg}" Margin="3" FontSize="15" />
                                 <Button Content="Добавить" Padding="3"  Margin="3" FontSize="15"/>
                             </StackPanel>
 

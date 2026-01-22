@@ -86,6 +86,7 @@
     <Compile Include="User.cs">
       <DependentUpon>ModelOnlineShop.tt</DependentUpon>
     </Compile>
+    <Compile Include="WorkWithDatabase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
