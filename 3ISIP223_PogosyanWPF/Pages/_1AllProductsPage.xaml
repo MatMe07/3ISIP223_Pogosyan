@@ -4,9 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="_1AllProductsPage" Background="White">
+      mc:Ignorable="d"
+      Title="_1AllProductsPage" Background="White" Height="468" Width="710">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,32 +13,57 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button x:Name="btnKorzina" Content="Корзина" Padding="3" FontSize="16" Margin="10" Click="btnKorzina_Click" />
+
+            <Button x:Name="btnKorzina" Padding="3" FontSize="16" Margin="10" Click="btnKorzina_Click"  BorderBrush="#FF8F8F8F" Background="{x:Null}">
+                <StackPanel>
+                    <TextBlock Text="{Binding LenKorzina}" Padding="2"  Foreground="White" Background="#FFFF4F4F"  FontSize="13" HorizontalAlignment="Right" x:Name="txtName">
+                        <!--<TextBlock.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="30"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        --><!--</TextBlock.RenderTransform>-->
+                    </TextBlock>
+                    <TextBlock Text="Корзина"/>
+                    
+                </StackPanel>
+                
+            </Button>
             <!--<Button Content="Корзина"/>-->
         </StackPanel>
         <StackPanel Grid.Row="1">
-            <ListBox x:Name="lstProducts" ItemsSource="{Binding Products}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}"  >
+            <ListBox x:Name="lstProducts"  BorderBrush="Transparent" Height="400" ItemsSource="{Binding Products}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}"  >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <WrapPanel Width="300" Height="190">
-                            
-                            <Image Source="{Binding PathImg}" Margin="5"/>
-                            <StackPanel>
-                                <TextBlock Text="{Binding Price, StringFormat=' {0} ₽' }" FontWeight="Black" Margin="3" FontSize="15"/>
-                                <TextBlock Text="{Binding PathImg}" Margin="3" FontSize="15" />
-                                <Button Content="Добавить" Padding="3"  Margin="3" FontSize="15"/>
+                        <WrapPanel Margin="5" Height="200" Orientation="Vertical">
+
+                            <Image Source="{Binding PathImg}" Margin="5" Width="100" Height="100"/>
+                            <StackPanel Width="150">
+
+                                <TextBlock Text="{Binding Price, StringFormat=' {0} ₽' }" FontWeight="Black" Margin="3"  FontSize="15"/>
+                                <TextBlock x:Name="NameProduct" Text="{Binding Name}" Margin="3" FontSize="15" ToolTip="{Binding Name}" />
+                                <Button Content="В корзину" Padding="3"  Margin="3" FontSize="15" Click="Button_Click"/>
                             </StackPanel>
 
                         </WrapPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-                
-                
+
+
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Focusable" Value="False" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
             </ListBox>
         </StackPanel>
     </Grid>

@@ -4,17 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="defd64e2d3d9464cb1951c8d6a97eb26" Name="Diagram1">
-        <EntityTypeShape EntityType="OnlineShopModel.Korzina" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineShopModel.OrderProduct" Width="1.5" PointX="5.25" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineShopModel.Order" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineShopModel.Product" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineShopModel.User" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+      <Diagram DiagramId="31a9617c18e14f70909186ed47523599" Name="Diagram1">
+        <EntityTypeShape EntityType="OnlineShopModel.Korzina" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineShopModel.OrderProduct" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineShopModel.Order" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineShopModel.Product" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
         <AssociationConnector Association="OnlineShopModel.FK_Korzinas_Products" ManuallyRouted="false" />
-        <AssociationConnector Association="OnlineShopModel.FK_Korzinas_Users" ManuallyRouted="false" />
         <AssociationConnector Association="OnlineShopModel.FK_OrderProduct_Orders" ManuallyRouted="false" />
         <AssociationConnector Association="OnlineShopModel.FK_OrderProduct_Products" ManuallyRouted="false" />
-        <AssociationConnector Association="OnlineShopModel.FK_Orders_Users" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

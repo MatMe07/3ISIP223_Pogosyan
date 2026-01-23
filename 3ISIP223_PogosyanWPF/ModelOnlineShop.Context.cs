@@ -29,6 +29,5 @@ namespace _3ISIP223_PogosyanWPF
         public virtual DbSet<OrderProduct> OrderProducts { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<User> Users { get; set; }
     }
 }

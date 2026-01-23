@@ -20,16 +20,31 @@ namespace _3ISIP223_PogosyanWPF.Pages
     /// </summary>
     public partial class _1AllProductsPage : Page
     {
+        public WorkWithDatabase workDatabase = MarWorkWithDatabase.withDatabase;
         public _1AllProductsPage()
         {
             InitializeComponent();
-            DataContext = MarWorkWithDatabase.withDatabase;
+            DataContext = workDatabase;
             
         }
 
         private void btnKorzina_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new _2KorzinaPage());
+        }
+
+        private void WrapPanel_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            StackPanel parents = (sender as Button).Parent as StackPanel;
+            TextBlock textBlock = parents.Children[1] as TextBlock;
+            //txtName.Text = textBlock.Text;
+            workDatabase.AddKorzina(textBlock.Text);
+            
         }
     }
 }

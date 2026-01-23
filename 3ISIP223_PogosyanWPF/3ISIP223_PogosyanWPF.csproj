@@ -69,10 +69,20 @@
     <Compile Include="Korzina.cs">
       <DependentUpon>ModelOnlineShop.tt</DependentUpon>
     </Compile>
+    <Compile Include="ModelOnlineShop.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelOnlineShop.Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="ModelOnlineShop.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelOnlineShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelOnlineShop.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelOnlineShop.edmx</DependentUpon>
     </Compile>
     <Compile Include="Order.cs">
       <DependentUpon>ModelOnlineShop.tt</DependentUpon>
@@ -81,9 +91,6 @@
       <DependentUpon>ModelOnlineShop.tt</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
-      <DependentUpon>ModelOnlineShop.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User.cs">
       <DependentUpon>ModelOnlineShop.tt</DependentUpon>
     </Compile>
     <Compile Include="WorkWithDatabase.cs" />
@@ -113,16 +120,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelOnlineShop.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelOnlineShop.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelOnlineShop.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelOnlineShop.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Pages\_1AllProductsPage.xaml.cs">
       <DependentUpon>_1AllProductsPage.xaml</DependentUpon>
     </Compile>
@@ -166,16 +163,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ModelOnlineShop.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelOnlineShop.Context.cs</LastGenOutput>
-      <DependentUpon>ModelOnlineShop.edmx</DependentUpon>
-    </Content>
-    <Content Include="ModelOnlineShop.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelOnlineShop.edmx</DependentUpon>
-      <LastGenOutput>ModelOnlineShop.cs</LastGenOutput>
-    </Content>
     <Resource Include="ProductsImages\headphones.jpg" />
     <Resource Include="ProductsImages\jeans.jpg" />
     <Resource Include="ProductsImages\keyboard.jpg" />
@@ -184,6 +171,16 @@
     <Resource Include="ProductsImages\mouse.jpg" />
     <Resource Include="ProductsImages\phone1.jpg" />
     <Resource Include="ProductsImages\tshirt.jpg" />
+    <Content Include="ModelOnlineShop.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelOnlineShop.edmx</DependentUpon>
+      <LastGenOutput>ModelOnlineShop.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ModelOnlineShop.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelOnlineShop.edmx</DependentUpon>
+      <LastGenOutput>ModelOnlineShop.cs</LastGenOutput>
+    </Content>
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
   </ItemGroup>
