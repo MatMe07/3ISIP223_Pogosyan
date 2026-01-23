@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
 
-            <Button x:Name="btnKorzina" Padding="3" FontSize="16" Margin="10" Click="btnKorzina_Click"  BorderBrush="#FF8F8F8F" Background="{x:Null}">
+            <Button x:Name="btnKorzina" Padding="3" FontSize="16" Margin="10" Click="btnKorzina_Click"  BorderBrush="#FF8F8F8F" Background="Transparent" >
                 <StackPanel>
                     <TextBlock Text="{Binding LenKorzina}" Padding="2"  Foreground="White" Background="#FFFF4F4F"  FontSize="13" HorizontalAlignment="Right" x:Name="txtName">
                         <!--<TextBlock.RenderTransform>

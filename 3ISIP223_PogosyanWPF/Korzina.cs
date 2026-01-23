@@ -11,13 +11,50 @@ namespace _3ISIP223_PogosyanWPF
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Korzina
+    using System.ComponentModel;
+
+    public partial class Korzina : INotifyPropertyChanged
     {
+        private int _quantity;
+        private decimal _totalPrice;
         public int KorzinaID { get; set; }
         public int ProductID { get; set; }
-        public int Quantity { get; set; }
-    
+
+        public string VivodPrice { get {
+                return $"{Quantity} шт x {Product.Price} ₽ = {TotalPrice} ₽";
+            } }
+        public int Quantity
+        {
+            get
+            {
+                return _quantity;
+            }
+            set
+            {
+                _quantity = value;
+                OnPropertyChanged(nameof(Quantity));
+
+                if (Product != null)
+                {
+                    TotalPrice = _quantity * Product.Price;
+                }
+            }
+        }
+        public decimal TotalPrice
+        {
+            get { return _totalPrice; }
+            set
+            {
+                _totalPrice = value;
+                OnPropertyChanged(nameof(TotalPrice));
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public virtual Product Product { get; set; }
     }
 }

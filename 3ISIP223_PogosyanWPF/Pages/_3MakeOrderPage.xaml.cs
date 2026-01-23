@@ -20,9 +20,17 @@ namespace _3ISIP223_PogosyanWPF.Pages
     /// </summary>
     public partial class _3MakeOrderPage : Page
     {
+        public WorkWithDatabase withDatabase = MarWorkWithDatabase.withDatabase;
         public _3MakeOrderPage()
         {
             InitializeComponent();
+            DataContext = withDatabase;
+        }
+
+
+        private void btnBackToKorzina_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

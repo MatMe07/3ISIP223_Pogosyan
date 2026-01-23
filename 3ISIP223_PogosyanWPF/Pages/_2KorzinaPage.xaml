@@ -9,6 +9,73 @@
       Title="_2KorzinaPage" Background="White">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0" Grid.Row="0"  Orientation="Horizontal" >
+            <Button  Content="К товарам" Padding="4" FontSize="15" Margin="10" Click="btnBackToAllProducts_Click"/>
+            
+        </StackPanel>
         
+
+        <StackPanel Grid.Row="1" Grid.Column="0" MaxWidth="620"  HorizontalAlignment="Left">
+            <ListBox x:Name="lstProducts"  BorderBrush="Transparent" Height="430" ItemsSource="{Binding Korzinas}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}"  >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel Margin="5" >
+                            <!--<WrapPanel>-->
+                                
+                                <Image Source="{Binding Product.PathImg}" Margin="5" Width="100" Height="100"/>
+                                <StackPanel Width="auto" Orientation="Vertical">
+                                    <StackPanel Width="auto" Orientation="Horizontal">
+                
+                                        <TextBlock x:Name="NameProduct" Width="100" TextWrapping="Wrap" Text="{Binding Product.Name}" Margin="3" FontSize="15" ToolTip="{Binding Product.Name}" />
+                                        <TextBlock  Text="{Binding Quantity, StringFormat=x{0}}" Margin="20 0 20 0" FontSize="17"/>
+                                        <TextBlock Text="{Binding TotalPrice, StringFormat=' {0} ₽' }" FontWeight="Black" Margin="3"  FontSize="16"/>
+                                        <!--<Button Content="В корзину" Padding="3"  Margin="3" FontSize="15" Click="Button_Click"/>-->
+                                
+                                    </StackPanel>
+                                    <Button Content="Удалить" HorizontalAlignment="Left" Padding="3" Margin="5" Click="btnDeleteProd_Click" />
+                                </StackPanel>
+                            <!--</WrapPanel>-->
+
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Focusable" Value="False" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
+            </ListBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Итого" FontSize="20" Margin="0 0 30 0" FontWeight="Bold"/>
+
+                <TextBlock Grid.Column="1" Text="{Binding TotalPrice, StringFormat=' {0} ₽'}" FontSize="20" FontWeight="Bold"/>
+            </Grid>
+            <Button Content="Оформить заказ" Margin="10" FontSize="20" Padding="5" Click="btnMakingOrder_Click"/> 
+        </StackPanel>
     </Grid>
 </Page>

@@ -42,7 +42,14 @@ namespace _3ISIP223_PogosyanWPF
             }
 
         }
-        
+        public decimal TotalPrice
+        {
+            get
+            {
+                return Korzinas.Sum(p => p.Quantity * p.Product.Price);
+            }
+        }
+
         public WorkWithDatabase()
         {
             Products = new ObservableCollection<Product>(Core.Context.Products.ToList());
@@ -57,6 +64,7 @@ namespace _3ISIP223_PogosyanWPF
             if ( korzina1 != null)
             {
                 korzina1.Quantity++;
+                korzina1.TotalPrice = korzina1.Quantity * korzina1.Product.Price;
                 //return;
             }
             else
@@ -64,7 +72,8 @@ namespace _3ISIP223_PogosyanWPF
                 var newKorzina = new Korzina
                 {
                     ProductID = product.ProductID,
-                    Quantity = 1
+                    Quantity = 1,
+                    TotalPrice = product.Price
                 };
 
                 Korzinas.Add(newKorzina);
@@ -73,6 +82,29 @@ namespace _3ISIP223_PogosyanWPF
             Core.Context.SaveChanges();
 
             OnPropertyChanged(nameof(LenKorzina));
+            OnPropertyChanged(nameof(TotalPrice));
+        }
+
+        public void DeleteKorzina(string productName)
+        {
+            var korzina1 = _korzina.FirstOrDefault(p => p.Product.Name == productName);
+            if (korzina1.Quantity > 1)
+            {
+                korzina1.Quantity--;
+                korzina1.TotalPrice = korzina1.Quantity * korzina1.Product.Price;
+            }
+            else
+            {
+                Korzinas.Remove(korzina1);
+                Core.Context.Korzinas.Remove(korzina1);
+            }
+            Core.Context.SaveChanges();
+
+            //Korzinas = new ObservableCollection<Korzina>(Korzinas.ToList());
+            //Korzinas = _korzina;
+            //OnPropertyChanged(nameof(Korzinas));
+            OnPropertyChanged(nameof(LenKorzina));
+            OnPropertyChanged(nameof(TotalPrice));
         }
 
         public void OnPropertyChanged(string propertyName)
