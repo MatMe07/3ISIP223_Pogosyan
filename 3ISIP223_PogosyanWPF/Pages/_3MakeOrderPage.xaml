@@ -23,15 +23,15 @@
         <StackPanel Grid.Row="1" Margin="10">
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="ФИО:" Margin="0 0 20 0" FontSize="16"/>
-                <TextBox x:Name="txtFIO" Width="180" FontSize="16"/>
+                <TextBox x:Name="txtFIO" Width="180" FontSize="16" TextChanged="txtFIO_TextChanged"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Email:" Margin="0 0 20 0" FontSize="16"/>
-                <TextBox x:Name="txtEmail" Width="180" FontSize="16"/>
+                <TextBox x:Name="txtEmail" Width="180" FontSize="16" TextChanged="txtEmail_TextChanged"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Text="Адрес доставки:" Margin="0 0 20 0" FontSize="16"/>
-                <TextBox x:Name="txtAddress"  Width="200" FontSize="16"/>
+                <TextBox x:Name="txtAddress"  Width="200" FontSize="16" TextChanged="txtAddress_TextChanged"/>
             </StackPanel>
         </StackPanel>
 
@@ -68,7 +68,7 @@
             </StackPanel>
         <!--</StackPanel>-->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Подтвердить заказ"  Margin="10" Padding="5" FontSize="16"/>
+            <Button Content="Подтвердить заказ" x:Name="btnMakingOrder" Margin="10" Padding="5" FontSize="16" Click="Button_Click" IsEnabled="False"/>
         </StackPanel>
     </Grid>
 </Page>

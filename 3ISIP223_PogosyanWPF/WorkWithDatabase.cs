@@ -107,6 +107,40 @@ namespace _3ISIP223_PogosyanWPF
             OnPropertyChanged(nameof(TotalPrice));
         }
 
+        public void MakingOrder(string usName, string email, string address)
+        {
+            var order = new Order
+            {
+                TotalPrice = TotalPrice,
+                OrderDate = DateTime.Now,
+                ShippingAddress = address,
+                UserFullName = usName,
+                Email = email,
+            };
+            Core.Context.SaveChanges();
+            Core.Context.Orders.Add(order);
+            
+            foreach(Korzina korz in Korzinas)
+            {
+                 OrderProduct OrderProd = new OrderProduct
+                {
+                    OrderID = order.OrderID,
+                    
+                    ProductID = korz.ProductID,
+                    Quantity = korz.Quantity,
+                    UnitPrice = korz.Product.Price
+                };
+                Core.Context.OrderProducts.Add(OrderProd);
+                Core.Context.SaveChanges();
+
+            };
+            Core.Context.Korzinas.RemoveRange(Korzinas);
+            Korzinas.Clear();
+
+            Core.Context.SaveChanges();
+            OnPropertyChanged(nameof(Korzinas));
+        }
+
         public void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

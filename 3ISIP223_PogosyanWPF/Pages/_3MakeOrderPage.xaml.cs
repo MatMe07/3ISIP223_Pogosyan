@@ -32,5 +32,55 @@ namespace _3ISIP223_PogosyanWPF.Pages
         {
             NavigationService.GoBack();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show($"Вы уверены, что хотите оформить заказ на сумму {withDatabase.TotalPrice:N2} ₽?",
+                                        "Подтверждение заказа",
+                                        MessageBoxButton.YesNo,
+                                        MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    MessageBox.Show($"Заказ успешно оформлен!\nСумма: {withDatabase.TotalPrice:N2} ₽",
+                                  "Заказ принят",
+                                  MessageBoxButton.OK,
+                                  MessageBoxImage.Information);
+
+                    withDatabase.MakingOrder(txtFIO.Text, txtEmail.Text, txtAddress.Text);
+                    txtFIO.Text = "";
+                    txtEmail.Text = "";
+                    txtAddress.Text = "";
+                    NavigationService.Navigate(new _1AllProductsPage());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при сохранении заказа: {ex.Message}",
+                                  "Ошибка",
+                                  MessageBoxButton.OK,
+                                  MessageBoxImage.Error);
+                }
+            }
+        }
+        public void CheckInputBox()
+        {
+            btnMakingOrder.IsEnabled = (withDatabase.LenKorzina > 0)&& (txtFIO.Text.Length > 3) && (txtAddress.Text.Length > 3) && (txtEmail.Text.Length > 3) && txtEmail.Text.Contains("@");
+        }
+
+        private void txtFIO_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CheckInputBox();
+        }
+
+        private void txtEmail_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CheckInputBox();
+        }
+
+        private void txtAddress_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CheckInputBox();
+        }
     }
 }
