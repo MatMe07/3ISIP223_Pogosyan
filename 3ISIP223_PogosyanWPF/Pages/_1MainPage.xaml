@@ -9,6 +9,42 @@
       Title="_1MainPage" Background="White">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0"  Margin="5" FontSize="16"/>
+            <Button Grid.Column="1" Content="Поиск" Width="100" HorizontalAlignment="Left" Margin="5" FontSize="16"/>
+        </Grid>
+
+        <ListBox Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel Width="200">
+                        <Image Source="{Binding Image}" />
+                        <StackPanel>
+                            <TextBlock Text="{Binding name}"/>
+                            <TextBlock Text="{Binding Rating}"/>
+                            <TextBlock Text="{Binding StartDate}"/>
+                            <TextBlock Text="{Binding AgeRating}"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
     </Grid>
 </Page>
