@@ -71,10 +71,24 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\_2FilmPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\_3SessionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pages\_1MainPage.xaml.cs">
       <DependentUpon>_1MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\_2FilmPage.xaml.cs">
+      <DependentUpon>_2FilmPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\_3SessionPage.xaml.cs">
+      <DependentUpon>_3SessionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
