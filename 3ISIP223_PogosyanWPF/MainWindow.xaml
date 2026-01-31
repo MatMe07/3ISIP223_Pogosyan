@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="510" Width="722">
+        Title="MainWindow" Height="560" Width="722">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -20,6 +20,6 @@
             <Button Content="Личный кабинет" Visibility="Collapsed" Click="btnPersonalAcc_Click" Padding="4" FontSize="16" Margin="5"/>
         </StackPanel>
 
-        <Frame Grid.Row="1" Source="/Pages/_2FilmPage.xaml" />
+        <Frame Grid.Row="1" Source="/Pages/_3SessionPage.xaml" />
     </Grid>
 </Window>

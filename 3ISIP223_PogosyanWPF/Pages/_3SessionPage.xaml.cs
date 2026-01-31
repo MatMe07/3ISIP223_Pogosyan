@@ -20,9 +20,110 @@ namespace _3ISIP223_PogosyanWPF.Pages
     /// </summary>
     public partial class _3SessionPage : Page
     {
+        public Brush ColorSelect = (Brush)(new BrushConverter().ConvertFrom("#FFBD257F"));
+        public Brush ColorPlace = (Brush)(new BrushConverter().ConvertFrom("#FF4D82FF"));
+
+        public List<Button> buttonsBusy = new List<Button>();
         public _3SessionPage()
         {
             InitializeComponent();
+
+            int row = 6;
+            int col = 7;
+
+
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < col+2; j++)
+                {
+                    RowDefinition rowDefinition = new RowDefinition();
+                    rowDefinition.Height = new GridLength(1, GridUnitType.Auto);
+
+                    ColumnDefinition columnDefinition = new ColumnDefinition();
+                    columnDefinition.Width = new GridLength (1, GridUnitType.Auto);
+
+                    gridMesta.RowDefinitions.Add(rowDefinition);
+                    gridMesta.ColumnDefinitions.Add(columnDefinition);
+                    if(j != 0 && j != col + 1)
+                    {
+
+                        Button btn = new Button();
+                        btn.Content = j.ToString();
+                        btn.Width = 30;
+                        btn.Height = 30;
+                        btn.Foreground = Brushes.White;
+                        btn.BorderThickness = new Thickness (0);
+                        btn.Margin = new Thickness(5);
+                        if (btn.Background != ColorPlace)
+                        {
+                            btn.Background = ColorPlace;
+                            btn.Click += Btn_Click;
+                        }
+                        else btn.Background = Brushes.Gray;
+                        if ((j + i) % 2 == 0) {
+                            btn.Background = Brushes.Gray;
+                            buttonsBusy.Add(btn);
+                        }
+
+
+
+                        Grid.SetRow(btn, i);
+                        Grid.SetColumn(btn, j);
+
+                        gridMesta.Children.Add(btn);
+                    }
+                    else
+                    {
+                        TextBlock text = new TextBlock();
+                        text.Text = $"{i + 1}";
+                        if(j == col + 1) text.Margin = new Thickness(30, 5, 0, 5);
+                        else
+                            text.Margin = new Thickness(0, 5, 30, 5);
+                        Grid.SetRow(text, i);
+                        Grid.SetColumn(text, j);
+
+                        gridMesta.Children.Add(text);
+
+                    }
+                }
+            }
+        }
+
+        private void Btn_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            txt.Text = btn.Background.ToString();
+            switch (btn.Background.ToString())
+            {
+                case "#FF4D82FF": // место
+                    {
+                        btn.Background = ColorSelect;
+                        break;
+                    }
+                case "#FFBD257F": // выбрать
+                    {
+                        btn.Background = ColorPlace;
+                        break;
+                    }
+            }
+        }
+
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as CheckBox).IsChecked == true)
+            {
+                foreach(var btn in buttonsBusy)
+                {
+                    btn.Visibility = Visibility.Hidden;
+                }
+            }
+            else
+            {
+                foreach (var btn in buttonsBusy)
+                {
+                    btn.Visibility = Visibility.Visible;
+                }
+            }
         }
     }
 }

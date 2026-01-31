@@ -9,6 +9,103 @@
       Title="_3SessionPage" Background="White">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center">
+            <TextBlock x:Name="txt" Text="ЭКРАН" HorizontalAlignment="Center" Margin="10" FontSize="16" Foreground="Gray" FontWeight="Medium"/>
+            <Ellipse Width="400" Height="60" Stroke="Gray" StrokeThickness="3">
+                <Ellipse.Effect>
+                    <DropShadowEffect BlurRadius="15" Opacity="0.5" ShadowDepth="3" Direction="311"/>
+                </Ellipse.Effect>
+                <Ellipse.Clip>
+                    <RectangleGeometry Rect="0,0,400,25"/>
+                </Ellipse.Clip>
+            </Ellipse>
+        </StackPanel>
+
+        <WrapPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Vertical" >
+            <Grid x:Name="gridMesta" HorizontalAlignment="Center">
+                <!--<Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btn1" Content="First Button" Grid.Row="0" Grid.Column="0"  />
+                <Button x:Name="btn11" Content="First Button" Grid.Row="0" Grid.Column="1"  />
+                <Button Content="First Button" Grid.Row="0" Grid.Column="2"  />
+                <Button Content="First Button" Grid.Row="0" Grid.Column="3"  />
+                <Button Content="First Button" Grid.Row="0" Grid.Column="4"  />
+                <Button Content="First Button" Grid.Row="0" Grid.Column="5"  />
+                <Button Content="First Button" Grid.Row="0" Grid.Column="6"  />
+                <Button x:Name="btn2" Content="Second Button" Grid.Row="0" Grid.Column="2" />
+                <Button x:Name="btn3" Content="Third Button" Grid.Row="1" Grid.Column="0"  />
+                <Button x:Name="btn4" Content="Fourth Button" Grid.Row="1" Grid.Column="1" />
+                <Button x:Name="btn5" Content="Fifth Button" Grid.Row="1" Grid.Column="2" />
+                <Button x:Name="btn6" Content="Six Button" Grid.Row="2" Grid.Column="1"  />-->
+            </Grid>
+            <Grid Margin="10" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5">
+                    <StackPanel Width="25" Height="25" Background="#4D82FF"  />
+                    <StackPanel Margin="10 0 0 0">
+                        <TextBlock Text="VIP" FontSize="14" FontWeight="Medium"/>
+                        <TextBlock Text="1300 ₽" Foreground="Gray" FontWeight="Bold"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="5">
+                    <StackPanel Width="25" Height="25" Background="Gray"  />
+                    <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
+                        <TextBlock Text="Занято" FontSize="14" FontWeight="Medium"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="5">
+                    <StackPanel Width="25" Height="25" Background="#BD257F" />
+                    <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
+                        <TextBlock Text="Выбранное вами" FontSize="14" FontWeight="Medium"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="5">
+                    <CheckBox Margin="6 10 0 10" VerticalAlignment="Center" HorizontalAlignment="Center" Click="CheckBox_Click" />
+                    <StackPanel Margin="10 0 0 0" VerticalAlignment="Center">
+                        <TextBlock Text="Убрать занятые места" FontSize="14" FontWeight="Medium"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </WrapPanel>
+
+        <StackPanel Grid.Row="2" Visibility="Collapsed">
+            <StackPanel  Background="#FFC3C3C8" Height="1" Margin="10 10" />
+
+            
+            <Border Background="#BD257F" HorizontalAlignment="Right" CornerRadius="10" Margin="10">
+                <Button Content="Далее: 940 ₽" Padding="30 5" Background="Transparent" Foreground="White" FontSize="16" BorderBrush="{x:Null}" />
+            </Border>
+
+        </StackPanel>
+
+
     </Grid>
 </Page>
