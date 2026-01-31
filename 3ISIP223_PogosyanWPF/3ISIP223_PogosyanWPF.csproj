@@ -35,8 +35,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Properties\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Properties\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +65,43 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Age_Ratings.cs">
+      <DependentUpon>KinoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Core.cs" />
+    <Compile Include="Film.cs">
+      <DependentUpon>KinoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FilmGenre.cs">
+      <DependentUpon>KinoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Genre.cs">
+      <DependentUpon>KinoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hall.cs">
+      <DependentUpon>KinoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HallRating.cs">
+      <DependentUpon>KinoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KinoModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KinoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Seat.cs">
+      <DependentUpon>KinoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Session.cs">
+      <DependentUpon>KinoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ticket.cs">
+      <DependentUpon>KinoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>KinoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkWIthDatabase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -62,6 +109,16 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="KinoModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KinoModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KinoModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KinoModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -114,6 +171,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="KinoModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>KinoModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="KinoModel.edmx.diagram">
+      <DependentUpon>KinoModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -124,8 +189,29 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="600x900.jpg" />
+    <Resource Include="posters\avatar.jpg" />
+    <Resource Include="posters\avengers_endgame.jpg" />
+    <Resource Include="posters\gentlemen.jpg" />
+    <Resource Include="posters\interstellar.jpg" />
+    <Resource Include="posters\lion_king.jpg" />
+    <Resource Include="posters\nachalo.jpg" />
+    <Resource Include="posters\oneplusone.jpg" />
+    <Content Include="KinoModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>KinoModel.Context.cs</LastGenOutput>
+      <DependentUpon>KinoModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="KinoModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KinoModel.edmx</DependentUpon>
+      <LastGenOutput>KinoModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

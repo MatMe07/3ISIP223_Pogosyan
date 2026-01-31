@@ -43,22 +43,22 @@
 
         </Grid>
 
-        <ListBox Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" BorderBrush="{x:Null}">
+        <ListBox Grid.Row="1" ItemsSource="{Binding Films}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" BorderBrush="{x:Null}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <WrapPanel Width="180">
+                    <WrapPanel Width="165">
                         <Grid>
-                            <Image Source="/600x900.jpg" />
+                            <Image Source="{Binding PosterPath}" />
                             <Border Background="#FF3BB33B" Margin="5" MinWidth="32" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                <TextBlock Text="8.4" FontWeight="Medium" HorizontalAlignment="Center" Padding="2" FontSize="13" Foreground="White"/>
+                                <TextBlock Text="{Binding Rating}" FontWeight="Medium" HorizontalAlignment="Center" Padding="2" FontSize="13" Foreground="White"/>
                             </Border>
                             <Border BorderThickness="1" CornerRadius="5" BorderBrush="White" Background="#7F000000" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top">
-                                <TextBlock Text="16 +" Padding="2" FontSize="13" Foreground="White" Margin="0 -1 0 0"/>
+                                <TextBlock Text="{Binding Age_Ratings.Name}" Padding="2" FontSize="13" Foreground="White" Margin="0 -1 0 0"/>
                             </Border>
                         </Grid>
                         <StackPanel>
-                            <TextBlock Text="Очень странные дела" FontSize="16" FontWeight="Medium" TextWrapping="Wrap"/>
-                            <TextBlock Text="С 12.04.26" FontSize="14" Foreground="Gray"/>
+                            <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Medium" TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding ShowStartDate, StringFormat=C {0}}" FontSize="14"  TextWrapping="Wrap" Foreground="Gray"/>
                             <!--<TextBlock Text="{Binding AgeRating}"/>-->
                         </StackPanel>
                     </WrapPanel>

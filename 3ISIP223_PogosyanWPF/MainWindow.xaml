@@ -23,6 +23,6 @@
         <StackPanel Grid.Row="1"  Background="#FFC3C3C8" Height="1" Margin="0 5" />
 
 
-        <Frame Grid.Row="2" Source="/Pages/_4MakingTicketPage.xaml" />
+        <Frame Grid.Row="2" Source="/Pages/_1MainPage.xaml" />
     </Grid>
 </Window>

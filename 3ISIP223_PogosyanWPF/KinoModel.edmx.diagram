@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="dd44f995e5334da495b04c63a7fe08fe" Name="Diagram1">
+        <EntityTypeShape EntityType="kinomaxModel.Age_Ratings" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="kinomaxModel.FilmGenre" Width="1.5" PointX="5.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="kinomaxModel.Film" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="kinomaxModel.Genre" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kinomaxModel.HallRating" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="kinomaxModel.Hall" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kinomaxModel.Seat" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="kinomaxModel.Session" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="kinomaxModel.Ticket" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kinomaxModel.User" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <AssociationConnector Association="kinomaxModel.FK_Films_Age_Ratings" ManuallyRouted="false" />
+        <AssociationConnector Association="kinomaxModel.FK_FilmGenres_Films" ManuallyRouted="false" />
+        <AssociationConnector Association="kinomaxModel.FK_FilmGenres_Genres" ManuallyRouted="false" />
+        <AssociationConnector Association="kinomaxModel.FK_Sessions_Films" ManuallyRouted="false" />
+        <AssociationConnector Association="kinomaxModel.FK_Halls_HallRatings" ManuallyRouted="false" />
+        <AssociationConnector Association="kinomaxModel.FK_Seats_Halls" ManuallyRouted="false" />
+        <AssociationConnector Association="kinomaxModel.FK_Sessions_Halls" ManuallyRouted="false" />
+        <AssociationConnector Association="kinomaxModel.FK_Tickets_Seats" ManuallyRouted="false" />
+        <AssociationConnector Association="kinomaxModel.FK_Tickets_Sessions" ManuallyRouted="false" />
+        <AssociationConnector Association="kinomaxModel.FK_Tickets_Users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

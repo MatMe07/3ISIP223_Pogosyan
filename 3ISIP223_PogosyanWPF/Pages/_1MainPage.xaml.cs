@@ -21,10 +21,12 @@ namespace _3ISIP223_PogosyanWPF.Pages
     public partial class _1MainPage : Page
     {
         public List<string> comboSorts;
+        public WorkWIthDatabase workDatabase {  get; set; }
         public _1MainPage()
         {
+            workDatabase = MarDatabase.WIthDatabase;
             InitializeComponent();
-            DataContext = this;
+            DataContext = workDatabase;
             comboSorts = new List<string>
             {
                 "aba",
