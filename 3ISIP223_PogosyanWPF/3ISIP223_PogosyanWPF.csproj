@@ -79,6 +79,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\_4MakingTicketPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pages\_1MainPage.xaml.cs">
@@ -89,6 +93,9 @@
     </Compile>
     <Compile Include="Pages\_3SessionPage.xaml.cs">
       <DependentUpon>_3SessionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\_4MakingTicketPage.xaml.cs">
+      <DependentUpon>_4MakingTicketPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

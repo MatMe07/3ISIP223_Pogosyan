@@ -92,7 +92,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
             var btn = sender as Button;
-            txt.Text = btn.Background.ToString();
+            //txt.Text = btn.Background.ToString();
             switch (btn.Background.ToString())
             {
                 case "#FF4D82FF": // место

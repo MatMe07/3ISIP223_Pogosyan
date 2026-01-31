@@ -96,7 +96,7 @@
             </Grid>
         </WrapPanel>
 
-        <StackPanel Grid.Row="2" Visibility="Collapsed">
+        <StackPanel Grid.Row="2" Visibility="Visible">
             <StackPanel  Background="#FFC3C3C8" Height="1" Margin="10 10" />
 
             
