@@ -15,25 +15,45 @@
         </Grid.RowDefinitions>
 
 
-        <Grid>
+        <Grid Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0"  Margin="5" FontSize="16"/>
-            <Button Grid.Column="1" Content="Поиск" Width="100" HorizontalAlignment="Left" Margin="5" FontSize="16"/>
+            <Border BorderBrush="#FF9E9E9E" BorderThickness="1" CornerRadius="5" Padding="0">
+                <TextBox Grid.Column="0"  Margin="5 0" FontSize="16"  BorderBrush="{x:Null}"/>
+                
+            </Border>
+            
+            <Button Grid.Column="1" Content="Поиск" Width="100" HorizontalAlignment="Left" Margin="5 0 0 0" FontSize="17" FontWeight="Medium"/>
+            <StackPanel Orientation="Horizontal" Grid.Column="2">
+                <TextBlock Text="Сортировка:" VerticalAlignment="Center" Margin="10 0 5 0" FontSize="16"/>
+                <ComboBox Width="130" x:Name="comboSort" FontSize="15" >
+                    <ComboBoxItem Content="Все" IsSelected="True"/>
+                    <ComboBoxItem Content="По названию"/>
+                    <ComboBoxItem Content="По рейтингу"/>
+                </ComboBox>
+            </StackPanel>
         </Grid>
 
         <ListBox Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <WrapPanel Width="200">
-                        <Image Source="{Binding Image}" />
+                    <WrapPanel Width="180">
+                        <Grid>
+                            <Image Source="/600x900.jpg" />
+                            <Border Background="#FF3BB33B" Margin="5" MinWidth="32" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <TextBlock Text="8.4" FontWeight="Medium" HorizontalAlignment="Center" Padding="2" FontSize="13" Foreground="White"/>
+                            </Border>
+                            <Border BorderThickness="1" CornerRadius="5" BorderBrush="White" Background="#7F000000" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                <TextBlock Text="16 +" Padding="2" FontSize="13" Foreground="White"/>
+                            </Border>
+                        </Grid>
                         <StackPanel>
-                            <TextBlock Text="{Binding name}"/>
-                            <TextBlock Text="{Binding Rating}"/>
-                            <TextBlock Text="{Binding StartDate}"/>
-                            <TextBlock Text="{Binding AgeRating}"/>
+                            <TextBlock Text="Очень странные дела" FontSize="16" FontWeight="Medium" TextWrapping="Wrap"/>
+                            <TextBlock Text="С 12.04.26" FontSize="14" Foreground="Gray"/>
+                            <!--<TextBlock Text="{Binding AgeRating}"/>-->
                         </StackPanel>
                     </WrapPanel>
                 </DataTemplate>

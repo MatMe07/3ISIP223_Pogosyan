@@ -20,9 +20,17 @@ namespace _3ISIP223_PogosyanWPF.Pages
     /// </summary>
     public partial class _1MainPage : Page
     {
+        public List<string> comboSorts;
         public _1MainPage()
         {
             InitializeComponent();
+            DataContext = this;
+            comboSorts = new List<string>
+            {
+                "aba",
+                "aba",
+            };
+            //comboSort.ItemsSource = comboSorts;
         }
     }
 }

@@ -24,5 +24,25 @@ namespace _3ISIP223_PogosyanWPF
         {
             InitializeComponent();
         }
+
+        private void btnSignUpOrIn_Click(object sender, RoutedEventArgs e)
+        {
+            switch ((sender as Button).Content)
+            {
+                case "Вход":
+                    {
+                        break;
+                    }
+                case "Регистрация":
+                    {
+                        break;
+                    }
+            }
+        }
+
+        private void btnPersonalAcc_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
