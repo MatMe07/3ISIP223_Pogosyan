@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="580" Width="722">
+        Title="MainWindow" Height="610" Width="722">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -23,6 +23,6 @@
         <StackPanel Grid.Row="1"  Background="#FFC3C3C8" Height="1" Margin="0 5" />
 
 
-        <Frame Grid.Row="2" Source="/Pages/_1MainPage.xaml" />
+        <Frame Grid.Row="2" x:Name="mainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

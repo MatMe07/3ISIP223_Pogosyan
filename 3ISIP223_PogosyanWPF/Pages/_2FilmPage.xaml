@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="_2FilmPage" Background="White">
+      Title="_2FilmPage" Background="White" Loaded="Page_Loaded">
     
     <ScrollViewer>
         <Grid Margin="5">
@@ -14,9 +14,15 @@
                 <RowDefinition Height="auto"/> 
                 <RowDefinition Height="auto"/> 
                 <RowDefinition Height="auto"/> 
+                <RowDefinition Height="auto"/> 
+                <RowDefinition Height="auto"/> 
                 <RowDefinition Height="*"/> 
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
+            <Border  HorizontalAlignment="Left" BorderBrush="Gray" Margin="5 0" BorderThickness="1" CornerRadius="5">
+                <Button Grid.Row="1" Content="Назад" Padding="5" FontSize="15" Width="60" BorderBrush="{x:Null}" Background="{x:Null}" Click="btnBack_Click" />
+            </Border>
+
+            <Grid Grid.Row="2">
                 <!--<Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     --><!--<RowDefinition Height="*"/>--><!--
@@ -25,18 +31,17 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
-
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Row="0" Grid.Column="0" Margin="5" Height="300" VerticalAlignment="Top">
-                    <Image Source="/600x900.jpg"  />
-                    <Border BorderThickness="1" CornerRadius="5" BorderBrush="White" Background="#E5888888" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top">
-                        <TextBlock Text="16 +" Padding="2" FontSize="13" Foreground="White" Margin="0 -1 0 0"/>
+                <Grid Grid.Row="0" Grid.Column="0" Margin="5" MinHeight="200" Width="160" VerticalAlignment="Top">
+                    <Image Source="{Binding Film.PosterPath}" VerticalAlignment="Top" HorizontalAlignment="Left"  />
+                    <Border BorderThickness="1" MinWidth="32" CornerRadius="5" BorderBrush="White" Background="#E5888888" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <TextBlock Text="{Binding Film.Age_Ratings.Name}" Padding="2" FontSize="16" Foreground="White" Margin="0 -1 0 0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </Grid>
                 <StackPanel Grid.Row="0" Grid.Column="1" Margin="10">
-                    <TextBlock Text="Очень странные дела" FontSize="30" FontWeight="Bold" Margin="0 0 0 5"/>
-                    <TextBlock Padding="0 0 5 0" FontSize="14" Text="1980-е годы, тихий провинциальный американский городок. Благоприятное течение местной жизни нарушает загадочное исчезновение подростка по имени Уилл." TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Film.Name}" FontSize="30" FontWeight="Bold" Margin="0 0 0 5"/>
+                    <TextBlock Padding="0 0 5 0" FontSize="14" Text="{Binding Film.Description}" TextWrapping="Wrap"/>
 
                     <TextBlock Text="O фильме" Margin="0 10 0 5" FontSize="18" FontWeight="DemiBold"/>
                     <Grid Width="400" HorizontalAlignment="Left">
@@ -56,11 +61,11 @@
                         </Grid.RowDefinitions>
                         <TextBlock Text="Год производства" Grid.Row="0" Grid.Column="0" FontSize="14" Foreground="Gray" Margin="0 5"/>
                         <StackPanel Grid.Column="1" Grid.Row="0"  Margin="0 5">
-                            <TextBlock Text="2016 (5 сезонов)"  FontSize="14"/>
+                            <TextBlock Text="{Binding Film.ReleaseDate, StringFormat='\{0:yyyy}'}"  FontSize="14"/>
                         </StackPanel>
                         <TextBlock Text="Жанр" Grid.Row="1" Grid.Column="0" FontSize="14" Foreground="Gray" Margin="0 5"/>
                         <StackPanel Grid.Column="1" Grid.Row="1">
-                            <TextBlock FontSize="14" Text="ужасы, фантастика, фэнтези, триллер, драма, детектив" TextWrapping="Wrap" Margin="0 5"/>
+                            <TextBlock FontSize="14" Text="{Binding GetGenre}" TextWrapping="Wrap" Margin="0 5"/>
                         </StackPanel>
                         <!--<TextBlock Text="Жанр" Grid.Row="2" Grid.Column="0" FontSize="14" Foreground="Gray" Margin="0 5"/>
                         <TextBlock Text="Жанр" Grid.Row="3" Grid.Column="0" FontSize="14" Foreground="Gray" Margin="0 5"/>
@@ -71,40 +76,46 @@
                     </Grid>
                 </StackPanel>
                 <StackPanel Grid.Row="0" Grid.Column="3" Margin="10" MinWidth="100" >
-                    <TextBlock Text="8.2" FontSize="30"  FontWeight="Bold" Foreground="#FF3BB33B"/>
+                    <TextBlock Text="{Binding Film.Rating}" FontSize="30"  FontWeight="Bold" Foreground="#FF3BB33B"/>
                 </StackPanel>
-
             </Grid>
             
-            <StackPanel Grid.Row="1" Background="#FFC3C3C8" Height="1" Margin="0 10" />
+            <StackPanel Grid.Row="3" Background="#FFC3C3C8" Height="1" Margin="0 10" />
 
-            <StackPanel  Grid.Row="2" Orientation="Horizontal" Margin="0 0 0 10">
+            <StackPanel  Grid.Row="4" Orientation="Horizontal" Margin="0 0 0 10">
                 <TextBlock Text="Сортировка по залу:" VerticalAlignment="Center" Margin="10 0 5 0" FontSize="16"/>
-                <ComboBox Width="130" x:Name="comboSort" FontSize="15" >
-                    <ComboBoxItem Content="Все" IsSelected="True"/>
+                <ComboBox Width="130" x:Name="comboSort" FontSize="15" SelectionChanged="comboSort_SelectionChanged" >
+                    <!--<ComboBoxItem Content="Все" IsSelected="True"/>
                     <ComboBoxItem Content="Standard"/>
                     <ComboBoxItem Content="Comfort"/>
                     <ComboBoxItem Content="VIP"/>
                     <ComboBoxItem Content="IMAX"/>
-                    <ComboBoxItem Content="3D"/>
+                    <ComboBoxItem Content="3D"/>-->
                 </ComboBox>
             </StackPanel>
             
 
-            <StackPanel Grid.Row="3">
-                <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Background="{x:Null}" BorderBrush="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  >
+            <StackPanel Grid.Row="5">
+                <ListBox x:Name="ListSessionBox" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding SessionsList}" Background="{x:Null}" BorderBrush="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MouseDoubleClick="ListBox_MouseDoubleClick"  >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <WrapPanel Orientation="Vertical" Margin="5 3">
-                                <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5">
-                                    <Button  BorderBrush="{x:Null}" Background="{x:Null}" >
-                                        <StackPanel Margin="2">
-                                            <TextBlock Text="2026-01-31 11:13" FontSize="18" HorizontalAlignment="Center" FontWeight="Medium" />
-                                            <TextBlock Text="750₽" Foreground="Gray" FontSize="14" HorizontalAlignment="Center" />
+                                <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Width="120">
+                                    <!--<Button  BorderBrush="{x:Null}" Background="{x:Null}" Click="Button_Click"  >-->
+                                        <StackPanel VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding StartDateTime, StringFormat='HH:mm'}" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#2C3E50"/>
+
+                                            <TextBlock Text="{Binding StartDateTime, StringFormat='dd MMMM'}" FontSize="13" HorizontalAlignment="Center" Foreground="#7F8C8D" Margin="0 0 0 5"/>
+
+                                            <Border Background="#BD257F" CornerRadius="5" Padding="8 4" Margin="10 0">
+                                                <TextBlock Text="{Binding BasePrice, StringFormat='\{0} ₽'}" FontSize="14" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+                                            </Border>
+
+                                            <TextBlock Text="{Binding Hall.HallRating.Name}" FontSize="12"  HorizontalAlignment="Center" Margin="0 8 0 0" Foreground="#95A5A6"/>
                                         </StackPanel>
-                                    </Button>
+                                    <!--</Button>-->
                                 </Border>
-                                <TextBlock Text="2D" HorizontalAlignment="Center" FontSize="14"/>
+                                <!--<TextBlock Text="2D" HorizontalAlignment="Center" FontSize="14"/>-->
                             </WrapPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -116,10 +127,8 @@
                     </ListBox.ItemsPanel>
 
                     <!--<ListBox.ItemContainerStyle>
-                        <Style>
-                            <Setter TargetName="listbox">
-                                
-                            </Setter>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Focusable" Value="False"/>
                         </Style>
                     </ListBox.ItemContainerStyle>-->
                 </ListBox>

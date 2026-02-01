@@ -72,6 +72,7 @@
     <Compile Include="Film.cs">
       <DependentUpon>KinoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="FilmDetailView.cs" />
     <Compile Include="FilmGenre.cs">
       <DependentUpon>KinoModel.tt</DependentUpon>
     </Compile>

@@ -22,14 +22,16 @@ namespace _3ISIP223_PogosyanWPF.Pages
     {
         public Brush ColorSelect = (Brush)(new BrushConverter().ConvertFrom("#FFBD257F"));
         public Brush ColorPlace = (Brush)(new BrushConverter().ConvertFrom("#FF4D82FF"));
+        public Session session {  get; set; }
 
         public List<Button> buttonsBusy = new List<Button>();
-        public _3SessionPage()
+        public _3SessionPage(Session selectSession)
         {
             InitializeComponent();
+            session = selectSession;
 
-            int row = 6;
-            int col = 7;
+            int row = session.Hall.RowsCount;
+            int col = session.Hall.SeatsPerRow;
 
 
             for (int i = 0; i < row; i++)
@@ -124,6 +126,11 @@ namespace _3ISIP223_PogosyanWPF.Pages
                     btn.Visibility = Visibility.Visible;
                 }
             }
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

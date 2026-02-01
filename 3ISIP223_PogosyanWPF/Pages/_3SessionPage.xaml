@@ -11,11 +11,15 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" HorizontalAlignment="Center">
-            <TextBlock x:Name="txt" Text="ЭКРАН" HorizontalAlignment="Center" Margin="10" FontSize="16" Foreground="Gray" FontWeight="Medium"/>
+        <Border  HorizontalAlignment="Left" BorderBrush="Gray" Margin="10 5 0 0" BorderThickness="1" CornerRadius="5">
+            <Button Grid.Row="0" Content="Назад" Padding="5" FontSize="15" Width="60" BorderBrush="{x:Null}" Background="{x:Null}" Click="btnBack_Click" />
+        </Border>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+            <TextBlock x:Name="txt" Text="ЭКРАН" HorizontalAlignment="Center" Margin="0" FontSize="16" Foreground="Gray" FontWeight="Medium"/>
             <Ellipse Width="400" Height="60" Stroke="Gray" StrokeThickness="3">
                 <Ellipse.Effect>
                     <DropShadowEffect BlurRadius="15" Opacity="0.5" ShadowDepth="3" Direction="311"/>
@@ -26,7 +30,7 @@
             </Ellipse>
         </StackPanel>
 
-        <WrapPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Vertical" >
+        <WrapPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Vertical" >
             <Grid x:Name="gridMesta" HorizontalAlignment="Center">
                 <!--<Grid.RowDefinitions>
                     <RowDefinition />
@@ -96,7 +100,7 @@
             </Grid>
         </WrapPanel>
 
-        <StackPanel Grid.Row="2" Visibility="Visible">
+        <StackPanel Grid.Row="3" Visibility="Visible">
             <StackPanel  Background="#FFC3C3C8" Height="1" Margin="10 10" />
 
             

@@ -23,6 +23,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
         public List<string> comboSorts;
         public WorkWIthDatabase workDatabase {  get; set; }
         //public List<string> comboFilters;
+        private int lastInd = -1;
         public _1MainPage()
         {
             workDatabase = MarDatabase.WIthDatabase;
@@ -52,6 +53,29 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
             //txt.Text =  comboSort.SelectedItem.ToString();
             workDatabase.SearchAndSortFilm(txtSearch.Text, comboSort.SelectedItem.ToString());
+
+        }
+
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            //lstFilms.SelectedIndex = lastInd;
+            if (lstFilms != null)
+                lstFilms.SelectedIndex = -1;
+        }
+
+        private void lstFilms_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+        }
+
+        private void lstFilms_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var film = lstFilms.SelectedItem as Film;
+            //txt.Text = wrap.Name;
+            //lstFilms.SelectedValue = null;
+            //lastInd = lstFilms.SelectedIndex;
+
+            NavigationService.Navigate(new _2FilmPage(film));
 
         }
     }

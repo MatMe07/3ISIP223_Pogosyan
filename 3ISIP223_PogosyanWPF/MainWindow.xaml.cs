@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using _3ISIP223_PogosyanWPF.Pages;
 
 namespace _3ISIP223_PogosyanWPF
 {
@@ -23,6 +24,8 @@ namespace _3ISIP223_PogosyanWPF
         public MainWindow()
         {
             InitializeComponent();
+
+            mainFrame.NavigationService.Navigate(new _1MainPage());
         }
 
         private void btnSignUpOrIn_Click(object sender, RoutedEventArgs e)

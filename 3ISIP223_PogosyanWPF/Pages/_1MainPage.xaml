@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="_1MainPage" Background="White">
+      Title="_1MainPage" Background="White" Loaded="Page_Loaded">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -43,7 +43,7 @@
 
         </Grid>
 
-        <ListBox Grid.Row="1" ItemsSource="{Binding Films}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" BorderBrush="{x:Null}">
+        <ListBox x:Name="lstFilms" Grid.Row="1" ItemsSource="{Binding Films}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" BorderBrush="{x:Null}" MouseDoubleClick="lstFilms_MouseDoubleClick" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel Width="160" >
@@ -58,7 +58,7 @@
                         </Grid>
                         <StackPanel>
                             <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Medium" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <TextBlock Text="{Binding ShowStartDate, StringFormat=C {0:MMMM dd, yyyy}}" FontSize="14"  TextWrapping="Wrap" Foreground="Gray"/>
+                            <TextBlock Text="{Binding ShowStartDate, StringFormat=C {0:MMMM dd}}" FontSize="14"  TextWrapping="Wrap" Foreground="Gray"/>
                             <!--<TextBlock Text="{Binding AgeRating}"/>-->
                         </StackPanel>
                     </WrapPanel>
@@ -71,8 +71,15 @@
                     <WrapPanel/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
+
             
             
+            <!--<ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Focusable" Value="False" />
+                </Style>
+            </ListBox.ItemContainerStyle>-->
+
         </ListBox>
         <DockPanel LastChildFill="False" Grid.Row="1"/>
     </Grid>

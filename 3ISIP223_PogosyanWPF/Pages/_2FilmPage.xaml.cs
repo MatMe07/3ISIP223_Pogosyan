@@ -20,9 +20,56 @@ namespace _3ISIP223_PogosyanWPF.Pages
     /// </summary>
     public partial class _2FilmPage : Page
     {
-        public _2FilmPage()
+        //public Film selectFilm {  get; set; }
+        public FilmDetailView FilmDetail { get; set; }
+        public List<string> lstSorts;
+        public _2FilmPage(Film film)
         {
             InitializeComponent();
+            lstSorts = new List<string>
+            {
+                "Все",
+                "Standard",
+                "Comfort",
+                "VIP",
+                "IMAX",
+                "3D",
+            };
+
+            FilmDetail = new FilmDetailView(film);
+            DataContext = FilmDetail;
+            comboSort.ItemsSource = lstSorts; 
+            comboSort.SelectedIndex = 0;
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        private void comboSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilmDetail.SortSession(comboSort.SelectedItem.ToString());
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            //if (MarDatabase.WIthDatabase.user == null) return;
+            var session = ListSessionBox.SelectedItem as Session;
+
+            NavigationService.Navigate(new _3SessionPage(session));
+
+        }
+
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            ListSessionBox.SelectedIndex = -1;
         }
     }
 }

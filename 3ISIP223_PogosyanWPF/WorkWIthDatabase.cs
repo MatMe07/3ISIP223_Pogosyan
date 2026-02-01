@@ -31,6 +31,8 @@ namespace _3ISIP223_PogosyanWPF
             //Core.Context.Films.ToList()[0].Age_Ratings.Name;
         }
 
+        public User user { get; set; }
+
         public void SearchAndSortFilm(string name, string sort)
         {
 
