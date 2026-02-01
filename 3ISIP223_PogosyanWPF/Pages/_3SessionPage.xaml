@@ -100,12 +100,12 @@
             </Grid>
         </WrapPanel>
 
-        <StackPanel Grid.Row="3" Visibility="Visible">
+        <StackPanel Grid.Row="3" x:Name="stackBtn" Visibility="Collapsed">
             <StackPanel  Background="#FFC3C3C8" Height="1" Margin="10 10" />
 
             
             <Border Background="#BD257F" HorizontalAlignment="Right" CornerRadius="10" Margin="10">
-                <Button Content="Далее: 940 ₽" Padding="30 5" Background="Transparent" Foreground="White" FontSize="16" BorderBrush="{x:Null}" />
+                <Button Content="{Binding GetSumPrice, StringFormat=Далее: {0} ₽}" Padding="30 5" Background="Transparent" Foreground="White" FontSize="16" BorderBrush="{x:Null}" />
             </Border>
 
         </StackPanel>

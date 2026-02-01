@@ -96,6 +96,7 @@
     <Compile Include="Session.cs">
       <DependentUpon>KinoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SessionDetailView.cs" />
     <Compile Include="Ticket.cs">
       <DependentUpon>KinoModel.tt</DependentUpon>
     </Compile>

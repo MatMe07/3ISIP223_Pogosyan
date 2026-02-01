@@ -22,16 +22,20 @@ namespace _3ISIP223_PogosyanWPF.Pages
     {
         public Brush ColorSelect = (Brush)(new BrushConverter().ConvertFrom("#FFBD257F"));
         public Brush ColorPlace = (Brush)(new BrushConverter().ConvertFrom("#FF4D82FF"));
-        public Session session {  get; set; }
+        //public Session session {  get; set; }
 
         public List<Button> buttonsBusy = new List<Button>();
+
+        public SessionDetailView sessionDetail {  get; set; }
         public _3SessionPage(Session selectSession)
         {
             InitializeComponent();
-            session = selectSession;
+            //session = selectSession;
+            sessionDetail = new SessionDetailView(selectSession);
 
-            int row = session.Hall.RowsCount;
-            int col = session.Hall.SeatsPerRow;
+
+            int row = sessionDetail.GetCountRow;
+            int col = sessionDetail.GetCountCol;
 
 
             for (int i = 0; i < row; i++)
@@ -49,6 +53,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                     if(j != 0 && j != col + 1)
                     {
 
+                        var seat = sessionDetail.Seats.FirstOrDefault(s=>s.RowNumber == (i+1) && s.SeatNumber == j);
                         Button btn = new Button();
                         btn.Content = j.ToString();
                         btn.Width = 30;
@@ -56,16 +61,20 @@ namespace _3ISIP223_PogosyanWPF.Pages
                         btn.Foreground = Brushes.White;
                         btn.BorderThickness = new Thickness (0);
                         btn.Margin = new Thickness(5);
-                        if (btn.Background != ColorPlace)
+                        if (seat.IsActive)
                         {
                             btn.Background = ColorPlace;
                             btn.Click += Btn_Click;
                         }
-                        else btn.Background = Brushes.Gray;
-                        if ((j + i) % 2 == 0) {
+                        else
+                        {
                             btn.Background = Brushes.Gray;
                             buttonsBusy.Add(btn);
                         }
+
+                        //if ((j + i) % 2 == 0) {
+                        //    btn.Background = Brushes.Gray;
+                        //}
 
 
 
@@ -99,16 +108,31 @@ namespace _3ISIP223_PogosyanWPF.Pages
             {
                 case "#FF4D82FF": // место
                     {
+                        sessionDetail.AddSeat(Grid.GetRow(btn), Grid.GetColumn(btn));
                         btn.Background = ColorSelect;
                         break;
                     }
                 case "#FFBD257F": // выбрать
                     {
                         btn.Background = ColorPlace;
+                        sessionDetail.DeleteSeat(Grid.GetRow(btn), Grid.GetColumn(btn));
                         break;
                     }
             }
+            UpdateButton();
         }
+
+        public void UpdateButton()
+        {
+            if (sessionDetail.selectSeat.Count() > 0)
+            {
+                stackBtn.Visibility = Visibility.Visible;
+            }
+            else {
+                stackBtn.Visibility = Visibility.Collapsed;
+            } 
+        }
+
 
         private void CheckBox_Click(object sender, RoutedEventArgs e)
         {
