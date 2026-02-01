@@ -22,6 +22,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
     {
         public List<string> comboSorts;
         public WorkWIthDatabase workDatabase {  get; set; }
+        //public List<string> comboFilters;
         public _1MainPage()
         {
             workDatabase = MarDatabase.WIthDatabase;
@@ -29,10 +30,29 @@ namespace _3ISIP223_PogosyanWPF.Pages
             DataContext = workDatabase;
             comboSorts = new List<string>
             {
-                "aba",
-                "aba",
+                "Все",
+                "По названию",
+                "По рейтингу",
             };
-            //comboSort.ItemsSource = comboSorts;
+            comboSort.ItemsSource = comboSorts;
+            comboSort.SelectedIndex = 0;    
+        }
+
+
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            //if (txtSearch == null && txtSearch.Text.Length == 0) return;
+
+            //txt.Text = txtSearch.Text;
+            workDatabase.SearchAndSortFilm(txtSearch.Text, comboSort.SelectedItem.ToString());
+        }
+
+        private void comboSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            //txt.Text =  comboSort.SelectedItem.ToString();
+            workDatabase.SearchAndSortFilm(txtSearch.Text, comboSort.SelectedItem.ToString());
+
         }
     }
 }

@@ -13,6 +13,7 @@ namespace _3ISIP223_PogosyanWPF
         public event PropertyChangedEventHandler PropertyChanged;
 
         private ObservableCollection<Film> _films;
+        private List<Film> _allfilms;
 
         public ObservableCollection<Film> Films
         {
@@ -26,7 +27,32 @@ namespace _3ISIP223_PogosyanWPF
         public WorkWIthDatabase()
         {
             Films = new ObservableCollection<Film>(Core.Context.Films.ToList());
+            _allfilms = Core.Context.Films.ToList();
             //Core.Context.Films.ToList()[0].Age_Ratings.Name;
+        }
+
+        public void SearchAndSortFilm(string name, string sort)
+        {
+
+            var result = _allfilms;
+            if (!string.IsNullOrEmpty(name)) { 
+                result = _allfilms.Where(a => a.Name.ToLower().Contains(name.ToLower())).ToList();
+            }
+
+            switch (sort)
+            {
+                case "По названию":
+                    {
+                        result = result.OrderBy(a => a.Name).ToList();
+                        break;
+                    }
+                case "По рейтингу":
+                    {
+                        result = result.OrderByDescending(a => a.Rating).ToList();
+                        break;
+                    }
+            }
+            Films = new ObservableCollection<Film>(result);
         }
 
         public void OnPropertyChanged(string propertyName)

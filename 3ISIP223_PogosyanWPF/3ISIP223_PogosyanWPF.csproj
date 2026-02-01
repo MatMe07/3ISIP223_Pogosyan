@@ -206,6 +206,7 @@
       <DependentUpon>KinoModel.edmx</DependentUpon>
       <LastGenOutput>KinoModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="posters\avatar2.jpg" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
   </ItemGroup>
