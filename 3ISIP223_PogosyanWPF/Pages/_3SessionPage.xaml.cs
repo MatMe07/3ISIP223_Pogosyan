@@ -32,7 +32,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
             InitializeComponent();
             //session = selectSession;
             sessionDetail = new SessionDetailView(selectSession);
-
+            DataContext = sessionDetail;
 
             int row = sessionDetail.GetCountRow;
             int col = sessionDetail.GetCountCol;
@@ -98,6 +98,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                     }
                 }
             }
+            //sessionDetail.UpdateParams();
         }
 
         private void Btn_Click(object sender, RoutedEventArgs e)
@@ -108,23 +109,25 @@ namespace _3ISIP223_PogosyanWPF.Pages
             {
                 case "#FF4D82FF": // место
                     {
-                        sessionDetail.AddSeat(Grid.GetRow(btn), Grid.GetColumn(btn));
+                        sessionDetail.AddSeat(Grid.GetRow(btn)+1, Grid.GetColumn(btn));
                         btn.Background = ColorSelect;
                         break;
                     }
                 case "#FFBD257F": // выбрать
                     {
                         btn.Background = ColorPlace;
-                        sessionDetail.DeleteSeat(Grid.GetRow(btn), Grid.GetColumn(btn));
+                        sessionDetail.DeleteSeat(Grid.GetRow(btn) + 1, Grid.GetColumn(btn));
                         break;
                     }
             }
             UpdateButton();
+            //sessionDetail.UpdateParams();
+
         }
 
         public void UpdateButton()
         {
-            if (sessionDetail.selectSeat.Count() > 0)
+            if (sessionDetail.SelectSeat.Count() > 0)
             {
                 stackBtn.Visibility = Visibility.Visible;
             }
@@ -155,6 +158,11 @@ namespace _3ISIP223_PogosyanWPF.Pages
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new _4MakingTicketPage(sessionDetail));
         }
     }
 }

@@ -20,9 +20,22 @@ namespace _3ISIP223_PogosyanWPF.Pages
     /// </summary>
     public partial class _4MakingTicketPage : Page
     {
-        public _4MakingTicketPage()
+        public SessionDetailView SessionDetail { get; set; }
+        public _4MakingTicketPage(SessionDetailView session)
         {
             InitializeComponent();
+            SessionDetail = session;
+            DataContext = SessionDetail;
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

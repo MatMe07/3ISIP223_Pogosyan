@@ -73,10 +73,10 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="5">
-                    <StackPanel Width="25" Height="25" Background="#4D82FF"  />
+                    <StackPanel Width="25" Height="25" Background="#4D82FF"/>
                     <StackPanel Margin="10 0 0 0">
-                        <TextBlock Text="VIP" FontSize="14" FontWeight="Medium"/>
-                        <TextBlock Text="1300 ₽" Foreground="Gray" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding session.Hall.HallRating.Name}" FontSize="14" FontWeight="Medium"/>
+                        <TextBlock Text="{Binding session.BasePrice, StringFormat='\{0} ₽'}" Foreground="Gray" FontWeight="Bold"/>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="5">
@@ -105,7 +105,7 @@
 
             
             <Border Background="#BD257F" HorizontalAlignment="Right" CornerRadius="10" Margin="10">
-                <Button Content="{Binding GetSumPrice, StringFormat=Далее: {0} ₽}" Padding="30 5" Background="Transparent" Foreground="White" FontSize="16" BorderBrush="{x:Null}" />
+                <Button Content="{Binding StrTotalPrice, StringFormat='Далее: {0} ₽'}" Padding="30 5" MinWidth="130" Background="Transparent" Foreground="White" FontSize="16" BorderBrush="{x:Null}" Click="Button_Click" />
             </Border>
 
         </StackPanel>
