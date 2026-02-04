@@ -21,11 +21,13 @@ namespace _3ISIP223_PogosyanWPF.Pages
     public partial class _4MakingTicketPage : Page
     {
         public SessionDetailView SessionDetail { get; set; }
+        public WorkWIthDatabase database { get; set; }
         public _4MakingTicketPage(SessionDetailView session)
         {
             InitializeComponent();
             SessionDetail = session;
             DataContext = SessionDetail;
+            database = MarDatabase.WIthDatabase;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -35,7 +37,8 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            
+            database.MakingTickets( SessionDetail.session, SessionDetail.SelectSeat.ToList(), SessionDetail.GetSumPrice );
         }
     }
 }

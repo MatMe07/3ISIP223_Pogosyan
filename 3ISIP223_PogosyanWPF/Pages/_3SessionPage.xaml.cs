@@ -54,6 +54,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                     {
 
                         var seat = sessionDetail.Seats.FirstOrDefault(s=>s.RowNumber == (i+1) && s.SeatNumber == j);
+                        bool isActive = sessionDetail.Tickets.FirstOrDefault(s=>s.SeatID == seat.SeatID) == null;
                         Button btn = new Button();
                         btn.Content = j.ToString();
                         btn.Width = 30;
@@ -61,7 +62,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                         btn.Foreground = Brushes.White;
                         btn.BorderThickness = new Thickness (0);
                         btn.Margin = new Thickness(5);
-                        if (seat.IsActive)
+                        if (isActive)
                         {
                             btn.Background = ColorPlace;
                             btn.Click += Btn_Click;

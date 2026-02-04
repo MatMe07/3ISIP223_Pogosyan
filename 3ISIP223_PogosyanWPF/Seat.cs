@@ -17,6 +17,7 @@ namespace _3ISIP223_PogosyanWPF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Seat()
         {
+            this.SeatsSessions = new HashSet<SeatsSession>();
             this.Tickets = new HashSet<Ticket>();
         }
     
@@ -24,9 +25,10 @@ namespace _3ISIP223_PogosyanWPF
         public int HallID { get; set; }
         public int RowNumber { get; set; }
         public int SeatNumber { get; set; }
-        public bool IsActive { get; set; }
     
         public virtual Hall Hall { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SeatsSession> SeatsSessions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ticket> Tickets { get; set; }
     }

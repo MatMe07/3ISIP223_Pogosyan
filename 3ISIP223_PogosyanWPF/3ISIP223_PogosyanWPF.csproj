@@ -85,12 +85,34 @@
     <Compile Include="HallRating.cs">
       <DependentUpon>KinoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="KinoModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KinoModel.Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="KinoModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>KinoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="KinoModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KinoModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\_5UserPage.xaml.cs">
+      <DependentUpon>_5UserPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\_6SignInPage.xaml.cs">
+      <DependentUpon>_6SignInPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\_7SignUpPage.xaml.cs">
+      <DependentUpon>_7SignUpPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Seat.cs">
+      <DependentUpon>KinoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SeatsSession.cs">
       <DependentUpon>KinoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Session.cs">
@@ -112,16 +134,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="KinoModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KinoModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="KinoModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KinoModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -139,6 +151,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\_4MakingTicketPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\_5UserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\_6SignInPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\_7SignUpPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -198,17 +222,17 @@
     <Resource Include="posters\lion_king.jpg" />
     <Resource Include="posters\nachalo.jpg" />
     <Resource Include="posters\oneplusone.jpg" />
+    <Resource Include="posters\avatar2.jpg" />
     <Content Include="KinoModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>KinoModel.Context.cs</LastGenOutput>
       <DependentUpon>KinoModel.edmx</DependentUpon>
+      <LastGenOutput>KinoModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="KinoModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>KinoModel.edmx</DependentUpon>
       <LastGenOutput>KinoModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="posters\avatar2.jpg" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
   </ItemGroup>

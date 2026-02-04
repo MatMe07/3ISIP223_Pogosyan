@@ -34,10 +34,12 @@ namespace _3ISIP223_PogosyanWPF
             {
                 case "Вход":
                     {
+                        mainFrame.NavigationService.Navigate(new _6SignInPage());
                         break;
                     }
                 case "Регистрация":
                     {
+                        mainFrame.NavigationService.Navigate(new _7SignUpPage());
                         break;
                     }
             }

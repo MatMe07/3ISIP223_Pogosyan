@@ -59,7 +59,15 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //if (MarDatabase.WIthDatabase.user == null) return;
+            if (MarDatabase.WIthDatabase.user == null) {
+                MessageBox.Show(
+                    "Для покупки билетов необходимо войти в систему!",
+                    "Требуется авторизация",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                return;
+            }
+            
             var session = ListSessionBox.SelectedItem as Session;
 
             NavigationService.Navigate(new _3SessionPage(session));

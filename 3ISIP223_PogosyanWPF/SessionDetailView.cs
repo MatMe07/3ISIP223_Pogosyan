@@ -14,6 +14,17 @@ namespace _3ISIP223_PogosyanWPF
         public Session session {  get; set; }
 
         private ObservableCollection<Seat> _seats;
+        private ObservableCollection<Ticket> _tickets;
+
+        public ObservableCollection<Ticket> Tickets
+        {
+            get { return _tickets; }
+            set { 
+                _tickets = value; 
+                OnPropertyChanged(nameof(SeatsSession));
+                OnPropertyChanged(nameof(GetSumPrice));
+            }
+        }
 
         public ObservableCollection<Seat> Seats
         {
@@ -21,11 +32,12 @@ namespace _3ISIP223_PogosyanWPF
             set { 
                 _seats = value; 
                 OnPropertyChanged(nameof(Seats));
-                OnPropertyChanged(nameof(GetSumPrice));
                 //session.Film.
 
             }
         }
+
+
 
 
         public int GetCountRow => Seats.Max(s=>s.RowNumber);
@@ -54,6 +66,7 @@ namespace _3ISIP223_PogosyanWPF
             session = SelectSession;
             _seats = new ObservableCollection<Seat>(Core.Context.Seats.Where(s=>s.HallID == session.HallID).ToList());
             _selectSeat = new ObservableCollection<Seat>();
+            _tickets = new ObservableCollection<Ticket>(Core.Context.Tickets.Where(f=>f.Sessions_ID == session.SessionID).ToList());
             //selectSeat 
             SelectSeat.CollectionChanged += (s, e) =>
             {

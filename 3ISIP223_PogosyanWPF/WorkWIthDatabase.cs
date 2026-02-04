@@ -29,6 +29,7 @@ namespace _3ISIP223_PogosyanWPF
             Films = new ObservableCollection<Film>(Core.Context.Films.ToList());
             _allfilms = Core.Context.Films.ToList();
             //Core.Context.Films.ToList()[0].Age_Ratings.Name;
+            user = null;
         }
 
         public User user { get; set; }
@@ -55,6 +56,68 @@ namespace _3ISIP223_PogosyanWPF
                     }
             }
             Films = new ObservableCollection<Film>(result);
+        }
+
+        public void MakingTickets(Session selectSession, List<Seat> SelectSeats, decimal TotalPrice)
+        {
+
+            foreach (var seat in SelectSeats)
+            {
+                Core.Context.Tickets.Add(
+                        new Ticket()
+                        {
+                            UserID = user.UserID,
+                            SeatID = seat.SeatID,
+                            Sessions_ID = selectSession.SessionID,
+                            PurchaseDate = DateTime.Now,
+                            FinalPrice = TotalPrice
+                        }
+                    );
+                Core.Context.SaveChanges();
+                
+            }
+
+
+        }
+        public bool CheckEmail( string email)
+        {
+            return Core.Context.Users.FirstOrDefault(u => u.Email == email) != null;
+        }        
+        public bool CheckPassword( string email, string password)
+        {
+            var GetUser = Core.Context.Users.FirstOrDefault(u => u.Email == email);
+            if (GetUser == null) return false;
+
+            if ( GetUser.Password == password)
+            {
+                user = GetUser;
+                return true;
+            }
+            return false;
+        }        
+
+        public bool CheckValueAndSignIn( string email, string password)
+        {
+            if (!CheckEmail(email)) return false;
+            
+            return CheckPassword(email, password);
+        }
+
+
+        public bool CheckValueAndSave(string name, string email, string password, DateTime dateTime)
+        {
+            if(CheckEmail(email)) return false;
+
+            var user = new User()
+            {
+                Name = name,
+                Email = email,
+                Password = password,
+                BirthDate = dateTime,
+            };
+            Core.Context.Users.Add(user);
+            Core.Context.SaveChanges();
+            return true;
         }
 
         public void OnPropertyChanged(string propertyName)
