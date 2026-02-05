@@ -23,9 +23,11 @@ namespace _3ISIP223_PogosyanWPF.Pages
         //public Film selectFilm {  get; set; }
         public FilmDetailView FilmDetail { get; set; }
         public List<string> lstSorts;
+        //private WorkWIthDatabase database;
         public _2FilmPage(Film film)
         {
             InitializeComponent();
+            //database = MarDatabase.WIthDatabase;
             lstSorts = new List<string>
             {
                 "Все",
@@ -59,7 +61,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (MarDatabase.WIthDatabase.user == null) {
+            if (MarDatabase.WIthDatabase.CurrUser == null) {
                 MessageBox.Show(
                     "Для покупки билетов необходимо войти в систему!",
                     "Требуется авторизация",

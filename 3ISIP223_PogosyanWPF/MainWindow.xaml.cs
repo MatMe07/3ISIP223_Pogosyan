@@ -24,30 +24,16 @@ namespace _3ISIP223_PogosyanWPF
         public MainWindow()
         {
             InitializeComponent();
+            MarDatabase.WIthDatabase = new WorkWIthDatabase();
 
             mainFrame.NavigationService.Navigate(new _1MainPage());
         }
 
-        private void btnSignUpOrIn_Click(object sender, RoutedEventArgs e)
-        {
-            switch ((sender as Button).Content)
-            {
-                case "Вход":
-                    {
-                        mainFrame.NavigationService.Navigate(new _6SignInPage());
-                        break;
-                    }
-                case "Регистрация":
-                    {
-                        mainFrame.NavigationService.Navigate(new _7SignUpPage());
-                        break;
-                    }
-            }
-        }
+
 
         private void btnPersonalAcc_Click(object sender, RoutedEventArgs e)
         {
-
+            mainFrame.NavigationService.Navigate(new _5UserPage());
         }
     }
 }

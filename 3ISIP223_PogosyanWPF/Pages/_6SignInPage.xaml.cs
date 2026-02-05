@@ -53,7 +53,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 MessageBox.Show("Пользователь не найден / Неверный пароль");
 
             }
-            NavigationService.GoBack();
+            NavigationService.Navigate(new _1MainPage());
         }
     }
 }

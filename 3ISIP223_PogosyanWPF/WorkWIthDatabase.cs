@@ -29,10 +29,21 @@ namespace _3ISIP223_PogosyanWPF
             Films = new ObservableCollection<Film>(Core.Context.Films.ToList());
             _allfilms = Core.Context.Films.ToList();
             //Core.Context.Films.ToList()[0].Age_Ratings.Name;
-            user = null;
+            _user = null;
         }
 
-        public User user { get; set; }
+
+        private User _user;
+        public User CurrUser
+        {
+            get { return _user; }
+            set
+            {
+                _user = value;
+                OnPropertyChanged(nameof(CurrUser));
+            }
+        }
+
 
         public void SearchAndSortFilm(string name, string sort)
         {
@@ -66,7 +77,7 @@ namespace _3ISIP223_PogosyanWPF
                 Core.Context.Tickets.Add(
                         new Ticket()
                         {
-                            UserID = user.UserID,
+                            UserID = CurrUser.UserID,
                             SeatID = seat.SeatID,
                             Sessions_ID = selectSession.SessionID,
                             PurchaseDate = DateTime.Now,
@@ -90,7 +101,7 @@ namespace _3ISIP223_PogosyanWPF
 
             if ( GetUser.Password == password)
             {
-                user = GetUser;
+                CurrUser = GetUser;
                 return true;
             }
             return false;
@@ -128,6 +139,7 @@ namespace _3ISIP223_PogosyanWPF
 
     static class MarDatabase
     {
-        static public WorkWIthDatabase WIthDatabase { get { return new WorkWIthDatabase(); } }
+
+        static public WorkWIthDatabase WIthDatabase { get; set;  }
     }
 }

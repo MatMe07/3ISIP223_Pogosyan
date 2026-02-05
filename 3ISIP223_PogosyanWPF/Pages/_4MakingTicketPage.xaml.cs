@@ -39,6 +39,8 @@ namespace _3ISIP223_PogosyanWPF.Pages
         {
             
             database.MakingTickets( SessionDetail.session, SessionDetail.SelectSeat.ToList(), SessionDetail.GetSumPrice );
+            MessageBox.Show("Покупка успешно проведена!");
+            NavigationService.Navigate(new _1MainPage());
         }
     }
 }
