@@ -112,9 +112,6 @@
     <Compile Include="Seat.cs">
       <DependentUpon>KinoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="SeatsSession.cs">
-      <DependentUpon>KinoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Session.cs">
       <DependentUpon>KinoModel.tt</DependentUpon>
     </Compile>

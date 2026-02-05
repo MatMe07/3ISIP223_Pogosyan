@@ -32,7 +32,6 @@ namespace _3ISIP223_PogosyanWPF
         public virtual DbSet<HallRating> HallRatings { get; set; }
         public virtual DbSet<Hall> Halls { get; set; }
         public virtual DbSet<Seat> Seats { get; set; }
-        public virtual DbSet<SeatsSession> SeatsSessions { get; set; }
         public virtual DbSet<Session> Sessions { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<User> Users { get; set; }

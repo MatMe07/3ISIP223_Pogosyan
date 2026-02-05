@@ -21,7 +21,7 @@ namespace _3ISIP223_PogosyanWPF
             get { return _tickets; }
             set { 
                 _tickets = value; 
-                OnPropertyChanged(nameof(SeatsSession));
+                //OnPropertyChanged(nameof(SeatsSession));
                 OnPropertyChanged(nameof(GetSumPrice));
             }
         }
