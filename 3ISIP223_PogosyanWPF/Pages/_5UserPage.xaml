@@ -9,27 +9,27 @@
       Title="_5UserPage" Background="White">
 
     <Grid>
-        <Grid x:Name="gridSign" Visibility="Visible" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <!--<RowDefinition Height="auto"/>-->
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <Button Content="Вход" Click="btnSignUpOrIn_Click" Padding="4" FontSize="16" Margin="5"/>
-                <Button Content="Регистрация" Click="btnSignUpOrIn_Click" Padding="4" FontSize="16" Margin="5"/>
-            </StackPanel>
-
-            <Frame Grid.Row="2" x:Name="frameSign" Source="/Pages/_6SignInPage.xaml"  />
-            
-        </Grid>
-        <Grid x:Name="gridUserPage" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             
             
             
         </Grid>
         
-        
-
     </Grid>
 </Page>

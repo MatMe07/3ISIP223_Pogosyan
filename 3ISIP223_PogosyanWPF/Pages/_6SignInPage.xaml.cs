@@ -23,26 +23,24 @@ namespace _3ISIP223_PogosyanWPF.Pages
     public partial class _6SignInPage : Page
     {
         private WorkWIthDatabase database;
+        private Window ParentWindow;
         public _6SignInPage()
         {
             InitializeComponent();
-            database = MarDatabase.WIthDatabase;
-        }
+            //ParentWindow = window;
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.GoBack();
+            database = MarDatabase.WIthDatabase;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(txtEmail.Text) || string.IsNullOrEmpty(txtPassword.Text))
+            if (string.IsNullOrEmpty(txtEmail.Text) || string.IsNullOrEmpty(txtPassword.Password))
             {
                 MessageBox.Show("Заполните все поля!");
                 return;
             }
 
-            if (database.CheckValueAndSignIn(txtEmail.Text, txtPassword.Text))
+            if (database.CheckValueAndSignIn(txtEmail.Text, txtPassword.Password))
             {
                 MessageBox.Show("Вход выполнен успешно!");
 
@@ -53,7 +51,14 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 MessageBox.Show("Пользователь не найден / Неверный пароль");
 
             }
-            NavigationService.Navigate(new _1MainPage());
+            //NavigationService.Navigate(new _1MainPage());
+            //ParentWindow.Close();
+            //var mainWIndow = Application.Current.MainWindow as MainWindow;
+            //mainWIndow.Close();
+
+            //Window.GetWindow(this).Close();
+
+            SignInUpWindow.Instance.Close();
         }
     }
 }

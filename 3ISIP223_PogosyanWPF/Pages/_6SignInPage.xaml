@@ -4,23 +4,22 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="_6SignInPage" Background="White">
+      mc:Ignorable="d"
+      Title="_6SignInPage" Background="White" Height="215" Width="344">
 
     <Grid >
-        <Border BorderBrush="AliceBlue" Background="White" CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center" >
+        <!--<Border BorderBrush="AliceBlue" Background="White" CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center" >
             <Border.Effect>
                 <DropShadowEffect Opacity="0.585" RenderingBias="Performance" ShadowDepth="1" BlurRadius="15" Direction="300"/>
-            </Border.Effect>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0" Margin="10">
+            </Border.Effect>-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <!--<RowDefinition Height="auto"/>-->
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <!--<Grid Grid.Row="0" Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1.5*"/>
                         <ColumnDefinition Width="*"/>
@@ -30,23 +29,27 @@
                     </Border>
                     <TextBlock Margin="5" Grid.Column="0" Text="Вход" FontSize="20" HorizontalAlignment="Right" />
                     
-                </Grid>
+                </Grid>-->
 
-                <Border Grid.Row="1"  Width="250" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Margin="10">
-                    <StackPanel Margin="3">
-                        <TextBlock Text="EMAIL" Margin="0 0 0 3"/>
-                        <TextBox x:Name="txtEmail" FontSize="16" BorderThickness="0" Background="Transparent"/> 
-                    </StackPanel>
-                </Border>
-                <Border Grid.Row="2"   BorderThickness="1" BorderBrush="Black" CornerRadius="5" Margin="10">
-                    <StackPanel Margin="3">
-                        <TextBlock Text="ПАРОЛЬ" Margin="0 0 0 3"/>
-                        <TextBox  x:Name="txtPassword"  FontSize="16" BorderThickness="0" Background="Transparent"/> 
-                    </StackPanel>
-                </Border>
-                <Button Grid.Row="3" Margin="10" Padding="8" FontSize="16" Content="Войти" Background="#BD257F" FontWeight="Medium" Foreground="White" Click="Button_Click" />
-            </Grid>
-        </Border>
-        
+            <Border Grid.Row="0"   BorderThickness="1" BorderBrush="Black" CornerRadius="5" Margin="10">
+                <StackPanel Margin="3">
+                    <TextBlock Text="Email" Margin="0 0 0 3"  FontSize="15"/>
+                    <TextBox x:Name="txtEmail" FontSize="16" BorderThickness="0" Background="Transparent"/>
+                </StackPanel>
+            </Border>
+            <Border Grid.Row="1"   BorderThickness="1" BorderBrush="Black" CornerRadius="5" Margin="10">
+                <StackPanel Margin="3">
+                    <TextBlock Text="Пароль" Margin="0 0 0 3" FontSize="15"/>
+                    <PasswordBox  x:Name="txtPassword"  FontSize="16" BorderThickness="0" Background="Transparent"/>
+                    <!--<TextBox  x:Name="txtPassword"  FontSize="16" BorderThickness="0" Background="Transparent"/>-->
+                </StackPanel>
+            </Border>
+            <Border Grid.Row="2"  Margin="10"  Background="#BD257F" CornerRadius="5" >
+                <Button Padding="8" FontSize="16" Content="Войти" Click="Button_Click" FontWeight="Medium" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}"/>
+                
+            </Border>
+        </Grid>
+        <!--</Border>-->
+
     </Grid>
 </Page>

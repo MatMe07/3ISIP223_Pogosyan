@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="610" Width="722">
+        Title="MainWindow" Height="610" Width="722" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -13,14 +13,25 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.Column="0" Grid.Row="0" Source="/Cinemax.png" Grid.ColumnSpan="2" Height="50" HorizontalAlignment="Left" Margin="20 10"/>
+        <!--<StackPanel  Orientation="Horizontal" Margin="5" >-->
+        <Border Grid.Row="0" Grid.Column="1" Margin="10" HorizontalAlignment="Right">
+            <Button Content="Личный кабинет" Click="btnPersonalAcc_Click" Padding="15 5" FontSize="16" Background="Transparent"/>
             
-            <Button Content="Личный кабинет" Click="btnPersonalAcc_Click" Padding="4" FontSize="16" Margin="5"/>
+        </Border>
             
-        </StackPanel>
-        <StackPanel Grid.Row="1"  Background="#FFC3C3C8" Height="1" Margin="0 5" />
+        <!--</StackPanel>-->
+        
+        
+        
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Background="#FFC3C3C8" Height="1" Margin="0 5" />
 
 
-        <Frame Grid.Row="2" x:Name="mainFrame" NavigationUIVisibility="Hidden"/>
+        <Frame Grid.Row="2" Grid.ColumnSpan="2" x:Name="mainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

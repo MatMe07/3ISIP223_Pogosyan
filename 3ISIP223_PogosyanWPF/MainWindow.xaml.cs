@@ -33,7 +33,23 @@ namespace _3ISIP223_PogosyanWPF
 
         private void btnPersonalAcc_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.NavigationService.Navigate(new _5UserPage());
+            if (MarDatabase.WIthDatabase.CurrUser == null)
+            {
+                //mainFrame.NavigationService.Navigate(new _5UserPage());
+                var signWindow = new SignInUpWindow();
+                signWindow.Owner = this;
+
+                signWindow.ShowDialog();
+
+            }
+            else
+            {
+                if (mainFrame.Content.GetType().Name == "_5UserPage")
+                {
+                    return;
+                }
+                mainFrame.NavigationService.Navigate(new _5UserPage());
+            }
         }
     }
 }

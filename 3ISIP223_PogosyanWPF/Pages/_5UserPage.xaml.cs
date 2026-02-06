@@ -23,33 +23,8 @@ namespace _3ISIP223_PogosyanWPF.Pages
         public _5UserPage()
         {
             InitializeComponent();
-            if(MarDatabase.WIthDatabase.CurrUser == null)
-            {
-                gridUserPage.Visibility = Visibility.Collapsed;
-                gridSign.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                gridUserPage.Visibility = Visibility.Visible;
-                gridSign.Visibility = Visibility.Collapsed;
-            }
+
         }
 
-        private void btnSignUpOrIn_Click(object sender, RoutedEventArgs e)
-        {
-            switch ((sender as Button).Content)
-            {
-                case "Вход":
-                    {
-                        frameSign.NavigationService.Navigate(new _6SignInPage());
-                        break;
-                    }
-                case "Регистрация":
-                    {
-                       frameSign.NavigationService.Navigate(new _7SignUpPage());
-                        break;
-                    }
-            }
-        }
     }
 }

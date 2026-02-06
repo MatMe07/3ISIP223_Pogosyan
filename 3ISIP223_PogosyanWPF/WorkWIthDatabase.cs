@@ -71,7 +71,6 @@ namespace _3ISIP223_PogosyanWPF
 
         public void MakingTickets(Session selectSession, List<Seat> SelectSeats, decimal TotalPrice)
         {
-
             foreach (var seat in SelectSeats)
             {
                 Core.Context.Tickets.Add(

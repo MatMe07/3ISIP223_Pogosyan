@@ -21,17 +21,15 @@ namespace _3ISIP223_PogosyanWPF.Pages
     public partial class _7SignUpPage : Page
     {
         public WorkWIthDatabase database;
+        private Window ParentWindow;
         public _7SignUpPage()
         {
             InitializeComponent();
+            //ParentWindow = window;
             //txtBirthDate.date.
             database = MarDatabase.WIthDatabase;
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.GoBack();
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -51,7 +49,15 @@ namespace _3ISIP223_PogosyanWPF.Pages
             {
                 MessageBox.Show("Пользователь с таким email уже существует");
             }
-            NavigationService.GoBack();
+            //NavigationService.GoBack();
+            //ParentWindow.Close();
+            //var mainWIndow = Application.Current.MainWindow as MainWindow;
+            //mainWIndow.Close();
+
+            SignInUpWindow.Instance.Close();
+
+
+
         }
     }
 }

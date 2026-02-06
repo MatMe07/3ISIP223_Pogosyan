@@ -116,6 +116,9 @@
       <DependentUpon>KinoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SessionDetailView.cs" />
+    <Compile Include="SignInUpWindow.xaml.cs">
+      <DependentUpon>SignInUpWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ticket.cs">
       <DependentUpon>KinoModel.tt</DependentUpon>
     </Compile>
@@ -160,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\_7SignUpPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SignInUpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -220,6 +227,7 @@
     <Resource Include="posters\nachalo.jpg" />
     <Resource Include="posters\oneplusone.jpg" />
     <Resource Include="posters\avatar2.jpg" />
+    <Resource Include="Cinemax.png" />
     <Content Include="KinoModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>KinoModel.edmx</DependentUpon>

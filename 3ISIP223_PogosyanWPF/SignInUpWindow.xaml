@@ -1,0 +1,47 @@
+﻿<Window x:Class="_3ISIP223_PogosyanWPF.SignInUpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF"
+        mc:Ignorable="d"
+        Title="SignInUpWindow" Height="458" Width="377" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" >
+    <Grid>
+        <Grid x:Name="gridSign" Visibility="Visible" >
+            <Grid.RowDefinitions>
+                <!--<RowDefinition Height="auto"/>-->
+                <RowDefinition Height="auto"/>
+                <!--<RowDefinition Height="auto"/>-->
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--<StackPanel Orientation="Horizontal" Grid.Row="0">
+            </StackPanel>
+                <Border  HorizontalAlignment="Right" Grid.Row="0" BorderBrush="Gray" Margin="10 0 0 0" BorderThickness="1" CornerRadius="5">
+                    --><!--<Button Grid.Row="0" Content="X" FontSize="15" Width="30" BorderBrush="{x:Null}" Background="{x:Null}" Click="btnBack_Click" />--><!--
+                </Border>-->
+            <Grid Grid.Row="0" Margin="20 15 20 0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <!--<ColumnDefinition Width="auto"/>-->
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0"  BorderThickness="1" CornerRadius="5" BorderBrush="Black">
+                    <Button Content="Вход" Click="btnSignUpOrIn_Click" Padding="4"  FontSize="16" Background="Transparent" BorderThickness="0" />
+                    
+                </Border>
+
+                <Border Grid.Column="1"  BorderThickness="1" CornerRadius="5" BorderBrush="Black">
+                    <Button Content="Регистрация" Click="btnSignUpOrIn_Click" Padding="4" FontSize="16" Background="Transparent" BorderThickness="0"/>
+                    
+                </Border>
+                
+                
+                <!--<TextBlock Margin="5" Grid.Column="0" Text="Регистрация" FontSize="20" HorizontalAlignment="Right" />-->
+            </Grid>
+
+            <Frame Grid.Row="1" x:Name="frameSign" Source="/Pages/_6SignInPage.xaml" Margin="10" NavigationUIVisibility="Hidden"  />
+
+        </Grid>
+    </Grid>
+</Window>
