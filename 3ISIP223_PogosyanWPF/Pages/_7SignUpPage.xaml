@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
       mc:Ignorable="d"
-      Title="_7SignUpPage" Background="White" Height="370" Width="344">
+      Title="_7SignUpPage" Background="White" Height="430" Width="344">
 
     <Grid>
         <!--<Border BorderBrush="AliceBlue" Background="White" CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Center" >
@@ -15,6 +15,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <!--<RowDefinition Height="auto"/>-->
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -52,8 +53,14 @@
                     <TextBox x:Name="txtPassword"  FontSize="16" BorderThickness="0" Background="Transparent"/>
                 </StackPanel>
             </Border>
+            <Border Grid.Row="4"  BorderThickness="1" BorderBrush="Black" CornerRadius="5" Margin="10">
+                <StackPanel Margin="3">
+                    <TextBlock Text="Повторите пароль" Margin="0 0 0 3" FontSize="15"/>
+                    <TextBox x:Name="txtPasswordAgain"  FontSize="16" BorderThickness="0" Background="Transparent"/>
+                </StackPanel>
+            </Border>
 
-            <Border Grid.Row="4"  Margin="10"  Background="#BD257F" CornerRadius="5" >
+            <Border Grid.Row="5"  Margin="10"  Background="#BD257F" CornerRadius="5" >
                 <Button Padding="8" FontSize="16" Content="Зарегистрироваться" FontWeight="Medium" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click" />
 
             </Border>

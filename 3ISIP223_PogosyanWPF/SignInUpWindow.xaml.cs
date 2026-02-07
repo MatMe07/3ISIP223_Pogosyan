@@ -32,18 +32,27 @@ namespace _3ISIP223_PogosyanWPF
 
         private void btnSignUpOrIn_Click(object sender, RoutedEventArgs e)
         {
+            //var parWindow =  Window.GetWindow(this).Owner;
+            
             switch ((sender as Button).Content)
             {
                 case "Вход":
                     {
                         Title = "Вход";
                         frameSign.NavigationService.Navigate(new _6SignInPage());
+                        Height = 305;
+                        Top = Owner.Top + 157;
+                        //Left = Owner.Left + Owner.Left/2;
+
                         break;
                     }
                 case "Регистрация":
                     {
                         Title = "Регистрация";
                         frameSign.NavigationService.Navigate(new _7SignUpPage());
+                        Height = 525;
+                        Top = Owner.Top + 50;
+                        //Left = Owner.Left + Owner.Left / 2;
                         break;
                     }
             }
