@@ -45,6 +45,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 MessageBox.Show("Вход выполнен успешно!");
 
                 //return;
+                SignInUpWindow.Instance.Close();
             }
             else
             {
@@ -58,7 +59,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
             //Window.GetWindow(this).Close();
 
-            SignInUpWindow.Instance.Close();
+            
         }
     }
 }

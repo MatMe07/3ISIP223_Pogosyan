@@ -64,9 +64,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 lstFilms.SelectedIndex = -1;
         }
 
-        private void lstFilms_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-        }
 
         private void lstFilms_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {

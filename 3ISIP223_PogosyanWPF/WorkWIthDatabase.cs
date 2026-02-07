@@ -130,6 +130,7 @@ namespace _3ISIP223_PogosyanWPF
             };
             Core.Context.Users.Add(user);
             Core.Context.SaveChanges();
+            CurrUser = user;
             return true;
         }
 

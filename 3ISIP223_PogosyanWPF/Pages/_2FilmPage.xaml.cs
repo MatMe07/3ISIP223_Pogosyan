@@ -54,11 +54,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
             FilmDetail.SortSession(comboSort.SelectedItem.ToString());
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (MarDatabase.WIthDatabase.CurrUser == null) {

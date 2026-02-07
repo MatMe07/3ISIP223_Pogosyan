@@ -43,6 +43,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
             {
                 MessageBox.Show("Аккаунт успешно создан");
 
+                SignInUpWindow.Instance.Close();
                 //return;
             }
             else
@@ -53,10 +54,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
             //ParentWindow.Close();
             //var mainWIndow = Application.Current.MainWindow as MainWindow;
             //mainWIndow.Close();
-
-            SignInUpWindow.Instance.Close();
-
-
 
         }
     }

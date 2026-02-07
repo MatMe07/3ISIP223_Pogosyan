@@ -47,7 +47,7 @@
 
         </Grid>
 
-        <ListBox x:Name="lstFilms" Grid.Row="1" ItemsSource="{Binding Films}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" BorderBrush="{x:Null}" MouseDoubleClick="lstFilms_MouseDoubleClick" >
+        <ListBox x:Name="lstFilms" Margin="0 0 0 10" Grid.Row="1" ItemsSource="{Binding Films}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}" Background="Transparent" BorderBrush="{x:Null}" MouseDoubleClick="lstFilms_MouseDoubleClick" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel Width="160" >
