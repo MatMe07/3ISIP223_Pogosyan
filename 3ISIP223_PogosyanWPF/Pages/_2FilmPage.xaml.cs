@@ -67,12 +67,15 @@ namespace _3ISIP223_PogosyanWPF.Pages
                     "Требуется авторизация",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
+
+                ListSessionBox.SelectedIndex = -1;
                 return;
             }
             
             var session = ListSessionBox.SelectedItem as Session;
-
-            NavigationService.Navigate(new _3SessionPage(session));
+            MarSesionDetail.SessionDetail.session = session;
+            MarSesionDetail.SessionDetail.InitializProperty();
+            NavigationService.Navigate(new _3SessionPage());
 
         }
 

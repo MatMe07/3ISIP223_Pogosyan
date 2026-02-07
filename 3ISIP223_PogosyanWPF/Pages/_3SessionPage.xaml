@@ -16,7 +16,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Border  HorizontalAlignment="Left" BorderBrush="Gray" Margin="10 5 0 0" BorderThickness="1" CornerRadius="5">
-            <Button Grid.Row="0" Content="Назад" Padding="5" FontSize="15" Width="60" BorderBrush="{x:Null}" Background="{x:Null}" Click="btnBack_Click" />
+            <Button Grid.Row="0" Content="Назад" Padding="5" FontSize="15" Width="60" BorderBrush="{x:Null}" Background="Transparent" Click="btnBack_Click" />
         </Border>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center">
             <TextBlock x:Name="txt" Text="ЭКРАН" HorizontalAlignment="Center" Margin="0" FontSize="16" Foreground="Gray" FontWeight="Medium"/>

@@ -20,11 +20,32 @@ namespace _3ISIP223_PogosyanWPF.Pages
     /// </summary>
     public partial class _5UserPage : Page
     {
+
+        public TicketsDetailView TicketsDetail { get; set; }
         public _5UserPage()
         {
             InitializeComponent();
-
+            TicketsDetail = new TicketsDetailView();
+            DataContext = TicketsDetail;
         }
 
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (TicketsDetail.GetCountTickets > 0)
+            {
+                lstMyTickets.Visibility = Visibility.Visible;
+                txtNoneTickets.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                lstMyTickets.Visibility = Visibility.Collapsed;
+                txtNoneTickets.Visibility = Visibility.Visible;
+            }
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
     public partial class _6SignInPage : Page
     {
         private WorkWIthDatabase database;
-        private Window ParentWindow;
+        //private Window ParentWindow;
         public _6SignInPage()
         {
             InitializeComponent();

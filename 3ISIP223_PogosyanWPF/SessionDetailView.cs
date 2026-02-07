@@ -16,6 +16,8 @@ namespace _3ISIP223_PogosyanWPF
         private ObservableCollection<Seat> _seats;
         private ObservableCollection<Ticket> _tickets;
 
+        //public User user{ get; set; }
+
         public ObservableCollection<Ticket> Tickets
         {
             get { return _tickets; }
@@ -61,18 +63,29 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
-        public SessionDetailView(Session SelectSession)
+        public SessionDetailView()
         {
-            session = SelectSession;
+            //session = SelectSession;
+
+            if (session != null)
+            {
+                InitializProperty();
+            }
+        }
+
+        public void InitializProperty()
+        {
             _seats = new ObservableCollection<Seat>(Core.Context.Seats.Where(s=>s.HallID == session.HallID).ToList());
             _selectSeat = new ObservableCollection<Seat>();
             _tickets = new ObservableCollection<Ticket>(Core.Context.Tickets.Where(f=>f.Sessions_ID == session.SessionID).ToList());
+            //user = MarDatabase.WIthDatabase.CurrUser;
             //selectSeat 
             SelectSeat.CollectionChanged += (s, e) =>
             {
                 OnPropertyChanged(nameof(GetSumPrice));
                 OnPropertyChanged(nameof(StrTotalPrice));
             };
+
         }
 
         //public void UpdateParams()
@@ -95,5 +108,12 @@ namespace _3ISIP223_PogosyanWPF
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+    }
+
+
+
+    public static class MarSesionDetail
+    {
+        public static SessionDetailView SessionDetail {  get; set; }
     }
 }

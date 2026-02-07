@@ -36,11 +36,13 @@ namespace _3ISIP223_PogosyanWPF
             {
                 case "Вход":
                     {
+                        Title = "Вход";
                         frameSign.NavigationService.Navigate(new _6SignInPage());
                         break;
                     }
                 case "Регистрация":
                     {
+                        Title = "Регистрация";
                         frameSign.NavigationService.Navigate(new _7SignUpPage());
                         break;
                     }

@@ -25,6 +25,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             InitializeComponent();
             MarDatabase.WIthDatabase = new WorkWIthDatabase();
+            MarSesionDetail.SessionDetail = new SessionDetailView();
 
             mainFrame.NavigationService.Navigate(new _1MainPage());
         }

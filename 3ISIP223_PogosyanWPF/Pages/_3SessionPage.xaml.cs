@@ -27,11 +27,12 @@ namespace _3ISIP223_PogosyanWPF.Pages
         public List<Button> buttonsBusy = new List<Button>();
 
         public SessionDetailView sessionDetail {  get; set; }
-        public _3SessionPage(Session selectSession)
+        public _3SessionPage()
         {
             InitializeComponent();
             //session = selectSession;
-            sessionDetail = new SessionDetailView(selectSession);
+            sessionDetail = MarSesionDetail.SessionDetail;
+            //sessionDetail.session = selectSession;
             DataContext = sessionDetail;
 
             int row = sessionDetail.GetCountRow;
@@ -88,6 +89,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                     {
                         TextBlock text = new TextBlock();
                         text.Text = $"{i + 1}";
+                        text.VerticalAlignment = VerticalAlignment.Center;
                         if(j == col + 1) text.Margin = new Thickness(30, 5, 0, 5);
                         else
                             text.Margin = new Thickness(0, 5, 30, 5);

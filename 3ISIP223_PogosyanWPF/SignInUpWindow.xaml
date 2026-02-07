@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF"
         mc:Ignorable="d"
-        Title="SignInUpWindow" Height="458" Width="377" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" >
+        Title="Вход" Height="458" Width="377" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" >
     <Grid>
         <Grid x:Name="gridSign" Visibility="Visible" >
             <Grid.RowDefinitions>

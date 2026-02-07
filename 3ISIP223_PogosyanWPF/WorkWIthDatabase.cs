@@ -24,12 +24,14 @@ namespace _3ISIP223_PogosyanWPF
                 }
         }
 
+        //public SessionDetailView sessionDetail {  get; set; }
         public WorkWIthDatabase()
         {
             Films = new ObservableCollection<Film>(Core.Context.Films.ToList());
             _allfilms = Core.Context.Films.ToList();
             //Core.Context.Films.ToList()[0].Age_Ratings.Name;
             _user = null;
+            //sessionDetail = MarSessionDetail.SessionDetail;
         }
 
 
@@ -101,6 +103,7 @@ namespace _3ISIP223_PogosyanWPF
             if ( GetUser.Password == password)
             {
                 CurrUser = GetUser;
+                //MarSesionDetail.SessionDetail.user = GetUser;
                 return true;
             }
             return false;
@@ -138,7 +141,6 @@ namespace _3ISIP223_PogosyanWPF
 
     static class MarDatabase
     {
-
         static public WorkWIthDatabase WIthDatabase { get; set;  }
     }
 }
