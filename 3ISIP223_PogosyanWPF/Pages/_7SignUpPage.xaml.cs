@@ -21,7 +21,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
     public partial class _7SignUpPage : Page
     {
         public WorkWIthDatabase database;
-        private Window ParentWindow;
         public _7SignUpPage()
         {
             InitializeComponent();
@@ -63,7 +62,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
             }
             else
             {
-                if(txtPassword.Text.Sum(s=> Convert.ToInt32(s.ToString().ToUpper() == s.ToString())) == 0 )
+                if(txtPassword.Text.Sum(s=> Convert.ToInt32(s.ToString().ToUpper() == s.ToString() && !char.IsDigit(s))) == 0 )
                 {
                     MessageBox.Show("Пароль должен содержать хотя бы одну заглавную букву");
                     txtPassword.Focus();

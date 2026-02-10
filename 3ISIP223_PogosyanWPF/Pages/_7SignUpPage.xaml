@@ -61,7 +61,7 @@
             </Border>
 
             <Border Grid.Row="5"  Margin="10"  Background="#BD257F" CornerRadius="5" >
-                <Button Padding="8" FontSize="16" Content="Зарегистрироваться" FontWeight="Medium" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click" />
+                <Button Padding="8" FontSize="16" Content="Зарегистрироваться" FontWeight="Medium" Foreground="White"  Click="Button_Click" BorderThickness="0" Background="Transparent" />
 
             </Border>
         </Grid>

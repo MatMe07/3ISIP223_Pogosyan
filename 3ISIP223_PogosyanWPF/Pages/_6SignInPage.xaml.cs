@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +46,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 MessageBox.Show("Вход выполнен успешно!");
 
                 //return;
+                //Debug.WriteLine($"вход выполнил {txtEmail}");
                 SignInUpWindow.Instance.Close();
             }
             else
