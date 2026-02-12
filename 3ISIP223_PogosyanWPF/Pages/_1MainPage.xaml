@@ -21,27 +21,39 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border Grid.Row="0" BorderBrush="#FF9E9E9E" Background="White" BorderThickness="1" CornerRadius="5" Padding="0">
+            <Border Grid.Row="0" BorderBrush="#FF9E9E9E" Background="White" BorderThickness="1" CornerRadius="5" Padding="0" Height="30">
                 <TextBox Grid.Column="0" x:Name="txtSearch"  Margin="5 0" FontSize="16"  BorderBrush="{x:Null}" />
                 
             </Border>
 
-            <Border Grid.Row="0" Grid.Column="1" Margin="5 0 0 0" Background="#BD257F" CornerRadius="5">
+            <Border Grid.Row="0" Grid.Column="1" Margin="5 0 0 0" Background="#BD257F" CornerRadius="5" Height="30">
                 <Button Content="Поиск" Width="100" Background='Transparent' BorderThickness="0" Foreground="White" HorizontalAlignment="Left" FontSize="17"  Click="ButtonSearch_Click"/>
 
             </Border>
             <!--<Button Grid.Row="0" Grid.Column="1" Content="Поиск" Width="100" HorizontalAlignment="Left" Margin="5 0 0 0" FontSize="17" FontWeight="Medium" Click="ButtonSearch_Click"/>-->
-            <StackPanel  Grid.Row="0" Orientation="Horizontal" Grid.Column="2">
-                <TextBlock Text="Сортировка:" x:Name="txt" Margin="5 0" FontSize="16"/>
-                <ComboBox Width="130" x:Name="comboSort" FontSize="15" SelectionChanged="comboSort_SelectionChanged" >
-                    <!--<ComboBoxItem Content="Все" IsSelected="True"/>
-                    <ComboBoxItem Content="По названию"/>
-                    <ComboBoxItem Content="По рейтингу"/>-->
-                </ComboBox>
+            <StackPanel  Grid.Row="0" Grid.Column="2">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Сортировка:" x:Name="txt" Margin="5 0" FontSize="16"/>
+                    <ComboBox Width="130" x:Name="comboSort" FontSize="15" SelectionChanged="comboSort_SelectionChanged" >
+                        <!--<ComboBoxItem Content="Все" IsSelected="True"/>
+                        <ComboBoxItem Content="По названию"/>
+                        <ComboBoxItem Content="По рейтингу"/>-->
+                    </ComboBox>
+                    
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Сортировка по жанрам:" x:Name="txtd" Margin="5 0" FontSize="16"/>
+                    <ComboBox Width="130" x:Name="comboSortGenre" FontSize="15"  SelectionChanged="comboSortGenre_SelectionChanged" >
+                        <!--<ComboBoxItem Content="Все" IsSelected="True"/>
+                        <ComboBoxItem Content="По названию"/>
+                        <ComboBoxItem Content="По рейтингу"/>-->
+                    </ComboBox>
+                    
+                </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="1"  Background="#FFC3C3C8"  Height="1" Margin="0 10" Grid.ColumnSpan="3" />
 

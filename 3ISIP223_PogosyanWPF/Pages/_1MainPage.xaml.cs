@@ -21,6 +21,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
     public partial class _1MainPage : Page
     {
         public List<string> comboSorts;
+        public List<string> comboSortsGenre;
         public WorkWIthDatabase workDatabase {  get; set; }
         //public List<string> comboFilters;
         private int lastInd = -1;
@@ -35,6 +36,14 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 "По названию",
                 "По рейтингу",
             };
+            
+            comboSortsGenre = Core.Context.Genres.Select(s=>s.Name).ToList();
+            comboSortsGenre.Insert(0, "Все");
+           
+
+            comboSortGenre.ItemsSource = comboSortsGenre;
+            comboSortGenre.SelectedIndex = 0;
+
             comboSort.ItemsSource = comboSorts;
             comboSort.SelectedIndex = 0;    
         }
@@ -45,14 +54,14 @@ namespace _3ISIP223_PogosyanWPF.Pages
             //if (txtSearch == null && txtSearch.Text.Length == 0) return;
 
             //txt.Text = txtSearch.Text;
-            workDatabase.SearchAndSortFilm(txtSearch.Text, comboSort.SelectedItem.ToString());
+            workDatabase.SearchAndSortFilm(txtSearch.Text, comboSort.SelectedItem.ToString(), comboSortGenre.SelectedItem.ToString());
         }
 
         private void comboSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
             //txt.Text =  comboSort.SelectedItem.ToString();
-            workDatabase.SearchAndSortFilm(txtSearch.Text, comboSort.SelectedItem.ToString());
+            workDatabase.SearchAndSortFilm(txtSearch.Text, comboSort.SelectedItem.ToString(), comboSortGenre.SelectedItem.ToString());
 
         }
 
@@ -74,6 +83,12 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
             NavigationService.Navigate(new _2FilmPage(film));
 
+        }
+
+        private void comboSortGenre_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboSort.SelectedItem != null)
+            workDatabase.SearchAndSortFilm(txtSearch.Text, comboSort.SelectedItem.ToString(), comboSortGenre.SelectedItem.ToString());
         }
     }
 }

@@ -47,7 +47,7 @@ namespace _3ISIP223_PogosyanWPF
         }
 
 
-        public void SearchAndSortFilm(string name, string sort)
+        public void SearchAndSortFilm(string name, string sort, string sortGenre)
         {
 
             var result = _allfilms;
@@ -65,6 +65,20 @@ namespace _3ISIP223_PogosyanWPF
                 case "По рейтингу":
                     {
                         result = result.OrderByDescending(a => a.Rating).ToList();
+                        break;
+                    }
+            }
+            switch (sortGenre)
+            {
+                case "Все":
+                    {
+                        //result = result.OrderBy(a => a.Name).ToList();
+                        break;
+                    }
+                default:
+                    {
+                        //result = result.OrderBy(a=> a.FilmGenres)
+                        result = result.Where(f => f.FilmGenres.FirstOrDefault(g => g.Genre.Name == sortGenre) != null).ToList();
                         break;
                     }
             }
