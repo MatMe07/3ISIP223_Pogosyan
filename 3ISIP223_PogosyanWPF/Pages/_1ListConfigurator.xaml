@@ -65,7 +65,7 @@
         </Grid>
 
 
-        <Border Grid.Row="1" Visibility="Visible" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+        <Border x:Name="panAddCPU" Grid.Row="1" Visibility="Visible" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
             <!--<WrapPanel>-->
             <Grid >
                 <Grid.ColumnDefinitions >
@@ -75,13 +75,13 @@
 
                 <TextBlock Text="Процессор" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
                 <Border Grid.Column="1" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
-                    <Button Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent"/>
+                    <Button x:Name="btnAddCpu" Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
                 </Border>
 
             </Grid>
             <!--</WrapPanel>-->
         </Border>
-        <Border Grid.Row="1" Visibility="Collapsed" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+        <Border  x:Name="panelCPU" Grid.Row="1" Visibility="Collapsed" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
             <!--<WrapPanel>-->
             <Grid >
                 <Grid.ColumnDefinitions >
@@ -90,12 +90,12 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <Image Source="/proc.jpg" Width="40" Grid.Column="0" Margin="5 0 10 0"/>
+                <Image Source="{Binding Cpu.basepart.image}" Width="40" Grid.Column="0" Margin="5 0 10 0"/>
                 <StackPanel Grid.Column="1" Margin="5 0 10 0">
-                    <TextBlock Text="Процессор AMD Ryzen 5 3600 OEM" FontSize="14"/>
-                    <TextBlock Text="AM4, 6-ядерный, 3600 МГц, Turbo: 4200 МГц, Matisse, Кэш L2 - 3 Мб, L3 - 32 Мб, 7 нм, TDP 65 Вт" Foreground="Gray" FontSize="12" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Cpu.FullName}" FontSize="14"/>
+                    <TextBlock Text="{Binding Cpu.Description}" Foreground="Gray" FontSize="12" TextWrapping="Wrap"/>
                 </StackPanel>
-                <TextBlock Grid.Column="2" Text="6 550 ₽" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
+                <TextBlock Grid.Column="2" Text="{Binding Cpu.basepart.price, StringFormat='\{0} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
 
 
                 <WrapPanel Grid.Column="3" VerticalAlignment="Center">
@@ -127,7 +127,7 @@
 
                 <TextBlock Text="Материнская карта" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
                 <Border Grid.Column="1" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
-                    <Button Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent"/>
+                    <Button Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent"  Click="btnADD_Click"/>
                 </Border>
 
             </Grid>
@@ -144,7 +144,7 @@
 
                 <TextBlock Text="Блок питания" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
                 <Border Grid.Column="1" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
-                    <Button Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent"/>
+                    <Button Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
                 </Border>
 
             </Grid>
@@ -161,7 +161,7 @@
 
                 <TextBlock Text="Корпус" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
                 <Border Grid.Column="1" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
-                    <Button Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent"/>
+                    <Button Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
                 </Border>
 
             </Grid>
@@ -178,7 +178,7 @@
 
                 <TextBlock Text="Видеокарта" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
                 <Border Grid.Column="1" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
-                    <Button Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent"/>
+                    <Button Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
                 </Border>
 
             </Grid>
@@ -195,7 +195,7 @@
 
                 <TextBlock Text="Кулер" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
                 <Border Grid.Column="1" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
-                    <Button Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent"/>
+                    <Button Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
                 </Border>
 
             </Grid>
@@ -212,7 +212,7 @@
 
                 <TextBlock Text="Накопитель" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
                 <Border Grid.Column="1" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
-                    <Button Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent"/>
+                    <Button Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
                 </Border>
 
             </Grid>
@@ -229,7 +229,7 @@
 
                 <TextBlock Text="Оперативная память" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
                 <Border Grid.Column="1" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
-                    <Button Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent"/>
+                    <Button Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
                 </Border>
 
             </Grid>

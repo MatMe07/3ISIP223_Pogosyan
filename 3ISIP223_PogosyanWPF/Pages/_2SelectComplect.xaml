@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="703"
-      Title="_2SelectComplect" Background="White">
+      Title="_2SelectComplect" Background="White" Loaded="Page_Loaded">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -30,7 +30,7 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Оперативная память" FontSize="17" FontWeight="Medium"/>
             <Border Grid.Column="1" HorizontalAlignment="Right" BorderBrush="Black" CornerRadius="3" BorderThickness="1">
-                <Button Content="Закрыть" FontSize="14" Padding="3" Background="Transparent" BorderBrush="Transparent"/>
+                <Button Content="Закрыть" FontSize="14" Padding="3" Background="Transparent" BorderBrush="Transparent"  Click="CloseClick_Click"/>
             </Border>
 
         </Grid>
@@ -55,27 +55,27 @@
 
         </Border>
 
-        <ListBox BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="3" Grid.Column="1" Margin="5 10" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListBox x:Name="listComp" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="3" Grid.Column="1" Margin="5 10" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel Orientation="Horizontal">
-                        <Image Source="/proc.jpg" Width="90" Height="90" Margin="5"/>
-                        <Grid>
+                        <Image Source="{Binding basepart.image}" Width="80" Height="80" Margin="5"/>
+                        <!--<Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
+                            </Grid.ColumnDefinitions>-->
 
-                            <TextBlock Grid.Column="0" Margin="5 0" Text="Процессор AMD Ryzen 7 7800X3D OEM [AM5, 8 x 4.2 ГГц, L2 - 8 МБ, L3 - 96 МБ, 2 х DDR5-5200 МГц, AMD Radeon Graphics, TDP 120 Вт]" Width="300" TextWrapping="Wrap"/>
+                        <TextBlock Grid.Column="0" Margin="5 5" Text="{Binding FullDescription}" Width="300" TextWrapping="Wrap"/>
 
                             <StackPanel Grid.Column="1">
-                                <TextBlock Text="32 499 ₽" FontSize="17" FontWeight="Medium" HorizontalAlignment="Right" Margin="0 5"/>
+                                <TextBlock Text="{Binding basepart.price, StringFormat='\{0:F2} ₽'}" FontSize="17" FontWeight="Medium" HorizontalAlignment="Right" Margin="0 5"/>
                                 <Border HorizontalAlignment="Right" BorderBrush="Gray" CornerRadius="3" BorderThickness="1">
-                                    <Button Content="Добавить" FontSize="14" Padding="3" Background="Transparent" BorderBrush="Transparent"/>
+                                    <Button Content="Добавить" FontSize="14" Padding="3" Background="Transparent" BorderBrush="Transparent" Click="btnAdd_Click"/>
                                 </Border>
 
                             </StackPanel>
-                        </Grid>
+                        <!--</Grid>-->
                         <StackPanel Background="#F1F1F1" Height="1" Width="471"/>
 
                     </WrapPanel>

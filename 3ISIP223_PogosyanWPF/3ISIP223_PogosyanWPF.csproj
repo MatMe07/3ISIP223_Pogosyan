@@ -35,8 +35,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Properties\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Properties\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +65,102 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="assembly.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="basepart.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="boardformfactorcase.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="case.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="casesize.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="certificate.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComponentType.cs" />
+    <Compile Include="Core.cs" />
+    <Compile Include="cpu.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fandimension.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="formfactor.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="gpu.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="gpuinterface.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="hdd.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="igpu.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="manufacturer.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="memorytype.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelAssembYou.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="motherboard.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MyPartial\cpu.cs" />
+    <Compile Include="partassembly.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="parttype.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="powersupply.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="processorcooler.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ram.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="socket.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="socketprocessorcooler.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ssd.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="storagedevice.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="storagedeviceinterface.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="storagedevicetype.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="videoconnector.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="videoconnectorgpu.cs">
+      <DependentUpon>ModelAssembYou.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkWithDB.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -77,6 +183,16 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelAssembYou.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelAssembYou.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelAssembYou.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelAssembYou.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\_1ListConfigurator.xaml.cs">
       <DependentUpon>_1ListConfigurator.xaml</DependentUpon>
     </Compile>
@@ -100,6 +216,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="ModelAssembYou.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelAssembYou.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ModelAssembYou.edmx.diagram">
+      <DependentUpon>ModelAssembYou.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -110,8 +234,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="proc.jpg" />
+    <Content Include="ModelAssembYou.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelAssembYou.Context.cs</LastGenOutput>
+      <DependentUpon>ModelAssembYou.edmx</DependentUpon>
+    </Content>
+    <Content Include="ModelAssembYou.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelAssembYou.edmx</DependentUpon>
+      <LastGenOutput>ModelAssembYou.cs</LastGenOutput>
+    </Content>
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

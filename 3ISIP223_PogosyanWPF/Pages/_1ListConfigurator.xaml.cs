@@ -20,9 +20,39 @@ namespace _3ISIP223_PogosyanWPF.Pages
     /// </summary>
     public partial class _1ListConfigurator : Page
     {
-        public _1ListConfigurator()
+        public Action<Visibility, ComponentType> frameZamaz;
+        public _1ListConfigurator(Action<Visibility, ComponentType> f)
         {
+            DataContext = MarWorkWith.withDB;
+
             InitializeComponent();
+            frameZamaz = f;
+
+            MarWorkWith.withDB.PropertyChanged += WithDB_PropertyChanged;
+
+            btnAddCpu.Tag = ComponentType.CPU;
+        }
+
+        private void WithDB_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch(e.PropertyName)
+            {
+                case nameof(MarWorkWith.withDB.Cpu):
+                    {
+                        panAddCPU.Visibility = Visibility.Collapsed;
+                        panelCPU.Visibility = Visibility.Visible;
+                        break;
+                    }
+            }
+        }
+
+        private void btnADD_Click(object sender, RoutedEventArgs e)
+        {
+            //MainWindow
+            Button btn = sender as Button;
+            ComponentType type = (ComponentType)btn.Tag ;
+
+            frameZamaz(Visibility.Visible, type);
         }
     }
 }

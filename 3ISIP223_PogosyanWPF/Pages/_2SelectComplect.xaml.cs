@@ -20,9 +20,51 @@ namespace _3ISIP223_PogosyanWPF.Pages
     /// </summary>
     public partial class _2SelectComplect : Page
     {
-        public _2SelectComplect()
+        public Action<Visibility, ComponentType> frameZamaz;
+        public ComponentType type;
+        public _2SelectComplect(Action<Visibility, ComponentType> f, ComponentType t)
         {
+            DataContext = MarWorkWith.withDB;
             InitializeComponent();
+            type = t;
+            frameZamaz = f;
+            
+        }
+
+
+        
+
+        private void CloseClick_Click(object sender, RoutedEventArgs e)
+        {
+            frameZamaz(Visibility.Collapsed, ComponentType.NONE);
+
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            switch (type)
+            {
+                case ComponentType.CPU:
+                    {
+
+                        listComp.ItemsSource = MarWorkWith.withDB.CpuList;
+                        break;
+                    }
+            }
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+           Button button = (Button)sender;
+            switch (type)
+            {
+                case ComponentType.CPU:
+                    {
+                        cpu pp = button.DataContext as cpu;
+                        MarWorkWith.withDB.SelectCPU(pp);
+                        break;
+                    }
+            }
         }
     }
 }

@@ -38,7 +38,7 @@
             <Border Grid.Row="2" Grid.Column="0" CornerRadius="15" Background="White" Padding="0 12">
                 <ScrollViewer  >
                 
-                    <Frame Source="/Pages/_1ListConfigurator.xaml"  Margin="10 0" />
+                    <Frame x:Name="frameMain" Margin="10 0" />
             
                 </ScrollViewer>
                 
@@ -74,10 +74,10 @@
 
         </Grid>
 
-        <Border x:Name="ZamazFon" Background="#33000000" Visibility="Visible"/>
+        <Border x:Name="ZamazFon" Background="#33000000" Visibility="Collapsed"/>
 
-        <Border x:Name="SelectPanel" Margin="30 5" BorderThickness="1" BorderBrush="Gray" CornerRadius="10" Visibility="Visible" Background="White">
-            <Frame Source="/Pages/_2SelectComplect.xaml" Margin="10"/>
+        <Border x:Name="SelectPanel" Margin="30 5" BorderThickness="1" BorderBrush="Gray" CornerRadius="10" Visibility="Collapsed" Background="White">
+            <Frame x:Name="frameShop" Margin="10"/>
         </Border>
 
 

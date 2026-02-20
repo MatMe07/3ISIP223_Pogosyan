@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace _3ISIP223_PogosyanWPF
         public MainWindow()
         {
             InitializeComponent();
+            frameMain.NavigationService.Navigate(new _1ListConfigurator(ChangeDisplay));
+        }
+
+        public void ChangeDisplay(Visibility visibility, ComponentType type)
+        {
+            ZamazFon.Visibility = visibility;
+            SelectPanel.Visibility = visibility;
+            if (visibility == Visibility.Visible)
+                frameShop.NavigationService.Navigate(new _2SelectComplect(ChangeDisplay, type));
+
         }
     }
 }
