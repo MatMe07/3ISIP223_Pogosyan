@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
@@ -39,7 +40,18 @@ namespace _3ISIP223_PogosyanWPF
         public void SelectCPU(cpu c)
         {
             Cpu = c;
-
+        }
+        public void DeleteComponent(ComponentType type)
+        {
+            switch(type)
+            {
+                case ComponentType.CPU:
+                    {
+                        Cpu = null;
+                        break;
+                    }
+            
+            }
         }
 
         private ObservableCollection<cpu> _cpuList;

@@ -65,6 +65,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                         break;
                     }
             }
+            CloseClick_Click(sender, e);
         }
     }
 }

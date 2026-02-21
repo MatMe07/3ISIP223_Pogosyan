@@ -234,6 +234,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="proc.jpg" />
+    <Resource Include="icons\edit.png" />
+    <Resource Include="icons\trash.png" />
+    <Content Include="icons\trash.svg" />
     <Content Include="ModelAssembYou.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModelAssembYou.Context.cs</LastGenOutput>
@@ -250,5 +253,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

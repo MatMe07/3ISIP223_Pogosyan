@@ -26,22 +26,35 @@ namespace _3ISIP223_PogosyanWPF.Pages
             DataContext = MarWorkWith.withDB;
 
             InitializeComponent();
+
             frameZamaz = f;
 
             MarWorkWith.withDB.PropertyChanged += WithDB_PropertyChanged;
 
             btnAddCpu.Tag = ComponentType.CPU;
+            panelCPU.Tag = ComponentType.CPU;
         }
 
         private void WithDB_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            
             switch(e.PropertyName)
             {
                 case nameof(MarWorkWith.withDB.Cpu):
                     {
-                        panAddCPU.Visibility = Visibility.Collapsed;
-                        panelCPU.Visibility = Visibility.Visible;
-                        break;
+                        
+                        if (MarWorkWith.withDB.Cpu != null)
+                        {
+                            panAddCPU.Visibility = Visibility.Collapsed;
+                            panelCPU.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            panAddCPU.Visibility = Visibility.Visible;
+                            panelCPU.Visibility = Visibility.Collapsed;
+
+                        }
+                            break;
                     }
             }
         }
@@ -51,6 +64,24 @@ namespace _3ISIP223_PogosyanWPF.Pages
             //MainWindow
             Button btn = sender as Button;
             ComponentType type = (ComponentType)btn.Tag ;
+
+            frameZamaz(Visibility.Visible, type);
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            ComponentType type = (ComponentType)button.Tag;
+
+            MarWorkWith.withDB.DeleteComponent(type);
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+
+            //Border parent = ((((sender as Button).Parent as Border).Parent as WrapPanel).Parent as Grid).Parent as Border;
+            Button button = sender as Button;
+            ComponentType type = (ComponentType)button.Tag;
 
             frameZamaz(Visibility.Visible, type);
         }
