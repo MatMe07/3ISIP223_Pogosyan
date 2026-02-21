@@ -28,7 +28,8 @@ namespace _3ISIP223_PogosyanWPF.Pages
             InitializeComponent();
             type = t;
             frameZamaz = f;
-            
+            comboProizvod.ItemsSource = MarWorkWith.withDB.manufacturers;
+            comboProizvod.SelectedIndex = 0;
         }
 
 

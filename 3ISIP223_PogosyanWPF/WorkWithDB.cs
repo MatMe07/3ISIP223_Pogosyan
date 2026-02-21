@@ -24,6 +24,9 @@ namespace _3ISIP223_PogosyanWPF
             _ramList = new ObservableCollection<ram>(Core.Context.rams.ToList());
             _caseList = new ObservableCollection<@case>(Core.Context.cases.ToList());
             _storageList = new ObservableCollection<storagedevice>(Core.Context.storagedevices.ToList());
+            manufacturers = Core.Context.manufacturers.Select(s=>s.name).ToList();
+            manufacturers.Insert(0, "Все");
+            //manufacturers[0].name
 
         }
 
@@ -318,6 +321,7 @@ namespace _3ISIP223_PogosyanWPF
             Powersupply = null;
             Storage = null;
         }
+        public List<string> manufacturers { get; set; }
 
     }
 
