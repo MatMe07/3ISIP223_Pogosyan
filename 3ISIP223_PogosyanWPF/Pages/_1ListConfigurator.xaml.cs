@@ -33,6 +33,27 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
             btnAddCpu.Tag = ComponentType.CPU;
             panelCPU.Tag = ComponentType.CPU;
+
+            btnAddMother.Tag = ComponentType.Motherboard;
+            panelMother.Tag = ComponentType.Motherboard;
+
+            btnAddPitanie.Tag = ComponentType.PowerSupply;
+            panelPitanie.Tag = ComponentType.PowerSupply;
+
+            btnAddCorpus.Tag = ComponentType.Case;
+            panelCorpus.Tag = ComponentType.Case;
+
+            btnAddVideoCart.Tag = ComponentType.GPU;
+            panelVideoCart.Tag = ComponentType.GPU;
+
+            btnAddCuler.Tag = ComponentType.ProcessorCooler;
+            panelCuler.Tag = ComponentType.ProcessorCooler;
+
+            btnAddNakopitel.Tag = ComponentType.Storage;
+            panelNakopitel.Tag = ComponentType.Storage;
+
+            btnAddRAM.Tag = ComponentType.RAM;
+            panelRAM.Tag = ComponentType.RAM;
         }
 
         private void WithDB_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

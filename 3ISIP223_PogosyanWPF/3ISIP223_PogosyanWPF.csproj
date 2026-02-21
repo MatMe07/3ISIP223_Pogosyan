@@ -120,7 +120,14 @@
     <Compile Include="motherboard.cs">
       <DependentUpon>ModelAssembYou.tt</DependentUpon>
     </Compile>
+    <Compile Include="MyPartial\case.cs" />
     <Compile Include="MyPartial\cpu.cs" />
+    <Compile Include="MyPartial\gpu.cs" />
+    <Compile Include="MyPartial\motherboard.cs" />
+    <Compile Include="MyPartial\powersupply.cs" />
+    <Compile Include="MyPartial\processorcooler.cs" />
+    <Compile Include="MyPartial\ram.cs" />
+    <Compile Include="MyPartial\storagedevice.cs" />
     <Compile Include="partassembly.cs">
       <DependentUpon>ModelAssembYou.tt</DependentUpon>
     </Compile>

@@ -56,15 +56,16 @@ namespace _3ISIP223_PogosyanWPF.Pages
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
            Button button = (Button)sender;
-            switch (type)
-            {
-                case ComponentType.CPU:
-                    {
-                        cpu pp = button.DataContext as cpu;
-                        MarWorkWith.withDB.SelectCPU(pp);
-                        break;
-                    }
-            }
+           MarWorkWith.withDB.SelectComponent(button.DataContext, type);
+
+            //switch (type)
+            //{
+            //    case ComponentType.CPU:
+            //        {
+            //            cpu pp = button.DataContext as cpu;
+            //            break;
+            //        }
+            //}
             CloseClick_Click(sender, e);
         }
     }

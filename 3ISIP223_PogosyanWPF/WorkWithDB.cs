@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace _3ISIP223_PogosyanWPF
@@ -36,11 +37,132 @@ namespace _3ISIP223_PogosyanWPF
                 
             }
         }
-
-        public void SelectCPU(cpu c)
+        private motherboard _motherboard;
+        public motherboard Motherboard
         {
-            Cpu = c;
+            get { return _motherboard; }
+            set
+            {
+                _motherboard = value;
+                OnPropertyChanged(nameof(Motherboard));
+                
+            }
         }
+        private @case _case;
+        public @case Case
+        {
+            get { return _case; }
+            set
+            {
+                _case = value;
+                OnPropertyChanged(nameof(Case));
+                
+            }
+        }
+        private gpu _gpu;
+        public gpu GPU
+        {
+            get { return _gpu; }
+            set
+            {
+                _gpu = value;
+                OnPropertyChanged(nameof(GPU));
+                
+            }
+        }
+        private ram _ram;
+        public ram RAM
+        {
+            get { return _ram; }
+            set
+            {
+                _ram = value;
+                OnPropertyChanged(nameof(RAM));
+                
+            }
+        }
+        private powersupply _powersupply;
+        public powersupply Powersupply
+        {
+            get { return _powersupply; }
+            set
+            {
+                _powersupply = value;
+                OnPropertyChanged(nameof(Powersupply));
+                
+            }
+        }
+        private processorcooler _processorcooler;
+        public processorcooler Processorcooler
+        {
+            get { return _processorcooler; }
+            set
+            {
+                _processorcooler = value;
+                OnPropertyChanged(nameof(Processorcooler));
+                
+            }
+        }
+        private storagedevice _storagedevice;
+        public storagedevice Storage
+        {
+            get { return _storagedevice; }
+            set
+            {
+                _storagedevice = value;
+                OnPropertyChanged(nameof(Storage));
+                
+            }
+        }
+
+        public void SelectComponent(Object obj, ComponentType type)
+        {
+            switch (type)
+            {
+                case ComponentType.CPU:
+                    {
+                        Cpu = obj as cpu;
+                        break;
+                    }
+                case ComponentType.GPU:
+                    {
+                        GPU = obj as gpu;
+                        break;
+                    }
+                case ComponentType.Motherboard:
+                    {
+                        Motherboard = obj as motherboard;
+                        break;
+                    }
+                case ComponentType.ProcessorCooler:
+                    {
+                        Processorcooler = obj as processorcooler;
+                        break;
+                    }
+                case ComponentType.Case:
+                    {
+                        Case = obj as @case;
+                        break;
+                    }
+                case ComponentType.PowerSupply:
+                    {
+                        Powersupply = obj as powersupply;
+                        break;
+                    }
+                case ComponentType.RAM:
+                    {
+                        RAM = obj as ram;
+                        break;
+                    }
+                case ComponentType.Storage:
+                    {
+                        Storage = obj as storagedevice;
+                        break;
+                    }
+            }
+        }
+
+
         public void DeleteComponent(ComponentType type)
         {
             switch(type)
