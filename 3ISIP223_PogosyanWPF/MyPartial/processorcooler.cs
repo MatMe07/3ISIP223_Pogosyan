@@ -8,7 +8,7 @@ namespace _3ISIP223_PogosyanWPF
 {
     partial class processorcooler
     {
-        public string SocketDisp => string.Join(", ", socketprocessorcoolers);
+        public string SocketDisp => string.Join(", ", socketprocessorcoolers.Select(s=>s.socket.name));
 
         public string Description
         {
@@ -31,7 +31,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             get
             {
-                return $"Материнская плата {basepart.manufacturer.name} {basepart.name}";
+                return $"Кулер {basepart.manufacturer.name} {basepart.name}";
             }
         }
     }

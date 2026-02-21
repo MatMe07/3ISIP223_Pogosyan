@@ -12,7 +12,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             get
             {
-                return $"{capacity * count}GB ({count}x{capacity}GB), {memorytype}-{ghz}, {timings}";
+                return $"{capacity * count}GB ({count}x{capacity}GB), {memorytype.name}-{ghz}, {timings} {basepart.price}";
             }
         }
 
@@ -28,7 +28,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             get
             {
-                return $"Корпус {basepart.manufacturer.name} {basepart.name}";
+                return $"Оперативная память {basepart.manufacturer.name} {basepart.name}";
             }
         }
     }

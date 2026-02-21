@@ -50,6 +50,48 @@ namespace _3ISIP223_PogosyanWPF.Pages
                         listComp.ItemsSource = MarWorkWith.withDB.CpuList;
                         break;
                     }
+                case ComponentType.GPU:
+                    {
+
+                        listComp.ItemsSource = MarWorkWith.withDB.GpuList;
+                        break;
+                    }
+                case ComponentType.RAM:
+                    {
+
+                        listComp.ItemsSource = MarWorkWith.withDB.RamList;
+                        break;
+                    }
+                case ComponentType.Storage:
+                    {
+
+                        listComp.ItemsSource = MarWorkWith.withDB.StorageList;
+                        break;
+                    }
+                case ComponentType.Case:
+                    {
+
+                        listComp.ItemsSource = MarWorkWith.withDB.CaseList;
+                        break;
+                    }
+                case ComponentType.Motherboard:
+                    {
+
+                        listComp.ItemsSource = MarWorkWith.withDB.MotherboardList;
+                        break;
+                    }
+                case ComponentType.PowerSupply:
+                    {
+
+                        listComp.ItemsSource = MarWorkWith.withDB.PowersupplyList;
+                        break;
+                    }
+                case ComponentType.ProcessorCooler:
+                    {
+
+                        listComp.ItemsSource = MarWorkWith.withDB.ProcessorcoolerList;
+                        break;
+                    }
             }
         }
 

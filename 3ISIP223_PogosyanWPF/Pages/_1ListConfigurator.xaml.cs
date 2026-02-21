@@ -77,6 +77,118 @@ namespace _3ISIP223_PogosyanWPF.Pages
                         }
                             break;
                     }
+                case nameof(MarWorkWith.withDB.GPU):
+                    {
+                        
+                        if (MarWorkWith.withDB.GPU != null)
+                        {
+                            panAddVideoCart.Visibility = Visibility.Collapsed;
+                            panelVideoCart.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            panAddVideoCart.Visibility = Visibility.Visible;
+                            panelVideoCart.Visibility = Visibility.Collapsed;
+
+                        }
+                            break;
+                    }
+                case nameof(MarWorkWith.withDB.Motherboard):
+                    {
+                        
+                        if (MarWorkWith.withDB.Motherboard != null)
+                        {
+                            panAddMother.Visibility = Visibility.Collapsed;
+                            panelMother.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            panAddMother.Visibility = Visibility.Visible;
+                            panelMother.Visibility = Visibility.Collapsed;
+
+                        }
+                            break;
+                    }
+                case nameof(MarWorkWith.withDB.RAM):
+                    {
+                        
+                        if (MarWorkWith.withDB.RAM != null)
+                        {
+                            panAddRAM.Visibility = Visibility.Collapsed;
+                            panelRAM.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            panAddRAM.Visibility = Visibility.Visible;
+                            panelRAM.Visibility = Visibility.Collapsed;
+
+                        }
+                            break;
+                    }
+                case nameof(MarWorkWith.withDB.Case):
+                    {
+                        
+                        if (MarWorkWith.withDB.Case != null)
+                        {
+                            panAddCorpus.Visibility = Visibility.Collapsed;
+                            panelCorpus.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            panAddCorpus.Visibility = Visibility.Visible;
+                            panelCorpus.Visibility = Visibility.Collapsed;
+
+                        }
+                            break;
+                    }
+                case nameof(MarWorkWith.withDB.Storage):
+                    {
+                        
+                        if (MarWorkWith.withDB.Storage != null)
+                        {
+                            panAddNakopitel.Visibility = Visibility.Collapsed;
+                            panelNakopitel.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            panAddNakopitel.Visibility = Visibility.Visible;
+                            panelNakopitel.Visibility = Visibility.Collapsed;
+
+                        }
+                            break;
+                    }
+                case nameof(MarWorkWith.withDB.Processorcooler):
+                    {
+                        
+                        if (MarWorkWith.withDB.Processorcooler != null)
+                        {
+                            panAddCuler.Visibility = Visibility.Collapsed;
+                            panelCuler.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            panAddCuler.Visibility = Visibility.Visible;
+                            panelCuler.Visibility = Visibility.Collapsed;
+
+                        }
+                            break;
+                    }
+                case nameof(MarWorkWith.withDB.Powersupply):
+                    {
+                        
+                        if (MarWorkWith.withDB.Powersupply != null)
+                        {
+                            panAddPitanie.Visibility = Visibility.Collapsed;
+                            panelPitanie.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            panAddPitanie.Visibility = Visibility.Visible;
+                            panelPitanie.Visibility = Visibility.Collapsed;
+
+                        }
+                            break;
+                    }
             }
         }
 
@@ -105,6 +217,11 @@ namespace _3ISIP223_PogosyanWPF.Pages
             ComponentType type = (ComponentType)button.Tag;
 
             frameZamaz(Visibility.Visible, type);
+        }
+
+        private void btnClearComp_Click(object sender, RoutedEventArgs e)
+        {
+            MarWorkWith.withDB.ClearKonfig();
         }
     }
 }

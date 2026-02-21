@@ -8,12 +8,12 @@ namespace _3ISIP223_PogosyanWPF
 {
     partial class @case
     {
-        public string SupFormFactor => string.Join("/", boardformfactorcases.Where(s=> s.formfactor.id == s.id).ToList());
+        public string SupFormFactor => string.Join("/", boardformfactorcases.Select(s=> s.formfactor.name).ToList());
         public string Description
         {
             get
             {
-                return $"{casesize}, {expansionslots} слотов, {SupFormFactor}" +
+                return $"{casesize.name}, {expansionslots} слотов, {SupFormFactor}" +
                        $"{fans} вентилятора";
             }
         }

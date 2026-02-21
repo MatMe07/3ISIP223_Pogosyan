@@ -8,14 +8,14 @@ namespace _3ISIP223_PogosyanWPF
 {
     partial class gpu
     {
-        public string VidConnectors => string.Join(", ", videoconnectorgpus);
+        public string VidConnectors => string.Join(", ", videoconnectorgpus.Select(s=>s.videoconnector.name));
 
         public string Description
         {
             get
             {
                 return $"{videomemory}GB, {chipfrequency} МГц, {memorybus}-bit, {VidConnectors}" +
-                       $"{recommendpower}W";
+                       $"{recommendpower.Value}W";
             }
         }
 
@@ -31,7 +31,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             get
             {
-                return $"Материнская плата {basepart.manufacturer.name} {basepart.name}";
+                return $"Видеокарта {basepart.manufacturer.name} {basepart.name}";
             }
         }
     }

@@ -13,7 +13,7 @@ namespace _3ISIP223_PogosyanWPF
             get
             {
                 return $"{basepart.name}, {power}W, {fandimension.name} fan, " +
-                       $"{certificate}";
+                       $"{certificate.name}";
             }
         }
 

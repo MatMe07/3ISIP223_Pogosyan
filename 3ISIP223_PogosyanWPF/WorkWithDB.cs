@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -16,6 +17,13 @@ namespace _3ISIP223_PogosyanWPF
         public WorkWithDB() {
             _cpu = null;
             _cpuList = new ObservableCollection<cpu>( Core.Context.cpus.ToList());
+            _gpuList = new ObservableCollection<gpu>(Core.Context.gpus.ToList());
+            _motherboardList = new ObservableCollection<motherboard>(Core.Context.motherboards.ToList());
+            _powersupplyList = new ObservableCollection<powersupply>(Core.Context.powersupplies.ToList());
+            _processorcoolerList = new ObservableCollection<processorcooler>(Core.Context.processorcoolers.ToList());
+            _ramList = new ObservableCollection<ram>(Core.Context.rams.ToList());
+            _caseList = new ObservableCollection<@case>(Core.Context.cases.ToList());
+            _storageList = new ObservableCollection<storagedevice>(Core.Context.storagedevices.ToList());
 
         }
 
@@ -172,6 +180,41 @@ namespace _3ISIP223_PogosyanWPF
                         Cpu = null;
                         break;
                     }
+                case ComponentType.RAM:
+                    {
+                        RAM = null;
+                        break;
+                    }
+                case ComponentType.Motherboard:
+                    {
+                        Motherboard = null;
+                        break;
+                    }
+                case ComponentType.Case:
+                    {
+                        Case = null;
+                        break;
+                    }
+                case ComponentType.GPU:
+                    {
+                        GPU = null;
+                        break;
+                    }
+                case ComponentType.ProcessorCooler:
+                    {
+                        Processorcooler = null;
+                        break;
+                    }
+                case ComponentType.PowerSupply:
+                    {
+                        Powersupply = null;
+                        break;
+                    }
+                case ComponentType.Storage:
+                    {
+                        Storage = null;
+                        break;
+                    }
             
             }
         }
@@ -185,6 +228,95 @@ namespace _3ISIP223_PogosyanWPF
                 _cpuList = value;
                 OnPropertyChanged(nameof(CpuList));
             }
+        }
+
+        private ObservableCollection<motherboard> _motherboardList;
+        public ObservableCollection<motherboard> MotherboardList
+        {
+            get { return _motherboardList; }
+            set
+            {
+                _motherboardList = value;
+                OnPropertyChanged(nameof(MotherboardList));
+            }
+        }
+
+        private ObservableCollection<@case> _caseList;
+        public ObservableCollection<@case> CaseList
+        {
+            get { return _caseList; }
+            set
+            {
+                _caseList = value;
+                OnPropertyChanged(nameof(CaseList));
+            }
+        }
+
+        private ObservableCollection<gpu> _gpuList;
+        public ObservableCollection<gpu> GpuList
+        {
+            get { return _gpuList; }
+            set
+            {
+                _gpuList = value;
+                OnPropertyChanged(nameof(GpuList));
+            }
+        }
+
+        private ObservableCollection<ram> _ramList;
+        public ObservableCollection<ram> RamList
+        {
+            get { return _ramList; }
+            set
+            {
+                _ramList = value;
+                OnPropertyChanged(nameof(RamList));
+            }
+        }
+
+        private ObservableCollection<powersupply> _powersupplyList;
+        public ObservableCollection<powersupply> PowersupplyList
+        {
+            get { return _powersupplyList; }
+            set
+            {
+                _powersupplyList = value;
+                OnPropertyChanged(nameof(PowersupplyList));
+            }
+        }
+
+        private ObservableCollection<processorcooler> _processorcoolerList;
+        public ObservableCollection<processorcooler> ProcessorcoolerList
+        {
+            get { return _processorcoolerList; }
+            set
+            {
+                _processorcoolerList = value;
+                OnPropertyChanged(nameof(ProcessorcoolerList));
+            }
+        }
+
+        private ObservableCollection<storagedevice> _storageList;
+        public ObservableCollection<storagedevice> StorageList
+        {
+            get { return _storageList; }
+            set
+            {
+                _storageList = value;
+                OnPropertyChanged(nameof(StorageList));
+            }
+        }
+
+        public void ClearKonfig()
+        {
+            Cpu = null;
+            RAM = null;
+            Motherboard = null;
+            Case = null;
+            GPU = null;
+            Processorcooler = null;
+            Powersupply = null;
+            Storage = null;
         }
 
     }
