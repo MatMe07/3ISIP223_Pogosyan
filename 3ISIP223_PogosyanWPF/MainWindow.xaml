@@ -39,7 +39,7 @@
             <Border Grid.Row="2" Grid.Column="0" CornerRadius="15" Background="White" Padding="0 12">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True" >
                 
-                    <Frame x:Name="frameMain" Margin="10 0" />
+                    <Frame x:Name="frameMain" Margin="10 0" NavigationUIVisibility="Hidden" />
             
                 </ScrollViewer>
 
@@ -81,7 +81,7 @@
         <Border x:Name="ZamazFon" Background="#33000000" Visibility="Collapsed"/>
 
         <Border x:Name="SelectPanel" Margin="30 5" BorderThickness="1" BorderBrush="Gray" CornerRadius="10" Visibility="Collapsed" Background="White">
-            <Frame x:Name="frameShop" Margin="10"/>
+            <Frame x:Name="frameShop" Margin="10"  NavigationUIVisibility="Hidden" />
         </Border>
 
 

@@ -116,5 +116,10 @@ namespace _3ISIP223_PogosyanWPF.Pages
         {
             listComp.SelectedIndex = -1;
         }
+
+        private void comboProizvod_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MarWorkWith.withDB.SearchFilterComponent(type, txtBoxSearch.Text, comboProizvod.SelectedItem.ToString());
+        }
     }
 }

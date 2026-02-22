@@ -228,5 +228,11 @@ namespace _3ISIP223_PogosyanWPF.Pages
         {
             MarWorkWith.withDB.ClearKonfig();
         }
+
+        private void progreses_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (progreses.Value != 0) IsRight.Visibility = Visibility.Visible;
+            else IsRight.Visibility = Visibility.Collapsed;
+        }
     }
 }

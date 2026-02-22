@@ -16,14 +16,26 @@ namespace _3ISIP223_PogosyanWPF
     {
         public WorkWithDB() {
             _cpu = null;
-            _cpuList = new ObservableCollection<cpu>( Core.Context.cpus.ToList());
-            _gpuList = new ObservableCollection<gpu>(Core.Context.gpus.ToList());
-            _motherboardList = new ObservableCollection<motherboard>(Core.Context.motherboards.ToList());
-            _powersupplyList = new ObservableCollection<powersupply>(Core.Context.powersupplies.ToList());
-            _processorcoolerList = new ObservableCollection<processorcooler>(Core.Context.processorcoolers.ToList());
-            _ramList = new ObservableCollection<ram>(Core.Context.rams.ToList());
-            _caseList = new ObservableCollection<@case>(Core.Context.cases.ToList());
-            _storageList = new ObservableCollection<storagedevice>(Core.Context.storagedevices.ToList());
+
+            _cpuAllList = new List<cpu>( Core.Context.cpus.ToList());
+            _gpuAllList = new List<gpu>(Core.Context.gpus.ToList());
+            _motherboardAllList = new List<motherboard>(Core.Context.motherboards.ToList());
+            _powersupplyAllList = new List<powersupply>(Core.Context.powersupplies.ToList());
+            _processorcoolerAllList = new List<processorcooler>(Core.Context.processorcoolers.ToList());
+            _ramAllList = new List<ram>(Core.Context.rams.ToList());
+            _caseAllList = new List<@case>(Core.Context.cases.ToList());
+            _storageAllList = new List<storagedevice>(Core.Context.storagedevices.ToList());
+
+            _cpuList = new ObservableCollection<cpu>(_cpuAllList);
+            _gpuList = new ObservableCollection<gpu>(_gpuAllList);
+            _motherboardList = new ObservableCollection<motherboard>(_motherboardAllList);
+            _powersupplyList = new ObservableCollection<powersupply>(_powersupplyAllList);
+            _processorcoolerList = new ObservableCollection<processorcooler>(_processorcoolerAllList);
+            _ramList = new ObservableCollection<ram>(_ramAllList);
+            _caseList = new ObservableCollection<@case>(_caseAllList);
+            _storageList = new ObservableCollection<storagedevice>(_storageAllList);
+
+
             manufacturers = Core.Context.manufacturers.Select(s=>s.name).ToList();
             manufacturers.Insert(0, "Все");
             //manufacturers[0].name
@@ -186,6 +198,63 @@ namespace _3ISIP223_PogosyanWPF
                     }
             }
         }
+        public void SearchFilterComponent(ComponentType type, string search, string filter)
+        {
+            
+
+
+            //var filterList = null;
+            switch (type)
+            {
+                case ComponentType.CPU:
+                    {
+                        var filterList = _cpuAllList;
+                        filterList = filterList.Where(f => f.basepart.name.Contains(search)).ToList();
+                        if (filter != "Все") filterList = filterList.Where(f => f.basepart.manufacturer.name == filter).ToList();
+                        CpuList.Clear();
+                        foreach (var item in filterList)
+                        {
+                            CpuList.Add(item);
+                        }
+                        break;
+                    }
+                case ComponentType.GPU:
+                    {
+                        //GPU = obj as gpu;
+                        break;
+                    }
+                case ComponentType.Motherboard:
+                    {
+                        //Motherboard = obj as motherboard;
+                        break;
+                    }
+                case ComponentType.ProcessorCooler:
+                    {
+                        //Processorcooler = obj as processorcooler;
+                        break;
+                    }
+                case ComponentType.Case:
+                    {
+                        //Case = obj as @case;
+                        break;
+                    }
+                case ComponentType.PowerSupply:
+                    {
+                        //Powersupply = obj as powersupply;
+                        break;
+                    }
+                case ComponentType.RAM:
+                    {
+                        //RAM = obj as ram;
+                        break;
+                    }
+                case ComponentType.Storage:
+                    {
+                        //Storage = obj as storagedevice;
+                        break;
+                    }
+            }
+        }
 
 
         public void DeleteComponent(ComponentType type)
@@ -236,7 +305,11 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
+
+
+
         private ObservableCollection<cpu> _cpuList;
+        private List<cpu> _cpuAllList;
         public ObservableCollection<cpu> CpuList
         {
             get { return _cpuList; }
@@ -248,6 +321,7 @@ namespace _3ISIP223_PogosyanWPF
         }
 
         private ObservableCollection<motherboard> _motherboardList;
+        private List<motherboard> _motherboardAllList;
         public ObservableCollection<motherboard> MotherboardList
         {
             get { return _motherboardList; }
@@ -259,6 +333,7 @@ namespace _3ISIP223_PogosyanWPF
         }
 
         private ObservableCollection<@case> _caseList;
+        private List<@case> _caseAllList;
         public ObservableCollection<@case> CaseList
         {
             get { return _caseList; }
@@ -270,6 +345,7 @@ namespace _3ISIP223_PogosyanWPF
         }
 
         private ObservableCollection<gpu> _gpuList;
+        private List<gpu> _gpuAllList;
         public ObservableCollection<gpu> GpuList
         {
             get { return _gpuList; }
@@ -281,6 +357,7 @@ namespace _3ISIP223_PogosyanWPF
         }
 
         private ObservableCollection<ram> _ramList;
+        private List<ram> _ramAllList;
         public ObservableCollection<ram> RamList
         {
             get { return _ramList; }
@@ -292,6 +369,7 @@ namespace _3ISIP223_PogosyanWPF
         }
 
         private ObservableCollection<powersupply> _powersupplyList;
+        private List<powersupply> _powersupplyAllList;
         public ObservableCollection<powersupply> PowersupplyList
         {
             get { return _powersupplyList; }
@@ -303,6 +381,7 @@ namespace _3ISIP223_PogosyanWPF
         }
 
         private ObservableCollection<processorcooler> _processorcoolerList;
+        private List<processorcooler> _processorcoolerAllList;
         public ObservableCollection<processorcooler> ProcessorcoolerList
         {
             get { return _processorcoolerList; }
@@ -314,6 +393,7 @@ namespace _3ISIP223_PogosyanWPF
         }
 
         private ObservableCollection<storagedevice> _storageList;
+        private List<storagedevice> _storageAllList;
         public ObservableCollection<storagedevice> StorageList
         {
             get { return _storageList; }
