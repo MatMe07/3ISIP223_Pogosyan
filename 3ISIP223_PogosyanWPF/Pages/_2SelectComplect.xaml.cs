@@ -111,5 +111,10 @@ namespace _3ISIP223_PogosyanWPF.Pages
             //}
             CloseClick_Click(sender, e);
         }
+
+        private void listComp_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            listComp.SelectedIndex = -1;
+        }
     }
 }

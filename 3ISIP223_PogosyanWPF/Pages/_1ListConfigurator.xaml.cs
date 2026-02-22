@@ -54,6 +54,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
             btnAddRAM.Tag = ComponentType.RAM;
             panelRAM.Tag = ComponentType.RAM;
+
         }
 
         private void WithDB_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -74,8 +75,9 @@ namespace _3ISIP223_PogosyanWPF.Pages
                             panAddCPU.Visibility = Visibility.Visible;
                             panelCPU.Visibility = Visibility.Collapsed;
 
+
                         }
-                            break;
+                        break;
                     }
                 case nameof(MarWorkWith.withDB.GPU):
                     {
@@ -84,6 +86,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                         {
                             panAddVideoCart.Visibility = Visibility.Collapsed;
                             panelVideoCart.Visibility = Visibility.Visible;
+
                         }
                         else
                         {
@@ -91,7 +94,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                             panelVideoCart.Visibility = Visibility.Collapsed;
 
                         }
-                            break;
+                        break;
                     }
                 case nameof(MarWorkWith.withDB.Motherboard):
                     {
@@ -100,6 +103,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                         {
                             panAddMother.Visibility = Visibility.Collapsed;
                             panelMother.Visibility = Visibility.Visible;
+
                         }
                         else
                         {
@@ -107,7 +111,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                             panelMother.Visibility = Visibility.Collapsed;
 
                         }
-                            break;
+                        break;
                     }
                 case nameof(MarWorkWith.withDB.RAM):
                     {
@@ -190,6 +194,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                             break;
                     }
             }
+            //progreses.upda
         }
 
         private void btnADD_Click(object sender, RoutedEventArgs e)

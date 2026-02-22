@@ -27,8 +27,12 @@ namespace _3ISIP223_PogosyanWPF
             manufacturers = Core.Context.manufacturers.Select(s=>s.name).ToList();
             manufacturers.Insert(0, "Все");
             //manufacturers[0].name
+            CountConfig = 0;
+            OnPropertyChanged(nameof(CountConfig));
 
         }
+        public int CountConfig { get; set; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -43,6 +47,8 @@ namespace _3ISIP223_PogosyanWPF
             get { return _cpu; }
             set
             {
+                CountConfig += value == null ? -1 : (_cpu != null ? 0 : 1);
+                OnPropertyChanged(nameof(CountConfig));
                 _cpu = value;
                 OnPropertyChanged(nameof(Cpu));
                 
@@ -54,9 +60,11 @@ namespace _3ISIP223_PogosyanWPF
             get { return _motherboard; }
             set
             {
+                CountConfig += value == null ? -1 : (_motherboard != null ? 0 : 1);
+                OnPropertyChanged(nameof(CountConfig));
                 _motherboard = value;
                 OnPropertyChanged(nameof(Motherboard));
-                
+
             }
         }
         private @case _case;
@@ -65,9 +73,10 @@ namespace _3ISIP223_PogosyanWPF
             get { return _case; }
             set
             {
+                CountConfig += value == null ? -1 : (_case != null ? 0 : 1);
+                OnPropertyChanged(nameof(CountConfig));
                 _case = value;
                 OnPropertyChanged(nameof(Case));
-                
             }
         }
         private gpu _gpu;
@@ -76,9 +85,10 @@ namespace _3ISIP223_PogosyanWPF
             get { return _gpu; }
             set
             {
+                CountConfig += value == null ? -1 : (_gpu != null ? 0 : 1);
+                OnPropertyChanged(nameof(CountConfig));
                 _gpu = value;
                 OnPropertyChanged(nameof(GPU));
-                
             }
         }
         private ram _ram;
@@ -87,9 +97,10 @@ namespace _3ISIP223_PogosyanWPF
             get { return _ram; }
             set
             {
+                CountConfig += value == null ? -1 : (_ram != null ? 0 : 1);
+                OnPropertyChanged(nameof(CountConfig));
                 _ram = value;
                 OnPropertyChanged(nameof(RAM));
-                
             }
         }
         private powersupply _powersupply;
@@ -98,9 +109,10 @@ namespace _3ISIP223_PogosyanWPF
             get { return _powersupply; }
             set
             {
+                CountConfig += value == null ? -1 : (_powersupply != null ? 0 : 1);
+                OnPropertyChanged(nameof(CountConfig));
                 _powersupply = value;
                 OnPropertyChanged(nameof(Powersupply));
-                
             }
         }
         private processorcooler _processorcooler;
@@ -109,9 +121,10 @@ namespace _3ISIP223_PogosyanWPF
             get { return _processorcooler; }
             set
             {
+                CountConfig += value == null ? -1 : (_processorcooler != null ? 0 : 1);
+                OnPropertyChanged(nameof(CountConfig));
                 _processorcooler = value;
                 OnPropertyChanged(nameof(Processorcooler));
-                
             }
         }
         private storagedevice _storagedevice;
@@ -120,9 +133,10 @@ namespace _3ISIP223_PogosyanWPF
             get { return _storagedevice; }
             set
             {
+                CountConfig += value == null ? -1 : (_storagedevice != null ? 0 : 1);
+                OnPropertyChanged(nameof(CountConfig));
                 _storagedevice = value;
                 OnPropertyChanged(nameof(Storage));
-                
             }
         }
 

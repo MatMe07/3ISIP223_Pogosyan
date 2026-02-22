@@ -12,7 +12,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             get
             {
-                return $"{capacity * count}GB ({count}x{capacity}GB), {memorytype.name}-{ghz}, {timings} {basepart.price}";
+                return $"{capacity * count}GB ({count}x{capacity}GB), {memorytype.name}-{ghz}, {timings}";
             }
         }
 

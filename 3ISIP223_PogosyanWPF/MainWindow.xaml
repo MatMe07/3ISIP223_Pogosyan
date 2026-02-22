@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF"
+        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" MinWidth="500" MinHeight="250" Background="#F6F6F6">
     <Grid>
@@ -36,11 +37,12 @@
 
             <!--<StackPanel Background="#F1F1F1" Grid.Row="1" Grid.Column="0" Height="1" Margin="10"/>-->
             <Border Grid.Row="2" Grid.Column="0" CornerRadius="15" Background="White" Padding="0 12">
-                <ScrollViewer  >
+                <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True" >
                 
                     <Frame x:Name="frameMain" Margin="10 0" />
             
                 </ScrollViewer>
+
                 
             </Border>
 
@@ -66,8 +68,10 @@
 
                     <Border Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Gray" CornerRadius="5" Height="35">
                         <Button Content="Сохранить" FontSize="16" BorderThickness="0" Background="Transparent"/>
-                        
+
                     </Border>
+                    
+                    
                 </Grid>
             </Border>
             

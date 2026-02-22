@@ -38,15 +38,15 @@
         <StackPanel Background="#F1F1F1" Grid.Row="1" Grid.ColumnSpan="2" Height="1" Margin="10"/>
 
 
-        <WrapPanel Grid.Row="2" Grid.RowSpan="3" Grid.Column="0">
+        <StackPanel Grid.Row="2" Grid.RowSpan="3" Grid.Column="0">
 
             <TextBlock Text="Фильтры" FontSize="15" FontWeight="Medium"/>
             <StackPanel Margin="0 10">
                 <TextBlock Text="Производитель" FontSize="15" Margin="0 5" />
-                <ComboBox x:Name="comboProizvod" Width="140" HorizontalAlignment="Left" FontSize="15" />
+                <ComboBox x:Name="comboProizvod" IsEditable="True" Width="140" HorizontalAlignment="Left" FontSize="15" />
             </StackPanel>
 
-        </WrapPanel>
+        </StackPanel>
 
 
         <Border Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="Gray" Background="Transparent" CornerRadius="3" Margin="5" Height="30">
@@ -55,7 +55,7 @@
 
         </Border>
 
-        <ListBox x:Name="listComp" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="3" Grid.Column="1" Margin="5 10" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListBox x:Name="listComp" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="3" Grid.Column="1" Margin="5 10" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="listComp_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel Orientation="Horizontal">
@@ -88,6 +88,7 @@
                     <WrapPanel/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
+
 
         </ListBox>
 
