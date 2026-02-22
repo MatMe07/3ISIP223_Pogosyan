@@ -37,7 +37,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             get
             {
-                return $"{Name} {basepart.manufacturer.name} {basepart.name}";
+                return $"{Name} {basepart.manufacturer.name}";
             }
         }
     }

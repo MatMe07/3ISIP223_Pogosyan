@@ -29,7 +29,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             get
             {
-                return $"Материнская плата {basepart.manufacturer.name} {basepart.name}";
+                return $"Материнская плата {basepart.manufacturer.name}";
             }
         }
     }

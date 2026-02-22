@@ -31,7 +31,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             get
             {
-                return $"Кулер {basepart.manufacturer.name} {basepart.name}";
+                return $"Кулер {basepart.manufacturer.name}";
             }
         }
     }

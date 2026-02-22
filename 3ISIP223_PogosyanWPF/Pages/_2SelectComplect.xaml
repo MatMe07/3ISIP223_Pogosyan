@@ -50,12 +50,12 @@
 
 
         <Border Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="Gray" Background="Transparent" CornerRadius="3" Margin="5" Height="30">
-            <TextBox x:Name="txtBoxSearch" FontSize="16" BorderThickness="0" Margin="4 0" Height="30"/>
+            <TextBox x:Name="txtBoxSearch" FontSize="16" BorderThickness="0" Margin="4 0" Height="30" TextChanged="txtBoxSearch_TextChanged"/>
 
 
         </Border>
 
-        <ListBox x:Name="listComp" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="3" Grid.Column="1" Margin="5 10" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="listComp_SelectionChanged">
+        <ListBox x:Name="listComp" ItemsSource="{Binding CurrentList}" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="3" Grid.Column="1" Margin="5 10" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="listComp_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel Orientation="Horizontal">

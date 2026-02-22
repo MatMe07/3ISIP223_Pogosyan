@@ -48,49 +48,49 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 case ComponentType.CPU:
                     {
 
-                        listComp.ItemsSource = MarWorkWith.withDB.CpuList;
+                        MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.CpuList;
                         break;
                     }
                 case ComponentType.GPU:
                     {
 
-                        listComp.ItemsSource = MarWorkWith.withDB.GpuList;
+                        MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.GpuList;
                         break;
                     }
                 case ComponentType.RAM:
                     {
 
-                        listComp.ItemsSource = MarWorkWith.withDB.RamList;
+                        MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.RamList;
                         break;
                     }
                 case ComponentType.Storage:
                     {
 
-                        listComp.ItemsSource = MarWorkWith.withDB.StorageList;
+                        MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.StorageList;
                         break;
                     }
                 case ComponentType.Case:
                     {
 
-                        listComp.ItemsSource = MarWorkWith.withDB.CaseList;
+                        MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.CaseList;
                         break;
                     }
                 case ComponentType.Motherboard:
                     {
 
-                        listComp.ItemsSource = MarWorkWith.withDB.MotherboardList;
+                        MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.MotherboardList;
                         break;
                     }
                 case ComponentType.PowerSupply:
                     {
 
-                        listComp.ItemsSource = MarWorkWith.withDB.PowersupplyList;
+                        MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.PowersupplyList;
                         break;
                     }
                 case ComponentType.ProcessorCooler:
                     {
 
-                        listComp.ItemsSource = MarWorkWith.withDB.ProcessorcoolerList;
+                        MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.ProcessorcoolerList;
                         break;
                     }
             }
@@ -120,6 +120,12 @@ namespace _3ISIP223_PogosyanWPF.Pages
         private void comboProizvod_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             MarWorkWith.withDB.SearchFilterComponent(type, txtBoxSearch.Text, comboProizvod.SelectedItem.ToString());
+        }
+
+        private void txtBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            MarWorkWith.withDB.SearchFilterComponent(type, txtBoxSearch.Text, comboProizvod.SelectedItem.ToString());
+
         }
     }
 }

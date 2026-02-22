@@ -28,7 +28,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             get
             {
-                return $"Оперативная память {basepart.manufacturer.name} {basepart.name}";
+                return $"Оперативная память {basepart.manufacturer.name}";
             }
         }
     }
