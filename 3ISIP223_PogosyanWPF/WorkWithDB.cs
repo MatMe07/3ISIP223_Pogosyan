@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace _3ISIP223_PogosyanWPF
@@ -35,6 +36,7 @@ namespace _3ISIP223_PogosyanWPF
             //OnPropertyChanged(nameof(CountConfig));
             //SumConfig = 0M;
             //OnPropertyChanged(nameof(SumConfig));
+            IsAllGood = true;
 
         }
         public int CountConfig
@@ -54,7 +56,24 @@ namespace _3ISIP223_PogosyanWPF
             }
             set { }
         }
+        private int countSovmest = 0;
 
+        private bool _isAllGood;
+        public bool IsAllGood
+        {
+            get { return _isAllGood; }
+            set
+            {
+                _isAllGood = value;
+                //OnPropertyChanged(nameof(IsAllGood));
+                OnPropertyChanged(nameof(IsAllGoodBrush));
+            }
+        }
+
+        public Brush IsAllGoodBrush
+        {
+            get { return IsAllGood ? (Brush)(new BrushConverter().ConvertFrom("#41d172")) : (Brush)(new BrushConverter().ConvertFrom("#ff5c52")); }
+        }
 
         public string IsSovmest(Object obj, ComponentType type)
         {
@@ -73,9 +92,12 @@ namespace _3ISIP223_PogosyanWPF
                         }
                         if( Processorcooler != null && !Processorcooler.SovmestSocket((obj as cpu).socketid))
                         {
+                            //_isAllGood = false;
+
                             result = $"Процессор не совместим с кулером\nСокет процессора: {(obj as cpu).socket.name}\nПоддерживаемые сокеты кулера: {Processorcooler.SocketDisp}";
                             return result;
                         }
+                        countSovmest++;
                         break;
                     }
 
@@ -96,6 +118,8 @@ namespace _3ISIP223_PogosyanWPF
                             result = $"Кулер не поддерживает сокет процессора/материнской платы\nСокет: {Cpu.socket.name}\nПоддерживаемые сокеты кулера: {(obj as processorcooler).SocketDisp}";
                             return result;
                         }
+                        countSovmest++;
+
                         break;
                     }
 
@@ -133,8 +157,9 @@ namespace _3ISIP223_PogosyanWPF
                                 $"\nТип памяти платы: {(obj as motherboard).memorytype.name}\nТип памяти RAM: {RAM.memorytype.name}";
                             return result;
                         }
+                        countSovmest++;
 
-                            break;
+                        break;
                     }
 
                 case ComponentType.Case:
@@ -148,6 +173,8 @@ namespace _3ISIP223_PogosyanWPF
                                 $"\nФорм-фактор платы: {Motherboard.formfactor.name}\nПоддерживаемые форм-факторы корпуса: {(obj as @case).SupFormFactor}";
                             return result;
                         }
+                        countSovmest++;
+
                         break;
                     }
 
@@ -163,6 +190,8 @@ namespace _3ISIP223_PogosyanWPF
                                 $"\nТип памяти платы: {Motherboard.memorytype.name}\nТип памяти RAM: {(obj as ram).memorytype.name}";
                             return result;
                         }
+                        countSovmest++;
+
                         break;
                     }
 
@@ -178,6 +207,7 @@ namespace _3ISIP223_PogosyanWPF
                                 $"\nРекомендуемая мощность для видеокарты: {GPU.recommendpower} W\nМощность блока питания: {(obj as powersupply).power} W";
                             return result;  
                         }
+                        countSovmest++;
 
                         break;
                     }
@@ -191,6 +221,8 @@ namespace _3ISIP223_PogosyanWPF
                                 $"\nРекомендуемая мощность для видеокарты: {(obj as gpu).recommendpower} W\nМощность блока питания: {Powersupply.power} W";
                             return result;
                         }
+                        countSovmest++;
+
                         break;
                     }
 
