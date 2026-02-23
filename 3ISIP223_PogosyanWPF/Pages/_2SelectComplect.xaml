@@ -5,8 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="400" d:DesignWidth="703"
-      Title="_2SelectComplect" Background="White" Loaded="Page_Loaded">
+      d:DesignHeight="400"
+      d:DesignWidth ="900"
+      Title="_2SelectComplect" Background="White" Loaded="Page_Loaded" >
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -55,39 +56,40 @@
 
         </Border>
 
-        <ListBox x:Name="listComp" ItemsSource="{Binding CurrentList}" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="3" Grid.Column="1" Margin="5 10" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="listComp_SelectionChanged">
+        <ListBox x:Name="listComp" ItemsSource="{Binding CurrentList}" BorderThickness="0" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="3" Grid.Column="1" Margin="5 10" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="listComp_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <WrapPanel Orientation="Horizontal">
-                        <Image Source="{Binding basepart.image}" Width="80" Height="80" Margin="5"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="{Binding basepart.image}" Width="80" Height="80" Margin="5"/>
                         <!--<Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>-->
 
-                        <TextBlock Grid.Column="0" Margin="5 5" Text="{Binding FullDescription}" Width="300" TextWrapping="Wrap"/>
+                        <TextBlock Grid.Column="1" Margin="5 5" Text="{Binding FullDescription}" TextWrapping="Wrap"/>
 
-                            <StackPanel Grid.Column="1">
-                                <TextBlock Text="{Binding basepart.price, StringFormat='\{0:F2} ₽'}" FontSize="15" FontWeight="Medium" HorizontalAlignment="Right" Margin="0 5"/>
-                                <Border HorizontalAlignment="Right" BorderBrush="Gray" CornerRadius="3" BorderThickness="1">
-                                    <Button Content="Добавить" FontSize="13" Padding="3" Background="Transparent" BorderBrush="Transparent" Click="btnAdd_Click"/>
-                                </Border>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="{Binding basepart.price, StringFormat='\{0:F2} ₽'}" FontSize="15" FontWeight="Medium" HorizontalAlignment="Right" Margin="0 5"/>
+                            <Border HorizontalAlignment="Right" BorderBrush="Gray" CornerRadius="3" BorderThickness="1">
+                                <Button Content="Добавить" FontSize="13" Padding="3" Background="Transparent" BorderBrush="Transparent" Click="btnAdd_Click"/>
+                            </Border>
 
-                            </StackPanel>
+                        </StackPanel>
                         <!--</Grid>-->
-                        <StackPanel Background="#F1F1F1" Height="1" Width="471"/>
+                        <StackPanel Background="#F1F1F1" Height="1" />
 
-                    </WrapPanel>
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
 
 
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
+
 
 
         </ListBox>

@@ -69,34 +69,38 @@
                     </Style>
                 </Button.Style>
             </Button>-->
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Обязательные комплектующие" FontSize="13" FontWeight="Medium" />
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Обязательные комплектующие" TextWrapping="WrapWithOverflow" FontSize="13" FontWeight="Medium" />
             <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
                 <Border x:Name="IsRight" Visibility="Collapsed" BorderThickness="1" CornerRadius="5" Width="8" Height="8" Background="#41d172" Margin="0 0 4 0" VerticalAlignment="Center" />
-                <TextBlock Text="{Binding CountConfig, StringFormat='\{0}/8'}" FontSize="13" FontWeight="Light" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding CountConfig, StringFormat='\{0}/7'}" FontSize="13" FontWeight="Light" VerticalAlignment="Center"/>
                 
             </StackPanel>
-            <ProgressBar  x:Name="progreses" Grid.Row="1" Grid.ColumnSpan="3" Value="{Binding CountConfig}" Minimum="0" Maximum="8" Height="5" Background="#F1F1F1" BorderThickness="0"  Margin="0 10 0 0" ValueChanged="progreses_ValueChanged"/>
+            <ProgressBar  x:Name="progreses" Grid.Row="1" Grid.ColumnSpan="3" Value="{Binding CountConfig}" Minimum="0" Maximum="7" Height="5" Background="#F1F1F1" BorderThickness="0" Margin="0 10 0 0"  ValueChanged="progreses_ValueChanged"/>
 
         </Grid>
 
 
-        <Border x:Name="panAddCPU" Grid.Row="1" Visibility="Visible" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+        <Border x:Name="panAddCPU" Grid.Row="1" Visibility="Visible" Padding="10" Margin="0 10 0 0" BorderThickness="0 1 0 0" BorderBrush="#F1F1F1">
                 <!--<WrapPanel>-->
                 <Grid >
                     <Grid.ColumnDefinitions >
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
+                    <TextBlock Text="Обязательно" Grid.Column="1" VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Right" Foreground="#afafc1" Margin="0 0 10 0"/>
 
                     <TextBlock Text="Процессор" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
-                    <Border Grid.Column="1" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
-                        <Button x:Name="btnAddCpu" Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
-                    </Border>
+
+
+                    <Border Grid.Column="2" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5" VerticalAlignment="Center">
+                            <Button x:Name="btnAddCpu" Content="Добавить" Padding="7" FontSize="14"  BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
+                     </Border>
 
                 </Grid>
                 <!--</WrapPanel>-->
             </Border>
-            <Border  x:Name="panelCPU" Grid.Row="1" Visibility="Collapsed" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+        <Border  x:Name="panelCPU" Grid.Row="1" Visibility="Collapsed" Padding="10" Margin="0 10 0 0"  BorderThickness="0 1 0 0" BorderBrush="#F1F1F1">
                 <!--<WrapPanel>-->
                 <Grid >
                     <Grid.ColumnDefinitions >
@@ -133,23 +137,25 @@
             </Border>
 
 
-            <Border x:Name="panAddMother" Grid.Row="2" Visibility="Visible" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+            <Border x:Name="panAddMother" Grid.Row="2" Visibility="Visible" Padding="10"  BorderThickness="0 1 0 0" BorderBrush="#F1F1F1">
                 <!--<WrapPanel>-->
                 <Grid >
-                    <Grid.ColumnDefinitions >
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Обязательно" Grid.Column="1" VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Right" Foreground="#afafc1" Margin="0 0 10 0"/>
 
-                    <TextBlock Text="Материнская карта" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
-                    <Border Grid.Column="1" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
-                        <Button x:Name="btnAddMother" Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
+                <TextBlock Text="Материнская карта" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
+                    <Border Grid.Column="2" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+                    <Button x:Name="btnAddMother" Content="Добавить" Padding="7" FontSize="14" BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
                     </Border>
 
                 </Grid>
                 <!--</WrapPanel>-->
             </Border>
-            <Border  x:Name="panelMother" Grid.Row="2" Visibility="Collapsed" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+            <Border  x:Name="panelMother" Grid.Row="2" Visibility="Collapsed" Padding="10"  BorderThickness="0 1 0 0" BorderBrush="#F1F1F1">
                 <!--<WrapPanel>-->
                 <Grid >
                     <Grid.ColumnDefinitions >
@@ -185,23 +191,25 @@
                 <!--</WrapPanel>-->
             </Border>
 
-            <Border x:Name="panAddPitanie" Grid.Row="3" Visibility="Visible" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+            <Border x:Name="panAddPitanie" Grid.Row="3" Visibility="Visible" Padding="10"  BorderThickness="0 1 0 0" BorderBrush="#F1F1F1">
                 <!--<WrapPanel>-->
                 <Grid >
-                    <Grid.ColumnDefinitions >
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Обязательно" Grid.Column="1" VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Right" Foreground="#afafc1" Margin="0 0 10 0"/>
 
-                    <TextBlock Text="Блок питания" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
-                    <Border Grid.Column="1" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
-                        <Button x:Name="btnAddPitanie" Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
+                <TextBlock Text="Блок питания" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
+                    <Border Grid.Column="2" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+                    <Button x:Name="btnAddPitanie" Content="Добавить" Padding="7" FontSize="14" BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
                     </Border>
 
                 </Grid>
                 <!--</WrapPanel>-->
             </Border>
-            <Border  x:Name="panelPitanie" Grid.Row="3" Visibility="Collapsed" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+            <Border  x:Name="panelPitanie" Grid.Row="3" Visibility="Collapsed" Padding="10"  BorderThickness="0 1 0 0" BorderBrush="#F1F1F1">
                 <!--<WrapPanel>-->
                 <Grid >
                     <Grid.ColumnDefinitions >
@@ -238,23 +246,25 @@
             </Border>
 
 
-            <Border x:Name="panAddCorpus" Grid.Row="4" Visibility="Visible" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+            <Border x:Name="panAddCorpus" Grid.Row="4" Visibility="Visible" Padding="10"  BorderThickness="0 1 0 0" BorderBrush="#F1F1F1">
                 <!--<WrapPanel>-->
                 <Grid >
-                    <Grid.ColumnDefinitions >
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Обязательно" Grid.Column="1" VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Right" Foreground="#afafc1" Margin="0 0 10 0"/>
 
-                    <TextBlock Text="Корпус" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
-                    <Border Grid.Column="1" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
-                        <Button x:Name="btnAddCorpus" Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
+                <TextBlock Text="Корпус" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
+                    <Border Grid.Column="2" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+                    <Button x:Name="btnAddCorpus" Content="Добавить" Padding="7" FontSize="14" BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
                     </Border>
 
                 </Grid>
                 <!--</WrapPanel>-->
             </Border>
-            <Border  x:Name="panelCorpus" Grid.Row="4" Visibility="Collapsed" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+            <Border  x:Name="panelCorpus" Grid.Row="4" Visibility="Collapsed" Padding="10"  BorderThickness="0 1 0 0" BorderBrush="#F1F1F1">
                 <!--<WrapPanel>-->
                 <Grid >
                     <Grid.ColumnDefinitions >
@@ -290,7 +300,7 @@
                 <!--</WrapPanel>-->
             </Border>
 
-            <Border x:Name="panAddVideoCart" Grid.Row="5" Visibility="Visible" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+            <Border x:Name="panAddVideoCart" Grid.Row="5" Visibility="Visible" Padding="10"  BorderThickness="0 1 0 0" BorderBrush="#F1F1F1">
                 <!--<WrapPanel>-->
                 <Grid >
                     <Grid.ColumnDefinitions >
@@ -300,13 +310,13 @@
 
                     <TextBlock Text="Видеокарта" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
                     <Border Grid.Column="1" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
-                        <Button x:Name="btnAddVideoCart" Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
+                    <Button x:Name="btnAddVideoCart" Content="Добавить" Padding="7" FontSize="14" BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
                     </Border>
 
                 </Grid>
                 <!--</WrapPanel>-->
             </Border>
-            <Border  x:Name="panelVideoCart" Grid.Row="5" Visibility="Collapsed" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+            <Border  x:Name="panelVideoCart" Grid.Row="5" Visibility="Collapsed" Padding="10"  BorderThickness="0 1 0 0" BorderBrush="#F1F1F1">
                 <!--<WrapPanel>-->
                 <Grid >
                     <Grid.ColumnDefinitions >
@@ -342,23 +352,25 @@
                 <!--</WrapPanel>-->
             </Border>
 
-            <Border x:Name="panAddCuler" Grid.Row="6" Visibility="Visible" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+            <Border x:Name="panAddCuler" Grid.Row="6" Visibility="Visible" Padding="10"  BorderThickness="0 1 0 0" BorderBrush="#F1F1F1">
                 <!--<WrapPanel>-->
                 <Grid >
-                    <Grid.ColumnDefinitions >
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Обязательно" Grid.Column="1" VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Right" Foreground="#afafc1" Margin="0 0 10 0"/>
 
-                    <TextBlock Text="Кулер" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
-                    <Border Grid.Column="1" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
-                        <Button x:Name="btnAddCuler" Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
+                <TextBlock Text="Кулер" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
+                    <Border Grid.Column="2" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+                    <Button x:Name="btnAddCuler" Content="Добавить" Padding="7" FontSize="14" BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
                     </Border>
 
                 </Grid>
                 <!--</WrapPanel>-->
             </Border>
-            <Border  x:Name="panelCuler" Grid.Row="6" Visibility="Collapsed" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+            <Border  x:Name="panelCuler" Grid.Row="6" Visibility="Collapsed" Padding="10"  BorderThickness="0 1 0 0" BorderBrush="#F1F1F1">
                 <!--<WrapPanel>-->
                 <Grid >
                     <Grid.ColumnDefinitions >
@@ -395,23 +407,25 @@
             </Border>
 
 
-            <Border x:Name="panAddNakopitel" Grid.Row="7" Visibility="Visible" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+            <Border x:Name="panAddNakopitel" Grid.Row="7" Visibility="Visible" Padding="10"  BorderThickness="0 1 0 0" BorderBrush="#F1F1F1">
                 <!--<WrapPanel>-->
                 <Grid >
-                    <Grid.ColumnDefinitions >
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Обязательно" Grid.Column="1" VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Right" Foreground="#afafc1" Margin="0 0 10 0"/>
 
-                    <TextBlock Text="Накопитель" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
-                    <Border Grid.Column="1" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
-                        <Button x:Name="btnAddNakopitel" Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
+                <TextBlock Text="Накопитель" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
+                    <Border Grid.Column="2" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+                    <Button x:Name="btnAddNakopitel" Content="Добавить" Padding="7" FontSize="14" BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
                     </Border>
 
                 </Grid>
                 <!--</WrapPanel>-->
             </Border>
-            <Border  x:Name="panelNakopitel" Grid.Row="7" Visibility="Collapsed" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+            <Border  x:Name="panelNakopitel" Grid.Row="7" Visibility="Collapsed" Padding="10"  BorderThickness="0 1 0 0" BorderBrush="#F1F1F1">
                 <!--<WrapPanel>-->
                 <Grid >
                     <Grid.ColumnDefinitions >
@@ -448,23 +462,25 @@
             </Border>
 
 
-            <Border x:Name="panAddRAM" Grid.Row="8" Visibility="Visible" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+            <Border x:Name="panAddRAM" Grid.Row="8" Visibility="Visible" Padding="10"  BorderThickness="0 1 0 0" BorderBrush="#F1F1F1">
                 <!--<WrapPanel>-->
                 <Grid >
-                    <Grid.ColumnDefinitions >
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Обязательно" Grid.Column="1" VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Right" Foreground="#afafc1" Margin="0 0 10 0"/>
 
-                    <TextBlock Text="Оперативная память" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
-                    <Border Grid.Column="1" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
-                        <Button x:Name="btnAddRAM" Content="Добавить" Padding="7"  BorderThickness="0" Background="Transparent" Click="btnADD_Click"/>
+                <TextBlock Text="Оперативная память" Grid.Column="0" VerticalAlignment="Center" FontSize="14"/>
+                    <Border Grid.Column="2" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+                    <Button x:Name="btnAddRAM" Content="Добавить" Padding="7"  BorderThickness="0" FontSize="14" Background="Transparent" Click="btnADD_Click"/>
                     </Border>
 
                 </Grid>
                 <!--</WrapPanel>-->
             </Border>
-            <Border  x:Name="panelRAM" Grid.Row="8" Visibility="Collapsed" Padding="10" Margin="0 10" BorderThickness="1" BorderBrush="Gray" CornerRadius="5">
+            <Border  x:Name="panelRAM" Grid.Row="8" Visibility="Collapsed" Padding="10"  BorderThickness="0 1 0 0" BorderBrush="#F1F1F1">
                 <!--<WrapPanel>-->
                 <Grid >
                     <Grid.ColumnDefinitions >

@@ -8,12 +8,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" MinWidth="500" MinHeight="250" Background="#F6F6F6">
 
-    <ScrollViewer>
     <Grid>
         <!--<Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>-->
         
+        <ScrollViewer>
         <Grid Visibility="Visible" Margin="10" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
@@ -83,6 +83,8 @@
             
 
         </Grid>
+        </ScrollViewer>
+
 
         <Border x:Name="ZamazFon" Background="#33000000" Visibility="Collapsed"/>
 
@@ -92,6 +94,5 @@
 
 
     </Grid>
-    </ScrollViewer>
 
 </Window>
