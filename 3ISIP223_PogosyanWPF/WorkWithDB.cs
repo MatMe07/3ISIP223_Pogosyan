@@ -54,18 +54,155 @@ namespace _3ISIP223_PogosyanWPF
             }
             set { }
         }
-        public double _sumConfig
-        {
-            get
-            {
-                return Convert.ToDouble((Cpu?.basepart.price ?? 0) + (GPU?.basepart.price ?? 0) + (Motherboard?.basepart.price ?? 0) + (Case?.basepart.price ?? 0) + (Processorcooler?.basepart.price ?? 0) +
-                    (RAM?.basepart.price ?? 0) + (Powersupply?.basepart.price ?? 0) + (Storage?.basepart.price ?? 0));
-            }
 
+
+        public string IsSovmest(Object obj, ComponentType type)
+        {
+            string result = "";
+
+
+            switch (type)
+            {
+                //case ComponentType.Motherboard:
+                case ComponentType.CPU:
+                    {
+                        if( Motherboard!= null && (obj as cpu).socketid != Motherboard.socketid )
+                        {
+                            result = $"Процессор не совместим с материнской платой\nСокет процессора: {(obj as cpu).socket.name}\nСокет материнской платы: {Motherboard.socket.name}";
+                            return result;
+                        }
+                        if( Processorcooler != null && !Processorcooler.SovmestSocket((obj as cpu).socketid))
+                        {
+                            result = $"Процессор не совместим с кулером\nСокет процессора: {(obj as cpu).socket.name}\nПоддерживаемые сокеты кулера: {Processorcooler.SocketDisp}";
+                            return result;
+                        }
+                        break;
+                    }
+
+
+
+
+
+
+                case ComponentType.ProcessorCooler:
+                    {
+                        if ((Cpu!= null &&  
+                            !(obj as processorcooler).SovmestSocket(Cpu.socketid))
+                            || 
+                            (Motherboard!=null &&
+                            !(obj as processorcooler).SovmestSocket( Motherboard.socketid) )
+                            )
+                        {
+                            result = $"Кулер не поддерживает сокет процессора/материнской платы\nСокет: {Cpu.socket.name}\nПоддерживаемые сокеты кулера: {(obj as processorcooler).SocketDisp}";
+                            return result;
+                        }
+                        break;
+                    }
+
+
+
+
+                case ComponentType.Motherboard: {
+                        if (Cpu != null && Cpu.socketid != (obj as motherboard).socketid)
+                        {
+                            result = $"Процессор не совместим с материнской платой\nСокет процессора: {Cpu.socket.name}\nСокет материнской платы: {(obj as motherboard).socket.name}";
+                            return result;
+                        }
+                        else if (Processorcooler != null
+                                &&
+                                !Processorcooler.SovmestSocket((obj as motherboard).socketid))
+                        {
+                            result = $"Материнская плата не поддерживает сокет кулера\nСокет: {(obj as motherboard).socket.name}\nПоддерживаемые сокеты кулера: {Processorcooler.SocketDisp}";
+                            return result;
+                        }
+
+                        else if (Case != null
+                            &&
+                            !Case.SovmestFormFactor((obj as motherboard).formfactorid))
+                        {
+                            result = "Материнская плата не помещается в выбранный корпус" +
+                                $"\nФорм-фактор платы: {(obj as motherboard).formfactor.name}\nПоддерживаемые форм-факторы корпуса: {Case.SupFormFactor}";
+                            return result;
+                        }
+                        else if (RAM != null
+                            &&
+                            (obj as motherboard).memorytypeid != RAM.memorytypeid
+                            )
+                        {
+                            result = "Оперативная память не совместима с материнской платой" +
+                                $"\nТип памяти платы: {(obj as motherboard).memorytype.name}\nТип памяти RAM: {RAM.memorytype.name}";
+                            return result;
+                        }
+
+                            break;
+                    }
+
+                case ComponentType.Case:
+                    {
+                        if (Motherboard != null
+                            &&
+                            !(obj as @case).SovmestFormFactor(Motherboard.formfactorid)
+                            )
+                        {
+                            result = "Материнская плата не помещается в выбранный корпус" +
+                                $"\nФорм-фактор платы: {Motherboard.formfactor.name}\nПоддерживаемые форм-факторы корпуса: {(obj as @case).SupFormFactor}";
+                            return result;
+                        }
+                        break;
+                    }
+
+
+                case ComponentType.RAM:
+                    {
+                        if(Motherboard!= null
+                            &&
+                            Motherboard.memorytypeid != (obj as ram).memorytypeid
+                            )
+                        {
+                            result = "Оперативная память не совместима с материнской платой" +
+                                $"\nТип памяти платы: {Motherboard.memorytype.name}\nТип памяти RAM: {(obj as ram).memorytype.name}";
+                            return result;
+                        }
+                        break;
+                    }
+
+
+
+                case ComponentType.PowerSupply:
+                    {
+                        if (GPU!= null &&
+                            (obj as powersupply).power < GPU.recommendpower
+                            )
+                        {
+                            result = "Блок питания недостаточной мощности" +
+                                $"\nРекомендуемая мощность для видеокарты: {GPU.recommendpower} W\nМощность блока питания: {(obj as powersupply).power} W";
+                            return result;  
+                        }
+
+                        break;
+                    }
+                case ComponentType.GPU: {
+
+                        if (Powersupply != null &&
+    Powersupply.power < (obj as gpu).recommendpower
+    )
+                        {
+                            result = "Блок питания недостаточной мощности" +
+                                $"\nРекомендуемая мощность для видеокарты: {(obj as gpu).recommendpower} W\nМощность блока питания: {Powersupply.power} W";
+                            return result;
+                        }
+                        break;
+                    }
+
+            }
+            return "";
         }
+
+
         public double SumConfig
         {
-            get=>_sumConfig; 
+            get=> Convert.ToDouble((Cpu?.basepart.price ?? 0) + (GPU?.basepart.price ?? 0) + (Motherboard?.basepart.price ?? 0) + (Case?.basepart.price ?? 0) + (Processorcooler?.basepart.price ?? 0) +
+                    (RAM?.basepart.price ?? 0) + (Powersupply?.basepart.price ?? 0) + (Storage?.basepart.price ?? 0));
             set { }
         }
 

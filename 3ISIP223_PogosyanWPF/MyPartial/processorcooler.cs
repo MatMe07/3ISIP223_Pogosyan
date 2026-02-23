@@ -8,8 +8,9 @@ namespace _3ISIP223_PogosyanWPF
 {
     partial class processorcooler
     {
-        public string SocketDisp => string.Join(", ", socketprocessorcoolers.Select(s=>s.socket.name));
+        public string SocketDisp => string.Join("/", socketprocessorcoolers.Select(s=>s.socket.name));
 
+        public bool SovmestSocket(int id) => socketprocessorcoolers.FirstOrDefault(s => s.socketid == id) != null ;
         public string Description
         {
             get

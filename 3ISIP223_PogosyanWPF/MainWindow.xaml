@@ -111,7 +111,7 @@
 
         <Border x:Name="ZamazFon" Background="#33000000" Visibility="Collapsed"/>
 
-        <Border x:Name="SelectPanel" Margin="30 5" BorderThickness="1" BorderBrush="Gray" CornerRadius="10" Visibility="Collapsed" Background="#F6F6F6">
+        <Border x:Name="SelectPanel" Margin="30 0" BorderThickness="1" BorderBrush="Gray" CornerRadius="10" Visibility="Collapsed" Background="#F6F6F6">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>

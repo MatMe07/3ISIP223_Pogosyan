@@ -9,6 +9,8 @@ namespace _3ISIP223_PogosyanWPF
     partial class @case
     {
         public string SupFormFactor => string.Join("/", boardformfactorcases.Select(s=> s.formfactor.name).ToList());
+
+        public bool SovmestFormFactor(int id) => boardformfactorcases.FirstOrDefault(s => s.formfactorid == id) != null;
         public string Description
         {
             get

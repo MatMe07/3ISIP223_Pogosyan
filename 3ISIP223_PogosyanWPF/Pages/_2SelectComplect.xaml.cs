@@ -101,8 +101,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-           Button button = (Button)sender;
-           MarWorkWith.withDB.SelectComponent(button.DataContext, type);
+
 
             //switch (type)
             //{
@@ -113,6 +112,14 @@ namespace _3ISIP223_PogosyanWPF.Pages
             //        }
             //}
             //CloseClick_Click(sender, e);
+            Button button = (Button)sender;
+            string res = MarWorkWith.withDB.IsSovmest(button.DataContext, type);
+            if(res != "")
+            {
+                var resultMes = MessageBox.Show(res+"\n\nХотите изменить?","Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (resultMes == MessageBoxResult.Yes) return;
+            }
+            MarWorkWith.withDB.SelectComponent(button.DataContext, type);
             frameZamaz(Visibility.Collapsed, ComponentType.NONE);
 
         }
