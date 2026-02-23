@@ -114,7 +114,7 @@
                         <TextBlock Text="{Binding Cpu.FullName}"  TextWrapping="WrapWithOverflow" FontSize="14"/>
                         <TextBlock Text="{Binding Cpu.Description}" Foreground="Gray" FontSize="12" TextWrapping="WrapWithOverflow"/>
                     </StackPanel>
-                    <TextBlock Grid.Column="2" Text="{Binding Cpu.basepart.price, StringFormat='\{0:F2} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
+                    <TextBlock Grid.Column="2" Text="{Binding Cpu.basepart.price, StringFormat='\{0:F1} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
 
 
                 <WrapPanel Grid.Column="3" VerticalAlignment="Center">
@@ -169,7 +169,7 @@
                         <TextBlock Text="{Binding Motherboard.FullName}" TextWrapping="WrapWithOverflow" FontSize="14"/>
                         <TextBlock Text="{Binding Motherboard.Description}" Foreground="Gray" FontSize="12" TextWrapping="WrapWithOverflow"/>
                     </StackPanel>
-                    <TextBlock Grid.Column="2" Text="{Binding Motherboard.basepart.price, StringFormat='\{0:F2} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
+                    <TextBlock Grid.Column="2" Text="{Binding Motherboard.basepart.price, StringFormat='\{0:F1} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
 
 
                     <WrapPanel Grid.Column="3" VerticalAlignment="Center">
@@ -223,7 +223,7 @@
                         <TextBlock Text="{Binding Powersupply.FullName}" TextWrapping="WrapWithOverflow" FontSize="14"/>
                         <TextBlock Text="{Binding Powersupply.Description}" Foreground="Gray" FontSize="12" TextWrapping="WrapWithOverflow"/>
                     </StackPanel>
-                    <TextBlock Grid.Column="2" Text="{Binding Powersupply.basepart.price, StringFormat='\{0:F2} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
+                    <TextBlock Grid.Column="2" Text="{Binding Powersupply.basepart.price, StringFormat='\{0:F1} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
 
 
                     <WrapPanel Grid.Column="3" VerticalAlignment="Center">
@@ -278,7 +278,7 @@
                         <TextBlock Text="{Binding Case.FullName}" TextWrapping="WrapWithOverflow" FontSize="14"/>
                         <TextBlock Text="{Binding Case.Description}" Foreground="Gray" FontSize="12" TextWrapping="WrapWithOverflow"/>
                     </StackPanel>
-                    <TextBlock Grid.Column="2" Text="{Binding Case.basepart.price, StringFormat='\{0:F2} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
+                    <TextBlock Grid.Column="2" Text="{Binding Case.basepart.price, StringFormat='\{0:F1} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
 
 
                     <WrapPanel Grid.Column="3" VerticalAlignment="Center">
@@ -330,7 +330,7 @@
                         <TextBlock Text="{Binding GPU.FullName}" TextWrapping="WrapWithOverflow" FontSize="14"/>
                         <TextBlock Text="{Binding GPU.Description}" Foreground="Gray" FontSize="12" TextWrapping="WrapWithOverflow"/>
                     </StackPanel>
-                    <TextBlock Grid.Column="2" Text="{Binding GPU.basepart.price, StringFormat='\{0:F2} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
+                    <TextBlock Grid.Column="2" Text="{Binding GPU.basepart.price, StringFormat='\{0:F1} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
 
 
                     <WrapPanel Grid.Column="3" VerticalAlignment="Center">
@@ -384,7 +384,7 @@
                         <TextBlock Text="{Binding Processorcooler.FullName}" TextWrapping="WrapWithOverflow" FontSize="14"/>
                         <TextBlock Text="{Binding Processorcooler.Description}" Foreground="Gray" FontSize="12" TextWrapping="WrapWithOverflow"/>
                     </StackPanel>
-                    <TextBlock Grid.Column="2" Text="{Binding Processorcooler.basepart.price, StringFormat='\{0:F2} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
+                    <TextBlock Grid.Column="2" Text="{Binding Processorcooler.basepart.price, StringFormat='\{0:F1} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
 
 
                     <WrapPanel Grid.Column="3" VerticalAlignment="Center">
@@ -439,7 +439,7 @@
                         <TextBlock Text="{Binding Storage.FullName}" TextWrapping="WrapWithOverflow" FontSize="14"/>
                         <TextBlock Text="{Binding Storage.Description}" Foreground="Gray" FontSize="12" TextWrapping="WrapWithOverflow"/>
                     </StackPanel>
-                    <TextBlock Grid.Column="2" Text="{Binding Storage.basepart.price, StringFormat='\{0:F2} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
+                    <TextBlock Grid.Column="2" Text="{Binding Storage.basepart.price, StringFormat='\{0:F1} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
 
 
                     <WrapPanel Grid.Column="3" VerticalAlignment="Center">
@@ -494,7 +494,7 @@
                         <TextBlock Text="{Binding RAM.FullName}" TextWrapping="WrapWithOverflow" FontSize="14"/>
                         <TextBlock Text="{Binding RAM.Description}" Foreground="Gray" FontSize="12" TextWrapping="WrapWithOverflow"/>
                     </StackPanel>
-                    <TextBlock Grid.Column="2" Text="{Binding RAM.basepart.price, StringFormat='\{0:F2} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
+                    <TextBlock Grid.Column="2" Text="{Binding RAM.basepart.price, StringFormat='\{0:F1} ₽'}" FontSize="14" VerticalAlignment="Center" Margin="20 0"/>
 
 
                     <WrapPanel Grid.Column="3" VerticalAlignment="Center">

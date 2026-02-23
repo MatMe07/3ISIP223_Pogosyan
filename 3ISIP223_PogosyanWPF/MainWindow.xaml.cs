@@ -37,6 +37,12 @@ namespace _3ISIP223_PogosyanWPF
 
         }
 
+        private void CloseClick_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeDisplay(Visibility.Collapsed, ComponentType.NONE);
+
+        }
+
         private void btnClearConfig_Click(object sender, RoutedEventArgs e)
         {
             MarWorkWith.withDB.ClearKonfig();
