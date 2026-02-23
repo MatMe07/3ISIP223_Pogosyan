@@ -23,6 +23,7 @@ namespace _3ISIP223_PogosyanWPF
     {
         public MainWindow()
         {
+            //DataContext = MarWorkWith.withDB;
             InitializeComponent();
             frameMain.NavigationService.Navigate(new _1ListConfigurator(ChangeDisplay));
         }
@@ -34,6 +35,11 @@ namespace _3ISIP223_PogosyanWPF
             if (visibility == Visibility.Visible)
                 frameShop.NavigationService.Navigate(new _2SelectComplect(ChangeDisplay, type));
 
+        }
+
+        private void btnClearConfig_Click(object sender, RoutedEventArgs e)
+        {
+            MarWorkWith.withDB.ClearKonfig();
         }
     }
 }

@@ -24,8 +24,8 @@ namespace _3ISIP223_PogosyanWPF.Pages
         public _1ListConfigurator(Action<Visibility, ComponentType> f)
         {
             DataContext = MarWorkWith.withDB;
-
             InitializeComponent();
+
 
             frameZamaz = f;
 
