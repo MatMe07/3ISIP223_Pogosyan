@@ -51,13 +51,39 @@ namespace _3ISIP223_PogosyanWPF
                 if (Powersupply != null) coun++;
                 if (Processorcooler != null) coun++;
                 if (Storage != null) coun++;
+                return coun;
+            }
+            set { }
+        }
+        public int AllCountConfig
+        {
+            get
+            {
+                int coun = 0;
+                if (Cpu != null) coun++;
+                if (Motherboard != null) coun++;
+                if (Case != null) coun++;
+                if (RAM != null) coun++;
+                if (Powersupply != null) coun++;
+                if (Processorcooler != null) coun++;
+                if (Storage != null) coun++;
                 if (GPU != null) coun++;
                 return coun;
             }
             set { }
         }
-        private int countSovmest = 0;
+        //private int countSovmest = 0;
 
+        private string _toolTip;
+
+        public string ToolTip
+        {
+            get { return _toolTip; }
+            set { _toolTip = value; 
+                OnPropertyChanged(nameof(ToolTip));
+            }
+        }
+        
         private bool _isAllGood;
         public bool IsAllGood
         {
@@ -75,6 +101,52 @@ namespace _3ISIP223_PogosyanWPF
             get { return IsAllGood ? (Brush)(new BrushConverter().ConvertFrom("#41d172")) : (Brush)(new BrushConverter().ConvertFrom("#ff5c52")); }
         }
 
+        public void UpdateIsAllGood()
+        {
+            bool isSov = true;
+            string text = "";
+            if (Motherboard != null && Cpu != null && Cpu.socketid != Motherboard.socketid)
+            {
+                text += "\tСокет CPU не подходит к материнской плате\n";
+                isSov = false;
+            }
+
+            if (Cpu != null && Processorcooler != null && !Processorcooler.SovmestSocket(Cpu.socketid))
+            {
+                text += "\tКулер не подходит к сокету процессора\n";
+                isSov = false;
+            }
+
+            if (Motherboard != null && Processorcooler != null && !Processorcooler.SovmestSocket(Motherboard.socketid))
+            {
+                text += "\tКулер не подходит к сокету материнской платы\n";
+                isSov = false;
+            }
+
+            if (Motherboard != null && Case != null && !Case.SovmestFormFactor(Motherboard.formfactorid))
+            {
+                text += "\tМатеринская плата не влезает в корпус\n";
+                isSov = false;
+            }
+
+            if (Motherboard != null && RAM != null && Motherboard.memorytypeid != RAM.memorytypeid)
+            {
+                text += "\tТип RAM не поддерживается материнской платой\n";
+                isSov = false;
+            }
+
+            if (Powersupply != null && GPU != null && Powersupply.power < GPU.recommendpower)
+            {
+                text += "\tБлок питания слишком слаб для видеокарты\n";
+                isSov = false;
+            }
+
+
+            IsAllGood = isSov;
+            if (isSov) ToolTip = "Все компоненты совместимы";
+            else ToolTip = $"Несовместимость:\n{text}";
+        }
+
         public string IsSovmest(Object obj, ComponentType type)
         {
             string result = "";
@@ -87,17 +159,17 @@ namespace _3ISIP223_PogosyanWPF
                     {
                         if( Motherboard!= null && (obj as cpu).socketid != Motherboard.socketid )
                         {
-                            result = $"Процессор не совместим с материнской платой\nСокет процессора: {(obj as cpu).socket.name}\nСокет материнской платы: {Motherboard.socket.name}";
-                            return result;
+                            result += $"Процессор не совместим с материнской платой\nСокет процессора: {(obj as cpu).socket.name}\nСокет материнской платы: {Motherboard.socket.name}\n";
+                            //return result;
                         }
                         if( Processorcooler != null && !Processorcooler.SovmestSocket((obj as cpu).socketid))
                         {
                             //_isAllGood = false;
 
-                            result = $"Процессор не совместим с кулером\nСокет процессора: {(obj as cpu).socket.name}\nПоддерживаемые сокеты кулера: {Processorcooler.SocketDisp}";
-                            return result;
+                            result += $"Процессор не совместим с кулером\nСокет процессора: {(obj as cpu).socket.name}\nПоддерживаемые сокеты кулера: {Processorcooler.SocketDisp}\n";
+                            //return result;
                         }
-                        countSovmest++;
+                        if (result != "") return result;
                         break;
                     }
 
@@ -118,7 +190,8 @@ namespace _3ISIP223_PogosyanWPF
                             result = $"Кулер не поддерживает сокет процессора/материнской платы\nСокет: {Cpu.socket.name}\nПоддерживаемые сокеты кулера: {(obj as processorcooler).SocketDisp}";
                             return result;
                         }
-                        countSovmest++;
+                        
+                        //if (result != "") return result;
 
                         break;
                     }
@@ -129,35 +202,36 @@ namespace _3ISIP223_PogosyanWPF
                 case ComponentType.Motherboard: {
                         if (Cpu != null && Cpu.socketid != (obj as motherboard).socketid)
                         {
-                            result = $"Процессор не совместим с материнской платой\nСокет процессора: {Cpu.socket.name}\nСокет материнской платы: {(obj as motherboard).socket.name}";
-                            return result;
+                            result += $"Процессор не совместим с материнской платой\nСокет процессора: {Cpu.socket.name}\nСокет материнской платы: {(obj as motherboard).socket.name}\n";
+                            //return result;
                         }
-                        else if (Processorcooler != null
+                        if (Processorcooler != null
                                 &&
                                 !Processorcooler.SovmestSocket((obj as motherboard).socketid))
                         {
-                            result = $"Материнская плата не поддерживает сокет кулера\nСокет: {(obj as motherboard).socket.name}\nПоддерживаемые сокеты кулера: {Processorcooler.SocketDisp}";
-                            return result;
+                            result += $"Материнская плата не поддерживает сокет кулера\nСокет: {(obj as motherboard).socket.name}\nПоддерживаемые сокеты кулера: {Processorcooler.SocketDisp}\n";
+                            //return result;
                         }
 
-                        else if (Case != null
+                        if (Case != null
                             &&
                             !Case.SovmestFormFactor((obj as motherboard).formfactorid))
                         {
-                            result = "Материнская плата не помещается в выбранный корпус" +
-                                $"\nФорм-фактор платы: {(obj as motherboard).formfactor.name}\nПоддерживаемые форм-факторы корпуса: {Case.SupFormFactor}";
-                            return result;
+                            result += "Материнская плата не помещается в выбранный корпус" +
+                                $"\nФорм-фактор платы: {(obj as motherboard).formfactor.name}\nПоддерживаемые форм-факторы корпуса: {Case.SupFormFactor}\n";
+                            //return result;
                         }
-                        else if (RAM != null
+                        if (RAM != null
                             &&
                             (obj as motherboard).memorytypeid != RAM.memorytypeid
                             )
                         {
-                            result = "Оперативная память не совместима с материнской платой" +
-                                $"\nТип памяти платы: {(obj as motherboard).memorytype.name}\nТип памяти RAM: {RAM.memorytype.name}";
-                            return result;
+                            result += "Оперативная память не совместима с материнской платой" +
+                                $"\nТип памяти платы: {(obj as motherboard).memorytype.name}\nТип памяти RAM: {RAM.memorytype.name}\n";
+                            //return result;
                         }
-                        countSovmest++;
+                        
+                        if (result != "") return result;
 
                         break;
                     }
@@ -169,11 +243,12 @@ namespace _3ISIP223_PogosyanWPF
                             !(obj as @case).SovmestFormFactor(Motherboard.formfactorid)
                             )
                         {
-                            result = "Материнская плата не помещается в выбранный корпус" +
-                                $"\nФорм-фактор платы: {Motherboard.formfactor.name}\nПоддерживаемые форм-факторы корпуса: {(obj as @case).SupFormFactor}";
-                            return result;
+                            result += "Материнская плата не помещается в выбранный корпус" +
+                                $"\nФорм-фактор платы: {Motherboard.formfactor.name}\nПоддерживаемые форм-факторы корпуса: {(obj as @case).SupFormFactor}\n";
+                            //return result;
                         }
-                        countSovmest++;
+                        
+                        if (result != "") return result;
 
                         break;
                     }
@@ -190,7 +265,7 @@ namespace _3ISIP223_PogosyanWPF
                                 $"\nТип памяти платы: {Motherboard.memorytype.name}\nТип памяти RAM: {(obj as ram).memorytype.name}";
                             return result;
                         }
-                        countSovmest++;
+                        
 
                         break;
                     }
@@ -207,7 +282,7 @@ namespace _3ISIP223_PogosyanWPF
                                 $"\nРекомендуемая мощность для видеокарты: {GPU.recommendpower} W\nМощность блока питания: {(obj as powersupply).power} W";
                             return result;  
                         }
-                        countSovmest++;
+                        
 
                         break;
                     }
@@ -221,20 +296,21 @@ namespace _3ISIP223_PogosyanWPF
                                 $"\nРекомендуемая мощность для видеокарты: {(obj as gpu).recommendpower} W\nМощность блока питания: {Powersupply.power} W";
                             return result;
                         }
-                        countSovmest++;
+                        
 
                         break;
                     }
 
             }
+            UpdateIsAllGood();
             return "";
         }
 
 
         public double SumConfig
         {
-            get=> Convert.ToDouble((Cpu?.basepart.price ?? 0) + (GPU?.basepart.price ?? 0) + (Motherboard?.basepart.price ?? 0) + (Case?.basepart.price ?? 0) + (Processorcooler?.basepart.price ?? 0) +
-                    (RAM?.basepart.price ?? 0) + (Powersupply?.basepart.price ?? 0) + (Storage?.basepart.price ?? 0));
+            get=> Convert.ToDouble((Cpu?.basepart.price ?? 0)  + (Motherboard?.basepart.price ?? 0) + (Case?.basepart.price ?? 0) + (Processorcooler?.basepart.price ?? 0) +
+                    (RAM?.basepart.price ?? 0) + (Powersupply?.basepart.price ?? 0) + (Storage?.basepart.price ?? 0) + (GPU?.basepart.price ?? 0));
             set { }
         }
 
@@ -258,7 +334,8 @@ namespace _3ISIP223_PogosyanWPF
                 OnPropertyChanged(nameof(Cpu));
                 OnPropertyChanged(nameof(SumConfig));
                 OnPropertyChanged(nameof(CountConfig));
-                
+                OnPropertyChanged(nameof(AllCountConfig));
+                UpdateIsAllGood();
             }
         }
         private motherboard _motherboard;
@@ -273,7 +350,9 @@ namespace _3ISIP223_PogosyanWPF
                 OnPropertyChanged(nameof(Motherboard));
                 OnPropertyChanged(nameof(SumConfig));
                 OnPropertyChanged(nameof(CountConfig));
+                OnPropertyChanged(nameof(AllCountConfig));
 
+                UpdateIsAllGood();
             }
         }
         private @case _case;
@@ -286,8 +365,9 @@ namespace _3ISIP223_PogosyanWPF
                 _case = value;
                 OnPropertyChanged(nameof(Case));
                 OnPropertyChanged(nameof(SumConfig));
+                OnPropertyChanged(nameof(AllCountConfig));
                 OnPropertyChanged(nameof(CountConfig));
-
+                UpdateIsAllGood();
             }
         }
         private gpu _gpu;
@@ -300,8 +380,9 @@ namespace _3ISIP223_PogosyanWPF
                 _gpu = value;
                 OnPropertyChanged(nameof(GPU));
                 OnPropertyChanged(nameof(SumConfig));
+                OnPropertyChanged(nameof(AllCountConfig));
                 OnPropertyChanged(nameof(CountConfig));
-
+                UpdateIsAllGood();
             }
         }
         private ram _ram;
@@ -314,8 +395,9 @@ namespace _3ISIP223_PogosyanWPF
                 _ram = value;
                 OnPropertyChanged(nameof(RAM));
                 OnPropertyChanged(nameof(SumConfig));
+                OnPropertyChanged(nameof(AllCountConfig));
                 OnPropertyChanged(nameof(CountConfig));
-
+                UpdateIsAllGood();
             }
         }
         private powersupply _powersupply;
@@ -328,8 +410,9 @@ namespace _3ISIP223_PogosyanWPF
                 _powersupply = value;
                 OnPropertyChanged(nameof(Powersupply));
                 OnPropertyChanged(nameof(SumConfig));
+                OnPropertyChanged(nameof(AllCountConfig));
                 OnPropertyChanged(nameof(CountConfig));
-
+                UpdateIsAllGood();
             }
         }
         private processorcooler _processorcooler;
@@ -342,8 +425,9 @@ namespace _3ISIP223_PogosyanWPF
                 _processorcooler = value;
                 OnPropertyChanged(nameof(Processorcooler));
                 OnPropertyChanged(nameof(SumConfig));
+                OnPropertyChanged(nameof(AllCountConfig));
                 OnPropertyChanged(nameof(CountConfig));
-
+                UpdateIsAllGood();
             }
         }
         private storagedevice _storagedevice;
@@ -356,8 +440,9 @@ namespace _3ISIP223_PogosyanWPF
                 _storagedevice = value;
                 OnPropertyChanged(nameof(Storage));
                 OnPropertyChanged(nameof(SumConfig));
+                OnPropertyChanged(nameof(AllCountConfig));
                 OnPropertyChanged(nameof(CountConfig));
-
+                UpdateIsAllGood();
             }
         }
 

@@ -116,13 +116,8 @@ namespace _3ISIP223_PogosyanWPF.Pages
             string res = MarWorkWith.withDB.IsSovmest(button.DataContext, type);
             if(res != "")
             {
-                MarWorkWith.withDB.IsAllGood = false;
                 var resultMes = MessageBox.Show(res+"\n\nХотите изменить?","Предупреждение", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (resultMes == MessageBoxResult.Yes) return;
-            }
-            else
-            {
-                MarWorkWith.withDB.IsAllGood = true;
             }
             MarWorkWith.withDB.SelectComponent(button.DataContext, type);
             frameZamaz(Visibility.Collapsed, ComponentType.NONE);
