@@ -128,6 +128,9 @@
     <Compile Include="MyPartial\processorcooler.cs" />
     <Compile Include="MyPartial\ram.cs" />
     <Compile Include="MyPartial\storagedevice.cs" />
+    <Compile Include="Pages\_3UserPage.xaml.cs">
+      <DependentUpon>_3UserPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="partassembly.cs">
       <DependentUpon>ModelAssembYou.tt</DependentUpon>
     </Compile>
@@ -185,6 +188,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\_2SelectComplect.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\_3UserPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
