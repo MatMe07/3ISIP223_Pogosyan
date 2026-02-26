@@ -22,6 +22,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
     {
         public _3UserPage()
         {
+            DataContext = MarWorkWith.withDB;
             InitializeComponent();
         }
     }

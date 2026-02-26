@@ -25,27 +25,38 @@ namespace _3ISIP223_PogosyanWPF
         {
             //DataContext = MarWorkWith.withDB;
             InitializeComponent();
-            frameMain.NavigationService.Navigate(new _1ListConfigurator(ChangeDisplay));
+            List<basepart> bs = Core.Context.baseparts.ToList().GetRange(2, 3);
+            UserComponents us = new UserComponents(bs);
+
+            MarWorkWith.withDB.MySborki.Add(us);
+
+            frameMainPage.NavigationService.Navigate(new _0MainPage(frameMainPage));
+            
         }
 
-        public void ChangeDisplay(Visibility visibility, ComponentType type)
-        {
-            ZamazFon.Visibility = visibility;
-            SelectPanel.Visibility = visibility;
-            if (visibility == Visibility.Visible)
-                frameShop.NavigationService.Navigate(new _2SelectComplect(ChangeDisplay, type));
+        //public void ChangeDisplay(Visibility visibility, ComponentType type)
+        //{
+        //    ZamazFon.Visibility = visibility;
+        //    SelectPanel.Visibility = visibility;
+        //    if (visibility == Visibility.Visible)
+        //        frameShop.NavigationService.Navigate(new _2SelectComplect(ChangeDisplay, type));
 
-        }
+        //}
 
-        private void CloseClick_Click(object sender, RoutedEventArgs e)
-        {
-            ChangeDisplay(Visibility.Collapsed, ComponentType.NONE);
+        //private void CloseClick_Click(object sender, RoutedEventArgs e)
+        //{
+        //    ChangeDisplay(Visibility.Collapsed, ComponentType.NONE);
 
-        }
+        //}
 
-        private void btnClearConfig_Click(object sender, RoutedEventArgs e)
-        {
-            MarWorkWith.withDB.ClearKonfig();
-        }
+        //private void btnClearConfig_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MarWorkWith.withDB.ClearKonfig();
+        //}
+
+        //private void btnMySborki_Click(object sender, RoutedEventArgs e)
+        //{
+            
+        //}
     }
 }

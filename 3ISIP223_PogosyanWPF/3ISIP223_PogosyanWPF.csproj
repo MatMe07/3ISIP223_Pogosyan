@@ -128,6 +128,9 @@
     <Compile Include="MyPartial\processorcooler.cs" />
     <Compile Include="MyPartial\ram.cs" />
     <Compile Include="MyPartial\storagedevice.cs" />
+    <Compile Include="Pages\_0MainPage.xaml.cs">
+      <DependentUpon>_0MainPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\_3UserPage.xaml.cs">
       <DependentUpon>_3UserPage.xaml</DependentUpon>
     </Compile>
@@ -164,6 +167,7 @@
     <Compile Include="storagedevicetype.cs">
       <DependentUpon>ModelAssembYou.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserComponents.cs" />
     <Compile Include="videoconnector.cs">
       <DependentUpon>ModelAssembYou.tt</DependentUpon>
     </Compile>
@@ -183,6 +187,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\_0MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\_1ListConfigurator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

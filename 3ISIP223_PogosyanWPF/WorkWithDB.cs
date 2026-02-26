@@ -28,6 +28,8 @@ namespace _3ISIP223_PogosyanWPF
             _caseList = new ObservableCollection<@case>(Core.Context.cases.ToList());
             _storageList = new ObservableCollection<storagedevice>(Core.Context.storagedevices.ToList());
 
+            MySborki = new ObservableCollection<UserComponents>();
+
 
             manufacturers = Core.Context.manufacturers.Select(s=>s.name).ToList();
             manufacturers.Insert(0, "Все");
@@ -38,7 +40,21 @@ namespace _3ISIP223_PogosyanWPF
             //OnPropertyChanged(nameof(SumConfig));
             IsAllGood = true;
 
+
         }
+
+        public ObservableCollection<UserComponents> _mySborki {  get; set; }
+        public ObservableCollection<UserComponents> MySborki
+        {
+            get { return _mySborki; }
+            set
+            {
+                _mySborki = value;
+                OnPropertyChanged(nameof(MySborki));
+            }
+        }
+
+
         public int CountConfig
         {
             get
@@ -79,7 +95,8 @@ namespace _3ISIP223_PogosyanWPF
         public string ToolTip
         {
             get { return _toolTip; }
-            set { _toolTip = value; 
+            set { 
+                _toolTip = value; 
                 OnPropertyChanged(nameof(ToolTip));
             }
         }
