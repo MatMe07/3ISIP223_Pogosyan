@@ -90,7 +90,7 @@
                         </Border>
                         <StackPanel Background="#F1F1F1" Height="1" Grid.Row="4" Grid.ColumnSpan="4" Margin="0 5" />
                         <Border Grid.Row="5" Grid.Column="1" Margin="4 0 0 0" BorderThickness="1" BorderBrush="Gray" CornerRadius="5" Height="35">
-                            <Button Content="Сохранить" FontSize="15" BorderThickness="0" Background="Transparent"/>
+                            <Button Content="Сохранить" FontSize="15" BorderThickness="0" Background="Transparent" Click="btnSave_Click" />
 
                         </Border>
                         <Border Grid.Row="5" Grid.Column="0" BorderThickness="1" BorderBrush="Gray" CornerRadius="5" Height="35">

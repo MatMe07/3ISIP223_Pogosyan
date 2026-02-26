@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,6 +52,16 @@ namespace _3ISIP223_PogosyanWPF
             {
                 _mySborki = value;
                 OnPropertyChanged(nameof(MySborki));
+            }
+        }
+        public ObservableCollection<partassembly> _partsAssemb {  get; set; }
+        public ObservableCollection<partassembly> PartsAssemb
+        {
+            get { return _partsAssemb; }
+            set
+            {
+                _partsAssemb = value;
+                OnPropertyChanged(nameof(PartsAssemb));
             }
         }
 
@@ -674,7 +685,44 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
+        public string SaveComponents(string name, string config)
+        {
+            if (AllCountConfig == 0) return "Нет выбранных комплектующих для сохранения";
+            assembly assemb = new assembly()
+            {
+                name = config,
+                author = name
+            };
+            Core.Context.assemblies.Add(assemb);
+            Core.Context.SaveChanges();
 
+            var selectedParts = new List<basepart>();
+            if (Cpu != null) selectedParts.Add(Cpu.basepart);
+            if (GPU != null) selectedParts.Add(GPU.basepart);
+            if (Motherboard != null) selectedParts.Add(Motherboard.basepart);
+            if (Case != null) selectedParts.Add(Case.basepart);
+            if (Processorcooler != null) selectedParts.Add(Processorcooler.basepart);
+            if (Storage != null) selectedParts.Add(Storage.basepart);
+            if (RAM != null) selectedParts.Add(RAM.basepart);
+
+            foreach (var it in selectedParts)
+            {
+                partassembly p = new partassembly()
+                {
+                    assemblyid = assemb.id,
+                    basepart = it
+                };
+                Core.Context.partassemblies.Add(p);
+            }        
+            Core.Context.SaveChanges();
+
+            UserComponents uComp = new UserComponents(selectedParts, assemb);
+
+            MySborki.Add(uComp);
+            
+            ClearKonfig();
+            return $"Сборка '{config}' успешно сохранена!";
+        }
 
 
         private ObservableCollection<cpu> _cpuList;

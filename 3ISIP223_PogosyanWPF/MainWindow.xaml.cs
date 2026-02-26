@@ -25,10 +25,10 @@ namespace _3ISIP223_PogosyanWPF
         {
             //DataContext = MarWorkWith.withDB;
             InitializeComponent();
-            List<basepart> bs = Core.Context.baseparts.ToList().GetRange(2, 3);
-            UserComponents us = new UserComponents(bs);
+            //List<basepart> bs = Core.Context.baseparts.ToList().GetRange(2, 3);
+            //UserComponents us = new UserComponents(bs);
 
-            MarWorkWith.withDB.MySborki.Add(us);
+            //MarWorkWith.withDB.MySborki.Add(us);
 
             frameMainPage.NavigationService.Navigate(new _0MainPage(frameMainPage));
             

@@ -1,4 +1,4 @@
-﻿// Создание кода T4 для модели "C:\Users\234796\source\repos\MatMe07\3ISIP223_Pogosyan\3ISIP223_PogosyanWPF\ModelAssembYou.edmx" включено. 
+﻿// Создание кода T4 для модели "C:\Users\artur\source\repos\MatMe07\3ISIP223_Pogosyan\3ISIP223_PogosyanWPF\ModelAssembYou.edmx" включено. 
 // Чтобы включить формирование кода прежних версий, измените значение свойства "Стратегия создания кода" конструктора
 // на "Legacy ObjectContext". Это свойство доступно в окне "Свойства", если модель
 // открыта в конструкторе.

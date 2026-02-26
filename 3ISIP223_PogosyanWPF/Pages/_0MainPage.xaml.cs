@@ -53,5 +53,16 @@ namespace _3ISIP223_PogosyanWPF.Pages
         {
             frame.NavigationService.Navigate(new _3UserPage());
         }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            string res;
+            if (txtBoxNameConfig.Text.Length == 0 || txtBoxUserName.Text.Length == 0)
+            {
+                res = "Введите имя автора и название сборки";
+            }
+            else res = MarWorkWith.withDB.SaveComponents(txtBoxUserName.Text, txtBoxNameConfig.Text);
+            MessageBox.Show(res);
+        }
     }
 }

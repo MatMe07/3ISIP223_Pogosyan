@@ -25,5 +25,16 @@ namespace _3ISIP223_PogosyanWPF.Pages
             DataContext = MarWorkWith.withDB;
             InitializeComponent();
         }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            (sender as ListBox).SelectedIndex = -1;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
     }
 }
