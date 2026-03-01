@@ -722,6 +722,8 @@ namespace _3ISIP223_PogosyanWPF
             if (Processorcooler != null) selectedParts.Add(Processorcooler.basepart);
             if (Storage != null) selectedParts.Add(Storage.basepart);
             if (RAM != null) selectedParts.Add(RAM.basepart);
+            if (Powersupply != null) selectedParts.Add(Powersupply.basepart);
+
 
             foreach (var it in selectedParts)
             {
