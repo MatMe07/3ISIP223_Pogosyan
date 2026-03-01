@@ -28,7 +28,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <TextBlock x:Name="TextTtitlePage" Text="Оперативная память"  FontSize="17" FontWeight="Medium"/>
-            <Border Grid.Column="1" HorizontalAlignment="Right" BorderBrush="Black" CornerRadius="3" BorderThickness="1">
+            <Border Grid.Column="1" HorizontalAlignment="Right" BorderBrush="Black" CornerRadius="7" BorderThickness="1">
                 <Button Content="Закрыть" FontSize="14" Padding="3" Background="Transparent" BorderBrush="Transparent"  Click="CloseClick_Click"/>
             </Border>
 
@@ -87,7 +87,7 @@
 
                             <StackPanel Grid.Column="2" >
                                 <TextBlock Text="{Binding basepart.price, StringFormat='\{0:F2} ₽'}" FontSize="15" FontWeight="Medium" HorizontalAlignment="Right" Margin="0 5"/>
-                                <Border HorizontalAlignment="Right" BorderBrush="Gray" CornerRadius="3" BorderThickness="1">
+                                <Border HorizontalAlignment="Right" BorderBrush="Gray" CornerRadius="7" BorderThickness="1">
                                     <Button Content="Добавить" FontSize="13" Padding="3" Background="Transparent" BorderBrush="Transparent" Click="btnAdd_Click"/>
                                 </Border>
 

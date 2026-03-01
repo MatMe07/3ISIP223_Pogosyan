@@ -22,8 +22,8 @@ namespace _3ISIP223_PogosyanWPF.Pages
     {
         public Action<Visibility, ComponentType> frameZamaz;
         public ComponentType type;
-        //public string TextTtitlePage { get; set; } = "";
-        public _2SelectComplect(Action<Visibility, ComponentType> f, ComponentType t)
+        public TextBlock TextTtitlePage { get; set; }
+        public _2SelectComplect(Action<Visibility, ComponentType> f, ComponentType t, TextBlock txtTitle)
         {
             DataContext = MarWorkWith.withDB;
             InitializeComponent();
@@ -31,6 +31,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
             frameZamaz = f;
             comboProizvod.ItemsSource = MarWorkWith.withDB.manufacturers;
             comboProizvod.SelectedIndex = 0;
+            TextTtitlePage = txtTitle;
         }
 
 
@@ -43,48 +44,48 @@ namespace _3ISIP223_PogosyanWPF.Pages
             {
                 case ComponentType.CPU:
                     {
-                        //TextTtitlePage.Text = "Процессоры";
+                        TextTtitlePage.Text = "Процессоры";
                         MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.CpuList;
                         break;
                     }
                 case ComponentType.GPU:
                     {
 
-                        //TextTtitlePage.Text = "Видеокарты";
+                        TextTtitlePage.Text = "Видеокарты";
                         MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.GpuList;
                         break;
                     }
                 case ComponentType.RAM:
                     {
 
-                        //TextTtitlePage.Text = "Оперативная память";
+                        TextTtitlePage.Text = "Оперативные памяти";
                         MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.RamList;
                         break;
                     }
                 case ComponentType.Storage:
                     {
 
-                        //TextTtitlePage.Text = "Накопители";
+                        TextTtitlePage.Text = "Накопители";
                         MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.StorageList;
                         break;
                     }
                 case ComponentType.Case:
                     {
 
-                        //TextTtitlePage.Text = "Корпуса";
+                        TextTtitlePage.Text = "Корпуса";
                         MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.CaseList;
                         break;
                     }
                 case ComponentType.Motherboard:
                     {
 
-                        //TextTtitlePage.Text = "Материнские платы";
+                        TextTtitlePage.Text = "Материнские платы";
                         MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.MotherboardList;
                         break;
                     }
                 case ComponentType.PowerSupply:
                     {
-                        //TextTtitlePage.Text = "Блоки питания";
+                        TextTtitlePage.Text = "Блоки питания";
 
                         MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.PowersupplyList;
                         break;
@@ -92,7 +93,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 case ComponentType.ProcessorCooler:
                     {
 
-                        //TextTtitlePage.Text = "Кулеры";
+                        TextTtitlePage.Text = "Кулеры";
                         MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.ProcessorcoolerList;
                         break;
                     }

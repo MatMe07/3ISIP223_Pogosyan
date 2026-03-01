@@ -23,8 +23,32 @@ namespace _3ISIP223_PogosyanWPF.Pages
         public _3UserPage()
         {
             DataContext = MarWorkWith.withDB;
+
+
             InitializeComponent();
+
+
         }
+
+        private void WithDB_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName ==  nameof(MarWorkWith.withDB.MySborki))
+            {
+                if (MarWorkWith.withDB.MySborki.Count > 0)
+                {
+                    stkNetSborki.Visibility = Visibility.Collapsed;
+                    lstSborki.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    stkNetSborki.Visibility = Visibility.Visible;
+                    lstSborki.Visibility = Visibility.Collapsed;
+
+                }
+            }
+        }
+
+
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -36,5 +60,28 @@ namespace _3ISIP223_PogosyanWPF.Pages
             NavigationService.GoBack();
         }
 
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            int id = (int) button.Tag;
+            MarWorkWith.withDB.DeleteUserComponent(id);
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            //MarWorkWith.withDB.PropertyChanged += WithDB_PropertyChanged;
+
+            if (MarWorkWith.withDB.MySborki.Count > 0)
+            {
+                stkNetSborki.Visibility = Visibility.Collapsed;
+                lstSborki.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                stkNetSborki.Visibility = Visibility.Visible;
+                lstSborki.Visibility = Visibility.Collapsed;
+
+            }
+        }
     }
 }

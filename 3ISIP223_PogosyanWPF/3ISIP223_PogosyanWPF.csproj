@@ -259,6 +259,7 @@
     <Resource Include="icons\edit.png" />
     <Resource Include="icons\trash.png" />
     <Content Include="icons\trash.svg" />
+    <Resource Include="icons\загруженное.png" />
     <Content Include="ModelAssembYou.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModelAssembYou.Context.cs</LastGenOutput>

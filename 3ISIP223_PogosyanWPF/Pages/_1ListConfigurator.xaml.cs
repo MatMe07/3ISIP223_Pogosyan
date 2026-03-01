@@ -21,11 +21,13 @@ namespace _3ISIP223_PogosyanWPF.Pages
     public partial class _1ListConfigurator : Page
     {
         public Action<Visibility, ComponentType> frameZamaz;
-        public _1ListConfigurator(Action<Visibility, ComponentType> f)
+        public Border borderInfo {  get; set; }
+        public _1ListConfigurator(Action<Visibility, ComponentType> f, Border border)
         {
             DataContext = MarWorkWith.withDB;
             InitializeComponent();
 
+            borderInfo = border;
 
             frameZamaz = f;
 
@@ -231,8 +233,16 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         private void progreses_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (progreses.Value != 0) IsRight.Visibility = Visibility.Visible;
-            else IsRight.Visibility = Visibility.Collapsed;
+            if (progreses.Value != 0)
+            {
+                IsRight.Visibility = Visibility.Visible;
+                borderInfo.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                IsRight.Visibility = Visibility.Collapsed;
+                borderInfo.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

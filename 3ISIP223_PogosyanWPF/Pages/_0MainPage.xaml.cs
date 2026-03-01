@@ -23,8 +23,9 @@ namespace _3ISIP223_PogosyanWPF.Pages
         public Frame frame;
         public _0MainPage(Frame fr)
         {
+            DataContext = MarWorkWith.withDB;
             InitializeComponent();
-            frameMain.NavigationService.Navigate(new _1ListConfigurator(ChangeDisplay));
+            frameMain.NavigationService.Navigate(new _1ListConfigurator(ChangeDisplay, borderInfo));
             this.frame = fr;
         }
 
@@ -34,7 +35,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
             ZamazFon.Visibility = visibility;
             SelectPanel.Visibility = visibility;
             if (visibility == Visibility.Visible)
-                frameShop.NavigationService.Navigate(new _2SelectComplect(ChangeDisplay, type));
+                frameShop.NavigationService.Navigate(new _2SelectComplect(ChangeDisplay, type, TextTtitlePage));
 
         }
 
@@ -61,8 +62,28 @@ namespace _3ISIP223_PogosyanWPF.Pages
             {
                 res = "Введите имя автора и название сборки";
             }
-            else res = MarWorkWith.withDB.SaveComponents(txtBoxUserName.Text, txtBoxNameConfig.Text);
+            else
+            {
+                res = MarWorkWith.withDB.SaveComponents(txtBoxUserName.Text, txtBoxNameConfig.Text);
+                txtBoxNameConfig.Text = "";
+                txtBoxUserName.Text = "";
+            }
             MessageBox.Show(res);
+        }
+
+        private void BorderDopInfo_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
+            
+            BorderDopInfo.Visibility = Visibility.Visible;
+            ZamazFon.Visibility = Visibility.Visible;
+        }
+
+        private void CloseDopInfoClick_Click(object sender, RoutedEventArgs e)
+        {
+
+                BorderDopInfo.Visibility = Visibility.Collapsed;
+                ZamazFon.Visibility = Visibility.Collapsed;
         }
     }
 }

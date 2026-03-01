@@ -636,6 +636,22 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
+        public void DeleteUserComponent(int id)
+        {
+            assembly assemb = MySborki.Select(n => n.Name).FirstOrDefault(s => s.id == id);
+            if (assemb == null) return;
+
+
+            foreach (var item in Core.Context.partassemblies)
+            {
+                if (item.assemblyid == id) Core.Context.partassemblies.Remove(item);
+            }
+            Core.Context.assemblies.Remove(assemb);
+
+            MySborki.Remove(MySborki.FirstOrDefault(p => p.Name == assemb));
+            Core.Context.SaveChanges();
+
+        }
 
         public void DeleteComponent(ComponentType type)
         {
@@ -688,6 +704,8 @@ namespace _3ISIP223_PogosyanWPF
         public string SaveComponents(string name, string config)
         {
             if (AllCountConfig == 0) return "Нет выбранных комплектующих для сохранения";
+            //if (Core.Context.assemblies.FirstOrDefault(s => s.name == config && s.author == name) != null) return "";
+
             assembly assemb = new assembly()
             {
                 name = config,
