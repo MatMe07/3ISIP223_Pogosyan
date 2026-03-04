@@ -32,7 +32,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             get
             {
-                return $"Корпус {basepart.manufacturer.name}";
+                return $"Корпус {basepart.name}";
             }
         }
     }

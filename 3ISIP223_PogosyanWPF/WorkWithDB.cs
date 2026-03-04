@@ -31,9 +31,11 @@ namespace _3ISIP223_PogosyanWPF
 
             MySborki = new ObservableCollection<UserComponents>();
 
+            LoadSborki();
 
-            manufacturers = Core.Context.manufacturers.Select(s=>s.name).ToList();
-            manufacturers.Insert(0, "Все");
+
+            //Allmanufacturers = Core.Context.manufacturers.Select(s=>s.name).ToList();
+            //manufacturers.Insert(0, "Все");
             //manufacturers[0].name
             //CountConfig = 0;
             //OnPropertyChanged(nameof(CountConfig));
@@ -43,6 +45,8 @@ namespace _3ISIP223_PogosyanWPF
 
 
         }
+
+
 
         public ObservableCollection<UserComponents> _mySborki {  get; set; }
         public ObservableCollection<UserComponents> MySborki
@@ -544,7 +548,7 @@ namespace _3ISIP223_PogosyanWPF
                 case ComponentType.GPU:
                     {
                         var filterList = _gpuList.ToList();
-                        filterList = filterList.Where(f => f.basepart.name.ToLower().Contains(search.ToLower())).ToList();
+                        filterList = filterList.Where(f => f.FullName.ToLower().Contains(search.ToLower())).ToList();
                         if (filter != "Все") filterList = filterList.Where(f => f.basepart.manufacturer.name == filter).ToList();
                         //CpuList.Clear();
                         //foreach (var item in filterList)
@@ -557,7 +561,7 @@ namespace _3ISIP223_PogosyanWPF
                 case ComponentType.Motherboard:
                     {
                         var filterList = _motherboardList.ToList();
-                        filterList = filterList.Where(f => f.basepart.name.ToLower().Contains(search.ToLower())).ToList();
+                        filterList = filterList.Where(f => f.FullName.ToLower().Contains(search.ToLower())).ToList();
                         if (filter != "Все") filterList = filterList.Where(f => f.basepart.manufacturer.name == filter).ToList();
                         //CpuList.Clear();
                         //foreach (var item in filterList)
@@ -570,7 +574,7 @@ namespace _3ISIP223_PogosyanWPF
                 case ComponentType.ProcessorCooler:
                     {
                         var filterList = _processorcoolerList.ToList();
-                        filterList = filterList.Where(f => f.basepart.name.ToLower().Contains(search.ToLower())).ToList();
+                        filterList = filterList.Where(f => f.FullName.ToLower().Contains(search.ToLower())).ToList();
                         if (filter != "Все") filterList = filterList.Where(f => f.basepart.manufacturer.name == filter).ToList();
                         //CpuList.Clear();
                         //foreach (var item in filterList)
@@ -583,7 +587,7 @@ namespace _3ISIP223_PogosyanWPF
                 case ComponentType.Case:
                     {
                         var filterList = _caseList.ToList();
-                        filterList = filterList.Where(f => f.basepart.name.ToLower().Contains(search.ToLower())).ToList();
+                        filterList = filterList.Where(f => f.FullName.ToLower().Contains(search.ToLower())).ToList();
                         if (filter != "Все") filterList = filterList.Where(f => f.basepart.manufacturer.name == filter).ToList();
                         //CpuList.Clear();
                         //foreach (var item in filterList)
@@ -596,7 +600,7 @@ namespace _3ISIP223_PogosyanWPF
                 case ComponentType.PowerSupply:
                     {
                         var filterList = _powersupplyList.ToList();
-                        filterList = filterList.Where(f => f.basepart.name.ToLower().Contains(search.ToLower())).ToList();
+                        filterList = filterList.Where(f => f.FullName.ToLower().Contains(search.ToLower())).ToList();
                         if (filter != "Все") filterList = filterList.Where(f => f.basepart.manufacturer.name == filter).ToList();
                         //CpuList.Clear();
                         //foreach (var item in filterList)
@@ -609,7 +613,7 @@ namespace _3ISIP223_PogosyanWPF
                 case ComponentType.RAM:
                     {
                         var filterList = _ramList.ToList();
-                        filterList = filterList.Where(f => f.basepart.name.ToLower().Contains(search.ToLower())).ToList();
+                        filterList = filterList.Where(f => f.FullName.ToLower().Contains(search.ToLower())).ToList();
 
                         if (filter != "Все") filterList = filterList.Where(f => f.basepart.manufacturer.name == filter).ToList();
                         //CpuList.Clear();
@@ -623,7 +627,7 @@ namespace _3ISIP223_PogosyanWPF
                 case ComponentType.Storage:
                     {
                         var filterList = _storageList.ToList();
-                        filterList = filterList.Where(f => f.basepart.name.ToLower().Contains(search.ToLower())).ToList();
+                        filterList = filterList.Where(f => f.FullName.ToLower().Contains(search.ToLower())).ToList();
                         if (filter != "Все") filterList = filterList.Where(f => f.basepart.manufacturer.name == filter).ToList();
                         //CpuList.Clear();
                         //foreach (var item in filterList)
@@ -701,6 +705,14 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
+        public void LoadSborki()
+        {
+            foreach (var comp in Core.Context.assemblies)
+            {
+                var parts = Core.Context.partassemblies.Where(a=>a.assemblyid == comp.id).Select(s=>s.basepart).ToList();
+                MySborki.Add(new UserComponents(parts, comp));
+            }
+        }
         public string SaveComponents(string name, string config)
         {
             if (AllCountConfig == 0) return "Нет выбранных комплектующих для сохранения";
@@ -865,7 +877,24 @@ namespace _3ISIP223_PogosyanWPF
             Storage = null;
             
         }
-        public List<string> manufacturers { get; set; }
+        //public List<string> Allmanufacturers { get; set; }
+
+        private List<string> _manufacturers;
+        public List<string> manufacturers
+        {
+            get { return _manufacturers; }
+            set
+            {
+                _manufacturers = value;
+                OnPropertyChanged(nameof(manufacturers));
+            }
+
+        }
+
+        public void SelectListManufactures()
+        {
+
+        }
 
     }
 

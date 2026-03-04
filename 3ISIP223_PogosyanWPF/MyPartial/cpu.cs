@@ -31,7 +31,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             get
             {
-                return $"Процессор {basepart.manufacturer.name}";
+                return $"Процессор {basepart.name}";
             }
         }
 

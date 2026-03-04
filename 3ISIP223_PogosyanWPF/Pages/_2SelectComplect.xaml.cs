@@ -29,8 +29,8 @@ namespace _3ISIP223_PogosyanWPF.Pages
             InitializeComponent();
             type = t;
             frameZamaz = f;
-            comboProizvod.ItemsSource = MarWorkWith.withDB.manufacturers;
-            comboProizvod.SelectedIndex = 0;
+            //comboProizvod.ItemsSource = MarWorkWith.withDB.manufacturers;
+            //comboProizvod.SelectedIndex = 0;
             TextTtitlePage = txtTitle;
         }
 
@@ -46,6 +46,9 @@ namespace _3ISIP223_PogosyanWPF.Pages
                     {
                         TextTtitlePage.Text = "Процессоры";
                         MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.CpuList;
+
+                        MarWorkWith.withDB.manufacturers = MarWorkWith.withDB.CpuList.Select(s => s.basepart.manufacturer.name).Distinct().ToList();
+                        MarWorkWith.withDB.SelectListManufactures();
                         break;
                     }
                 case ComponentType.GPU:
@@ -53,6 +56,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
                         TextTtitlePage.Text = "Видеокарты";
                         MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.GpuList;
+                        MarWorkWith.withDB.manufacturers = MarWorkWith.withDB.GpuList.Select(s=>s.basepart.manufacturer.name).Distinct().ToList();
                         break;
                     }
                 case ComponentType.RAM:
@@ -60,6 +64,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
                         TextTtitlePage.Text = "Оперативные памяти";
                         MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.RamList;
+                        MarWorkWith.withDB.manufacturers = MarWorkWith.withDB.RamList.Select(s=>s.basepart.manufacturer.name).Distinct().ToList();
                         break;
                     }
                 case ComponentType.Storage:
@@ -67,6 +72,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
                         TextTtitlePage.Text = "Накопители";
                         MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.StorageList;
+                        MarWorkWith.withDB.manufacturers = MarWorkWith.withDB.StorageList.Select(s=>s.basepart.manufacturer.name).Distinct().ToList();
                         break;
                     }
                 case ComponentType.Case:
@@ -74,6 +80,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
                         TextTtitlePage.Text = "Корпуса";
                         MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.CaseList;
+                        MarWorkWith.withDB.manufacturers = MarWorkWith.withDB.CaseList.Select(s=>s.basepart.manufacturer.name).Distinct().ToList();
                         break;
                     }
                 case ComponentType.Motherboard:
@@ -81,6 +88,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
                         TextTtitlePage.Text = "Материнские платы";
                         MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.MotherboardList;
+                        MarWorkWith.withDB.manufacturers = MarWorkWith.withDB.MotherboardList.Select(s=>s.basepart.manufacturer.name).Distinct().ToList();
                         break;
                     }
                 case ComponentType.PowerSupply:
@@ -88,6 +96,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                         TextTtitlePage.Text = "Блоки питания";
 
                         MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.PowersupplyList;
+                        MarWorkWith.withDB.manufacturers = MarWorkWith.withDB.PowersupplyList.Select(s=>s.basepart.manufacturer.name).Distinct().ToList();
                         break;
                     }
                 case ComponentType.ProcessorCooler:
@@ -95,9 +104,13 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
                         TextTtitlePage.Text = "Кулеры";
                         MarWorkWith.withDB.CurrentList = MarWorkWith.withDB.ProcessorcoolerList;
+                        MarWorkWith.withDB.manufacturers = MarWorkWith.withDB.ProcessorcoolerList.Select(s=>s.basepart.manufacturer.name).Distinct().ToList();
                         break;
                     }
             }
+            MarWorkWith.withDB.manufacturers.Insert(0, "Все");
+            comboProizvod.SelectedIndex = 0;
+
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -132,6 +145,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         private void comboProizvod_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (txtBoxSearch!= null && comboProizvod.SelectedItem != null)
             MarWorkWith.withDB.SearchFilterComponent(type, txtBoxSearch.Text, comboProizvod.SelectedItem.ToString());
         }
 

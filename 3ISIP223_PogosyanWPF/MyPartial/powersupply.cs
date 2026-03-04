@@ -29,7 +29,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             get
             {
-                return $"Блок питания {basepart.manufacturer.name}";
+                return $"Блок питания {basepart.name}";
             }
         }
 

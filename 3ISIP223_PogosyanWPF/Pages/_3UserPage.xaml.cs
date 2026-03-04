@@ -26,6 +26,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
 
             InitializeComponent();
+            UpdatePageStatus();
 
 
         }
@@ -65,11 +66,11 @@ namespace _3ISIP223_PogosyanWPF.Pages
             Button button = sender as Button;
             int id = (int) button.Tag;
             MarWorkWith.withDB.DeleteUserComponent(id);
+            UpdatePageStatus();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        public void UpdatePageStatus()
         {
-            //MarWorkWith.withDB.PropertyChanged += WithDB_PropertyChanged;
 
             if (MarWorkWith.withDB.MySborki.Count > 0)
             {
@@ -82,6 +83,12 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 lstSborki.Visibility = Visibility.Collapsed;
 
             }
+
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            //MarWorkWith.withDB.PropertyChanged += WithDB_PropertyChanged;
         }
     }
 }

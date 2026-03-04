@@ -72,7 +72,7 @@
                                 <TextBlock Text="В сборке"/>
                             </StackPanel>
 
-                            <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Text="{Binding Source={x:Static local:MarWorkWith.withDB}, Path=SumConfig, StringFormat='\{0:F1} ₽'}" FontSize="16" FontWeight="Medium"/>
+                            <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Text="{Binding Source={x:Static local:MarWorkWith.withDB}, Path=SumConfig, StringFormat='\{0:F2} ₽'}" FontSize="16" FontWeight="Medium"/>
 
                             <StackPanel Background="#F1F1F1" Height="1" Grid.Row="1" Grid.ColumnSpan="4"  Margin="0 5"/>
 

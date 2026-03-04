@@ -31,7 +31,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             get
             {
-                return $"Видеокарта {basepart.manufacturer.name}";
+                return $"Видеокарта {basepart.name}";
             }
         }
     }
