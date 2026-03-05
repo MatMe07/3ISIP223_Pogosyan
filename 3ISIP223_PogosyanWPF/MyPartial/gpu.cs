@@ -15,7 +15,7 @@ namespace _3ISIP223_PogosyanWPF
             get
             {
                 return $"{videomemory}GB, {chipfrequency} МГц, {memorybus}-bit, {VidConnectors}, " +
-                       $"{recommendpower.Value}W";
+                       $"{recommendpower}W";
             }
         }
 
