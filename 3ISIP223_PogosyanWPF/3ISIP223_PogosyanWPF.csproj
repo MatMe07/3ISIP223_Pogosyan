@@ -103,8 +103,20 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="sword_polojenie %28Custom%29.png" />
+    <Resource Include="sword_polojenie.png" />
+    <Resource Include="hit\Untitled-1.png" />
+    <Resource Include="hit\Untitled-2.png" />
+    <Resource Include="hit\Untitled-3.png" />
+    <Resource Include="hit\Untitled-4.png" />
+    <Resource Include="hit\Untitled-5.png" />
+    <Resource Include="hit\Untitled-6.png" />
+    <Resource Include="hit\Untitled-7.png" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
+    <Resource Include="sword_udar.png" />
+    <Resource Include="sword_prost.png" />
+    <Resource Include="в.png" />
     <Resource Include="header.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

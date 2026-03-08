@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
+using System.Windows.Threading;
 
 namespace _3ISIP223_PogosyanWPF
 {
@@ -19,18 +23,22 @@ namespace _3ISIP223_PogosyanWPF
 
         private bool _isMouseCaptured = false;
 
-        private double _rotationX = 0; 
-        private double _rotationY = 0;
-        private double _currentRotationX = 0;
-        private double _currentRotationY = 0;
+        private double _rotX = 0; 
+        private double _rotY = 0;
+        private double _currentrotX = 0;
+        private double _currentrotY = 0;
 
         private const double HorizontalSensitivity = 0.2;
         private const double VerticalSensitivity = 0.2; 
 
-        //private const double MinVerticalAngle = -40;
-        //private const double MaxVerticalAngle = 40;
         private const double MinAngle = -40; 
-        private const double MaxAngle = 40; 
+        private const double MaxAngle = 40;
+        private List<BitmapImage> attackImages;
+        private int currentFrame = 0;
+        private const double SmoothingFactor = 0.2;
+        private DateTime lastImageTime;
+
+        //public DispatcherTimer animationTimer;
 
         public MainWindow()
         {
@@ -39,6 +47,38 @@ namespace _3ISIP223_PogosyanWPF
             camera = viewport.Camera as PerspectiveCamera;
             CompositionTarget.Rendering += (s, e) => UpdateCameraDirection();
 
+            attackImages = new List<BitmapImage>();
+
+            for (int i = 1; i <= 7; i++)
+            {
+                var frame = new BitmapImage();
+                frame.BeginInit();
+
+                frame.UriSource = new Uri($"pack://application:,,,/hit/Untitled-{i}.png");
+                
+
+                frame.CacheOption = BitmapCacheOption.OnLoad;
+                frame.EndInit();
+                frame.Freeze();
+
+                attackImages.Add(frame);
+            }
+        }
+
+
+        private void AnimationTimer_Tick()
+        {
+
+            if (currentFrame < attackImages.Count - 1)
+            {
+                hitAnim.Source = attackImages[currentFrame];
+                currentFrame++;
+            }
+            else
+            {
+                currentFrame = 0;
+                hitAnim.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Viewport3D_MouseMove(object sender, MouseEventArgs e)
@@ -46,7 +86,7 @@ namespace _3ISIP223_PogosyanWPF
             if (!_isMouseCaptured) return;
 
             Point currentPosition = e.GetPosition(this);
-            Point center = new Point((this.Width / 2) - 10, (this.Height / 2) + 5);
+            Point center = new Point((this.Width / 2) - 10, (this.Height / 2) - 6);
 
             double deltaX = currentPosition.X - center.X;
             double deltaY = currentPosition.Y - center.Y;
@@ -57,44 +97,50 @@ namespace _3ISIP223_PogosyanWPF
                 return;
             }
 
-            _rotationX += deltaX * HorizontalSensitivity;
-            _rotationY -= deltaY * VerticalSensitivity;
+            _rotX += deltaX * HorizontalSensitivity;
+            _rotY -= deltaY * VerticalSensitivity;
 
 
-            _rotationY = Math.Max(MinAngle, Math.Min(MaxAngle, _rotationY));
-            _rotationX = Math.Max(MinAngle, Math.Min(MaxAngle, _rotationX));
-
-            UpdateCameraDirection();
-
-            //Debug.WriteLine($"Y={_rotationY}, дельтаY={deltaY}");
+            _rotY = Math.Max(MinAngle, Math.Min(MaxAngle, _rotY));
+            _rotX = Math.Max(MinAngle, Math.Min(MaxAngle, _rotX));
 
             CenterMouse();
+
         }
-        private const double SmoothingFactor = 0.2;
+
         private void UpdateCameraDirection()
         {
 
-            _currentRotationX += (_rotationX - _currentRotationX) * SmoothingFactor;
-            _currentRotationY += (_rotationY - _currentRotationY) * SmoothingFactor;
+            _currentrotX += (_rotX - _currentrotX) * SmoothingFactor;
+            _currentrotY += (_rotY - _currentrotY) * SmoothingFactor;
 
-            if (Math.Abs(_rotationX - _currentRotationX) < 0.01)
-                _currentRotationX = _rotationX;
-            if (Math.Abs(_rotationY - _currentRotationY) < 0.01)
-                _currentRotationY = _rotationY;
+            if (Math.Abs(_rotX - _currentrotX) < 0.01)
+                _currentrotX = _rotX;
+            if (Math.Abs(_rotY - _currentrotY) < 0.01)
+                _currentrotY = _rotY;
 
-            double radX = _currentRotationX * Math.PI / 180.0;
-            double radY = _currentRotationY * Math.PI / 180.0;
+            double radX = _currentrotX * Math.PI / 180.0;
+            double radY = _currentrotY * Math.PI / 180.0;
 
             double lookX = Math.Sin(radX) * Math.Cos(radY);
             double lookY = Math.Sin(radY);
             double lookZ = -Math.Cos(radX) * Math.Cos(radY);
 
             camera.LookDirection = new Vector3D(lookX, lookY, lookZ);
+
+            if ((DateTime.Now - lastImageTime).TotalMilliseconds >= 50)
+            {
+                lastImageTime = DateTime.Now;
+                Console.WriteLine("Анимация удара");
+                AnimationTimer_Tick();
+            }
+                //return;
+
         }
 
         private void CenterMouse()
         {
-            Point windowCenter = this.PointToScreen(new Point((this.Width / 2)-10, (this.Height / 2)+5));
+            Point windowCenter = this.PointToScreen(new Point((this.Width / 2)-10, (this.Height / 2)-6));
 
 
             SetCursorPos((int)windowCenter.X, (int)windowCenter.Y);
@@ -102,10 +148,32 @@ namespace _3ISIP223_PogosyanWPF
 
         private void Viewport3D_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _isMouseCaptured = true;
-            //Mouse.Capture(viewport, CaptureMode.Element);
-            Mouse.OverrideCursor = Cursors.None;
-            CenterMouse();
+            if (!_isMouseCaptured)
+            {
+                _isMouseCaptured = true;
+            
+                Mouse.OverrideCursor = Cursors.None;
+                CenterMouse();
+
+            }
+            else
+            {
+                hitAnim.Visibility = Visibility.Visible;
+                AnimationTimer_Tick();
+
+
+                //var timeline = new ParallelTimeline();
+
+                DoubleAnimation attackAnimation = new DoubleAnimation();
+                attackAnimation.From = 20;  
+                attackAnimation.To = -30;
+                attackAnimation.Duration = TimeSpan.FromMilliseconds(150);
+                attackAnimation.AutoReverse = true;
+                Console.WriteLine("Удар");
+                WeaponAngle.BeginAnimation(AxisAngleRotation3D.AngleProperty, attackAnimation);
+
+
+            }
         }
 
         private void ReleaseMouseCaptures()
@@ -126,10 +194,10 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
-        private void Window_Deactivated(object sender, EventArgs e)
-        {
-            ReleaseMouseCaptures();
-        }
+        //private void Window_Deactivated(object sender, EventArgs e)
+        //{
+        //    ReleaseMouseCaptures();
+        ////}
 
 
         private void ModelUIElement3D_MouseDown(object sender, MouseButtonEventArgs e)
