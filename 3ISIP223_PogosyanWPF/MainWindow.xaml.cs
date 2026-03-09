@@ -28,15 +28,12 @@ namespace _3ISIP223_PogosyanWPF
         private double _currentrotX = 0;
         private double _currentrotY = 0;
 
-        private const double HorizontalSensitivity = 0.2;
-        private const double VerticalSensitivity = 0.2; 
+        private const double HorizontalSensitivity = 0.1;
+        private const double VerticalSensitivity = 0.15; 
 
         private const double MinAngle = -40; 
         private const double MaxAngle = 40;
-        private List<BitmapImage> attackImages;
-        private int currentFrame = 0;
-        private const double SmoothingFactor = 0.2;
-        private DateTime lastImageTime;
+        private const double SmoothingFactor = 0.1;
 
         //public DispatcherTimer animationTimer;
 
@@ -47,38 +44,6 @@ namespace _3ISIP223_PogosyanWPF
             camera = viewport.Camera as PerspectiveCamera;
             CompositionTarget.Rendering += (s, e) => UpdateCameraDirection();
 
-            attackImages = new List<BitmapImage>();
-
-            for (int i = 1; i <= 7; i++)
-            {
-                var frame = new BitmapImage();
-                frame.BeginInit();
-
-                frame.UriSource = new Uri($"pack://application:,,,/hit/Untitled-{i}.png");
-                
-
-                frame.CacheOption = BitmapCacheOption.OnLoad;
-                frame.EndInit();
-                frame.Freeze();
-
-                attackImages.Add(frame);
-            }
-        }
-
-
-        private void AnimationTimer_Tick()
-        {
-
-            if (currentFrame < attackImages.Count - 1)
-            {
-                hitAnim.Source = attackImages[currentFrame];
-                currentFrame++;
-            }
-            else
-            {
-                currentFrame = 0;
-                hitAnim.Visibility = Visibility.Collapsed;
-            }
         }
 
         private void Viewport3D_MouseMove(object sender, MouseEventArgs e)
@@ -91,7 +56,7 @@ namespace _3ISIP223_PogosyanWPF
             double deltaX = currentPosition.X - center.X;
             double deltaY = currentPosition.Y - center.Y;
 
-            if (Math.Abs(deltaX) < 1.5 && Math.Abs(deltaY) < 1.5)
+            if (Math.Abs(deltaX) < 1 && Math.Abs(deltaY) < 1)
             {
                 CenterMouse();
                 return;
@@ -128,14 +93,6 @@ namespace _3ISIP223_PogosyanWPF
 
             camera.LookDirection = new Vector3D(lookX, lookY, lookZ);
 
-            if ((DateTime.Now - lastImageTime).TotalMilliseconds >= 50)
-            {
-                lastImageTime = DateTime.Now;
-                Console.WriteLine("Анимация удара");
-                AnimationTimer_Tick();
-            }
-                //return;
-
         }
 
         private void CenterMouse()
@@ -151,16 +108,13 @@ namespace _3ISIP223_PogosyanWPF
             if (!_isMouseCaptured)
             {
                 _isMouseCaptured = true;
-            
+                //UserInterFrame.IsHitTestVisible = false;
                 Mouse.OverrideCursor = Cursors.None;
                 CenterMouse();
 
             }
             else
             {
-                hitAnim.Visibility = Visibility.Visible;
-                AnimationTimer_Tick();
-
 
                 //var timeline = new ParallelTimeline();
 
@@ -175,22 +129,18 @@ namespace _3ISIP223_PogosyanWPF
 
             }
         }
-
-        private void ReleaseMouseCaptures()
-        {
-            if (_isMouseCaptured)
-            {
-                _isMouseCaptured = false;
-                Mouse.Capture(null);
-                Mouse.OverrideCursor = null;
-            }
-        }
-
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape && _isMouseCaptured)
             {
-                ReleaseMouseCaptures();
+                if (_isMouseCaptured)
+                {
+                    _isMouseCaptured = false;
+                    Mouse.Capture(null);
+                    Mouse.OverrideCursor = null;
+                    //UserInterFrame.IsHitTestVisible = true;
+
+                }
             }
         }
 

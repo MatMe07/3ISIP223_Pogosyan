@@ -94,6 +94,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="CGCHR-Regular.otf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -103,6 +104,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="swordUs.png" />
     <Resource Include="sword_polojenie %28Custom%29.png" />
     <Resource Include="sword_polojenie.png" />
     <Resource Include="hit\Untitled-1.png" />
@@ -112,6 +114,15 @@
     <Resource Include="hit\Untitled-5.png" />
     <Resource Include="hit\Untitled-6.png" />
     <Resource Include="hit\Untitled-7.png" />
+    <Resource Include="Icons\heartUser.png" />
+    <Resource Include="Icons\FrameIcon.png" />
+    <Resource Include="Icons\Armor.png" />
+    <Resource Include="Icons\Invent.png" />
+    <Resource Include="Icons\sword.png" />
+    <Resource Include="Icons\Armor1.png" />
+    <Resource Include="Icons\HeartUser1.png" />
+    <Resource Include="Icons\armorInvent.png" />
+    <Resource Include="Icons\armorInventFirstLevel.png" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
     <Resource Include="sword_udar.png" />
@@ -119,5 +130,6 @@
     <Resource Include="в.png" />
     <Resource Include="header.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
