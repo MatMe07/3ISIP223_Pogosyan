@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Level1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -62,6 +66,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Level1.xaml.cs">
+      <DependentUpon>Level1.xaml</DependentUpon>
     </Compile>
     <Compile Include="LookBackConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -72,10 +79,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\_1UIInvent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pages\_1GamePage.xaml.cs">
       <DependentUpon>_1GamePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\_1UIInvent.xaml.cs">
+      <DependentUpon>_1UIInvent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -104,9 +118,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="swordUs.png" />
-    <Resource Include="sword_polojenie %28Custom%29.png" />
-    <Resource Include="sword_polojenie.png" />
+    <Resource Include="weapons\swordUs.png" />
+    <Resource Include="weapons\sword_polojenie %28Custom%29.png" />
     <Resource Include="hit\Untitled-1.png" />
     <Resource Include="hit\Untitled-2.png" />
     <Resource Include="hit\Untitled-3.png" />
@@ -125,9 +138,7 @@
     <Resource Include="Icons\armorInventFirstLevel.png" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
-    <Resource Include="sword_udar.png" />
-    <Resource Include="sword_prost.png" />
-    <Resource Include="в.png" />
+    <Resource Include="weapons\sword_prost.png" />
     <Resource Include="header.jpg" />
   </ItemGroup>
   <ItemGroup />
