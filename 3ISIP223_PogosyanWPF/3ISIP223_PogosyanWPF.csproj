@@ -85,6 +85,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Player.cs" />
     <Compile Include="Pages\_1GamePage.xaml.cs">
       <DependentUpon>_1GamePage.xaml</DependentUpon>
     </Compile>
@@ -136,6 +137,7 @@
     <Resource Include="Icons\HeartUser1.png" />
     <Resource Include="Icons\armorInvent.png" />
     <Resource Include="Icons\armorInventFirstLevel.png" />
+    <Resource Include="Icons\Pricel.png" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
     <Resource Include="weapons\sword_prost.png" />

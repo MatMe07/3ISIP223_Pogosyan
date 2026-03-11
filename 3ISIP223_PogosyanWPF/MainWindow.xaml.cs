@@ -31,8 +31,8 @@ namespace _3ISIP223_PogosyanWPF
         private const double HorizontalSensitivity = 0.1;
         private const double VerticalSensitivity = 0.15; 
 
-        private const double MinAngle = -40; 
-        private const double MaxAngle = 40;
+        private const double MinAngle = -50; 
+        private const double MaxAngle = 50;
         private const double SmoothingFactor = 0.1;
 
         //public DispatcherTimer animationTimer;

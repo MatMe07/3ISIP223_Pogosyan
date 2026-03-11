@@ -22,8 +22,9 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5 0">
                     <Image Source="/Icons/Armor1.png" Width="30" Margin="0 0 5 5"/>
+                    
                     <Grid>
-                        <ProgressBar Width="120" Height="15" Minimum="0" Maximum="10" Value="9" Foreground="#FF365183" BorderBrush="#FF8A8B92"  />
+                        <ProgressBar Width="120" Height="15" Minimum="0" Maximum="10" Value="10" Foreground="#FF365183" BorderBrush="#FF8A8B92"  />
                         <TextBlock Text="100/100" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="5" Foreground="White" FontFamily="CGCHR"/>
                     </Grid>
 

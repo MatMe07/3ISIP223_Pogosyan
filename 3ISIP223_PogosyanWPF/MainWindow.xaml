@@ -31,8 +31,10 @@
         </StackPanel>
 
 
-        
-        <Border x:Name="Curs" Grid.Row="1" Panel.ZIndex="1" BorderThickness="1" Background="White" CornerRadius="5" Width="6" Height="6" IsHitTestVisible="False"/>
+
+        <Border x:Name="Curs" Grid.Row="1" Panel.ZIndex="1" Width="13" IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="/Icons/Pricel.png" OpacityMask="#CCFFFFFF" />
+        </Border>
 
         <Frame Grid.Row="1" Source="/Pages/_1GamePage.xaml" Panel.ZIndex="1" x:Name="UserUIAvaFrame" HorizontalAlignment="Left" VerticalAlignment="Top" IsHitTestVisible="True"/>
         <Frame Grid.Row="1" Source="/Pages/_1UIInvent.xaml" Panel.ZIndex="1" x:Name="UserUIInterFrame" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="50" Width="133" IsHitTestVisible="True"/>
@@ -99,21 +101,21 @@
         
         
         
-        <Image Grid.Row="1" Panel.ZIndex="1" Visibility="Collapsed" Source="/sword_prost.png" x:Name="weapons" Width="300" Grid.Column="1"  MouseLeftButtonDown="Viewport3D_MouseLeftButtonDown" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+        <!--<Image Grid.Row="1" Panel.ZIndex="1" Visibility="Collapsed" Source="/sword_prost.png" x:Name="weapons" Width="300" Grid.Column="1"  MouseLeftButtonDown="Viewport3D_MouseLeftButtonDown" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Image.RenderTransform>
                 <TransformGroup>
-                    <RotateTransform  x:Name="weaponsRotate" Angle="0" />
+                    <RotateTransform  x:Name="weaponsRotate" Angle="3" />
                 </TransformGroup>
             </Image.RenderTransform>
 
-        </Image>
+        </Image>-->
 
         
         <Viewport3D  x:Name="Viewport" Cursor="Arrow" Grid.Row="1" MouseMove="Viewport3D_MouseMove" MouseLeftButtonDown="Viewport3D_MouseLeftButtonDown" >
 
             <Viewport3D.Camera>
                 <PerspectiveCamera
-            Position="0, 0.5, 1"   
+            Position="1, 0.3,1"   
             LookDirection="1, 0, -5"
             FieldOfView="70" />
             </Viewport3D.Camera>
@@ -133,7 +135,7 @@
 
 
 
-            <ModelUIElement3D   x:Name="enem" MouseDown="ModelUIElement3D_MouseDown">
+            <ModelUIElement3D  >
                 <ModelUIElement3D.Model>
                     <GeometryModel3D>
                         <GeometryModel3D.Material>
@@ -199,7 +201,7 @@
                         </GeometryModel3D.Material>
                         <GeometryModel3D.Geometry>
                             <MeshGeometry3D 
-                        Positions="-10, 0, -15   10, 0, -15   -1.5, 0, 1.5   1.5, 0, 1.5"
+                        Positions="-10, 0, -15   10, 0, -15   -4, 0, 2   4, 0, 2"
                         TriangleIndices="0,2,1  1,2,3" />
                         </GeometryModel3D.Geometry>
                     </GeometryModel3D>
@@ -219,7 +221,7 @@
                         </GeometryModel3D.Material>
                         <GeometryModel3D.Geometry>
                             <MeshGeometry3D 
-                        Positions="-10, 1, -15   10, 1, -15   -1.5, 1, 1.5   1.5, 1, 1.5"
+                        Positions="-10, 0.6, -15   10, 0.6, -15   -4, 0.6, 2   4, 0.6, 2"
                         TriangleIndices="0,1,2 1,3,2" />
                         </GeometryModel3D.Geometry>
                     </GeometryModel3D>
@@ -250,16 +252,59 @@
                         <GeometryModel3D.Material>
                             <DiffuseMaterial Brush="#9B5D5D"/>
                         </GeometryModel3D.Material>
+                        <!-- Добавляем материал для обратной стороны -->
+                        <GeometryModel3D.BackMaterial>
+                            <DiffuseMaterial Brush="#9B5D5D"/>
+                        </GeometryModel3D.BackMaterial>
+
                         <GeometryModel3D.Geometry>
                             <MeshGeometry3D 
-                        Positions="4.07, 0, -15   4, 1.5, -15   1.5, 0, 1.5   1.25, 1.5, 1.5"
-                        TriangleIndices="1,0,2  1,2,3" />
+                    Positions="
+4, 0, -13
+4, 3, -13
+3, 0, -7
+3, 3, -7
+3, 0, -7
+3, 3, -7
+6, 0, -7
+6, 3, -7
+6, 0, -7
+6, 3, -7
+4, 0, 1
+4, 3, 1"
+                    
+                    TriangleIndices="
+0,1,2
+1,3,2
+4,5,6
+5,7,6
+8,9,10
+9,11,10"/>
                         </GeometryModel3D.Geometry>
                     </GeometryModel3D>
                 </ModelVisual3D.Content>
             </ModelVisual3D>
 
+            <ModelUIElement3D  x:Name="enem" MouseDown="ModelUIElement3D_MouseDown">
+                
+                <ModelUIElement3D.Model>
+                    
+                    <GeometryModel3D>
+                        <GeometryModel3D.Material>
+                            <DiffuseMaterial Brush="AliceBlue"/>
+                        </GeometryModel3D.Material>
+                        
+                        <GeometryModel3D.Geometry>
 
+                            <MeshGeometry3D Positions="1, 0, -4   1, 0.4, -4   1.3, 0, -4   1.3, 0.4, -4"
+TriangleIndices="1,0,2  1,2,3"/>
+                        </GeometryModel3D.Geometry>
+                        <GeometryModel3D.Transform>
+                            <TranslateTransform3D OffsetZ="1"/>
+                        </GeometryModel3D.Transform>
+                    </GeometryModel3D>
+                </ModelUIElement3D.Model>
+            </ModelUIElement3D>
         </Viewport3D>
     </Grid>
 </Window>
