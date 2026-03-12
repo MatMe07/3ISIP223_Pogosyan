@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -43,9 +45,15 @@ namespace _3ISIP223_PogosyanWPF
             viewport = Viewport;
             camera = viewport.Camera as PerspectiveCamera;
             CompositionTarget.Rendering += (s, e) => UpdateCameraDirection();
-            ModelUIElement3D mod = WorkGame.Game.EnemiesAA[0].Item2;
-            mod.Transform = new TranslateTransform3D() { OffsetZ=1};
+            ModelUIElement3D mod = CreateModelEnemy.CreateModel(Colors.Gray, 0, 0, 2);
+            mod.MouseDown += ModelUIElement3D_MouseDown;
+            WorkGame.Game.AddEnemis(mod);
+            //WorkGame.Game.Enemies.Add(Vrags.Enemies[0].CreateEnemy(mod));
+
+
+            //ModelUIElement3D mod = WorkGame.Game.Enemies[0].model;
             Viewport.Children.Add(mod);
+
         }
 
         private void Viewport3D_MouseMove(object sender, MouseEventArgs e)
@@ -80,6 +88,7 @@ namespace _3ISIP223_PogosyanWPF
 
             _currentrotX += (_rotX - _currentrotX) * SmoothingFactor;
             _currentrotY += (_rotY - _currentrotY) * SmoothingFactor;
+            //Console.WriteLine($"x: {_currentrotX}; y: {_currentrotY}");
 
             if (Math.Abs(_rotX - _currentrotX) < 0.01)
                 _currentrotX = _rotX;
@@ -90,7 +99,8 @@ namespace _3ISIP223_PogosyanWPF
             double radY = _currentrotY * Math.PI / 180.0;
 
             double lookX = Math.Sin(radX) * Math.Cos(radY);
-            double lookY = Math.Sin(radY);
+            double lookY = 0;
+            //double lookY = Math.Sin(radY);
             double lookZ = -Math.Cos(radX) * Math.Cos(radY);
 
             camera.LookDirection = new Vector3D(lookX, lookY, lookZ);
@@ -146,18 +156,69 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
+
+        public Viewport2DVisual3D GetViewport2DText(TranslateTransform3D transform, double num)
+        {
+            Viewport2DVisual3D viewport2D = new Viewport2DVisual3D();
+            TranslateTransform3D translate = new TranslateTransform3D(transform.OffsetX + 1.15, .5, transform.OffsetZ);
+            MeshGeometry3D mesh = new MeshGeometry3D();
+
+            mesh.Positions = new Point3DCollection
+            {
+                new Point3D(-0.05, 0.1, -4),
+                new Point3D(0.05, 0.1, -4),
+                new Point3D(0.05, -0.1, -4),
+                new Point3D(-0.05, -0.1, -4)
+            };
+            mesh.TriangleIndices = new Int32Collection { 0, 2, 1, 2, 0, 3 };
+            mesh.TextureCoordinates = new PointCollection
+            {
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(1, 1),
+                new Point(0, 1) 
+            };
+            viewport2D.Geometry = mesh;
+
+            DiffuseMaterial material = new DiffuseMaterial();
+            material.SetValue(Viewport2DVisual3D.IsVisualHostMaterialProperty, true);
+            viewport2D.Material = material;
+
+            TextBlock textBlock = new TextBlock();
+            textBlock.Text = num.ToString();
+            textBlock.Foreground = Brushes.Red;
+
+
+            viewport2D.Transform = translate;
+
+            viewport2D.Visual = textBlock;
+
+            
+
+            return viewport2D;
+        }
+
+        public void ModelUIElement3D_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //MessageBox.Show("Куб нажат!");
+            ModelUIElement3D mod = (ModelUIElement3D)sender;
+            var transform = mod.Transform as TranslateTransform3D;
+            //mod.Visibility = Visibility.Collapsed;
+            Console.WriteLine($"{WorkGame.Game.Enemies.FirstOrDefault(s => s.model == mod).Name}");
+            double attack = WorkGame.Game.Attack(mod);
+
+            Viewport2DVisual3D text = GetViewport2DText(transform, attack);
+            Viewport.Children.Add(text);
+
+
+        }
+
         //private void Window_Deactivated(object sender, EventArgs e)
         //{
         //    ReleaseMouseCaptures();
         ////}
 
 
-        private void ModelUIElement3D_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            //MessageBox.Show("Куб нажат!");
-            ModelUIElement3D en = (ModelUIElement3D)sender;
-            en.Visibility = Visibility.Collapsed;
 
-        }
     }
 }

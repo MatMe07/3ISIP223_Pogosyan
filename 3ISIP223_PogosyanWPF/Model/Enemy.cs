@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Media3D;
 
 namespace _3ISIP223_PogosyanWPF.Model
 {
@@ -11,6 +12,7 @@ namespace _3ISIP223_PogosyanWPF.Model
         public Random random = new Random();
 
         public string Name { get; set; }
+        public ModelUIElement3D model {  get; set; }
 
         public double HP { get; set; }
         public double MaxHP { get; set; }
@@ -19,13 +21,14 @@ namespace _3ISIP223_PogosyanWPF.Model
         public bool HaveDefense => Defense > 0;
         public bool IsAlive => HP > 0;
         public string UniqSkill { get; set; }
-        public Enemy(string name, double attack, double defense, double hp)
+        public Enemy(string name, double attack, double defense, double hp, ModelUIElement3D mod)
         {
             Name = name;
             Attack = attack;
             Defense = defense;
             HP = hp;
             MaxHP = hp;
+            model = mod;
         }
 
 

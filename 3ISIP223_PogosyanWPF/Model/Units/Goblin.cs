@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Media3D;
 
 namespace _3ISIP223_PogosyanWPF.Model.Units
 {
@@ -12,7 +13,7 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
         public bool IsKritAttack { get; set; }
         public bool KritAttack => random.Next(0, 100) < ProcentKritAttack;
 
-        public Goblin(string name, double attack, double defense, double hp) : base(name, attack, defense, hp)
+        public Goblin(string name, double attack, double defense, double hp, ModelUIElement3D mod) : base(name, attack, defense, hp, mod)
         {
             ProcentKritAttack = 15;
             UniqSkill = "Шанс критического удара";

@@ -6,7 +6,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
@@ -40,18 +42,10 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
-        private ObservableCollection<Enemy> _enemies;
-        public List<(Enemy, ModelUIElement3D)> EnemiesAA;
+        //private ObservableCollection<Enemy> _enemies;
+        //public List<(Enemy enemy, ModelUIElement3D model)> EnemiesAA;
         
-        public ObservableCollection<Enemy> Enemies
-        {
-            get { return _enemies; }
-            set
-            {
-                _enemies = value;
-                OnPropertyChanged(nameof(Enemies));
-            }
-        }
+        public List<Enemy> Enemies { get; set; }
 
         public void OnPropertyChanged(string propertyName)
         {
@@ -82,36 +76,53 @@ namespace _3ISIP223_PogosyanWPF
             string name = "Player1";
             Player = new Player(name);
             Vrags = new EnemyCreater();
-            Enemies = new ObservableCollection<Enemy>();
-            EnemiesAA = new List<(Enemy, ModelUIElement3D)>();
-            ModelUIElement3D mod = new ModelUIElement3D();
-            MeshGeometry3D mesh = new MeshGeometry3D();
-            mesh.Positions.Add(Point3D.Parse("1, 0, -4"));
-            mesh.Positions.Add(Point3D.Parse("1, 0.4, -4"));
-            mesh.Positions.Add(Point3D.Parse("1.3, 0, -4"));
-            mesh.Positions.Add(Point3D.Parse("1.3, 0.4, -4"));
+            Enemies = new List<Enemy>();
+            //EnemiesAA = new List<(Enemy, ModelUIElement3D)>();
 
-            mesh.TriangleIndices.Add(1);
-            mesh.TriangleIndices.Add(0);
-            mesh.TriangleIndices.Add(2);
-
-            mesh.TriangleIndices.Add(1);
-            mesh.TriangleIndices.Add(2);
-            mesh.TriangleIndices.Add(3);
-            mod.Model = new GeometryModel3D(mesh, new DiffuseMaterial(new SolidColorBrush(Colors.Red)));
-            EnemiesAA.Add(
-                (
-                    Vrags.Enemies[0].CreateEnemy(),
-                    mod
-                )
-                );
             step = 1;
             GameOver = false;
             StepSpendWinOverBoss = 0;
             HPLostWinOverBoss = 0;
             //vrags = new EnemyCreater();
         }
+        public void AddEnemis(ModelUIElement3D model)
+        {
+            Enemies.Add(Vrags.Enemies[0].CreateEnemy(model));
+        }
 
+
+
+
+        public double Attack(ModelUIElement3D model)
+        {
+            Enemy vrag = Enemies.FirstOrDefault(s=>s.model == model);
+            double attack = Math.Max(0, Player.AttackWeapon - 2 - vrag.Defense);
+            if (attack > vrag.HP) attack = vrag.HP;
+            attack = Math.Round(attack, 2);
+            vrag.HP -= attack;
+            Console.WriteLine($"Вы наносите удар! {vrag.Name} получает {attack} урона!");
+            //if (Boss != null) { StepSpendWinOverBoss++; }
+            if (!vrag.IsAlive)
+            {
+                vrag.HP = 0;
+                vrag.LastWord();
+                //if (Boss != null)
+                //{
+                //    Thread.Sleep(1100);
+                //    player.CountAttackBosses++;
+                //    WinOverBoss();
+                //}
+                //else
+                //{
+                //    player.CountAttackEnemies++;
+                //}
+                vrag = null;
+            }
+            return attack;
+            //Console.ReadLine();
+            //Console.Clear();
+            //InforEnemAndPlayer(vrag);
+        }
 
 
     }
