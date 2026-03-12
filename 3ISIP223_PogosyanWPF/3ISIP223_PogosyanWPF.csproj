@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CreateModelEnemy.cs" />
     <Compile Include="Model\Creater\CreaterGoblin.cs" />
     <Compile Include="Model\Creater\CreaterMag.cs" />
     <Compile Include="Model\Creater\CreaterPestov.cs" />

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace _3ISIP223_PogosyanWPF.Model.Creater
 {
-    internal class CreaterGoblin : Factory
+    public class CreaterGoblin : Factory
     {
         public override Enemy CreateEnemy()
         {

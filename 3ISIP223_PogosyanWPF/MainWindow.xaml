@@ -280,26 +280,7 @@
                 </ModelVisual3D.Content>
             </ModelVisual3D>
 
-            <ModelUIElement3D  x:Name="enem" MouseDown="ModelUIElement3D_MouseDown">
-                
-                <ModelUIElement3D.Model>
-                    
-                    <GeometryModel3D>
-                        <GeometryModel3D.Material>
-                            <DiffuseMaterial Brush="AliceBlue"/>
-                        </GeometryModel3D.Material>
-                        
-                        <GeometryModel3D.Geometry>
 
-                            <MeshGeometry3D Positions="1, 0, -4   1, 0.4, -4   1.3, 0, -4   1.3, 0.4, -4"
-TriangleIndices="1,0,2  1,2,3"/>
-                        </GeometryModel3D.Geometry>
-                        <GeometryModel3D.Transform>
-                            <TranslateTransform3D OffsetZ="1"/>
-                        </GeometryModel3D.Transform>
-                    </GeometryModel3D>
-                </ModelUIElement3D.Model>
-            </ModelUIElement3D>
         </Viewport3D>
 
 

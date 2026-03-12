@@ -2,10 +2,13 @@
 using _3ISIP223_PogosyanWPF.Model.Creater;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Media.Media3D;
 
 namespace _3ISIP223_PogosyanWPF
 {
@@ -26,7 +29,7 @@ namespace _3ISIP223_PogosyanWPF
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public EnemyCreater _vrags = null;
+        private EnemyCreater _vrags = null;
         public EnemyCreater Vrags
         {
             get { return _vrags; }
@@ -36,6 +39,20 @@ namespace _3ISIP223_PogosyanWPF
                 OnPropertyChanged(nameof(Vrags));
             }
         }
+
+        private ObservableCollection<Enemy> _enemies;
+        public List<(Enemy, ModelUIElement3D)> EnemiesAA;
+        
+        public ObservableCollection<Enemy> Enemies
+        {
+            get { return _enemies; }
+            set
+            {
+                _enemies = value;
+                OnPropertyChanged(nameof(Enemies));
+            }
+        }
+
         public void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -65,6 +82,29 @@ namespace _3ISIP223_PogosyanWPF
             string name = "Player1";
             Player = new Player(name);
             Vrags = new EnemyCreater();
+            Enemies = new ObservableCollection<Enemy>();
+            EnemiesAA = new List<(Enemy, ModelUIElement3D)>();
+            ModelUIElement3D mod = new ModelUIElement3D();
+            MeshGeometry3D mesh = new MeshGeometry3D();
+            mesh.Positions.Add(Point3D.Parse("1, 0, -4"));
+            mesh.Positions.Add(Point3D.Parse("1, 0.4, -4"));
+            mesh.Positions.Add(Point3D.Parse("1.3, 0, -4"));
+            mesh.Positions.Add(Point3D.Parse("1.3, 0.4, -4"));
+
+            mesh.TriangleIndices.Add(1);
+            mesh.TriangleIndices.Add(0);
+            mesh.TriangleIndices.Add(2);
+
+            mesh.TriangleIndices.Add(1);
+            mesh.TriangleIndices.Add(2);
+            mesh.TriangleIndices.Add(3);
+            mod.Model = new GeometryModel3D(mesh, new DiffuseMaterial(new SolidColorBrush(Colors.Red)));
+            EnemiesAA.Add(
+                (
+                    Vrags.Enemies[0].CreateEnemy(),
+                    mod
+                )
+                );
             step = 1;
             GameOver = false;
             StepSpendWinOverBoss = 0;

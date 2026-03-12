@@ -43,7 +43,9 @@ namespace _3ISIP223_PogosyanWPF
             viewport = Viewport;
             camera = viewport.Camera as PerspectiveCamera;
             CompositionTarget.Rendering += (s, e) => UpdateCameraDirection();
-
+            ModelUIElement3D mod = WorkGame.Game.EnemiesAA[0].Item2;
+            mod.Transform = new TranslateTransform3D() { OffsetZ=1};
+            Viewport.Children.Add(mod);
         }
 
         private void Viewport3D_MouseMove(object sender, MouseEventArgs e)
@@ -153,7 +155,8 @@ namespace _3ISIP223_PogosyanWPF
         private void ModelUIElement3D_MouseDown(object sender, MouseButtonEventArgs e)
         {
             //MessageBox.Show("Куб нажат!");
-            enem.Visibility = Visibility.Collapsed;
+            ModelUIElement3D en = (ModelUIElement3D)sender;
+            en.Visibility = Visibility.Collapsed;
 
         }
     }
