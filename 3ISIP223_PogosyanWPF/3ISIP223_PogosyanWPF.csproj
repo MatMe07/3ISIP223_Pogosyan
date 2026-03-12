@@ -55,6 +55,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Creater\CreaterGoblin.cs" />
+    <Compile Include="Model\Creater\CreaterMag.cs" />
+    <Compile Include="Model\Creater\CreaterPestov.cs" />
+    <Compile Include="Model\Creater\CreaterVVG.cs" />
+    <Compile Include="Model\Creater\EnemyCreater.cs" />
+    <Compile Include="Model\Enemy.cs" />
+    <Compile Include="Model\Factory.cs" />
+    <Compile Include="Model\Units\Goblin.cs" />
+    <Compile Include="RandomCLS.cs" />
     <Page Include="Level1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -67,10 +76,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Game.cs" />
     <Compile Include="Level1.xaml.cs">
       <DependentUpon>Level1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LookBackConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -109,7 +118,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Resource Include="CGCHR-Regular.otf" />
+    <Resource Include="Fonts\CGCHR.otf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -141,8 +150,9 @@
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
     <Resource Include="weapons\sword_prost.png" />
-    <Resource Include="header.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Model\Bosses\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

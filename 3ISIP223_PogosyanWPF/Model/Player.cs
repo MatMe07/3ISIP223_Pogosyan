@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace _3ISIP223_PogosyanWPF.Model
 {
-    internal class Player : INotifyPropertyChanged
+    public class Player : INotifyPropertyChanged
     {
 
         private double _hp;

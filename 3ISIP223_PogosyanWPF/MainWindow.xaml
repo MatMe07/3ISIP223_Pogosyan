@@ -6,13 +6,8 @@
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF"
         mc:Ignorable="d"
         Title="Arina" Height="450" Width="800" KeyDown="Window_KeyDown" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
-    <Window.Resources>
-        <local:LookBackConverter x:Key="lookBack"/>
-        <Style TargetType="TextBlock" >
-            <Setter Property="FontFamily" Value="CGCHR"/>
-        </Style>
-    </Window.Resources>
-    
+
+
 
     <Grid>
         <!--<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -306,5 +301,7 @@ TriangleIndices="1,0,2  1,2,3"/>
                 </ModelUIElement3D.Model>
             </ModelUIElement3D>
         </Viewport3D>
+
+
     </Grid>
 </Window>

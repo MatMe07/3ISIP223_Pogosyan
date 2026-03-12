@@ -29,7 +29,7 @@ namespace _3ISIP223_PogosyanWPF
         private double _currentrotY = 0;
 
         private const double HorizontalSensitivity = 0.1;
-        private const double VerticalSensitivity = 0.15; 
+        private const double VerticalSensitivity = 0; 
 
         private const double MinAngle = -50; 
         private const double MaxAngle = 50;

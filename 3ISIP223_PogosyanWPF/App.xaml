@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="TextBlock">
+            <Setter Property="TextElement.FontFamily" Value="/Fonts/#CGCHR">
+                
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>
