@@ -42,10 +42,14 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
+        public int CountEnemies => Enemies.Count;
+
         //private ObservableCollection<Enemy> _enemies;
         //public List<(Enemy enemy, ModelUIElement3D model)> EnemiesAA;
-        
+
         public List<Enemy> Enemies { get; set; }
+
+        //public 
 
         public void OnPropertyChanged(string propertyName)
         {
@@ -90,12 +94,18 @@ namespace _3ISIP223_PogosyanWPF
             Enemies.Add(Vrags.Enemies[0].CreateEnemy(model));
         }
 
+        public void DeleteEnemis(ModelUIElement3D model)
+        {
+            Enemy en = Enemies.FirstOrDefault(a=>a.model == model);
+            Enemies.Remove(en);
+        }
 
 
 
         public double Attack(ModelUIElement3D model)
         {
             Enemy vrag = Enemies.FirstOrDefault(s=>s.model == model);
+            //if (vrag == null) return;
             double attack = Math.Max(0, Player.AttackWeapon - 2 - vrag.Defense);
             if (attack > vrag.HP) attack = vrag.HP;
             attack = Math.Round(attack, 2);

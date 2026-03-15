@@ -12,7 +12,7 @@ namespace _3ISIP223_PogosyanWPF.Model.Creater
     {
         public override Enemy CreateEnemy(ModelUIElement3D model)
         {
-            return new Goblin("Гоблин", RandomCLS.Next(10, 20), RandomCLS.Next(3, 7), RandomCLS.Next(15, 25), model);
+            return new Goblin("Гоблин", RandomCLS.Next(10, 20), RandomCLS.Next(3, 7), RandomCLS.Next(0, 5), model);
         }
 
     }

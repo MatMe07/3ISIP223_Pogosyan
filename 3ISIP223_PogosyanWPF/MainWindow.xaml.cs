@@ -41,20 +41,43 @@ namespace _3ISIP223_PogosyanWPF
 
         public MainWindow()
         {
+            mainMenu menu = new mainMenu();
+            var result = menu.ShowDialog();
+            if (result == false)
+            {
+                Close();
+            }
             InitializeComponent();
             viewport = Viewport;
             camera = viewport.Camera as PerspectiveCamera;
             CompositionTarget.Rendering += (s, e) => UpdateCameraDirection();
-            ModelUIElement3D mod = CreateModelEnemy.CreateModel(Colors.Gray, 0, 0, 2);
-            mod.MouseDown += ModelUIElement3D_MouseDown;
-            WorkGame.Game.AddEnemis(mod);
-            //WorkGame.Game.Enemies.Add(Vrags.Enemies[0].CreateEnemy(mod));
 
+            GenerateEnemies();
 
-            //ModelUIElement3D mod = WorkGame.Game.Enemies[0].model;
-            Viewport.Children.Add(mod);
 
         }
+
+
+
+        public void GenerateEnemies()
+        {
+
+            ModelUIElement3D mod;
+            for (double i = -0.8; i < 1; i+=.8)
+            {
+                mod = CreateModelEnemy.CreateModel(Colors.Gray, i, 0, 2);
+                mod.MouseDown += ModelUIElement3D_MouseDown;
+                WorkGame.Game.AddEnemis(mod);
+                Console.WriteLine($"{mod}");
+                //WorkGame.Game.Enemies.Add(Vrags.Enemies[0].CreateEnemy(mod));
+
+
+                //ModelUIElement3D mod = WorkGame.Game.Enemies[0].model;
+                Viewport.Children.Add(mod);
+
+            }
+        }
+
 
         private void Viewport3D_MouseMove(object sender, MouseEventArgs e)
         {
@@ -156,19 +179,23 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
+        public void NewLevel()
+        {
 
+        }
         public Viewport2DVisual3D GetViewport2DText(TranslateTransform3D transform, double num)
         {
             Viewport2DVisual3D viewport2D = new Viewport2DVisual3D();
             TranslateTransform3D translate = new TranslateTransform3D(transform.OffsetX + 1.15, .5, transform.OffsetZ);
             MeshGeometry3D mesh = new MeshGeometry3D();
 
+            double xP = ((int)num).ToString().Length == 1 ? 0.05 : 0.1;
             mesh.Positions = new Point3DCollection
             {
-                new Point3D(-0.05, 0.1, -4),
-                new Point3D(0.05, 0.1, -4),
-                new Point3D(0.05, -0.1, -4),
-                new Point3D(-0.05, -0.1, -4)
+                new Point3D(-xP, 0.1, -4),
+                new Point3D(xP, 0.1, -4),
+                new Point3D(xP, -0.1, -4),
+                new Point3D(-xP, -0.1, -4)
             };
             mesh.TriangleIndices = new Int32Collection { 0, 2, 1, 2, 0, 3 };
             mesh.TextureCoordinates = new PointCollection
@@ -204,21 +231,36 @@ namespace _3ISIP223_PogosyanWPF
             ModelUIElement3D mod = (ModelUIElement3D)sender;
             var transform = mod.Transform as TranslateTransform3D;
             //mod.Visibility = Visibility.Collapsed;
-            Console.WriteLine($"{WorkGame.Game.Enemies.FirstOrDefault(s => s.model == mod).Name}");
+            //Console.WriteLine($"{WorkGame.Game.Enemies.FirstOrDefault(s => s.model == mod).Name}");
             double attack = WorkGame.Game.Attack(mod);
 
             Viewport2DVisual3D text = GetViewport2DText(transform, attack);
             Viewport.Children.Add(text);
 
 
+            var begAnim = new DoubleAnimation();
+            begAnim.From = 0;
+            begAnim.To = 1;
+            begAnim.Duration = TimeSpan.FromMilliseconds(200);
+
+
+            begAnim.Completed += (s, eа) =>
+            {
+                Viewport.Children.Remove(text);
+            };
+
+            text.BeginAnimation(OpacityProperty, begAnim);
+            if (attack == 0)
+            {
+                WorkGame.Game.DeleteEnemis(mod);
+                Viewport.Children.Remove(mod);
+                if (WorkGame.Game.CountEnemies == 0)
+                {
+
+                    GenerateEnemies();
+                }
+            }
         }
-
-        //private void Window_Deactivated(object sender, EventArgs e)
-        //{
-        //    ReleaseMouseCaptures();
-        ////}
-
-
 
     }
 }

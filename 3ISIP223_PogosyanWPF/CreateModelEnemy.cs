@@ -10,7 +10,7 @@ namespace _3ISIP223_PogosyanWPF
 {
     public static class CreateModelEnemy
     {
-        public static ModelUIElement3D CreateModel(Color color,int x = 0, int y = 0, int z = 0, string imagePath = "")
+        public static ModelUIElement3D CreateModel(Color color,double x = 0, double y = 0, double z = 0, string imagePath = "")
         {
             var model = new ModelUIElement3D();
             MeshGeometry3D mesh = new MeshGeometry3D();

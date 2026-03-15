@@ -56,6 +56,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CreateModelEnemy.cs" />
+    <Compile Include="mainMenu.xaml.cs">
+      <DependentUpon>mainMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Creater\CreaterGoblin.cs" />
     <Compile Include="Model\Creater\CreaterMag.cs" />
     <Compile Include="Model\Creater\CreaterPestov.cs" />
@@ -66,6 +69,10 @@
     <Compile Include="Model\Units\Goblin.cs" />
     <Compile Include="RandomCLS.cs" />
     <Page Include="Level1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="mainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -148,6 +155,10 @@
     <Resource Include="Icons\armorInvent.png" />
     <Resource Include="Icons\armorInventFirstLevel.png" />
     <Resource Include="Icons\Pricel.png" />
+    <Resource Include="Icons\interface\CencelButton.png" />
+    <Resource Include="Icons\interface\btnQuit.png" />
+    <Resource Include="Icons\interface\btnStart.png" />
+    <Resource Include="Icons\interface\frameCancel.png" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
     <Resource Include="weapons\sword_prost.png" />
