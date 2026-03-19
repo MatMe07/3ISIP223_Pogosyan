@@ -37,7 +37,9 @@ namespace _3ISIP223_PogosyanWPF
         private const double MaxAngle = 50;
         private const double SmoothingFactor = 0.1;
 
-        //public DispatcherTimer animationTimer;
+        public DateTime AttackTimer;
+        private bool isAttacking = false;
+
 
         public MainWindow()
         {
@@ -52,13 +54,25 @@ namespace _3ISIP223_PogosyanWPF
             camera = viewport.Camera as PerspectiveCamera;
             CompositionTarget.Rendering += (s, e) => UpdateCameraDirection();
 
-            GenerateEnemies();
-
+            NewLevel();
 
         }
 
 
 
+        public void GenerateBoss()
+        {
+            ModelUIElement3D mod;
+            mod = CreateModelEnemy.CreateModel(Colors.Gray, 0.5, 0, 2);
+            mod.MouseDown += ModelUIElement3D_MouseDown;
+            WorkGame.Game.SelectBoss(mod);
+            Console.WriteLine($"{mod}");
+            //WorkGame.Game.Enemies.Add(Vrags.Enemies[0].CreateEnemy(mod));
+
+
+            //ModelUIElement3D mod = WorkGame.Game.Enemies[0].model;
+            Viewport.Children.Add(mod);
+        }
         public void GenerateEnemies()
         {
 
@@ -140,6 +154,7 @@ namespace _3ISIP223_PogosyanWPF
 
         private void Viewport3D_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+
             if (!_isMouseCaptured)
             {
                 _isMouseCaptured = true;
@@ -150,15 +165,25 @@ namespace _3ISIP223_PogosyanWPF
             }
             else
             {
+                if (IsClicking) return;
 
+
+                //isAttacking = true;
+                //Console.WriteLine(isAttacking + "    ");
+                AttackTimer = DateTime.Now;
                 //var timeline = new ParallelTimeline();
 
                 DoubleAnimation attackAnimation = new DoubleAnimation();
                 attackAnimation.From = 20;  
                 attackAnimation.To = -30;
-                attackAnimation.Duration = TimeSpan.FromMilliseconds(150);
+                attackAnimation.Duration = TimeSpan.FromMilliseconds(250);
                 attackAnimation.AutoReverse = true;
-                Console.WriteLine("Удар");
+                //attackAnimation.Completed += (s, er) =>
+                //{
+                //    isAttacking = false;
+                //    Console.Write(isAttacking + "    ");
+                //};
+                //Console.WriteLine("Удар");
                 WeaponAngle.BeginAnimation(AxisAngleRotation3D.AngleProperty, attackAnimation);
 
 
@@ -179,14 +204,45 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
+        
+
         public void NewLevel()
         {
+            if (WorkGame.Game.step == 1)
+            {
+                GenerateEnemies();
+                WorkGame.Game.step++;
+                return;
+            }
+
+            if (WorkGame.Game.step == 4)
+            {
+                GenerateBoss();
+                WorkGame.Game.step++;
+                return;
+            }
+            LevelUP.Visibility = Visibility.Visible;
+            DoubleAnimation anim = new DoubleAnimation();
+            anim.From = 0;
+            anim.To = 1;
+            anim.Duration = TimeSpan.FromMilliseconds(350);
+            anim.AutoReverse = true;
+
+            anim.Completed += (e, s) =>
+            {
+                GenerateEnemies();
+                LevelUP.Visibility = Visibility.Collapsed;
+                WorkGame.Game.step++;
+            };
+            LevelUP.BeginAnimation(OpacityProperty, anim);
+
+
 
         }
-        public Viewport2DVisual3D GetViewport2DText(TranslateTransform3D transform, double num)
+        public Viewport2DVisual3D GetViewport2DText(TranslateTransform3D transform, double num, bool isBosse = false )
         {
             Viewport2DVisual3D viewport2D = new Viewport2DVisual3D();
-            TranslateTransform3D translate = new TranslateTransform3D(transform.OffsetX + 1.15, .5, transform.OffsetZ);
+            TranslateTransform3D translate = new TranslateTransform3D(transform.OffsetX + (isBosse ? 1.05 : 1.15), .5, transform.OffsetZ);
             MeshGeometry3D mesh = new MeshGeometry3D();
 
             double xP = ((int)num).ToString().Length == 1 ? 0.05 : 0.1;
@@ -225,8 +281,15 @@ namespace _3ISIP223_PogosyanWPF
             return viewport2D;
         }
 
+        private bool IsClicking => (DateTime.Now - AttackTimer).TotalMilliseconds < 500;
+        
         public void ModelUIElement3D_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (!_isMouseCaptured) return;
+            //if (isAttacking) return;
+            if (IsClicking) return;
+            //Console.WriteLine("Удар по enemy, ${0}", isAttacking);
+
             //MessageBox.Show("Куб нажат!");
             ModelUIElement3D mod = (ModelUIElement3D)sender;
             var transform = mod.Transform as TranslateTransform3D;
@@ -252,12 +315,18 @@ namespace _3ISIP223_PogosyanWPF
             text.BeginAnimation(OpacityProperty, begAnim);
             if (attack == 0)
             {
-                WorkGame.Game.DeleteEnemis(mod);
-                Viewport.Children.Remove(mod);
-                if (WorkGame.Game.CountEnemies == 0)
+                if (WorkGame.Game.isBoss)
                 {
-
-                    GenerateEnemies();
+                    WorkGame.Game.DeleteBoss();
+                }
+                else
+                {
+                    WorkGame.Game.DeleteEnemis(mod);
+                }
+                Viewport.Children.Remove(mod);
+                if (WorkGame.Game.CountEnemies == 0 && !WorkGame.Game.isBoss)
+                {
+                    NewLevel();
                 }
             }
         }

@@ -10,14 +10,25 @@ namespace _3ISIP223_PogosyanWPF
 {
     public static class CreateModelEnemy
     {
-        public static ModelUIElement3D CreateModel(Color color,double x = 0, double y = 0, double z = 0, string imagePath = "")
+        public static ModelUIElement3D CreateModel(Color color,double x = 0, double y = 0, double z = 0, string imagePath = "", bool isBoss = false)
         {
             var model = new ModelUIElement3D();
             MeshGeometry3D mesh = new MeshGeometry3D();
-            mesh.Positions.Add(Point3D.Parse("1, 0, -4"));
-            mesh.Positions.Add(Point3D.Parse("1, 0.4, -4"));
-            mesh.Positions.Add(Point3D.Parse("1.3, 0, -4"));
-            mesh.Positions.Add(Point3D.Parse("1.3, 0.4, -4"));
+            if (isBoss)
+            {
+                mesh.Positions.Add(Point3D.Parse("0.8, 0, -4"));
+                mesh.Positions.Add(Point3D.Parse("0.8, 0.4, -4"));
+                mesh.Positions.Add(Point3D.Parse("1.3, 0, -4"));
+                mesh.Positions.Add(Point3D.Parse("1.3, 0.4, -4"));
+            }
+            else
+            {
+                mesh.Positions.Add(Point3D.Parse("1, 0, -4"));
+                mesh.Positions.Add(Point3D.Parse("1, 0.4, -4"));
+                mesh.Positions.Add(Point3D.Parse("1.3, 0, -4"));
+                mesh.Positions.Add(Point3D.Parse("1.3, 0.4, -4"));
+            }
+
 
             mesh.TriangleIndices.Add(1);
             mesh.TriangleIndices.Add(0);

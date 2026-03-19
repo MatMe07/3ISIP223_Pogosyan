@@ -31,7 +31,7 @@
             <ImageBrush ImageSource="/Icons/interface/frameCancel.png" Stretch="Uniform"/>
         </Grid.Background>
         <Border Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Width="23"  Margin="0,5,7,0" Style="{StaticResource ElementInvent}" MouseLeftButtonDown="Border_MouseLeftButtonDown">
-            <Image Source="/Icons/interface/CencelButton.png"  />
+            <Image Source="/Icons/interface/btn/CencelButton.png"  />
             
         </Border>
 
@@ -43,10 +43,10 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Border Style="{StaticResource ElementInvent}" Grid.Row="0" Padding="13 5" MouseLeftButtonDown="BorderBtnStart_MouseLeftButtonDown" >
-                <Image Source="/Icons/interface/btnStart.png"/>
+                <Image Source="/Icons/interface/btn/btnStart.png"/>
             </Border>
             <Border Style="{StaticResource ElementInvent}" Grid.Row="1" Padding="13 5" MouseLeftButtonDown="Border_MouseLeftButtonDown" >
-                <Image Source="/Icons/interface/btnQuit.png"/>
+                <Image Source="/Icons/interface/btn/btnQuit.png"/>
             </Border>
         </Grid>
         

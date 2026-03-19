@@ -67,7 +67,12 @@
     <Compile Include="Model\Enemy.cs" />
     <Compile Include="Model\Factory.cs" />
     <Compile Include="Model\Units\Goblin.cs" />
+    <Compile Include="Model\Bosses\Pestov.cs" />
+    <Compile Include="Model\Units\Magician.cs" />
     <Compile Include="RandomCLS.cs" />
+    <Compile Include="ResulLevelWindow.xaml.cs">
+      <DependentUpon>ResulLevelWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Level1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -97,6 +102,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\_1UIInvent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResulLevelWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -155,16 +164,18 @@
     <Resource Include="Icons\armorInvent.png" />
     <Resource Include="Icons\armorInventFirstLevel.png" />
     <Resource Include="Icons\Pricel.png" />
-    <Resource Include="Icons\interface\CencelButton.png" />
-    <Resource Include="Icons\interface\btnQuit.png" />
-    <Resource Include="Icons\interface\btnStart.png" />
+    <Resource Include="Icons\interface\btn\CencelButton.png" />
+    <Resource Include="Icons\interface\btn\btnQuit.png" />
+    <Resource Include="Icons\interface\btn\btnStart.png" />
     <Resource Include="Icons\interface\frameCancel.png" />
+    <Resource Include="Icons\interface\frameTryAgain.png" />
+    <Resource Include="Icons\interface\frameWin.png" />
+    <Resource Include="Icons\interface\btn\btnAgain.png" />
+    <Resource Include="Icons\interface\btn\btnNext.png" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
     <Resource Include="weapons\sword_prost.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\Bosses\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

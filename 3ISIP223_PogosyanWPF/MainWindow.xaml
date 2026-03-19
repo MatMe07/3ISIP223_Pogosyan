@@ -22,10 +22,10 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel HorizontalAlignment="Center" Grid.Row="0">
+            <!--<StackPanel HorizontalAlignment="Center" Grid.Row="0">
                 <TextBlock Text="hello" x:Name="pos" FontSize="7"/>
 
-            </StackPanel>
+            </StackPanel>-->
 
 
 
@@ -293,15 +293,15 @@
                         <GeometryModel3D.Geometry>
                             <MeshGeometry3D 
                                 Positions="
-                                1, 0, -4 
-                                1, 0.4, -4
+                                0.8, 0, -4 
+                                .8, 0.4, -4
                                 1.3, 0, -4
                                 1.3, 0.4, -4"
                                 TriangleIndices="1 0 2 1 2 3"/>
                         </GeometryModel3D.Geometry>
 
                         <GeometryModel3D.Transform>
-                            <TranslateTransform3D OffsetX="1"  OffsetY="0" OffsetZ="2"/>
+                            <TranslateTransform3D OffsetX="0.5"  OffsetY="0" OffsetZ="2"/>
                         </GeometryModel3D.Transform>
                     </GeometryModel3D>
                 </ModelUIElement3D.Model>
@@ -326,19 +326,14 @@
 
 
                 <Viewport2DVisual3D.Visual>
-                    -->
-                <!--<Border >-->
-                <!--<Button Content="Hello World" />-->
-                <!--
+                    
                         <TextBlock Text="23" FontSize="1" Foreground="Red"/>
-                    -->
-                <!--</Border>-->
-                <!--
+                    
                 </Viewport2DVisual3D.Visual>
 
                 <Viewport2DVisual3D.Transform>
                     <Transform3DGroup>
-                        <TranslateTransform3D OffsetX="2.15"  OffsetY="0.5" OffsetZ="2"/>
+                        <TranslateTransform3D OffsetX="1.55"  OffsetY="0.5" OffsetZ="2"/>
 
                     </Transform3DGroup>
                 </Viewport2DVisual3D.Transform>
@@ -400,6 +395,10 @@
 
         </Grid>
 
+
+        <Border Background="#66000000" Panel.ZIndex="10" Visibility="Collapsed" x:Name="LevelUP">
+            <TextBlock Text="LEVEL UP!" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
 
 
     </Grid>

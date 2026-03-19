@@ -56,7 +56,7 @@ namespace _3ISIP223_PogosyanWPF
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         //public Enemy Vrag = null;
-        //public Enemy Boss = null;
+        public Enemy Boss = null;
         //public EnemyCreater vrags = null;
         //public bool HaveEnemy => Vrag != null;
         private int _step;
@@ -72,6 +72,7 @@ namespace _3ISIP223_PogosyanWPF
         public int StepSpendWinOverBoss { get; set; }
         public double HPLostWinOverBoss { get; set; }
         public bool GameOver { get; set; }
+        public bool isBoss { get; set; }
         //public bool BosseStumles => true;
         public bool BosseStumles => step % 10 == 0;
 
@@ -82,7 +83,7 @@ namespace _3ISIP223_PogosyanWPF
             Vrags = new EnemyCreater();
             Enemies = new List<Enemy>();
             //EnemiesAA = new List<(Enemy, ModelUIElement3D)>();
-
+            isBoss = false;
             step = 1;
             GameOver = false;
             StepSpendWinOverBoss = 0;
@@ -93,18 +94,34 @@ namespace _3ISIP223_PogosyanWPF
         {
             Enemies.Add(Vrags.Enemies[0].CreateEnemy(model));
         }
+        public void SelectBoss(ModelUIElement3D model)
+        {
+            Boss = Vrags.Bosses[0].CreateEnemy(model);
+            isBoss = true;
+        }
 
         public void DeleteEnemis(ModelUIElement3D model)
         {
             Enemy en = Enemies.FirstOrDefault(a=>a.model == model);
             Enemies.Remove(en);
         }
+        public void DeleteBoss()
+        {
+            Boss = null;
+            isBoss = false;
+        }
 
 
 
         public double Attack(ModelUIElement3D model)
         {
-            Enemy vrag = Enemies.FirstOrDefault(s=>s.model == model);
+            Enemy vrag;
+            if (isBoss)
+            {
+                vrag = Boss;
+                
+            }
+            else vrag = Enemies.FirstOrDefault(s=>s.model == model);
             //if (vrag == null) return;
             double attack = Math.Max(0, Player.AttackWeapon - 2 - vrag.Defense);
             if (attack > vrag.HP) attack = vrag.HP;
