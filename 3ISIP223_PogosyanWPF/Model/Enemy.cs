@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
+using System.Windows.Threading;
 
 namespace _3ISIP223_PogosyanWPF.Model
 {
@@ -13,6 +16,7 @@ namespace _3ISIP223_PogosyanWPF.Model
 
         public string Name { get; set; }
         public ModelUIElement3D model {  get; set; }
+        protected DispatcherTimer timeAttack {  get; set; }
 
         public double HP { get; set; }
         public double MaxHP { get; set; }
@@ -21,7 +25,13 @@ namespace _3ISIP223_PogosyanWPF.Model
         public bool HaveDefense => Defense > 0;
         public bool IsAlive => HP > 0;
         public string UniqSkill { get; set; }
-        public Enemy(string name, double attack, double defense, double hp, ModelUIElement3D mod)
+
+        public DiffuseMaterial materialQuiet {  get; set; }
+        public DiffuseMaterial materialAttack {  get; set; }
+        public double TimeLastAttack { get; set; }
+        public double AttackIntervalSec { get; set; }
+
+        public Enemy(string name, double attack, double defense, double hp, ModelUIElement3D mod, string pathQuiet, string pathAttack)
         {
             Name = name;
             Attack = attack;
@@ -29,6 +39,12 @@ namespace _3ISIP223_PogosyanWPF.Model
             HP = hp;
             MaxHP = hp;
             model = mod;
+            TimeLastAttack = 0;
+            AttackIntervalSec = RandomCLS.Next(4, 10);
+            materialQuiet = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(pathQuiet))));
+            materialAttack = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(pathAttack))));
+            //materialQuiet = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
+
         }
 
 

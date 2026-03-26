@@ -10,7 +10,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
+using System.Windows.Threading;
 
 namespace _3ISIP223_PogosyanWPF
 {
@@ -76,6 +78,10 @@ namespace _3ISIP223_PogosyanWPF
         //public bool BosseStumles => true;
         public bool BosseStumles => step % 10 == 0;
 
+        public Dictionary<Enemy, DateTime> attackingEnemies;
+        private DispatcherTimer atEnemTimer;
+        private DispatcherTimer timerAttackEnemy;
+
         public Game()
         {
             string name = "Player1";
@@ -89,7 +95,46 @@ namespace _3ISIP223_PogosyanWPF
             StepSpendWinOverBoss = 0;
             HPLostWinOverBoss = 0;
             //vrags = new EnemyCreater();
+            attackingEnemies = new Dictionary<Enemy, DateTime>();
+
+
+            atEnemTimer = new DispatcherTimer();
+            atEnemTimer.Interval = TimeSpan.FromMilliseconds(100);
+            atEnemTimer.Tick += AtEnemTimer_Tick; ;
+            atEnemTimer.Start();
+
+            timerAttackEnemy = new DispatcherTimer();
+            timerAttackEnemy.Interval = TimeSpan.FromMilliseconds(50);
+            timerAttackEnemy.Tick += (s, e) =>
+            {
+                AttackEnemy();
+            };
+            timerAttackEnemy.Start();
+
         }
+
+        private void AtEnemTimer_Tick(object sender, EventArgs e)
+        {
+            var now = DateTime.Now;
+            var toRemove = new List<Enemy>();
+
+            foreach (var enemy in attackingEnemies.Keys)
+            {
+                if ((now - attackingEnemies[enemy]).TotalMilliseconds >= 200)
+                {
+                    // Возвращаем обычный материал
+                    GeometryModel3D geom = enemy.model.Model as GeometryModel3D;
+                    geom.Material = enemy.materialQuiet;
+                    toRemove.Add(enemy);
+                }
+            }
+
+            foreach (var enemy in toRemove)
+            {
+                attackingEnemies.Remove(enemy);
+            }
+        }
+
         public void AddEnemis(ModelUIElement3D model)
         {
             Enemies.Add(Vrags.Enemies[0].CreateEnemy(model));
@@ -149,6 +194,48 @@ namespace _3ISIP223_PogosyanWPF
             //Console.ReadLine();
             //Console.Clear();
             //InforEnemAndPlayer(vrag);
+        }
+
+        private DateTime lastUpdate = DateTime.Now;
+
+
+        public void AttackEnemy()
+        {
+            //Player.HP -= enemy.Attack;
+            DateTime now = DateTime.Now;
+            double deltaMs = (now - lastUpdate).TotalSeconds;
+            lastUpdate = now;
+
+            foreach (var enem in Enemies)
+            {
+                enem.TimeLastAttack += deltaMs;
+
+                if(enem.TimeLastAttack >= enem.AttackIntervalSec)
+                {
+                    enem.TimeLastAttack = 0;
+                    //enem.AttackIntervalMs = RandomCLS.Next(4000, 10000);
+
+                    Player.HP -= enem.Attack;
+
+                    //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
+                    GeometryModel3D geom = enem.model.Model as GeometryModel3D;
+                    geom.Material = enem.materialAttack;
+                    ////geom.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
+                    //timerAttackEnemy.Interval = TimeSpan.FromMilliseconds(300);
+                    //timerAttackEnemy.Tick += (s, e) =>
+                    //{
+                    //    geom.Material = enem.materialQuiet;
+                    //    timerAttackEnemy.Stop();
+                    //};
+                    //timerAttackEnemy.Start();
+
+                    attackingEnemies[enem] = DateTime.Now;
+
+                    Console.WriteLine($"Attack enem), attackInterval = {enem.AttackIntervalSec}, attack = {enem.Attack}");
+
+
+                }
+            }
         }
 
 

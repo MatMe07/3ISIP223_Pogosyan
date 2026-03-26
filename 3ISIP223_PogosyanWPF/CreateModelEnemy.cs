@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 
 namespace _3ISIP223_PogosyanWPF
@@ -38,7 +39,15 @@ namespace _3ISIP223_PogosyanWPF
             mesh.TriangleIndices.Add(2);
             mesh.TriangleIndices.Add(3);
 
-            model.Model = new GeometryModel3D(mesh, new DiffuseMaterial(new SolidColorBrush(color)));
+            //0,1  0,0  1,1  1,0
+            mesh.TextureCoordinates.Add(new System.Windows.Point(0,1));
+            mesh.TextureCoordinates.Add(new System.Windows.Point(0,0));
+            mesh.TextureCoordinates.Add(new System.Windows.Point(1,1));
+            mesh.TextureCoordinates.Add(new System.Windows.Point(1,0));
+
+            var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
+            model.Model = geom;
+            //model.Model = new GeometryModel3D(mesh, new DiffuseMaterial(new SolidColorBrush(color)));
             
 
             model.Transform = new TranslateTransform3D() { OffsetZ = z, OffsetX = x, OffsetY = y };

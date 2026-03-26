@@ -10,7 +10,7 @@ namespace _3ISIP223_PogosyanWPF
 {
     public class Pestov : Magician
     {
-        public Pestov(string name, double attack, double defense, double hp, ModelUIElement3D mod) : base(name, attack, defense, hp, mod)
+        public Pestov(string name, double attack, double defense, double hp, ModelUIElement3D mod, string imgQuiet, string imgAttack) : base(name, attack, defense, hp, mod, imgQuiet, imgAttack)
         {
             HP *= 1.3;
             MaxHP *= 1.3;

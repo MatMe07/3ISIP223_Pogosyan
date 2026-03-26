@@ -23,7 +23,7 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
             return true;
         }
 
-        public Magician(string name, double attack, double defense, double hp, ModelUIElement3D mod) : base(name, attack, defense, hp, mod)
+        public Magician(string name, double attack, double defense, double hp, ModelUIElement3D mod, string imgQuiet, string imgAttack) : base(name, attack, defense, hp, mod, imgQuiet, imgAttack)
         {
             ProcentFrozen = 20;
             IsFroz = false;

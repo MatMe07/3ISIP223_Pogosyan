@@ -38,12 +38,13 @@ namespace _3ISIP223_PogosyanWPF
         private const double SmoothingFactor = 0.1;
 
         public DateTime AttackTimer;
-        private bool isAttacking = false;
-
+        public DateTime EnemyAttackTime;
+        //private bool isAttacking = false;
 
         public MainWindow()
         {
             mainMenu menu = new mainMenu();
+            //EnemyAttackTime = DateTime.Now;
             var result = menu.ShowDialog();
             if (result == false)
             {
@@ -63,13 +64,11 @@ namespace _3ISIP223_PogosyanWPF
         public void GenerateBoss()
         {
             ModelUIElement3D mod;
-            mod = CreateModelEnemy.CreateModel(Colors.Gray, 0.5, 0, 2);
+            mod = CreateModelEnemy.CreateModel(Colors.Gray, 0.5, 0, 2, isBoss:true);
             mod.MouseDown += ModelUIElement3D_MouseDown;
             WorkGame.Game.SelectBoss(mod);
             Console.WriteLine($"{mod}");
             //WorkGame.Game.Enemies.Add(Vrags.Enemies[0].CreateEnemy(mod));
-
-
             //ModelUIElement3D mod = WorkGame.Game.Enemies[0].model;
             Viewport.Children.Add(mod);
         }
@@ -80,11 +79,16 @@ namespace _3ISIP223_PogosyanWPF
             for (double i = -0.8; i < 1; i+=.8)
             {
                 mod = CreateModelEnemy.CreateModel(Colors.Gray, i, 0, 2);
+
+                //DoubleAnimation attackAnim1 = new DoubleAnimation();
+                //attackAnim1.To = 0;
+                //attackAnim1.From = 0;
+
+
                 mod.MouseDown += ModelUIElement3D_MouseDown;
                 WorkGame.Game.AddEnemis(mod);
                 Console.WriteLine($"{mod}");
                 //WorkGame.Game.Enemies.Add(Vrags.Enemies[0].CreateEnemy(mod));
-
 
                 //ModelUIElement3D mod = WorkGame.Game.Enemies[0].model;
                 Viewport.Children.Add(mod);
@@ -92,6 +96,12 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
+        public void EnemyAttack()
+        {
+            //Console.WriteLine("Attack Enem");
+
+
+        }
 
         private void Viewport3D_MouseMove(object sender, MouseEventArgs e)
         {
@@ -122,6 +132,15 @@ namespace _3ISIP223_PogosyanWPF
 
         private void UpdateCameraDirection()
         {
+            //Console.WriteLine((DateTime.Now - EnemyAttackTime).TotalMilliseconds);
+            //if (IsAttackingEnemy)
+            //{
+            //    EnemyAttack();
+            //    EnemyAttackTime = DateTime.Now;
+            //}
+
+            //WorkGame.Game.AttackEnemy();
+
 
             _currentrotX += (_rotX - _currentrotX) * SmoothingFactor;
             _currentrotY += (_rotY - _currentrotY) * SmoothingFactor;
@@ -204,48 +223,78 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
-        
 
+        private bool lastBoss = false;
         public void NewLevel()
         {
+
             if (WorkGame.Game.step == 1)
             {
                 GenerateEnemies();
                 WorkGame.Game.step++;
                 return;
             }
+            string text = "LEVEL UP!";
+            bool boss = false;
 
             if (WorkGame.Game.step == 4)
             {
                 GenerateBoss();
                 WorkGame.Game.step++;
-                return;
+                text = "BOSS";
+                boss = true;
+                //return;
             }
-            LevelUP.Visibility = Visibility.Visible;
-            DoubleAnimation anim = new DoubleAnimation();
-            anim.From = 0;
-            anim.To = 1;
-            anim.Duration = TimeSpan.FromMilliseconds(350);
-            anim.AutoReverse = true;
-
-            anim.Completed += (e, s) =>
+            if (!lastBoss)
             {
-                GenerateEnemies();
-                LevelUP.Visibility = Visibility.Collapsed;
-                WorkGame.Game.step++;
-            };
-            LevelUP.BeginAnimation(OpacityProperty, anim);
+                LevelUP.Visibility = Visibility.Visible;
+                txtLevel.Text = text;
+                DoubleAnimation anim = new DoubleAnimation();
+                anim.From = 0;
+                anim.To = 1;
+                anim.Duration = TimeSpan.FromMilliseconds(350);
+                anim.AutoReverse = true;
 
+                anim.Completed += (e, s) =>
+                {
 
+                    LevelUP.Visibility = Visibility.Collapsed;
+                    if (!boss)
+                    {
+                        GenerateEnemies();
+                        WorkGame.Game.step++;
+                    }
+                    else
+                    {
+                        lastBoss = true;
+                    }
+                };
+                LevelUP.BeginAnimation(OpacityProperty, anim);
+            }
+            else
+            {
+                lastBoss = false;
+                WindowWinBoss();
+            }
 
         }
+
+
+        public void WindowWinBoss()
+        {
+            GenerateEnemies();
+
+        }
+
         public Viewport2DVisual3D GetViewport2DText(TranslateTransform3D transform, double num, bool isBosse = false )
         {
             Viewport2DVisual3D viewport2D = new Viewport2DVisual3D();
             TranslateTransform3D translate = new TranslateTransform3D(transform.OffsetX + (isBosse ? 1.05 : 1.15), .5, transform.OffsetZ);
             MeshGeometry3D mesh = new MeshGeometry3D();
 
-            double xP = ((int)num).ToString().Length == 1 ? 0.05 : 0.1;
+            int lenNum = num.ToString().Length;
+
+            double xP = lenNum * 0.05;
             mesh.Positions = new Point3DCollection
             {
                 new Point3D(-xP, 0.1, -4),
@@ -282,6 +331,7 @@ namespace _3ISIP223_PogosyanWPF
         }
 
         private bool IsClicking => (DateTime.Now - AttackTimer).TotalMilliseconds < 500;
+        private bool IsAttackingEnemy => (DateTime.Now - EnemyAttackTime).TotalMilliseconds > 1000;
         
         public void ModelUIElement3D_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -297,7 +347,7 @@ namespace _3ISIP223_PogosyanWPF
             //Console.WriteLine($"{WorkGame.Game.Enemies.FirstOrDefault(s => s.model == mod).Name}");
             double attack = WorkGame.Game.Attack(mod);
 
-            Viewport2DVisual3D text = GetViewport2DText(transform, attack);
+            Viewport2DVisual3D text = GetViewport2DText(transform, attack, WorkGame.Game.isBoss);
             Viewport.Children.Add(text);
 
 

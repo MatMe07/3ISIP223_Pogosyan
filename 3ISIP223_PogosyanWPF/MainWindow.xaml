@@ -287,8 +287,14 @@
                 <ModelUIElement3D.Model>
                     <GeometryModel3D>
                         <GeometryModel3D.Material>
-                            <DiffuseMaterial Brush="AliceBlue"/>
-                        </GeometryModel3D.Material>                     
+                                <DiffuseMaterial >
+                                    <DiffuseMaterial.Brush>
+                                        <ImageBrush ImageSource="/Icons/Armor.png"/>
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            --><!--<DiffuseMaterial Brush="AliceBlue"/>--><!--
+                        </GeometryModel3D.Material>  
+                        
                         
                         <GeometryModel3D.Geometry>
                             <MeshGeometry3D 
@@ -297,7 +303,9 @@
                                 .8, 0.4, -4
                                 1.3, 0, -4
                                 1.3, 0.4, -4"
-                                TriangleIndices="1 0 2 1 2 3"/>
+                                TriangleIndices="1 0 2 1 2 3"
+                                TextureCoordinates="0,1  0,0  1,1  1,0" 
+                                />
                         </GeometryModel3D.Geometry>
 
                         <GeometryModel3D.Transform>
@@ -339,6 +347,26 @@
                 </Viewport2DVisual3D.Transform>
             </Viewport2DVisual3D>-->
 
+
+                <!--<ModelUIElement3D>
+                    <ModelUIElement3D.Model>
+                        <GeometryModel3D>
+                            <GeometryModel3D.Geometry>
+                                <MeshGeometry3D  TextureCoordinates="0,1  0,0  1,1  1,0"
+                                                 Positions="1, 0, -4  1, 0.4, -4  1.3, 0, -4  1.3, 0.4, -4"
+                                                 TriangleIndices="1,0,2, 1,2,3">
+                                </MeshGeometry3D>
+                            </GeometryModel3D.Geometry>
+                            <GeometryModel3D.Material>
+                                <DiffuseMaterial>
+                                    <DiffuseMaterial.Brush>
+                                        <ImageBrush ImageSource="/Icons/Armor.png"/>
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            </GeometryModel3D.Material>
+                        </GeometryModel3D>
+                    </ModelUIElement3D.Model>
+                </ModelUIElement3D>-->
 
             </Viewport3D>
 
@@ -397,7 +425,7 @@
 
 
         <Border Background="#66000000" Panel.ZIndex="10" Visibility="Collapsed" x:Name="LevelUP">
-            <TextBlock Text="LEVEL UP!" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock x:Name="txtLevel" Text="LEVEL UP!" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
 
 
