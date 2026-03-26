@@ -50,7 +50,7 @@ namespace _3ISIP223_PogosyanWPF
             //model.Model = new GeometryModel3D(mesh, new DiffuseMaterial(new SolidColorBrush(color)));
             
 
-            model.Transform = new TranslateTransform3D() { OffsetZ = z, OffsetX = x, OffsetY = y };
+            model.Transform = new TranslateTransform3D() { OffsetZ = z+(RandomCLS.Next(-1, 5)*.1), OffsetX = x + (RandomCLS.Next(-1, 8) * .1), OffsetY = y };
 
 
             return model;

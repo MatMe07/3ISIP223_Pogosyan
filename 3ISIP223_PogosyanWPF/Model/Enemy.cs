@@ -39,8 +39,8 @@ namespace _3ISIP223_PogosyanWPF.Model
             HP = hp;
             MaxHP = hp;
             model = mod;
-            TimeLastAttack = 0;
-            AttackIntervalSec = RandomCLS.Next(4, 10);
+            TimeLastAttack = RandomCLS.Next(1, 3);
+            AttackIntervalSec = RandomCLS.Next(3, 10);
             materialQuiet = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(pathQuiet))));
             materialAttack = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(pathAttack))));
             //materialQuiet = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));

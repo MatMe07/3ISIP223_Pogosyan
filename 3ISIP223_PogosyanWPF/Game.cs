@@ -79,6 +79,7 @@ namespace _3ISIP223_PogosyanWPF
         public bool BosseStumles => step % 10 == 0;
 
         public Dictionary<Enemy, DateTime> attackingEnemies;
+
         private DispatcherTimer atEnemTimer;
         private DispatcherTimer timerAttackEnemy;
 
@@ -99,12 +100,12 @@ namespace _3ISIP223_PogosyanWPF
 
 
             atEnemTimer = new DispatcherTimer();
-            atEnemTimer.Interval = TimeSpan.FromMilliseconds(100);
-            atEnemTimer.Tick += AtEnemTimer_Tick; ;
-            atEnemTimer.Start();
+            atEnemTimer.Interval = TimeSpan.FromMilliseconds(16);
+            atEnemTimer.Tick += AtEnemTimer_Tick;
+            //atEnemTimer.Start();
 
             timerAttackEnemy = new DispatcherTimer();
-            timerAttackEnemy.Interval = TimeSpan.FromMilliseconds(50);
+            timerAttackEnemy.Interval = TimeSpan.FromMilliseconds(40);
             timerAttackEnemy.Tick += (s, e) =>
             {
                 AttackEnemy();
@@ -122,7 +123,6 @@ namespace _3ISIP223_PogosyanWPF
             {
                 if ((now - attackingEnemies[enemy]).TotalMilliseconds >= 200)
                 {
-                    // Возвращаем обычный материал
                     GeometryModel3D geom = enemy.model.Model as GeometryModel3D;
                     geom.Material = enemy.materialQuiet;
                     toRemove.Add(enemy);
@@ -133,6 +133,8 @@ namespace _3ISIP223_PogosyanWPF
             {
                 attackingEnemies.Remove(enemy);
             }
+
+
         }
 
         public void AddEnemis(ModelUIElement3D model)
@@ -202,17 +204,21 @@ namespace _3ISIP223_PogosyanWPF
         public void AttackEnemy()
         {
             //Player.HP -= enemy.Attack;
-            DateTime now = DateTime.Now;
-            double deltaMs = (now - lastUpdate).TotalSeconds;
-            lastUpdate = now;
+            double deltaSeconds = 0.1;
+            //DateTime now = DateTime.Now;
+            //double deltaMs = (now - lastUpdate).TotalSeconds;
+
+            //if (deltaMs > 0.1) deltaMs = 0.1;
+
+            //lastUpdate = DateTime.Now;
 
             foreach (var enem in Enemies)
             {
-                enem.TimeLastAttack += deltaMs;
+                enem.TimeLastAttack += deltaSeconds;
 
                 if(enem.TimeLastAttack >= enem.AttackIntervalSec)
                 {
-                    enem.TimeLastAttack = 0;
+                    enem.TimeLastAttack = 1;
                     //enem.AttackIntervalMs = RandomCLS.Next(4000, 10000);
 
                     Player.HP -= enem.Attack;
@@ -220,14 +226,16 @@ namespace _3ISIP223_PogosyanWPF
                     //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
                     GeometryModel3D geom = enem.model.Model as GeometryModel3D;
                     geom.Material = enem.materialAttack;
-                    ////geom.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
-                    //timerAttackEnemy.Interval = TimeSpan.FromMilliseconds(300);
-                    //timerAttackEnemy.Tick += (s, e) =>
-                    //{
-                    //    geom.Material = enem.materialQuiet;
-                    //    timerAttackEnemy.Stop();
-                    //};
-                    //timerAttackEnemy.Start();
+                    //geom.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
+                    //timerAttackEnemy
+                    var timer = new DispatcherTimer();
+                    timer.Interval = TimeSpan.FromMilliseconds(200);
+                    timer.Tick += (s, e) =>
+                    {
+                        geom.Material = enem.materialQuiet;
+                        timer.Stop();
+                    };
+                    timer.Start();
 
                     attackingEnemies[enem] = DateTime.Now;
 

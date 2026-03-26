@@ -364,6 +364,10 @@
                                     </DiffuseMaterial.Brush>
                                 </DiffuseMaterial>
                             </GeometryModel3D.Material>
+
+                            <GeometryModel3D.Transform>
+                                <TranslateTransform3D OffsetX="0" OffsetY="0.0" OffsetZ=".4"/>
+                            </GeometryModel3D.Transform>
                         </GeometryModel3D>
                     </ModelUIElement3D.Model>
                 </ModelUIElement3D>-->
