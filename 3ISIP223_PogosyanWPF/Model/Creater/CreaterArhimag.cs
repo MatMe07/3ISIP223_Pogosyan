@@ -1,4 +1,4 @@
-﻿using _3ISIP223_PogosyanWPF.Model.Units;
+﻿using _3ISIP223_PogosyanWPF.Model.Bosses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +8,12 @@ using System.Windows.Media.Media3D;
 
 namespace _3ISIP223_PogosyanWPF.Model.Creater
 {
-    public class CreaterPestov : Factory
+    public class CreaterArhimag : Factory
     {
         public override Enemy CreateEnemy(ModelUIElement3D model)
         {
-            return new Pestov("Пестов С--", 10, 5, 40, model, "pack://application:,,,/Icons/Armor.png", "pack://application:,,,/Icons/Armor1.png");
+            return new Arhimag("Архимаг C++", 15, 2, 25, model, "pack://application:,,,/Icons/Armor.png", "pack://application:,,,/Icons/Armor1.png");
 
         }
-
     }
 }

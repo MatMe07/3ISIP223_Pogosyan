@@ -59,9 +59,15 @@
     <Compile Include="mainMenu.xaml.cs">
       <DependentUpon>mainMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Bosses\Arhimag.cs" />
+    <Compile Include="Model\Bosses\Covalski.cs" />
+    <Compile Include="Model\Bosses\VVG.cs" />
+    <Compile Include="Model\Creater\CreaterArhimag.cs" />
+    <Compile Include="Model\Creater\CreaterCovalski.cs" />
     <Compile Include="Model\Creater\CreaterGoblin.cs" />
     <Compile Include="Model\Creater\CreaterMag.cs" />
     <Compile Include="Model\Creater\CreaterPestov.cs" />
+    <Compile Include="Model\Creater\CreaterSkeleton.cs" />
     <Compile Include="Model\Creater\CreaterVVG.cs" />
     <Compile Include="Model\Creater\EnemyCreater.cs" />
     <Compile Include="Model\Enemy.cs" />
@@ -69,6 +75,7 @@
     <Compile Include="Model\Units\Goblin.cs" />
     <Compile Include="Model\Bosses\Pestov.cs" />
     <Compile Include="Model\Units\Magician.cs" />
+    <Compile Include="Model\Units\Skeleton.cs" />
     <Compile Include="RandomCLS.cs" />
     <Compile Include="ResulLevelWindow.xaml.cs">
       <DependentUpon>ResulLevelWindow.xaml</DependentUpon>

@@ -8,13 +8,12 @@ using System.Windows.Media.Media3D;
 
 namespace _3ISIP223_PogosyanWPF.Model.Creater
 {
-    public class CreaterPestov : Factory
+    public class CreaterSkeleton : Factory
     {
         public override Enemy CreateEnemy(ModelUIElement3D model)
         {
-            return new Pestov("Пестов С--", 10, 5, 40, model, "pack://application:,,,/Icons/Armor.png", "pack://application:,,,/Icons/Armor1.png");
+            return new Skeleton("Скелет", 10, 5, 40, model, "pack://application:,,,/Icons/Armor.png", "pack://application:,,,/Icons/Armor1.png");
 
         }
-
     }
 }

@@ -101,16 +101,16 @@ namespace _3ISIP223_PogosyanWPF
 
             atEnemTimer = new DispatcherTimer();
             atEnemTimer.Interval = TimeSpan.FromMilliseconds(16);
-            atEnemTimer.Tick += AtEnemTimer_Tick;
+            //atEnemTimer.Tick += AtEnemTimer_Tick;
             //atEnemTimer.Start();
 
             timerAttackEnemy = new DispatcherTimer();
-            timerAttackEnemy.Interval = TimeSpan.FromMilliseconds(40);
-            timerAttackEnemy.Tick += (s, e) =>
-            {
-                AttackEnemy();
-            };
-            timerAttackEnemy.Start();
+            timerAttackEnemy.Interval = TimeSpan.FromMilliseconds(100);
+            //timerAttackEnemy.Tick += (s, e) =>
+            //{
+            //    AttackEnemy();
+            //};
+            //timerAttackEnemy.Start();
 
         }
 
@@ -139,11 +139,11 @@ namespace _3ISIP223_PogosyanWPF
 
         public void AddEnemis(ModelUIElement3D model)
         {
-            Enemies.Add(Vrags.Enemies[0].CreateEnemy(model));
+            Enemies.Add(Vrags.Enemies[RandomCLS.Next(0, Vrags.Enemies.Count)].CreateEnemy(model));
         }
         public void SelectBoss(ModelUIElement3D model)
         {
-            Boss = Vrags.Bosses[0].CreateEnemy(model);
+            Boss = Vrags.Bosses[RandomCLS.Next(0, Vrags.Bosses.Count)].CreateEnemy(model);
             isBoss = true;
         }
 
@@ -204,45 +204,94 @@ namespace _3ISIP223_PogosyanWPF
         public void AttackEnemy()
         {
             //Player.HP -= enemy.Attack;
-            double deltaSeconds = 0.1;
-            //DateTime now = DateTime.Now;
+            DateTime now = DateTime.Now;
             //double deltaMs = (now - lastUpdate).TotalSeconds;
-
+            double delta = (now - lastUpdate).TotalMilliseconds;
+            //Console.WriteLine($"(now - lastUpdate).TotalSeconds = {delta}");
+            //if (delta < 100 || delta > 300 ) return;
+            //double deltaSeconds = 0.1;
             //if (deltaMs > 0.1) deltaMs = 0.1;
 
             //lastUpdate = DateTime.Now;
 
-            foreach (var enem in Enemies)
+            if (isBoss)
             {
-                enem.TimeLastAttack += deltaSeconds;
+                double deltaSec = (now - Boss.LastAtTime).TotalSeconds;
+                //if (deltaSec > .2) return;
+                //Console.WriteLine(deltaSec);
 
-                if(enem.TimeLastAttack >= enem.AttackIntervalSec)
+                if (deltaSec >= Boss.AttackIntervalSec)
                 {
-                    enem.TimeLastAttack = 1;
+                    //enem.TimeLastAttack = enem._TimeLastAttack;
                     //enem.AttackIntervalMs = RandomCLS.Next(4000, 10000);
+                    Console.WriteLine($"LastAtTime = {Boss.LastAtTime} | delta = {deltaSec} | enem = {Boss.Name}");
+                    Boss.LastAtTime = now;
 
-                    Player.HP -= enem.Attack;
+
+                    Player.HP -= Boss.Attack;
 
                     //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
-                    GeometryModel3D geom = enem.model.Model as GeometryModel3D;
-                    geom.Material = enem.materialAttack;
+                    GeometryModel3D geom = Boss.model.Model as GeometryModel3D;
+                    geom.Material = Boss.materialAttack;
                     //geom.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
                     //timerAttackEnemy
                     var timer = new DispatcherTimer();
                     timer.Interval = TimeSpan.FromMilliseconds(200);
                     timer.Tick += (s, e) =>
                     {
-                        geom.Material = enem.materialQuiet;
+                        geom.Material = Boss.materialQuiet;
                         timer.Stop();
                     };
                     timer.Start();
 
-                    attackingEnemies[enem] = DateTime.Now;
+                    //attackingEnemies[enem] = DateTime.Now;
 
-                    Console.WriteLine($"Attack enem), attackInterval = {enem.AttackIntervalSec}, attack = {enem.Attack}");
+                    Console.WriteLine($"Attack enem), attackInterval = {Boss.AttackIntervalSec}, attack = {Boss.Attack}");
 
 
                 }
+            }
+            else
+            {
+                foreach (var enem in Enemies)
+                {
+                    //enem.TimeLastAttack += delta;
+                    double deltaSec = (now - enem.LastAtTime).TotalSeconds;
+                    //if (deltaSec > .2) return;
+                    //Console.WriteLine(deltaSec);
+
+                    if (deltaSec >= enem.AttackIntervalSec)
+                    {
+                        //enem.TimeLastAttack = enem._TimeLastAttack;
+                        //enem.AttackIntervalMs = RandomCLS.Next(4000, 10000);
+                        Console.WriteLine($"LastAtTime = {enem.LastAtTime} | delta = {deltaSec} | enem = {enem.Name}");
+                        enem.LastAtTime = now;
+
+
+                        Player.HP -= enem.Attack;
+
+                        //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
+                        GeometryModel3D geom = enem.model.Model as GeometryModel3D;
+                        geom.Material = enem.materialAttack;
+                        //geom.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
+                        //timerAttackEnemy
+                        var timer = new DispatcherTimer();
+                        timer.Interval = TimeSpan.FromMilliseconds(200);
+                        timer.Tick += (s, e) =>
+                        {
+                            geom.Material = enem.materialQuiet;
+                            timer.Stop();
+                        };
+                        timer.Start();
+
+                        //attackingEnemies[enem] = DateTime.Now;
+
+                        Console.WriteLine($"Attack enem), attackInterval = {enem.AttackIntervalSec}, attack = {enem.Attack}");
+
+
+                    }
+                }
+
             }
         }
 

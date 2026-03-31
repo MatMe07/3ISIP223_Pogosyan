@@ -16,7 +16,7 @@ namespace _3ISIP223_PogosyanWPF.Model
 
         public string Name { get; set; }
         public ModelUIElement3D model {  get; set; }
-        protected DispatcherTimer timeAttack {  get; set; }
+        //protected DispatcherTimer timeAttack {  get; set; }
 
         public double HP { get; set; }
         public double MaxHP { get; set; }
@@ -29,6 +29,8 @@ namespace _3ISIP223_PogosyanWPF.Model
         public DiffuseMaterial materialQuiet {  get; set; }
         public DiffuseMaterial materialAttack {  get; set; }
         public double TimeLastAttack { get; set; }
+        //public double _TimeLastAttack { get; set; }
+        public DateTime LastAtTime { get; set; }
         public double AttackIntervalSec { get; set; }
 
         public Enemy(string name, double attack, double defense, double hp, ModelUIElement3D mod, string pathQuiet, string pathAttack)
@@ -39,8 +41,10 @@ namespace _3ISIP223_PogosyanWPF.Model
             HP = hp;
             MaxHP = hp;
             model = mod;
-            TimeLastAttack = RandomCLS.Next(1, 3);
-            AttackIntervalSec = RandomCLS.Next(3, 10);
+            //TimeLastAttack = ;
+            //_TimeLastAttack = TimeLastAttack;
+            AttackIntervalSec = RandomCLS.Next(2, 6);
+            LastAtTime = DateTime.Now;
             materialQuiet = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(pathQuiet))));
             materialAttack = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(pathAttack))));
             //materialQuiet = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));

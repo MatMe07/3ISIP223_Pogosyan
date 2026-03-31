@@ -15,15 +15,15 @@ namespace _3ISIP223_PogosyanWPF.Model.Creater
         {
             Enemies = new List<Factory>();
             AddEnemy(new CreaterGoblin());
-            //AddEnemy(new CreaterMag());
-            //AddEnemy(new CreaterSkeleton());
+            AddEnemy(new CreaterMag());
+            AddEnemy(new CreaterSkeleton());
             //AddEnemy(new CreaterSlug());
 
             Bosses = new List<Factory>();
-            //AddBoss(new CreaterArhimag());
-            //AddBoss(new CreaterCovalski());
+            AddBoss(new CreaterArhimag());
+            AddBoss(new CreaterCovalski());
             AddBoss(new CreaterPestov());
-            //AddBoss(new CreaterVVG());
+            AddBoss(new CreaterVVG());
 
         }
 

@@ -96,13 +96,6 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
-        public void EnemyAttack()
-        {
-            //Console.WriteLine("Attack Enem");
-
-
-        }
-
         private void Viewport3D_MouseMove(object sender, MouseEventArgs e)
         {
             if (!_isMouseCaptured) return;
@@ -139,7 +132,7 @@ namespace _3ISIP223_PogosyanWPF
             //    EnemyAttackTime = DateTime.Now;
             //}
 
-            //WorkGame.Game.AttackEnemy();
+            WorkGame.Game.AttackEnemy();
 
 
             _currentrotX += (_rotX - _currentrotX) * SmoothingFactor;
