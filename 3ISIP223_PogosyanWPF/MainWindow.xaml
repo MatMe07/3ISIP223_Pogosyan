@@ -428,6 +428,12 @@
         </Grid>
 
 
+        <StackPanel HorizontalAlignment="Right" Margin="0 20 10 0" x:Name="stackLogir">
+            <Border Background="Gray" Padding="10 2">
+                <TextBlock Text="hello" FontSize="10" Foreground="White" />
+            </Border>
+        </StackPanel>
+
         <Border Background="#66000000" Panel.ZIndex="10" Visibility="Collapsed" x:Name="LevelUP">
             <TextBlock x:Name="txtLevel" Text="LEVEL UP!" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
