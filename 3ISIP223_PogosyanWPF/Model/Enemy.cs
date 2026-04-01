@@ -62,9 +62,10 @@ namespace _3ISIP223_PogosyanWPF.Model
             
             Console.WriteLine($" | АТК: {Math.Round(Attack, 2)} | ЗАЩ: {Math.Round(Defense, 2)} | Особость: {UniqSkill}");
         }
-        public virtual void LastWord()
+        public virtual string LastWord()
         {
             Console.WriteLine("Umer");
+            return "Umer";
         }
 
         public virtual void Demo()

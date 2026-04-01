@@ -18,9 +18,10 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
             Console.WriteLine($"\n{Name} проходит сквозь вашу защиту! Ваши доспехи бесполезны! {atack} урона!");
         }
 
-        public override void LastWord()
+        public override string LastWord()
         {
             Console.WriteLine("Скелет рассыпается в кучу костей с оглушительным лязгом.");
+            return "Скелет рассыпается в кучу костей с оглушительным лязгом.";
         }
     }
 }

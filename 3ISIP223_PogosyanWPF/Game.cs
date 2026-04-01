@@ -5,11 +5,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+//using System.Windows;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Threading;
@@ -160,7 +164,7 @@ namespace _3ISIP223_PogosyanWPF
 
 
 
-        public double Attack(ModelUIElement3D model)
+        public (Enemy enem, double attack) Attack(ModelUIElement3D model)
         {
             Enemy vrag;
             if (isBoss)
@@ -190,9 +194,9 @@ namespace _3ISIP223_PogosyanWPF
                 //{
                 //    player.CountAttackEnemies++;
                 //}
-                vrag = null;
+                //vrag = null;
             }
-            return attack;
+            return (vrag, attack);
             //Console.ReadLine();
             //Console.Clear();
             //InforEnemAndPlayer(vrag);
@@ -200,6 +204,52 @@ namespace _3ISIP223_PogosyanWPF
 
         private DateTime lastUpdate = DateTime.Now;
 
+
+        public void AnimAttackEnemyAndBoss(Enemy enem, double attack)
+        {
+            GeometryModel3D geom = enem.model.Model as GeometryModel3D;
+            geom.Material = enem.materialAttack;
+            //geom.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
+            //timerAttackEnemy
+            var timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(200);
+            timer.Tick += (s, e) =>
+            {
+                geom.Material = enem.materialQuiet;
+                timer.Stop();
+            };
+            timer.Start();
+
+            Border borderLogir = GeneratedClass.LogirText($"{enem.Name}: {attack}", "Player", false);
+            Console.WriteLine($"{enem.Name}: {attack} -> Player");
+            MainWindow.LogerPanel.Children.Add(borderLogir);
+
+            var animLogirText = new DoubleAnimation();
+            animLogirText.From = 0;
+            animLogirText.To = 1;
+            animLogirText.Duration = TimeSpan.FromMilliseconds(500);
+
+            animLogirText.Completed += (s, ea) =>
+            {
+                //var EndanimLogirText = new DoubleAnimation();
+                animLogirText.From = 1;
+                animLogirText.To = 0;
+                animLogirText.Duration = TimeSpan.FromMilliseconds(1000);
+                animLogirText.Completed += (s_end, aa) =>
+                {
+                    MainWindow.LogerPanel.Children.Remove(borderLogir);
+
+                };
+                borderLogir.BeginAnimation(Window.OpacityProperty, animLogirText);
+
+            };
+
+            borderLogir.BeginAnimation(Window.OpacityProperty, animLogirText);
+
+            //attackingEnemies[enem] = DateTime.Now;
+
+            Console.WriteLine($"Attack enem), attackInterval = {enem.AttackIntervalSec}, attack = {enem.Attack}");
+        }
 
         public void AttackEnemy()
         {
@@ -231,22 +281,8 @@ namespace _3ISIP223_PogosyanWPF
                     Player.HP -= Boss.Attack;
 
                     //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
-                    GeometryModel3D geom = Boss.model.Model as GeometryModel3D;
-                    geom.Material = Boss.materialAttack;
-                    //geom.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
-                    //timerAttackEnemy
-                    var timer = new DispatcherTimer();
-                    timer.Interval = TimeSpan.FromMilliseconds(200);
-                    timer.Tick += (s, e) =>
-                    {
-                        geom.Material = Boss.materialQuiet;
-                        timer.Stop();
-                    };
-                    timer.Start();
 
-                    //attackingEnemies[enem] = DateTime.Now;
-
-                    Console.WriteLine($"Attack enem), attackInterval = {Boss.AttackIntervalSec}, attack = {Boss.Attack}");
+                    AnimAttackEnemyAndBoss(Boss, Boss.Attack);
 
 
                 }
@@ -271,24 +307,7 @@ namespace _3ISIP223_PogosyanWPF
                         Player.HP -= enem.Attack;
 
                         //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
-                        GeometryModel3D geom = enem.model.Model as GeometryModel3D;
-                        geom.Material = enem.materialAttack;
-                        //geom.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
-                        //timerAttackEnemy
-                        var timer = new DispatcherTimer();
-                        timer.Interval = TimeSpan.FromMilliseconds(200);
-                        timer.Tick += (s, e) =>
-                        {
-                            geom.Material = enem.materialQuiet;
-                            timer.Stop();
-                        };
-                        timer.Start();
-
-                        //attackingEnemies[enem] = DateTime.Now;
-
-                        Console.WriteLine($"Attack enem), attackInterval = {enem.AttackIntervalSec}, attack = {enem.Attack}");
-
-
+                        AnimAttackEnemyAndBoss(enem, enem.Attack);
                     }
                 }
 

@@ -47,9 +47,10 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
             }
         }
 
-        public override void LastWord()
+        public override string LastWord()
         {
             Console.WriteLine("Гоблин издает предсмертный визг и падает замертво.");
+            return "Гоблин издает предсмертный визг и падает замертво.";
         }
 
     }

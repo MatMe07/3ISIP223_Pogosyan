@@ -428,10 +428,18 @@
         </Grid>
 
 
-        <StackPanel HorizontalAlignment="Right" Margin="0 20 10 0" x:Name="stackLogir">
-            <Border Background="Gray" Padding="10 2">
-                <TextBlock Text="hello" FontSize="10" Foreground="White" />
+        <StackPanel HorizontalAlignment="Right" Margin="0 20 10 0" x:Name="stackLogir" IsHitTestVisible="False">
+            <Border Background="#33000000" Padding="10 2" BorderThickness="1" Margin="5" BorderBrush="#7FFF0000" HorizontalAlignment="Right" Width="350">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="helldd" FontSize="10" Foreground="#FF8C4D0E" TextWrapping="Wrap"/>
+                    <TextBlock Text="(_)" FontSize="10" Margin="10 0" Foreground="#FFADA8A3" TextWrapping="Wrap"/>
+                    <TextBlock Text="helldd" FontSize="10" Foreground="#FF7A94BF" TextWrapping="Wrap"/>
+                    
+                </StackPanel>
             </Border>
+
+
+
         </StackPanel>
 
         <Border Background="#66000000" Panel.ZIndex="10" Visibility="Collapsed" x:Name="LevelUP">

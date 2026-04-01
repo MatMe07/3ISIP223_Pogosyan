@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.Model;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -15,7 +16,7 @@ using System.Windows.Threading;
 
 namespace _3ISIP223_PogosyanWPF
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         [DllImport("user32.dll")]
         private static extern bool SetCursorPos(int x, int y);
@@ -40,6 +41,7 @@ namespace _3ISIP223_PogosyanWPF
         public DateTime AttackTimer;
         public DateTime EnemyAttackTime;
         //private bool isAttacking = false;
+        public static StackPanel LogerPanel {  get; set; }
 
         public MainWindow()
         {
@@ -55,9 +57,13 @@ namespace _3ISIP223_PogosyanWPF
             camera = viewport.Camera as PerspectiveCamera;
             CompositionTarget.Rendering += (s, e) => UpdateCameraDirection();
 
+            //Border bo = LogirText("gekk");
+            //stackLogir.Children.Add(bo);
+            LogerPanel = stackLogir;
             NewLevel();
 
         }
+
 
 
 
@@ -279,50 +285,6 @@ namespace _3ISIP223_PogosyanWPF
 
         }
 
-        public Viewport2DVisual3D GetViewport2DText(TranslateTransform3D transform, double num, bool isBosse = false )
-        {
-            Viewport2DVisual3D viewport2D = new Viewport2DVisual3D();
-            TranslateTransform3D translate = new TranslateTransform3D(transform.OffsetX + (isBosse ? 1.05 : 1.15), .5, transform.OffsetZ);
-            MeshGeometry3D mesh = new MeshGeometry3D();
-
-            int lenNum = num.ToString().Length;
-
-            double xP = lenNum * 0.05;
-            mesh.Positions = new Point3DCollection
-            {
-                new Point3D(-xP, 0.1, -4),
-                new Point3D(xP, 0.1, -4),
-                new Point3D(xP, -0.1, -4),
-                new Point3D(-xP, -0.1, -4)
-            };
-            mesh.TriangleIndices = new Int32Collection { 0, 2, 1, 2, 0, 3 };
-            mesh.TextureCoordinates = new PointCollection
-            {
-                new Point(0, 0),
-                new Point(1, 0),
-                new Point(1, 1),
-                new Point(0, 1) 
-            };
-            viewport2D.Geometry = mesh;
-
-            DiffuseMaterial material = new DiffuseMaterial();
-            material.SetValue(Viewport2DVisual3D.IsVisualHostMaterialProperty, true);
-            viewport2D.Material = material;
-
-            TextBlock textBlock = new TextBlock();
-            textBlock.Text = num.ToString();
-            textBlock.Foreground = Brushes.Red;
-
-
-            viewport2D.Transform = translate;
-
-            viewport2D.Visual = textBlock;
-
-            
-
-            return viewport2D;
-        }
-
         private bool IsClicking => (DateTime.Now - AttackTimer).TotalMilliseconds < 500;
         private bool IsAttackingEnemy => (DateTime.Now - EnemyAttackTime).TotalMilliseconds > 1000;
         
@@ -338,11 +300,51 @@ namespace _3ISIP223_PogosyanWPF
             var transform = mod.Transform as TranslateTransform3D;
             //mod.Visibility = Visibility.Collapsed;
             //Console.WriteLine($"{WorkGame.Game.Enemies.FirstOrDefault(s => s.model == mod).Name}");
-            double attack = WorkGame.Game.Attack(mod);
+            (Enemy enem, double attack) lst = WorkGame.Game.Attack(mod);
+            double attack = lst.attack;
+            Enemy enem = lst.enem;
 
-            Viewport2DVisual3D text = GetViewport2DText(transform, attack, WorkGame.Game.isBoss);
+            Viewport2DVisual3D text = GeneratedClass.GetViewport2DText(transform, attack, WorkGame.Game.isBoss);
             Viewport.Children.Add(text);
 
+            Border borderLogir;
+            string textLog = "";
+            if (attack == 0)
+            {
+                textLog = $"Player kill {enem.Name}";
+                borderLogir = GeneratedClass.LogirText(textLog, "", true);
+            }
+            else
+            {
+                textLog = $"Player: {attack} -> Enemy: {enem.Name}";
+                borderLogir = GeneratedClass.LogirText($"Player: {attack}", enem.Name, false);
+            }
+            Console.WriteLine($"Player: {attack} -> Enemy: {enem.Name}");
+            stackLogir.Children.Add(borderLogir);
+
+            var animLogirText = new DoubleAnimation();
+            animLogirText.From = 0;
+            animLogirText.To = 1;
+            animLogirText.Duration = TimeSpan.FromMilliseconds(500);
+
+            animLogirText.Completed += (s, ea) =>
+            {
+                //var EndanimLogirText = new DoubleAnimation();
+                animLogirText.From = 1;
+                animLogirText.To = 0;
+                animLogirText.Duration = TimeSpan.FromMilliseconds(1000);
+                animLogirText.Completed += (s_end, aa) =>
+                {
+                    stackLogir.Children.Remove(borderLogir);
+
+                };
+                borderLogir.BeginAnimation(OpacityProperty, animLogirText);
+
+            };
+
+            borderLogir.BeginAnimation(OpacityProperty, animLogirText);
+
+ 
 
             var begAnim = new DoubleAnimation();
             begAnim.From = 0;
@@ -356,6 +358,8 @@ namespace _3ISIP223_PogosyanWPF
             };
 
             text.BeginAnimation(OpacityProperty, begAnim);
+
+
             if (attack == 0)
             {
                 if (WorkGame.Game.isBoss)

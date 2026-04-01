@@ -41,9 +41,10 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
             Console.WriteLine($"\n{Name} атакует вас! Вы получаете {attack} урона.");
         }
 
-        public override void LastWord()
+        public override string LastWord()
         {
             Console.WriteLine($"{Name} издает последнее заклинание, которое рассеивается вместе с его жизнью.");
+            return $"{Name} издает последнее заклинание, которое рассеивается вместе с его жизнью.";
         }
     }
 }
