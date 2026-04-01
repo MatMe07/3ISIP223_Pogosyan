@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BoxSpawn.cs" />
     <Compile Include="CreateModelEnemy.cs" />
     <Compile Include="GeneratedClass.cs" />
     <Compile Include="mainMenu.xaml.cs">

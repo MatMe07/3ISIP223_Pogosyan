@@ -220,7 +220,7 @@ namespace _3ISIP223_PogosyanWPF
             };
             timer.Start();
 
-            Border borderLogir = GeneratedClass.LogirText($"{enem.Name}: {attack}", "Player", false);
+            Border borderLogir = GeneratedClass.LogirText("Player", $"{enem.Name}: {attack}", false, true);
             Console.WriteLine($"{enem.Name}: {attack} -> Player");
             MainWindow.LogerPanel.Children.Add(borderLogir);
 

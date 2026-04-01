@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF"
         mc:Ignorable="d"
-        Title="Arina" Height="450" Width="800" KeyDown="Window_KeyDown" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+        Title="Arina" Height="450" Width="800" KeyDown="Window_KeyDown" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" >
 
 
     <Grid>
@@ -113,7 +113,7 @@
                 <Viewport3D.Camera>
                     <PerspectiveCamera
             Position="1, 0.3,1"   
-            LookDirection="1, 0, -5"
+            LookDirection="1, -0.2, -5"
             FieldOfView="70" />
                 </Viewport3D.Camera>
 
@@ -372,6 +372,40 @@
                     </ModelUIElement3D.Model>
                 </ModelUIElement3D>-->
 
+
+                <!--<ModelUIElement3D  >
+                    <ModelUIElement3D.Model>
+                        <GeometryModel3D>
+                            <GeometryModel3D.Material>
+                                <DiffuseMaterial Brush="Brown" />
+                            </GeometryModel3D.Material>
+                            <GeometryModel3D.Geometry>
+                                <MeshGeometry3D
+                                Positions="
+                -0.2, -0.3, -0.2   0.2, -0.3, -0.2   -0.2, 0.3, -0.2   0.2, 0.3, -0.2  
+                -0.2, -0.3, 0.2    0.2, -0.3, 0.2    -0.2, 0.3, 0.2    0.2, 0.3, 0.2     
+                -0.2, -0.3, -0.2   -0.2, 0.3, -0.2   -0.2, -0.3, 0.2   -0.2, 0.3, 0.2   
+                0.2, -0.3, -0.2    0.2, 0.3, -0.2    0.2, -0.3, 0.2    0.2, 0.3, 0.2     
+                -0.2, -0.3, -0.2   -0.2, -0.3, 0.2   0.2, -0.3, -0.2   0.2, -0.3, 0.2   
+                -0.2, 0.3, -0.2    -0.2, 0.3, 0.2    0.2, 0.3, -0.2    0.2, 0.3, 0.2"    
+                                
+                                            TriangleIndices="
+                0,2,1  1,2,3    
+                4,5,6  5,7,6     
+                8,10,9 9,10,11   
+                12,13,14 13,15,14 
+                16,17,18 17,19,18 
+                20,21,22 21,23,22 
+        "
+                                />
+                            </GeometryModel3D.Geometry>
+                        </GeometryModel3D>
+                    </ModelUIElement3D.Model>
+                    <ModelUIElement3D.Transform>
+                        <TranslateTransform3D  OffsetZ="-1" OffsetX="1.5" />
+                    </ModelUIElement3D.Transform>
+                </ModelUIElement3D>-->
+
             </Viewport3D>
 
 
@@ -424,19 +458,24 @@
                     </Viewport2DVisual3D>
                 </Viewport3D.Children>
             </Viewport3D>
+            
+            
+            
+            
+            
 
         </Grid>
 
 
         <StackPanel HorizontalAlignment="Right" Margin="0 20 10 0" x:Name="stackLogir" IsHitTestVisible="False">
-            <Border Background="#33000000" Padding="10 2" BorderThickness="1" Margin="5" BorderBrush="#7FFF0000" HorizontalAlignment="Right" Width="350">
+            <!--<Border Background="#33000000" Padding="10 2" BorderThickness="1" Margin="5" BorderBrush="#7FFF0000" HorizontalAlignment="Right" Width="350">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="helldd" FontSize="10" Foreground="#FF8C4D0E" TextWrapping="Wrap"/>
                     <TextBlock Text="(_)" FontSize="10" Margin="10 0" Foreground="#FFADA8A3" TextWrapping="Wrap"/>
                     <TextBlock Text="helldd" FontSize="10" Foreground="#FF7A94BF" TextWrapping="Wrap"/>
                     
                 </StackPanel>
-            </Border>
+            </Border>-->
 
 
 
@@ -445,6 +484,17 @@
         <Border Background="#66000000" Panel.ZIndex="10" Visibility="Collapsed" x:Name="LevelUP">
             <TextBlock x:Name="txtLevel" Text="LEVEL UP!" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
+        
+
+
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right" >
+            <Border BorderThickness="1" BorderBrush="White" CornerRadius="10" Padding="15 5" Margin="10 5" HorizontalAlignment="Right">
+                <TextBlock Text="Enter" FontSize="10" Foreground="White"/>
+            </Border>
+            <Border BorderThickness="1" BorderBrush="White" CornerRadius="10" Padding="15 5" Margin="10 5" HorizontalAlignment="Right">
+                <TextBlock Text="Left Shift" FontSize="10" Foreground="White"/>
+            </Border>
+        </StackPanel>
 
 
     </Grid>

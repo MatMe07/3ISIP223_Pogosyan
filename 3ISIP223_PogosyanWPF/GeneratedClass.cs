@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 
 namespace _3ISIP223_PogosyanWPF
@@ -56,8 +57,6 @@ namespace _3ISIP223_PogosyanWPF
 
             return viewport2D;
         }
-
-
 
         public static Border LogirText(string player, string enem, bool killed, bool isEnem = false)
         {

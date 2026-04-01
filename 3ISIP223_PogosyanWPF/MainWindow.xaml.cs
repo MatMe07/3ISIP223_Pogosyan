@@ -40,12 +40,15 @@ namespace _3ISIP223_PogosyanWPF
 
         public DateTime AttackTimer;
         public DateTime EnemyAttackTime;
+
+        public BoxSpawn boxSpawn;
         //private bool isAttacking = false;
         public static StackPanel LogerPanel {  get; set; }
 
         public MainWindow()
         {
             mainMenu menu = new mainMenu();
+            boxSpawn = new BoxSpawn();
             //EnemyAttackTime = DateTime.Now;
             var result = menu.ShowDialog();
             if (result == false)
@@ -207,26 +210,25 @@ namespace _3ISIP223_PogosyanWPF
 
             }
         }
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape && _isMouseCaptured)
-            {
-                if (_isMouseCaptured)
-                {
-                    _isMouseCaptured = false;
-                    Mouse.Capture(null);
-                    Mouse.OverrideCursor = null;
-                    //UserInterFrame.IsHitTestVisible = true;
 
-                }
-            }
-        }
+
 
 
         private bool lastBoss = false;
+
+        public void GenerateBox()
+        {
+            var mod = boxSpawn.Box;
+            mod.MouseDown += Model3DBox_MouseDown;
+
+            Viewport.Children.Add(mod);
+        }
+
         public void NewLevel()
         {
 
+            GenerateBox();
+            return;
             if (WorkGame.Game.step == 1)
             {
                 GenerateEnemies();
@@ -278,16 +280,23 @@ namespace _3ISIP223_PogosyanWPF
 
         }
 
-
         public void WindowWinBoss()
         {
             GenerateEnemies();
 
         }
-
+            
         private bool IsClicking => (DateTime.Now - AttackTimer).TotalMilliseconds < 500;
         private bool IsAttackingEnemy => (DateTime.Now - EnemyAttackTime).TotalMilliseconds > 1000;
-        
+        public void Model3DBox_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!_isMouseCaptured) return;
+            //if (isAttacking) return;
+            if (IsClicking) return;
+            
+
+        }
+
         public void ModelUIElement3D_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (!_isMouseCaptured) return;
@@ -325,7 +334,7 @@ namespace _3ISIP223_PogosyanWPF
             var animLogirText = new DoubleAnimation();
             animLogirText.From = 0;
             animLogirText.To = 1;
-            animLogirText.Duration = TimeSpan.FromMilliseconds(500);
+            animLogirText.Duration = TimeSpan.FromMilliseconds(600);
 
             animLogirText.Completed += (s, ea) =>
             {
@@ -378,5 +387,30 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape && _isMouseCaptured)
+            {
+                if (_isMouseCaptured)
+                {
+                    _isMouseCaptured = false;
+                    Mouse.Capture(null);
+                    Mouse.OverrideCursor = null;
+                    //UserInterFrame.IsHitTestVisible = true;
+
+                }
+            }
+
+
+            if (e.Key == Key.Enter)
+            {
+                
+            }
+
+            if (e.Key == Key.LeftShift)
+            {
+
+            }
+        }
     }
 }
