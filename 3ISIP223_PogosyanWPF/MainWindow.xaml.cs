@@ -157,7 +157,7 @@ namespace _3ISIP223_PogosyanWPF
             double radY = _currentrotY * Math.PI / 180.0;
 
             double lookX = Math.Sin(radX) * Math.Cos(radY);
-            double lookY = 0;
+            double lookY = -.01;
             //double lookY = Math.Sin(radY);
             double lookZ = -Math.Cos(radX) * Math.Cos(radY);
 
@@ -216,18 +216,121 @@ namespace _3ISIP223_PogosyanWPF
 
         private bool lastBoss = false;
 
+
+        private Border CreateChestInfo(string name, double attack = -1, double armor = -1)
+        {
+            Border chestInfo = new Border();
+            chestInfo.VerticalAlignment = VerticalAlignment.Center;
+            chestInfo.HorizontalAlignment = HorizontalAlignment.Left;
+            chestInfo.Background = new SolidColorBrush(Color.FromArgb(178, 0, 0, 0));
+            chestInfo.CornerRadius = new CornerRadius(10);
+            chestInfo.Padding = new Thickness(10, 5, 10, 5);
+            chestInfo.Margin = new Thickness(20, 0, 0, 0);
+            chestInfo.Visibility = Visibility.Collapsed;
+
+            StackPanel stackPanel = new StackPanel();
+            stackPanel.VerticalAlignment = VerticalAlignment.Center;
+
+            TextBlock nameText = new TextBlock();
+            nameText.Text = $"Название: {name}";
+            nameText.Foreground = Brushes.White;
+            nameText.FontSize = 6;
+            nameText.VerticalAlignment = VerticalAlignment.Center;
+            nameText.Margin = new Thickness(0, 5, 0, 5);
+
+            if (attack != -1 || armor != -1) { 
+                TextBlock damageText = new TextBlock();
+                if (attack == -1) { damageText.Text = $"Защита: {armor}"; }
+                else
+                    damageText.Text = $"Урон: {attack}";
+                damageText.Foreground = Brushes.White;
+                damageText.FontSize = 6;
+                damageText.VerticalAlignment = VerticalAlignment.Center;
+                damageText.Margin = new Thickness(0, 5, 0, 5);
+
+                stackPanel.Children.Add(damageText);
+
+            }
+            stackPanel.Children.Add(nameText);
+
+            chestInfo.Child = stackPanel;
+
+            return chestInfo;
+        }
+            
+        public void GenerateObjectBox()
+        {
+            var pathAndselect = boxSpawn.RandomSelectItem();
+
+            var item = boxSpawn.CreateObjectModel(pathAndselect.SelectItem == 0, pathAndselect.item.pathImg);
+            Viewport.Children.Add(item);
+
+
+
+            Border ChestInfo;
+            if (pathAndselect.item is Weapon weapon)
+            {
+                ChestInfo = CreateChestInfo(pathAndselect.item.Name, weapon.Attack);
+            }
+            else if (pathAndselect.item is Armor armor)
+            {
+                ChestInfo = CreateChestInfo(pathAndselect.item.Name, armor:(pathAndselect.item as Armor).ArmorHP);
+
+            }
+            else
+            {
+                ChestInfo = CreateChestInfo(pathAndselect.item.Name);
+            }
+
+            MainGrid.Children.Add(ChestInfo);
+
+            item.MouseEnter += (o, e) =>
+                {
+                    ChestInfo.Visibility = Visibility.Visible;
+                };
+            item.MouseLeave += (o, e) => ChestInfo.Visibility = Visibility.Collapsed;
+
+
+            TranslateTransform3D transform = item.Transform as TranslateTransform3D ;
+            var anim = new DoubleAnimation();
+            anim.From = transform.Value.OffsetY;
+            anim.To = transform.Value.OffsetY+.1;
+            anim.Duration = TimeSpan.FromMilliseconds(800);
+            anim.AutoReverse = true;
+            anim.RepeatBehavior = RepeatBehavior.Forever;
+
+            transform.BeginAnimation(TranslateTransform3D.OffsetYProperty, anim);
+
+        }
+
         public void GenerateBox()
         {
             var mod = boxSpawn.Box;
             mod.MouseDown += Model3DBox_MouseDown;
 
+
             Viewport.Children.Add(mod);
+
+            //GenerateObjectBox();
+
         }
 
         public void NewLevel()
         {
 
             GenerateBox();
+
+
+            var posAnim = new Point3DAnimation();
+            posAnim.From = camera.Position;
+            posAnim.To = new Point3D( 2.5, camera.Position.Y , -7 );
+            posAnim.Duration = TimeSpan.FromSeconds(1);
+            //posAnim.EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut };
+
+            camera.BeginAnimation(PerspectiveCamera.PositionProperty, posAnim);
+
+
+
             return;
             if (WorkGame.Game.step == 1)
             {
@@ -293,8 +396,18 @@ namespace _3ISIP223_PogosyanWPF
             if (!_isMouseCaptured) return;
             //if (isAttacking) return;
             if (IsClicking) return;
-            
+            Viewport.Children.Remove(boxSpawn.Box);
+            GenerateObjectBox();
 
+            ChestHelper.Visibility = Visibility.Visible;
+            var animHelper = new DoubleAnimation
+            {
+                From = 0,
+                To = 1,
+                Duration = TimeSpan.FromMilliseconds(500)
+            };
+            ChestHelper.BeginAnimation(OpacityProperty, animHelper);
+            boxSpawn.Box = null;
         }
 
         public void ModelUIElement3D_MouseDown(object sender, MouseButtonEventArgs e)
@@ -402,12 +515,12 @@ namespace _3ISIP223_PogosyanWPF
             }
 
 
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Enter && boxSpawn.boxIsOpen)
             {
                 
             }
 
-            if (e.Key == Key.LeftShift)
+            if (e.Key == Key.LeftShift && boxSpawn.boxIsOpen)
             {
 
             }

@@ -55,9 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Armor.cs" />
     <Compile Include="BoxSpawn.cs" />
     <Compile Include="CreateModelEnemy.cs" />
     <Compile Include="GeneratedClass.cs" />
+    <Compile Include="ItemChest.cs" />
     <Compile Include="mainMenu.xaml.cs">
       <DependentUpon>mainMenu.xaml</DependentUpon>
     </Compile>
@@ -82,6 +84,7 @@
     <Compile Include="ResulLevelWindow.xaml.cs">
       <DependentUpon>ResulLevelWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Weapon.cs" />
     <Page Include="Level1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -154,8 +157,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="weapons\swordUs.png" />
-    <Resource Include="weapons\sword_polojenie %28Custom%29.png" />
+    <Resource Include="Images\weapons\swordUs.png" />
+    <Resource Include="Images\weapons\sword_polojenie %28Custom%29.png" />
     <Resource Include="hit\Untitled-1.png" />
     <Resource Include="hit\Untitled-2.png" />
     <Resource Include="hit\Untitled-3.png" />
@@ -183,7 +186,7 @@
     <Resource Include="Icons\interface\btn\btnNext.png" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
-    <Resource Include="weapons\sword_prost.png" />
+    <Resource Include="Images\weapons\sword_prost.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

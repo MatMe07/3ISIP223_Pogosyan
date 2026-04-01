@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 
 namespace _3ISIP223_PogosyanWPF
@@ -19,9 +21,60 @@ namespace _3ISIP223_PogosyanWPF
                 if (_box == null)
                 {
                     _box = CreateBoxModel();
+                    //boxIsOpen = true;
                 }
                 return _box;
             }
+            set { 
+                _box = value;
+                boxIsOpen = false;
+            }
+        }
+        public bool boxIsOpen {  get; set; }
+        public List<Weapon> weaponsLst {  get; set; }
+        public List<Armor> armorsLst {  get; set; }
+        public ItemChest ZelebZele {  get; set; }
+        public BoxSpawn()
+        {
+            weaponsLst = new List<Weapon>()
+            {
+                new Weapon("Меч", 20, "pack://application:,,,/Images/weapons/swordUs.png")
+            };
+            armorsLst = new List<Armor>()
+            {
+                new Armor("Доспех", 10, "pack://application:,,,/Icons/Armor.png")
+            };
+
+            ZelebZele = new ItemChest("Целебное зелье", "pack://application:,,,/Icons/armorInvent.png");
+        }
+
+        public (ItemChest item, int SelectItem) RandomSelectItem()
+        {
+            boxIsOpen = true;
+
+            ItemChest path = null;
+            int select = RandomCLS.Next(0, 2);
+            switch(select)
+            {
+                case 0:
+                    {
+                        path = weaponsLst[RandomCLS.Next(0, weaponsLst.Count)];
+
+                        break;
+                    }
+                case 1:
+                    {
+                        path = armorsLst[RandomCLS.Next(0, armorsLst.Count)];
+                        break;
+                    }
+                case 2:
+                    {
+                        path = ZelebZele;
+                        break;
+                    }
+            }
+
+            return (path, select);
         }
 
         public ModelUIElement3D CreateBoxModel()
@@ -126,13 +179,73 @@ namespace _3ISIP223_PogosyanWPF
             model.Model = new GeometryModel3D(mesh, new DiffuseMaterial(Brushes.Brown));
 
 
-            model.Transform = new TranslateTransform3D() { OffsetZ = -1, OffsetX = 1.5 };
+            model.Transform = new TranslateTransform3D() { OffsetZ = -9, OffsetX = 3 };
 
 
             return model;
         }
 
-        
+
+        public ModelUIElement3D CreateObjectModel(bool isWeapon, string path = "pack://application:,,,/weapons/swordUs.png")
+        {
+            ModelUIElement3D model = new ModelUIElement3D();
+
+            GeometryModel3D geometry = new GeometryModel3D();
+
+            DiffuseMaterial material = new DiffuseMaterial();
+            ImageBrush brush = new ImageBrush();
+            brush.ImageSource = new BitmapImage(new Uri(path));
+            material.Brush = brush;
+            geometry.Material = material;
+
+            MeshGeometry3D mesh = new MeshGeometry3D();
+            if (isWeapon)
+            {
+                mesh.Positions = new Point3DCollection
+                {
+                    new Point3D(-0.2, 0, 0),
+                    new Point3D(-0.2, 0.3, 0),
+                    new Point3D(-0.1, 0, 0),
+                    new Point3D(-0.1, 0.3, 0)
+                };
+
+            }
+            else
+            {
+                mesh.Positions = new Point3DCollection
+                {
+                    new Point3D(-0.3, 0, 0),
+                    new Point3D(-0.3, 0.3, 0),
+                    new Point3D(-0.1, 0, 0),
+                    new Point3D(-0.1, 0.3, 0)
+                };
+            }
+
+            mesh.TriangleIndices = new Int32Collection
+            {
+                1, 0, 2,
+                1, 2, 3
+            };
+
+            mesh.TextureCoordinates = new PointCollection
+            {
+                new Point(0, 1),
+                new Point(0, 0),
+                new Point(1, 1),
+                new Point(1, 0)
+            };
+
+            geometry.Geometry = mesh;
+            model.Model = geometry;
+
+            TranslateTransform3D transform = new TranslateTransform3D();
+            transform.OffsetZ = -9;
+            transform.OffsetX = 3.2;
+            model.Transform = transform;
+
+            return model;
+        }
+
 
     }
 }

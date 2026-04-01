@@ -8,7 +8,7 @@
         Title="Arina" Height="450" Width="800" KeyDown="Window_KeyDown" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" >
 
 
-    <Grid>
+    <Grid x:Name="MainGrid">
 
 
         <Grid>
@@ -60,7 +60,7 @@
 
                                 <DiffuseMaterial>
                                     <DiffuseMaterial.Brush>
-                                        <ImageBrush ImageSource="/weapons/swordUs.png"/>
+                                        <ImageBrush ImageSource="/Images/weapons/swordUs.png"/>
                                     </DiffuseMaterial.Brush>
                                 </DiffuseMaterial>
 
@@ -112,7 +112,7 @@
 
                 <Viewport3D.Camera>
                     <PerspectiveCamera
-            Position="1, 0.3,1"   
+            Position="2.5, 0.3,-7"   
             LookDirection="1, -0.2, -5"
             FieldOfView="70" />
                 </Viewport3D.Camera>
@@ -406,6 +406,60 @@
                     </ModelUIElement3D.Transform>
                 </ModelUIElement3D>-->
 
+
+                <!--<ModelVisual3D>
+
+                    <ModelVisual3D.Content>
+                        <GeometryModel3D>
+                            <GeometryModel3D.Material>
+                                --><!--<DiffuseMaterial Brush="Black"/>--><!--
+                                <DiffuseMaterial>
+                                    <DiffuseMaterial.Brush>
+                                        <ImageBrush ImageSource="/Icons/HeartUser.png"/>
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            </GeometryModel3D.Material>
+                            <GeometryModel3D.Geometry>
+                                <MeshGeometry3D 
+                        Positions="-.3, 0, 0  -.3, .3, 0   -.1, 0, 0   -.1, .3, 0"
+                        TriangleIndices="1,0,2  1,2,3" 
+                                    TextureCoordinates="0,1  0,0  1,1  1,0" 
+                                    />
+                            </GeometryModel3D.Geometry>
+                        </GeometryModel3D>
+                    </ModelVisual3D.Content>
+
+                    <ModelVisual3D.Transform>
+                        <TranslateTransform3D OffsetZ="-9" OffsetX="3.2" />
+                    </ModelVisual3D.Transform>
+                </ModelVisual3D>-->
+                
+                
+
+                <!--<Viewport2DVisual3D>
+                    <Viewport2DVisual3D.Geometry>
+                        <MeshGeometry3D Positions="-0.1,0.1,-4 0.1,0.1,-4 0.1,-0.1,-4 -0.1,-0.1,-4"
+                       TriangleIndices="0,2,1 2,0,3"
+                       TextureCoordinates="0,0 1,0 1,1 0,1"/>
+                    </Viewport2DVisual3D.Geometry>
+
+                    <Viewport2DVisual3D.Material>
+                        <DiffuseMaterial Viewport2DVisual3D.IsVisualHostMaterial="True"/>
+                    </Viewport2DVisual3D.Material>
+
+                    <Viewport2DVisual3D.Visual>
+                        <Border Background="#B2000000" CornerRadius="5" Padding="0 5">
+                            <TextBlock Text="1jjhkmm" Foreground="White" FontSize="3" />
+                            
+                        </Border>
+                    </Viewport2DVisual3D.Visual>
+
+                    <Viewport2DVisual3D.Transform>
+                        <TranslateTransform3D OffsetX="2.7" OffsetZ="-5" OffsetY="0.3"/>
+                    </Viewport2DVisual3D.Transform>
+                </Viewport2DVisual3D>-->
+
+
             </Viewport3D>
 
 
@@ -484,17 +538,37 @@
         <Border Background="#66000000" Panel.ZIndex="10" Visibility="Collapsed" x:Name="LevelUP">
             <TextBlock x:Name="txtLevel" Text="LEVEL UP!" FontSize="20" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
+
+
+
+        <Border x:Name="ChestHelper" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="#B2000000" CornerRadius="10" 
+        Padding="10 5"
+        Margin="0 0 0 50"
+        Visibility="Collapsed">
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                <Border Background="#FF444444" CornerRadius="5" Padding="5 5" Margin="5">
+                    <TextBlock Text="ENTER" Foreground="White" FontWeight="Bold" FontSize="6"/>
+                </Border>
+                <TextBlock Text=" - Взять предмет" Foreground="White" Margin="5 0 20 0" FontSize="6" VerticalAlignment="Center"/>
+
+                <Border Background="#FF444444" CornerRadius="5" Padding="5" Margin="5">
+                    <TextBlock Text="SHIFT" Foreground="White" FontWeight="Bold" FontSize="6"/>
+                </Border>
+                <TextBlock Text=" - Оставить" Foreground="White" Margin="5 0 0 0" FontSize="6" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
         
-
-
-        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right" >
-            <Border BorderThickness="1" BorderBrush="White" CornerRadius="10" Padding="15 5" Margin="10 5" HorizontalAlignment="Right">
-                <TextBlock Text="Enter" FontSize="10" Foreground="White"/>
-            </Border>
-            <Border BorderThickness="1" BorderBrush="White" CornerRadius="10" Padding="15 5" Margin="10 5" HorizontalAlignment="Right">
-                <TextBlock Text="Left Shift" FontSize="10" Foreground="White"/>
-            </Border>
-        </StackPanel>
+        
+        <!--<Border x:Name="ChestInfo" VerticalAlignment="Center" HorizontalAlignment="Left" Background="#B2000000" CornerRadius="10" 
+        Padding="10 5"
+        Margin="20 0"
+        Visibility="Collapsed">
+            <StackPanel VerticalAlignment="Center" >
+                <TextBlock Text="Название: Меч" Foreground="White" FontSize="6" VerticalAlignment="Center" Margin="0 5"/>
+                <TextBlock Text="Урон 2" Foreground="White" Margin="0 5" FontSize="6" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>-->
 
 
     </Grid>
