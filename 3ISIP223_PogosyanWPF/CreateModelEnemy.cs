@@ -48,9 +48,13 @@ namespace _3ISIP223_PogosyanWPF
             var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
             model.Model = geom;
             //model.Model = new GeometryModel3D(mesh, new DiffuseMaterial(new SolidColorBrush(color)));
-            
 
-            model.Transform = new TranslateTransform3D() { OffsetZ = z+(RandomCLS.Next(-1, 5)*.1), OffsetX = x + (RandomCLS.Next(-1, 8) * .1), OffsetY = y };
+            double offZ = z + (RandomCLS.Next(-1, 5) * .1);
+            if (offZ < -3) offZ = -3 + offZ;
+            double offX = x + (RandomCLS.Next(-1, 8) * .1);
+            if (offX < 0) offZ = -offX;
+
+            model.Transform = new TranslateTransform3D() { OffsetZ = offZ, OffsetX = offX, OffsetY = y };
 
 
             return model;

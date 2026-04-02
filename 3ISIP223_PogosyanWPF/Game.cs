@@ -87,6 +87,9 @@ namespace _3ISIP223_PogosyanWPF
         private DispatcherTimer atEnemTimer;
         private DispatcherTimer timerAttackEnemy;
 
+
+        public bool IsGameOrChest => RandomCLS.Next(0, 100) > 50;
+
         public Game()
         {
             string name = "Player1";

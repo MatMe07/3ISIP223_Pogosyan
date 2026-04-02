@@ -184,6 +184,7 @@
     <Resource Include="Icons\interface\frameWin.png" />
     <Resource Include="Icons\interface\btn\btnAgain.png" />
     <Resource Include="Icons\interface\btn\btnNext.png" />
+    <Resource Include="Images\weapons\swordUs2.png" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
     <Resource Include="Images\weapons\sword_prost.png" />

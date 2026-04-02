@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
@@ -27,10 +28,15 @@ namespace _3ISIP223_PogosyanWPF
             }
             set { 
                 _box = value;
-                boxIsOpen = false;
+                //boxIsOpen = false;
             }
         }
         public bool boxIsOpen {  get; set; }
+
+        //private ItemChest _selectItem;
+        public int IntTypeItem { get; set; }
+        public ModelUIElement3D ItemModel { get; set; }
+        public ItemChest selectItem { get; set; }
         public List<Weapon> weaponsLst {  get; set; }
         public List<Armor> armorsLst {  get; set; }
         public ItemChest ZelebZele {  get; set; }
@@ -38,43 +44,52 @@ namespace _3ISIP223_PogosyanWPF
         {
             weaponsLst = new List<Weapon>()
             {
-                new Weapon("Меч", 20, "pack://application:,,,/Images/weapons/swordUs.png")
+                new Weapon("Меч", 20, "pack://application:,,,/Images/weapons/swordUs2.png"),
             };
             armorsLst = new List<Armor>()
             {
-                new Armor("Доспех", 10, "pack://application:,,,/Icons/Armor.png")
+                new Armor("Доспех", 10, "pack://application:,,,/Icons/Armor.png"),
             };
 
             ZelebZele = new ItemChest("Целебное зелье", "pack://application:,,,/Icons/armorInvent.png");
         }
 
-        public (ItemChest item, int SelectItem) RandomSelectItem()
+        public int RandomSelectItem()
         {
             boxIsOpen = true;
 
-            ItemChest path = null;
-            int select = RandomCLS.Next(0, 2);
+            int select = 0;
+            //int select = RandomCLS.Next(0, 2);
             switch(select)
             {
                 case 0:
                     {
-                        path = weaponsLst[RandomCLS.Next(0, weaponsLst.Count)];
+                        selectItem = weaponsLst[RandomCLS.Next(0, weaponsLst.Count)];
 
                         break;
                     }
                 case 1:
                     {
-                        path = armorsLst[RandomCLS.Next(0, armorsLst.Count)];
+                        selectItem = armorsLst[RandomCLS.Next(0, armorsLst.Count)];
                         break;
                     }
                 case 2:
                     {
-                        path = ZelebZele;
+                        selectItem = ZelebZele;
                         break;
                     }
             }
+            IntTypeItem = select;
 
-            return (path, select);
+            return select;
+        }
+
+        public void OpensBoxClos()
+        {
+            Box = null;
+            selectItem = null;
+            boxIsOpen = false;
+            ItemModel = null;
         }
 
         public ModelUIElement3D CreateBoxModel()
@@ -242,6 +257,9 @@ namespace _3ISIP223_PogosyanWPF
             transform.OffsetZ = -9;
             transform.OffsetX = 3.2;
             model.Transform = transform;
+
+
+            ItemModel = model;
 
             return model;
         }

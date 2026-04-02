@@ -260,26 +260,26 @@ namespace _3ISIP223_PogosyanWPF
             
         public void GenerateObjectBox()
         {
-            var pathAndselect = boxSpawn.RandomSelectItem();
+            var resSelectItem = boxSpawn.RandomSelectItem();
 
-            var item = boxSpawn.CreateObjectModel(pathAndselect.SelectItem == 0, pathAndselect.item.pathImg);
+            var item = boxSpawn.CreateObjectModel(resSelectItem == 0, boxSpawn.selectItem.pathImg);
             Viewport.Children.Add(item);
 
 
 
             Border ChestInfo;
-            if (pathAndselect.item is Weapon weapon)
+            if (boxSpawn.selectItem is Weapon weapon)
             {
-                ChestInfo = CreateChestInfo(pathAndselect.item.Name, weapon.Attack);
+                ChestInfo = CreateChestInfo(weapon.Name, weapon.Attack);
             }
-            else if (pathAndselect.item is Armor armor)
+            else if (boxSpawn.selectItem is Armor armor)
             {
-                ChestInfo = CreateChestInfo(pathAndselect.item.Name, armor:(pathAndselect.item as Armor).ArmorHP);
+                ChestInfo = CreateChestInfo(armor.Name, armor:armor.ArmorHP);
 
             }
             else
             {
-                ChestInfo = CreateChestInfo(pathAndselect.item.Name);
+                ChestInfo = CreateChestInfo(boxSpawn.selectItem.Name);
             }
 
             MainGrid.Children.Add(ChestInfo);
@@ -317,27 +317,24 @@ namespace _3ISIP223_PogosyanWPF
 
         public void NewLevel()
         {
-
-            GenerateBox();
-
-
-            var posAnim = new Point3DAnimation();
-            posAnim.From = camera.Position;
-            posAnim.To = new Point3D( 2.5, camera.Position.Y , -7 );
-            posAnim.Duration = TimeSpan.FromSeconds(1);
-            //posAnim.EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut };
-
-            camera.BeginAnimation(PerspectiveCamera.PositionProperty, posAnim);
-
-
-
-            return;
             if (WorkGame.Game.step == 1)
             {
                 GenerateEnemies();
                 WorkGame.Game.step++;
                 return;
             }
+
+            if (!WorkGame.Game.IsGameOrChest)
+            {
+                GenerateBox();
+
+                PointAnimCamer(new Point3D(2.5, camera.Position.Y, -7));
+                //posAnim.EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut };
+
+                return;
+
+            }
+
             string text = "LEVEL UP!";
             bool boss = false;
 
@@ -500,6 +497,48 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
+        public void GetItemPlayer(int typeItem, ItemChest item)
+        {
+            switch (typeItem)
+            {
+                case 0:
+                    {
+                        DiffuseMaterial colors_material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(item.pathImg))));
+                        HandModel.Material = colors_material;
+                        break;
+                    }
+                case 1:
+                    {
+                        break;
+                    }
+                case 2:
+                    {
+                        break;
+                    }
+            }
+        }
+
+        public void PointAnimCamer(Point3D point)
+        {
+
+            var posAnim = new Point3DAnimation();
+            posAnim.From = camera.Position;
+            posAnim.To = point;
+            posAnim.Duration = TimeSpan.FromSeconds(1);
+
+            camera.BeginAnimation(PerspectiveCamera.PositionProperty, posAnim);
+        }
+
+        public void TakeItem()
+        {
+            GetItemPlayer(boxSpawn.IntTypeItem, boxSpawn.selectItem);
+            Viewport.Children.Remove(boxSpawn.ItemModel);
+            boxSpawn.OpensBoxClos();
+            ChestHelper.Visibility = Visibility.Collapsed;
+
+            PointAnimCamer(new Point3D(1, camera.Position.Y, -1));
+        }
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape && _isMouseCaptured)
@@ -517,7 +556,8 @@ namespace _3ISIP223_PogosyanWPF
 
             if (e.Key == Key.Enter && boxSpawn.boxIsOpen)
             {
-                
+                TakeItem();
+
             }
 
             if (e.Key == Key.LeftShift && boxSpawn.boxIsOpen)

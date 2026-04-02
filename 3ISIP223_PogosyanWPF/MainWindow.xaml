@@ -53,14 +53,14 @@
 
                 <ModelVisual3D>
                     <ModelVisual3D.Content>
-                        <GeometryModel3D>
+                        <GeometryModel3D x:Name="HandModel">
                             <GeometryModel3D.Material>
 
                                 <!--<DiffuseMaterial Brush="Black"/>-->
 
                                 <DiffuseMaterial>
                                     <DiffuseMaterial.Brush>
-                                        <ImageBrush ImageSource="/Images/weapons/swordUs.png"/>
+                                        <ImageBrush  ImageSource="/Images/weapons/swordUs.png"/>
                                     </DiffuseMaterial.Brush>
                                 </DiffuseMaterial>
 
@@ -112,7 +112,7 @@
 
                 <Viewport3D.Camera>
                     <PerspectiveCamera
-            Position="2.5, 0.3,-7"   
+            Position="1, 0.3,-1"   
             LookDirection="1, -0.2, -5"
             FieldOfView="70" />
                 </Viewport3D.Camera>
@@ -407,12 +407,12 @@
                 </ModelUIElement3D>-->
 
 
-                <!--<ModelVisual3D>
+                <ModelVisual3D>
 
                     <ModelVisual3D.Content>
                         <GeometryModel3D>
                             <GeometryModel3D.Material>
-                                --><!--<DiffuseMaterial Brush="Black"/>--><!--
+                                <!--<DiffuseMaterial Brush="Black"/>-->
                                 <DiffuseMaterial>
                                     <DiffuseMaterial.Brush>
                                         <ImageBrush ImageSource="/Icons/HeartUser.png"/>
@@ -430,9 +430,9 @@
                     </ModelVisual3D.Content>
 
                     <ModelVisual3D.Transform>
-                        <TranslateTransform3D OffsetZ="-9" OffsetX="3.2" />
+                        <TranslateTransform3D OffsetZ="-3" OffsetX="0" />
                     </ModelVisual3D.Transform>
-                </ModelVisual3D>-->
+                </ModelVisual3D>
                 
                 
 
