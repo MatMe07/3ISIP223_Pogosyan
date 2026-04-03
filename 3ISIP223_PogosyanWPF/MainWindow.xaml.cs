@@ -73,7 +73,7 @@ namespace _3ISIP223_PogosyanWPF
         public void GenerateBoss()
         {
             ModelUIElement3D mod;
-            mod = CreateModelEnemy.CreateModel(Colors.Gray, 0.5, 0, 2, isBoss:true);
+            mod = CreateModelEnemy.CreateModel(Colors.Gray, 0.5, 0, -1, isBoss:true);
             mod.MouseDown += ModelUIElement3D_MouseDown;
             WorkGame.Game.SelectBoss(mod);
             Console.WriteLine($"{mod}");
@@ -85,8 +85,10 @@ namespace _3ISIP223_PogosyanWPF
         {
 
             ModelUIElement3D mod;
-            for (double i = -0.8; i < 1; i+=.8)
+            
+            for (double i = -.5; i <= 3; i+=1.5)
             {
+
                 mod = CreateModelEnemy.CreateModel(Colors.Gray, i, 0, 2);
 
                 //DoubleAnimation attackAnim1 = new DoubleAnimation();

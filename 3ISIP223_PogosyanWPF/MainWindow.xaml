@@ -112,11 +112,44 @@
 
                 <Viewport3D.Camera>
                     <PerspectiveCamera
-            Position="1, 0.3,-1"   
+            Position="1, 0.3,2"   
             LookDirection="1, -0.2, -5"
             FieldOfView="70" />
                 </Viewport3D.Camera>
 
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <GeometryModel3D>
+                            <GeometryModel3D.Material>
+                                <DiffuseMaterial>
+                                    <DiffuseMaterial.Brush>
+                                        <ImageBrush ImageSource="/Icons/HeartUser.png"/>
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            </GeometryModel3D.Material>
+                            <GeometryModel3D.Geometry>
+                                <MeshGeometry3D 
+                    Positions="-.3, 0, 0  -.3, .3, 0   -.1, 0, 0   -.1, .3, 0"
+                    TriangleIndices="1,0,2  1,2,3" 
+                    TextureCoordinates="0,1  0,0  1,1  1,0"/>
+                            </GeometryModel3D.Geometry>
+                        </GeometryModel3D>
+                    </ModelVisual3D.Content>
+
+                    <ModelVisual3D.Transform>
+                        <Transform3DGroup>
+                            <!-- СНАЧАЛА ПОВОРОТ (вокруг своей оси) -->
+                            <RotateTransform3D>
+                                <RotateTransform3D.Rotation>
+                                    <AxisAngleRotation3D Axis="0 1 0" Angle="-40"/>
+                                </RotateTransform3D.Rotation>
+                            </RotateTransform3D>
+
+                            <!-- ПОТОМ СМЕЩЕНИЕ (после поворота) -->
+                            <TranslateTransform3D OffsetZ="-9" OffsetX="3"/>
+                        </Transform3DGroup>
+                    </ModelVisual3D.Transform>
+                </ModelVisual3D>
 
 
                 <ModelVisual3D>
@@ -130,6 +163,7 @@
                     </ModelVisual3D.Content>
                 </ModelVisual3D>
 
+                
 
 
                 <ModelUIElement3D  >
@@ -209,6 +243,8 @@
                         <AmbientLight Color="#303030"/>
                     </ModelVisual3D.Content>
                 </ModelVisual3D>
+                
+                
                 <!-- ПОТОЛОК-->
                 <ModelVisual3D>
                     <ModelVisual3D.Content>
@@ -407,34 +443,11 @@
                 </ModelUIElement3D>-->
 
 
-                <ModelVisual3D>
 
-                    <ModelVisual3D.Content>
-                        <GeometryModel3D>
-                            <GeometryModel3D.Material>
-                                <!--<DiffuseMaterial Brush="Black"/>-->
-                                <DiffuseMaterial>
-                                    <DiffuseMaterial.Brush>
-                                        <ImageBrush ImageSource="/Icons/HeartUser.png"/>
-                                    </DiffuseMaterial.Brush>
-                                </DiffuseMaterial>
-                            </GeometryModel3D.Material>
-                            <GeometryModel3D.Geometry>
-                                <MeshGeometry3D 
-                        Positions="-.3, 0, 0  -.3, .3, 0   -.1, 0, 0   -.1, .3, 0"
-                        TriangleIndices="1,0,2  1,2,3" 
-                                    TextureCoordinates="0,1  0,0  1,1  1,0" 
-                                    />
-                            </GeometryModel3D.Geometry>
-                        </GeometryModel3D>
-                    </ModelVisual3D.Content>
 
-                    <ModelVisual3D.Transform>
-                        <TranslateTransform3D OffsetZ="-3" OffsetX="0" />
-                    </ModelVisual3D.Transform>
-                </ModelVisual3D>
-                
-                
+                <!--Position="1, 0.3,-1"   
+            LookDirection="1, -0.2, -5"-->
+
 
                 <!--<Viewport2DVisual3D>
                     <Viewport2DVisual3D.Geometry>

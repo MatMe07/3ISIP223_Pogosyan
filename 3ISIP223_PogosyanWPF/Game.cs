@@ -1,5 +1,6 @@
 ﻿using _3ISIP223_PogosyanWPF.Model;
 using _3ISIP223_PogosyanWPF.Model.Creater;
+using _3ISIP223_PogosyanWPF.Model.Units;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -254,6 +255,29 @@ namespace _3ISIP223_PogosyanWPF
             Console.WriteLine($"Attack enem), attackInterval = {enem.AttackIntervalSec}, attack = {enem.Attack}");
         }
 
+        public void AttackEnemOrBoss(Enemy enem)
+        {
+            double attack = 0;
+
+            if (enem is Skeleton) attack = enem.Attack;
+
+            else if (enem is Goblin goblin && goblin.KritAttack)
+            {
+                goblin.IsKritAttack = true;
+                attack = Math.Max(0, goblin.Attack * 2 - Player.Armor);
+            }
+            else
+            {
+                Math.Max(0, enem.Attack * 2 - Player.Armor);
+            }
+            if (attack >= Player.HP) attack = Player.HP;
+
+            Player.HP -= attack;
+
+
+
+        }
+
         public void AttackEnemy()
         {
             //Player.HP -= enemy.Attack;
@@ -281,7 +305,7 @@ namespace _3ISIP223_PogosyanWPF
                     Boss.LastAtTime = now;
 
 
-                    Player.HP -= Boss.Attack;
+                    AttackEnemOrBoss(Boss);
 
                     //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
 
@@ -306,8 +330,7 @@ namespace _3ISIP223_PogosyanWPF
                         Console.WriteLine($"LastAtTime = {enem.LastAtTime} | delta = {deltaSec} | enem = {enem.Name}");
                         enem.LastAtTime = now;
 
-
-                        Player.HP -= enem.Attack;
+                        AttackEnemOrBoss(enem);
 
                         //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
                         AnimAttackEnemyAndBoss(enem, enem.Attack);
