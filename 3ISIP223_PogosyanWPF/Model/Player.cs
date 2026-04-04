@@ -4,6 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media.Animation;
+using System.Windows.Threading;
 
 namespace _3ISIP223_PogosyanWPF.Model
 {
@@ -35,7 +38,53 @@ namespace _3ISIP223_PogosyanWPF.Model
         public string NameArmor { get; set; }
         public bool IsEvade { get; set; }
         public bool IsBlock { get; set; }
-        public bool IsFrozen { get; set; }
+        private bool isFrozen = false;
+
+        public bool IsFrozen
+        {
+            get => isFrozen;
+            set
+            {
+                if (value == true)
+                {
+                    isFrozen = true;
+
+                    MainWindow.FrozenPanel.Visibility = Visibility.Visible;
+                    var anim = new DoubleAnimation
+                    {
+                        From = 0,
+                        To = 1,
+                        Duration = TimeSpan.FromMilliseconds(1200)
+                    };
+                    anim.Completed += (e, s) =>
+                    {
+                        Console.WriteLine("Начинает исчезать...");
+                        anim = new DoubleAnimation();
+                        anim.From = 1;
+                        anim.To = 0;
+                        anim.Duration = TimeSpan.FromSeconds(3);
+
+                        anim.Completed += (es, ss) =>
+                        {
+                            Console.WriteLine("Исчез");
+                            MainWindow.FrozenPanel.Visibility = Visibility.Collapsed;
+                            IsFrozen = false;
+                        };
+
+                        MainWindow.FrozenPanel.BeginAnimation(Window.OpacityProperty, anim);
+                    };
+                    MainWindow.FrozenPanel.BeginAnimation(Window.OpacityProperty, anim);
+
+                }
+                else
+                {
+                    isFrozen = false;
+                }
+            }
+        }
+
+
+
         public bool IsAlive => HP > 0;
         public int Progress { get; set; }
         public int CountAttackEnemies { get; set; }

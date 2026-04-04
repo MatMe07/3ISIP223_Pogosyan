@@ -16,7 +16,7 @@
                     <Image Source="/Icons/HeartUser1.png" Width="30" Margin="0 5 5 5"/>
                     <Grid>
                         <!--<ProgressBar Width="100" Height="10" Minimum="0" Maximum="10" Value="9" Foreground="#FFEEA950" BorderBrush="#FF8A8B92"  />-->
-                        <ProgressBar  Width="120" Height="15" Minimum="0" Maximum="10" Value="10" Foreground="#FF970E0E" BorderBrush="#FF8A8B92" ToolTip="Здоровье"/>
+                        <ProgressBar  Width="120" Height="15" Minimum="0" Maximum="100" Value="{Binding Player.HP}" Foreground="#FF970E0E" BorderBrush="#FF8A8B92" ToolTip="Здоровье" Background="#FF656565"/>
                         <TextBlock Text="{Binding Player.HP, StringFormat='\{0}/100'}" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="5" Foreground="White"/>
                     </Grid>
                 </StackPanel>

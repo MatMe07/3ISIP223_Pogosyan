@@ -14,9 +14,9 @@ namespace _3ISIP223_PogosyanWPF.Model.Creater
         public EnemyCreater()
         {
             Enemies = new List<Factory>();
-            AddEnemy(new CreaterGoblin());
+            //AddEnemy(new CreaterGoblin());
             AddEnemy(new CreaterMag());
-            AddEnemy(new CreaterSkeleton());
+            //AddEnemy(new CreaterSkeleton());
             //AddEnemy(new CreaterSlug());
 
             Bosses = new List<Factory>();

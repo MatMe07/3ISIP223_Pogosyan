@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Threading;
@@ -12,7 +15,7 @@ namespace _3ISIP223_PogosyanWPF.Model
 {
     public class Enemy
     {
-        public Random random = new Random();
+        //public Random random = new Random();
 
         public string Name { get; set; }
         public ModelUIElement3D model {  get; set; }
@@ -57,6 +60,53 @@ namespace _3ISIP223_PogosyanWPF.Model
             Console.WriteLine("VragAtrackuet");
         }
 
+        public virtual void AnimAttackEnemyAndBoss(double attack)
+        {
+            if (attack == -1) return;
+            GeometryModel3D geom = model.Model as GeometryModel3D;
+            geom.Material = materialAttack;
+            //geom.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
+            //timerAttackEnemy
+            var timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(200);
+            timer.Tick += (s, e) =>
+            {
+                geom.Material = materialQuiet;
+                timer.Stop();
+            };
+            timer.Start();
+
+            Border borderLogir = GeneratedClass.LogirText("Player", $"{Name}: {attack}", false, true);
+            Console.WriteLine($"{Name}: {attack} -> Player");
+            MainWindow.LogerPanel.Children.Add(borderLogir);
+
+            var animLogirText = new DoubleAnimation();
+            animLogirText.From = 0;
+            animLogirText.To = 1;
+            animLogirText.Duration = TimeSpan.FromMilliseconds(500);
+
+            animLogirText.Completed += (s, ea) =>
+            {
+                //var EndanimLogirText = new DoubleAnimation();
+                animLogirText.From = 1;
+                animLogirText.To = 0;
+                animLogirText.Duration = TimeSpan.FromMilliseconds(1000);
+                animLogirText.Completed += (s_end, aa) =>
+                {
+                    MainWindow.LogerPanel.Children.Remove(borderLogir);
+
+                };
+                borderLogir.BeginAnimation(Window.OpacityProperty, animLogirText);
+
+            };
+
+            borderLogir.BeginAnimation(Window.OpacityProperty, animLogirText);
+
+            //attackingEnemies[enem] = DateTime.Now;
+
+            Console.WriteLine($"Attack enem), attackInterval = {AttackIntervalSec}, attack = {Attack}");
+        }
+
         public void EnemyInfo()
         {
             
@@ -66,6 +116,11 @@ namespace _3ISIP223_PogosyanWPF.Model
         {
             Console.WriteLine("Umer");
             return "Umer";
+        }
+
+        public virtual double EnemAttack(double playerArmor, bool playerFrozen = false)
+        {
+            return -1;
         }
 
         public virtual void Demo()

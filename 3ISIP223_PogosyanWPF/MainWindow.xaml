@@ -583,6 +583,25 @@
             </StackPanel>
         </Border>-->
 
+        <Grid Visibility="Collapsed" x:Name="FrozGrid">
+            <Grid.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#7F000000"/>
+                    <GradientStop Color="#7FFFFFFF" Offset="1"/>
+                    <GradientStop Color="#333C5867" Offset="0.173"/>
+                    <GradientStop Color="#4F25363F" Offset="0"/>
+                </RadialGradientBrush>
+            </Grid.Background>
+            <StackPanel Opacity="0.5" >
+                <StackPanel.Background>
+                    <ImageBrush ImageSource="/Images/iceTexturePhone.png"/>
+                </StackPanel.Background>
+            </StackPanel>
+        </Grid>
+
+        
+        
+
 
     </Grid>
 </Window>

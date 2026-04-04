@@ -44,6 +44,7 @@ namespace _3ISIP223_PogosyanWPF
         public BoxSpawn boxSpawn;
         //private bool isAttacking = false;
         public static StackPanel LogerPanel {  get; set; }
+        public static Grid FrozenPanel {  get; set; }
 
         public MainWindow()
         {
@@ -63,6 +64,7 @@ namespace _3ISIP223_PogosyanWPF
             //Border bo = LogirText("gekk");
             //stackLogir.Children.Add(bo);
             LogerPanel = stackLogir;
+            FrozenPanel = FrozGrid;
             NewLevel();
 
         }
@@ -326,7 +328,7 @@ namespace _3ISIP223_PogosyanWPF
                 return;
             }
 
-            if (!WorkGame.Game.IsGameOrChest)
+            if (!WorkGame.Game.IsGameOrChest && false)
             {
                 GenerateBox();
 
@@ -340,7 +342,7 @@ namespace _3ISIP223_PogosyanWPF
             string text = "LEVEL UP!";
             bool boss = false;
 
-            if (WorkGame.Game.step == 4)
+            if (WorkGame.Game.step == 2)
             {
                 GenerateBoss();
                 WorkGame.Game.step++;
@@ -348,6 +350,7 @@ namespace _3ISIP223_PogosyanWPF
                 boss = true;
                 //return;
             }
+
             if (!lastBoss)
             {
                 LevelUP.Visibility = Visibility.Visible;
@@ -367,17 +370,15 @@ namespace _3ISIP223_PogosyanWPF
                         GenerateEnemies();
                         WorkGame.Game.step++;
                     }
-                    else
-                    {
-                        lastBoss = true;
-                    }
                 };
                 LevelUP.BeginAnimation(OpacityProperty, anim);
             }
             else
             {
+                Console.WriteLine("BOSSSS закончен!!!!!!!");
+
                 lastBoss = false;
-                WindowWinBoss();
+                //WindowWinBoss();
             }
 
         }
@@ -422,6 +423,7 @@ namespace _3ISIP223_PogosyanWPF
             //mod.Visibility = Visibility.Collapsed;
             //Console.WriteLine($"{WorkGame.Game.Enemies.FirstOrDefault(s => s.model == mod).Name}");
             (Enemy enem, double attack) lst = WorkGame.Game.Attack(mod);
+
             double attack = lst.attack;
             Enemy enem = lst.enem;
 
@@ -539,6 +541,7 @@ namespace _3ISIP223_PogosyanWPF
             ChestHelper.Visibility = Visibility.Collapsed;
 
             PointAnimCamer(new Point3D(1, camera.Position.Y, -1));
+            NewLevel();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

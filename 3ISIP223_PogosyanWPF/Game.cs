@@ -35,6 +35,7 @@ namespace _3ISIP223_PogosyanWPF
                 OnPropertyChanged(nameof(Player));
                 }
         }
+        public Player GetPlayer() => Player;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -188,95 +189,36 @@ namespace _3ISIP223_PogosyanWPF
             {
                 vrag.HP = 0;
                 vrag.LastWord();
-                //if (Boss != null)
-                //{
-                //    Thread.Sleep(1100);
-                //    player.CountAttackBosses++;
-                //    WinOverBoss();
-                //}
-                //else
-                //{
-                //    player.CountAttackEnemies++;
-                //}
-                //vrag = null;
             }
             return (vrag, attack);
-            //Console.ReadLine();
-            //Console.Clear();
-            //InforEnemAndPlayer(vrag);
         }
 
         private DateTime lastUpdate = DateTime.Now;
 
 
-        public void AnimAttackEnemyAndBoss(Enemy enem, double attack)
-        {
-            GeometryModel3D geom = enem.model.Model as GeometryModel3D;
-            geom.Material = enem.materialAttack;
-            //geom.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
-            //timerAttackEnemy
-            var timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(200);
-            timer.Tick += (s, e) =>
-            {
-                geom.Material = enem.materialQuiet;
-                timer.Stop();
-            };
-            timer.Start();
 
-            Border borderLogir = GeneratedClass.LogirText("Player", $"{enem.Name}: {attack}", false, true);
-            Console.WriteLine($"{enem.Name}: {attack} -> Player");
-            MainWindow.LogerPanel.Children.Add(borderLogir);
 
-            var animLogirText = new DoubleAnimation();
-            animLogirText.From = 0;
-            animLogirText.To = 1;
-            animLogirText.Duration = TimeSpan.FromMilliseconds(500);
 
-            animLogirText.Completed += (s, ea) =>
-            {
-                //var EndanimLogirText = new DoubleAnimation();
-                animLogirText.From = 1;
-                animLogirText.To = 0;
-                animLogirText.Duration = TimeSpan.FromMilliseconds(1000);
-                animLogirText.Completed += (s_end, aa) =>
-                {
-                    MainWindow.LogerPanel.Children.Remove(borderLogir);
 
-                };
-                borderLogir.BeginAnimation(Window.OpacityProperty, animLogirText);
-
-            };
-
-            borderLogir.BeginAnimation(Window.OpacityProperty, animLogirText);
-
-            //attackingEnemies[enem] = DateTime.Now;
-
-            Console.WriteLine($"Attack enem), attackInterval = {enem.AttackIntervalSec}, attack = {enem.Attack}");
-        }
-
-        public void AttackEnemOrBoss(Enemy enem)
+        public double AttackEnemOrBoss(Enemy enem)
         {
             double attack = 0;
 
-            if (enem is Skeleton) attack = enem.Attack;
+            attack = enem.EnemAttack(Player.Armor, Player.IsFrozen );
 
-            else if (enem is Goblin goblin && goblin.KritAttack)
-            {
-                goblin.IsKritAttack = true;
-                attack = Math.Max(0, goblin.Attack * 2 - Player.Armor);
-            }
+            if (attack == -1)
+                Player.IsFrozen = true;
             else
             {
-                Math.Max(0, enem.Attack * 2 - Player.Armor);
+                if (attack >= Player.HP) attack = Player.HP;
+
+                Player.HP -= attack;
+
             }
-            if (attack >= Player.HP) attack = Player.HP;
-
-            Player.HP -= attack;
-
-
-
+            return attack;
         }
+
+        
 
         public void AttackEnemy()
         {
@@ -305,11 +247,11 @@ namespace _3ISIP223_PogosyanWPF
                     Boss.LastAtTime = now;
 
 
-                    AttackEnemOrBoss(Boss);
+                    
 
                     //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
 
-                    AnimAttackEnemyAndBoss(Boss, Boss.Attack);
+                    Boss.AnimAttackEnemyAndBoss(AttackEnemOrBoss(Boss));
 
 
                 }
@@ -330,10 +272,10 @@ namespace _3ISIP223_PogosyanWPF
                         Console.WriteLine($"LastAtTime = {enem.LastAtTime} | delta = {deltaSec} | enem = {enem.Name}");
                         enem.LastAtTime = now;
 
-                        AttackEnemOrBoss(enem);
+                        
 
                         //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
-                        AnimAttackEnemyAndBoss(enem, enem.Attack);
+                        enem.AnimAttackEnemyAndBoss(AttackEnemOrBoss(enem));
                     }
                 }
 
