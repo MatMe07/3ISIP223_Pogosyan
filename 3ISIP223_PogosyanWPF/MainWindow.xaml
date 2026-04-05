@@ -47,7 +47,7 @@
 
                 <ModelVisual3D>
                     <ModelVisual3D.Content>
-                        <DirectionalLight Color="#FFFFFF" Direction="-0.5, -1, -1" />
+                        <DirectionalLight Color="#FFFFFF" Direction="-0, -0.5, -1" />
                     </ModelVisual3D.Content>
                 </ModelVisual3D>
 
@@ -554,23 +554,42 @@
 
 
 
-        <Border x:Name="ChestHelper" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="#B2000000" CornerRadius="10" 
-        Padding="10 5"
-        Margin="0 0 0 50"
-        Visibility="Collapsed">
+        <StackPanel x:Name="ChestHelper" Visibility="Collapsed"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10">
+            <Border Background="#B2000000" CornerRadius="10" 
+            Padding="10 5"
+            Margin="0 0 0 5">
 
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
-                <Border Background="#FF444444" CornerRadius="5" Padding="5 5" Margin="5">
-                    <TextBlock Text="ENTER" Foreground="White" FontWeight="Bold" FontSize="6"/>
-                </Border>
-                <TextBlock Text=" - Взять предмет" Foreground="White" Margin="5 0 20 0" FontSize="6" VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                    <Border Background="#FF444444" CornerRadius="5" Padding="5 5" Margin="0 5 0 5">
+                        <TextBlock Text="ENTER" Foreground="White" FontWeight="Bold" FontSize="4"/>
+                    </Border>
+                    <TextBlock Text=" - Взять предмет" Foreground="White"  FontSize="5" VerticalAlignment="Center"/>
 
-                <Border Background="#FF444444" CornerRadius="5" Padding="5" Margin="5">
-                    <TextBlock Text="SHIFT" Foreground="White" FontWeight="Bold" FontSize="6"/>
-                </Border>
-                <TextBlock Text=" - Оставить" Foreground="White" Margin="5 0 0 0" FontSize="6" VerticalAlignment="Center"/>
-            </StackPanel>
-        </Border>
+                </StackPanel>
+            </Border>            
+            <Border Background="#B2000000" CornerRadius="10" 
+            Padding="10 5"
+            Margin="0 0 0 5">
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                    <Border Background="#FF444444" CornerRadius="5" Padding="5" Margin="5">
+                        <TextBlock Text="SHIFT" Foreground="White" FontWeight="Bold" FontSize="4"/>
+                    </Border>
+                    <TextBlock Text=" - Оставить" Foreground="White" FontSize="5" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+            <Border x:Name="ChestHelperCtrl" Background="#B2000000" CornerRadius="10" 
+            Padding="10 5"
+            Margin="0 0 0 5" Visibility="Collapsed">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                    <Border Background="#FF444444" CornerRadius="5" Padding="5" Margin="5 5 0 5" HorizontalAlignment="Center">
+                        <TextBlock Text="Ctrl" Foreground="White" FontWeight="Bold" FontSize="4"/>
+                    </Border>
+                    <TextBlock Text=" - Использовать" Foreground="White" FontSize="5" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
         
         
         <!--<Border x:Name="ChestInfo" VerticalAlignment="Center" HorizontalAlignment="Left" Background="#B2000000" CornerRadius="10" 

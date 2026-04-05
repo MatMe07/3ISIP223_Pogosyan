@@ -13,6 +13,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Threading;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace _3ISIP223_PogosyanWPF
 {
@@ -268,7 +269,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             var resSelectItem = boxSpawn.RandomSelectItem();
 
-            var item = boxSpawn.CreateObjectModel(resSelectItem == 0, boxSpawn.selectItem.pathImg);
+            var item = boxSpawn.CreateObjectModel(resSelectItem == 0, boxSpawn.selectItem.pathImg, resSelectItem==2);
             Viewport.Children.Add(item);
 
 
@@ -286,6 +287,7 @@ namespace _3ISIP223_PogosyanWPF
             else
             {
                 ChestInfo = CreateChestInfo(boxSpawn.selectItem.Name);
+                ChestHelperCtrl.Visibility = Visibility.Visible;
             }
 
             MainGrid.Children.Add(ChestInfo);
@@ -524,6 +526,7 @@ namespace _3ISIP223_PogosyanWPF
                     }
                 case 2:
                     {
+                        WorkGame.Game.ChangPlayer(item);
                         break;
                     }
             }
@@ -546,6 +549,7 @@ namespace _3ISIP223_PogosyanWPF
             Viewport.Children.Remove(boxSpawn.ItemModel);
             boxSpawn.OpensBoxClos();
             ChestHelper.Visibility = Visibility.Collapsed;
+            ChestHelperCtrl.Visibility = Visibility.Collapsed;
 
             PointAnimCamer(new Point3D(1, camera.Position.Y, -1));
             NewLevel();
@@ -556,6 +560,7 @@ namespace _3ISIP223_PogosyanWPF
             Viewport.Children.Remove(boxSpawn.ItemModel);
             boxSpawn.OpensBoxClos();
             ChestHelper.Visibility = Visibility.Collapsed;
+            ChestHelperCtrl.Visibility = Visibility.Collapsed;
 
             PointAnimCamer(new Point3D(1, camera.Position.Y, -1));
             NewLevel();

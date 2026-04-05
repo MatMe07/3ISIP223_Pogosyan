@@ -14,6 +14,7 @@ namespace _3ISIP223_PogosyanWPF
     public class BoxSpawn
     {
 
+        private ModelUIElement3D _baseBox;
 
         private ModelUIElement3D _box = null;
         public ModelUIElement3D Box
@@ -42,6 +43,7 @@ namespace _3ISIP223_PogosyanWPF
         public ItemChest ZelebZele {  get; set; }
         public BoxSpawn()
         {
+            //_baseBox = CreateBoxModel(); 
             weaponsLst = new List<Weapon>()
             {
                 new Weapon("РЖАВЫЙ МЕЧ", 5, "pack://application:,,,/Images/weapons/Rusty_Sword.png"),
@@ -62,21 +64,20 @@ namespace _3ISIP223_PogosyanWPF
                 new Armor("КУРТКА БЭТМЕНА", 30, "pack://application:,,,/Images/armors/Batman_armor.png"),
             };
 
-            ZelebZele = new ItemChest("Целебное зелье", "pack://application:,,,/Icons/abibas_armor.png");
+            ZelebZele = new ItemChest("Целебное зелье", "pack://application:,,,/Images/potions/potionHP.png");
         }
 
         public int RandomSelectItem()
         {
             boxIsOpen = true;
 
-            int select = 1;
-            //int select = RandomCLS.Next(0, 2);
-            switch(select)
+            //int select = 2;
+            int select = RandomCLS.Next(1, 3);
+            switch (select)
             {
                 case 0:
                     {
                         selectItem = weaponsLst[RandomCLS.Next(0, weaponsLst.Count)];
-
                         break;
                     }
                 case 1:
@@ -212,7 +213,7 @@ namespace _3ISIP223_PogosyanWPF
         }
 
 
-        public ModelUIElement3D CreateObjectModel(bool isWeapon, string path = "pack://application:,,,/weapons/swordUs.png")
+        public ModelUIElement3D CreateObjectModel(bool isWeapon, string path = "pack://application:,,,/weapons/swordUs.png", bool isPotion = false)
         {
             ModelUIElement3D model = new ModelUIElement3D();
 
@@ -235,6 +236,16 @@ namespace _3ISIP223_PogosyanWPF
                     new Point3D(-0.1, 0.3, 0)
                 };
 
+            }
+            else if (isPotion)
+            {
+                mesh.Positions = new Point3DCollection
+                {
+                    new Point3D(-0.2, 0, 0),
+                    new Point3D(-0.2, 0.2, 0),
+                    new Point3D(-0.1, 0, 0),
+                    new Point3D(-0.1, 0.2, 0)
+                };
             }
             else
             {

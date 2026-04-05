@@ -55,8 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Armor.cs" />
-    <Compile Include="BoxSpawn.cs" />
+    <Compile Include="Box\Armor.cs" />
+    <Compile Include="Box\BoxSpawn.cs" />
     <Compile Include="CreateModelEnemy.cs" />
     <Compile Include="GeneratedClass.cs" />
     <Compile Include="ItemChest.cs" />
@@ -84,7 +84,7 @@
     <Compile Include="ResulLevelWindow.xaml.cs">
       <DependentUpon>ResulLevelWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Weapon.cs" />
+    <Compile Include="Box\Weapon.cs" />
     <Page Include="Level1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -203,6 +203,7 @@
     <Resource Include="Images\armors\Tinkoff_armor.png" />
     <Resource Include="Images\armors\Batman_armor.png" />
     <Resource Include="Images\armors\Lanister_armor.png" />
+    <Resource Include="Images\potions\potionHP.png" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
   </ItemGroup>

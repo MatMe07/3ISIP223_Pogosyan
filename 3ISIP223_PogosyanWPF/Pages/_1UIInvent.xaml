@@ -49,10 +49,16 @@
 
             <Image Source="{Binding Player.Armor.pathImg}"/>
         </Border>
+        
+        <Border Grid.Column="2" Width="34"  Margin="0,7,0,0" HorizontalAlignment="Left" Height="31"  Style="{StaticResource ElementInvent}">
+
+
+            <Image Source="/Images/potions/potionHP.png" />
+        </Border>
 
 
         <!--<Button  Grid.Column="2" Width="35"  Margin="0,7,0,0" HorizontalAlignment="Left" Background="Transparent">
-            <Image Source="/Icons/sword.png" />
+            <Image Source="{Binding Player.Armor.pathImg}"/>
         </Button>-->
         
         
