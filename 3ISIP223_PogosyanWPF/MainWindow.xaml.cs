@@ -231,6 +231,7 @@ namespace _3ISIP223_PogosyanWPF
             chestInfo.Padding = new Thickness(10, 5, 10, 5);
             chestInfo.Margin = new Thickness(20, 0, 0, 0);
             chestInfo.Visibility = Visibility.Collapsed;
+            chestInfo.Width = 250;
 
             StackPanel stackPanel = new StackPanel();
             stackPanel.VerticalAlignment = VerticalAlignment.Center;
@@ -241,7 +242,9 @@ namespace _3ISIP223_PogosyanWPF
             nameText.FontSize = 6;
             nameText.VerticalAlignment = VerticalAlignment.Center;
             nameText.Margin = new Thickness(0, 5, 0, 5);
+            nameText.TextWrapping = TextWrapping.Wrap;
 
+            stackPanel.Children.Add(nameText);
             if (attack != -1 || armor != -1) { 
                 TextBlock damageText = new TextBlock();
                 if (attack == -1) { damageText.Text = $"Защита: {armor}"; }
@@ -255,7 +258,6 @@ namespace _3ISIP223_PogosyanWPF
                 stackPanel.Children.Add(damageText);
 
             }
-            stackPanel.Children.Add(nameText);
 
             chestInfo.Child = stackPanel;
 
@@ -321,14 +323,14 @@ namespace _3ISIP223_PogosyanWPF
 
         public void NewLevel()
         {
-            if (WorkGame.Game.step == 1)
+            if (WorkGame.Game.step == 4)
             {
                 GenerateEnemies();
                 WorkGame.Game.step++;
                 return;
             }
 
-            if (!WorkGame.Game.IsGameOrChest && false)
+            if (!WorkGame.Game.IsGameOrChest || true)
             {
                 GenerateBox();
 
@@ -370,7 +372,7 @@ namespace _3ISIP223_PogosyanWPF
                         GenerateEnemies();
                         WorkGame.Game.step++;
                     }
-                };
+                };  
                 LevelUP.BeginAnimation(OpacityProperty, anim);
             }
             else
@@ -432,16 +434,18 @@ namespace _3ISIP223_PogosyanWPF
 
             Border borderLogir;
             string textLog = "";
+
             if (attack == 0)
             {
-                textLog = $"Player kill {enem.Name}";
-                borderLogir = GeneratedClass.LogirText(textLog, "", true);
+                //textLog = $"Player kill {enem.Name}";
+                borderLogir = GeneratedClass.LogirText("Player", enem.Name, attack, true, Text:"kill");
             }
             else
             {
-                textLog = $"Player: {attack} -> Enemy: {enem.Name}";
-                borderLogir = GeneratedClass.LogirText($"Player: {attack}", enem.Name, false);
+                //textLog = $"Player: {attack} -> Enemy: {enem.Name}";
+                borderLogir = GeneratedClass.LogirText($"Player", enem.Name, attack, false);
             }
+
             Console.WriteLine($"Player: {attack} -> Enemy: {enem.Name}");
             stackLogir.Children.Add(borderLogir);
 
@@ -507,12 +511,15 @@ namespace _3ISIP223_PogosyanWPF
             {
                 case 0:
                     {
+                        WorkGame.Game.ChangPlayer(item);
                         DiffuseMaterial colors_material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(item.pathImg))));
                         HandModel.Material = colors_material;
                         break;
                     }
                 case 1:
                     {
+                        WorkGame.Game.ChangPlayer(item);
+
                         break;
                     }
                 case 2:
@@ -543,6 +550,17 @@ namespace _3ISIP223_PogosyanWPF
             PointAnimCamer(new Point3D(1, camera.Position.Y, -1));
             NewLevel();
         }
+        public void IgnoreItem()
+        {
+            GetItemPlayer(boxSpawn.IntTypeItem, boxSpawn.selectItem);
+            Viewport.Children.Remove(boxSpawn.ItemModel);
+            boxSpawn.OpensBoxClos();
+            ChestHelper.Visibility = Visibility.Collapsed;
+
+            PointAnimCamer(new Point3D(1, camera.Position.Y, -1));
+            NewLevel();
+        }
+
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
@@ -562,13 +580,13 @@ namespace _3ISIP223_PogosyanWPF
             if (e.Key == Key.Enter && boxSpawn.boxIsOpen)
             {
                 TakeItem();
-
             }
 
             if (e.Key == Key.LeftShift && boxSpawn.boxIsOpen)
             {
-
+                IgnoreItem();
             }
+
         }
     }
 }

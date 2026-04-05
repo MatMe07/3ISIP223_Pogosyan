@@ -58,7 +58,13 @@ namespace _3ISIP223_PogosyanWPF
             return viewport2D;
         }
 
-        public static Border LogirText(string player, string enem, bool killed, bool isEnem = false)
+        private static Dictionary<string, BitmapImage> iconSim = new Dictionary<string, BitmapImage> {
+            {"заморозил", new BitmapImage(new Uri("pack://application:,,,/Icons/AttackSymbols/zamorozil_mag.png")) },
+            {"(_)", new BitmapImage(new Uri("pack://application:,,,/Icons/AttackSymbols/udar2.png")) },
+            {"kill", new BitmapImage(new Uri("pack://application:,,,/Icons/AttackSymbols/Killicon_backstab.png")) },
+        };
+
+        public static Border LogirText(string player, string enem, double attack, bool killed, bool isEnem = false, string Text = "(_)")
         {
             
             Border border = new Border();
@@ -71,19 +77,36 @@ namespace _3ISIP223_PogosyanWPF
 
             StackPanel stack = new StackPanel();
             stack.Orientation = Orientation.Horizontal;
+            if (attack > 0)
+            {
+                if (isEnem) enem += $": {attack}";
+                else
+                {
+                    player += $": {attack}";
+                }
+            }
+
 
 
             TextBlock textBlockPlayer = new TextBlock()
-            {
-                Text = player,
-                FontSize = 10,
-                Foreground = (Brush)(new BrushConverter().ConvertFromString("#FF8C4D0E"))
-            };
+                {
+                    Text = player,
+                    FontSize = 10,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Foreground = (Brush)(new BrushConverter().ConvertFromString("#FF8C4D0E"))
+                };
 
+            Image imageCenterBlock = new Image()
+            {
+                Source = iconSim[Text],
+                Width = 20,
+                Margin = new Thickness(5, 0, 5, 0),
+
+            };
             TextBlock textBlockCenter = new TextBlock()
             {
-                Text = "(_)",
-                FontSize = 10,
+                Text = Text,
+                FontSize = 20,
                 Margin = new Thickness(5, 0, 5, 0),
                 Foreground = (Brush)(new BrushConverter().ConvertFromString("#FFADA8A3"))
             };
@@ -92,28 +115,28 @@ namespace _3ISIP223_PogosyanWPF
             {
                 Text = enem,
                 FontSize = 10,
+                VerticalAlignment = VerticalAlignment.Center,
                 Foreground = (Brush)(new BrushConverter().ConvertFromString("#FF7A94BF"))
             };
 
-            if (killed && isEnem)
+            //if (killed && isEnem)
+            //{
+            //    stack.Children.Add(textBlockEnem);
+            //}
+            //else if (killed && !isEnem)
+            //{
+            //    stack.Children.Add(textBlockPlayer);
+            //}
+            if (isEnem)
             {
                 stack.Children.Add(textBlockEnem);
-            }
-            else if (killed && !isEnem)
-            {
+                stack.Children.Add(imageCenterBlock);
                 stack.Children.Add(textBlockPlayer);
-            }
-            else if (isEnem)
-            {
-                stack.Children.Add(textBlockEnem);
-                stack.Children.Add(textBlockCenter);
-                stack.Children.Add(textBlockPlayer);
-
             }
             else
             {
                 stack.Children.Add(textBlockPlayer);
-                stack.Children.Add(textBlockCenter);
+                stack.Children.Add(imageCenterBlock);
                 stack.Children.Add(textBlockEnem);
 
             }

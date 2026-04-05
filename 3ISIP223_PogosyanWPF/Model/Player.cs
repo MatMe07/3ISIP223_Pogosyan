@@ -23,10 +23,22 @@ namespace _3ISIP223_PogosyanWPF.Model
             }
         }
         public string Name { get; set; }
-        public double AttackWeapon { get; set; }
-        public string NameWeapon { get; set; }
-        private double _armor;
-        public double Armor
+
+        private Weapon _weapon;
+        public Weapon Weapon
+        {
+            get { return _weapon; }
+            set
+            {
+                _weapon = value;
+                OnPropertyChanged(nameof(Weapon));
+            }
+        }
+
+
+
+        private Armor _armor;
+        public Armor Armor
         {
             get { return _armor; }
             set
@@ -35,7 +47,6 @@ namespace _3ISIP223_PogosyanWPF.Model
                 OnPropertyChanged(nameof(Armor));
             }
         }
-        public string NameArmor { get; set; }
         public bool IsEvade { get; set; }
         public bool IsBlock { get; set; }
         private bool isFrozen = false;
@@ -97,15 +108,13 @@ namespace _3ISIP223_PogosyanWPF.Model
         public Player(string name)
         {
             HP = 100;
-            AttackWeapon = 15;
+            Weapon = new Weapon("МЕЧ", 10, "pack://application:,,,/Images/weapons/swordUs.png");
             //AttackWeapon = 8;
-            Armor = 5;
+            Armor = new Armor("Доспехи Ланнистеров", 5, "pack://application:,,,/Images/armors/Lanister_armor.png");
             Name = name;
             IsEvade = false;
             IsBlock = false;
             IsFrozen = false;
-            NameWeapon = "Чапалах";
-            NameArmor = "Доспехи Ланнистеров";
             Progress = 1;
             CountAttackEnemies = 0;
             CountOpenChests = 0;
@@ -120,15 +129,6 @@ namespace _3ISIP223_PogosyanWPF.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public string InfoWeapon()
-        {
-            return $"{NameWeapon} (АТК: {AttackWeapon})";
-        }
-        public string InfoArmor()
-        {
-            return $"{NameArmor} (ЗАЩ: {Armor})";
-
-        }
 
     }
 }

@@ -158,7 +158,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\weapons\swordUs.png" />
-    <Resource Include="Images\weapons\sword_polojenie %28Custom%29.png" />
     <Resource Include="hit\Untitled-1.png" />
     <Resource Include="hit\Untitled-2.png" />
     <Resource Include="hit\Untitled-3.png" />
@@ -186,9 +185,26 @@
     <Resource Include="Icons\interface\btn\btnNext.png" />
     <Resource Include="Images\weapons\swordUs2.png" />
     <Resource Include="Images\iceTexturePhone.png" />
+    <Resource Include="Icons\AttackSymbols\zamorozil_mag1.png" />
+    <Resource Include="Icons\AttackSymbols\zamorozil_mag.png" />
+    <Resource Include="Icons\AttackSymbols\udar2.png" />
+    <Resource Include="Icons\AttackSymbols\Killicon_backstab.png" />
+    <Resource Include="Images\weapons\Rusty_Sword.png" />
+    <Resource Include="Images\weapons\Silver_Sword.png" />
+    <Resource Include="Images\weapons\Banan_weapon.png" />
+    <Resource Include="Images\weapons\Mom_weapon.png" />
+    <Resource Include="Images\weapons\Fire_Sword.png" />
+    <Resource Include="Images\weapons\Tor_Mjölnir.png" />
+    <Resource Include="Images\weapons\Papa_weapon.png" />
+    <Resource Include="Images\armors\abibas_armor.png" />
+    <Resource Include="Images\armors\Sheldon_armor.png" />
+    <Resource Include="Images\armors\Potter_armor.png" />
+    <Resource Include="Images\armors\IronMan_armor.png" />
+    <Resource Include="Images\armors\Tinkoff_armor.png" />
+    <Resource Include="Images\armors\Batman_armor.png" />
+    <Resource Include="Images\armors\Lanister_armor.png" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
-    <Resource Include="Images\weapons\sword_prost.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

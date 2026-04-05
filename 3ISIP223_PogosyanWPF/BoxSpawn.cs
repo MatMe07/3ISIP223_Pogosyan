@@ -44,21 +44,32 @@ namespace _3ISIP223_PogosyanWPF
         {
             weaponsLst = new List<Weapon>()
             {
-                new Weapon("Меч", 20, "pack://application:,,,/Images/weapons/swordUs2.png"),
+                new Weapon("РЖАВЫЙ МЕЧ", 5, "pack://application:,,,/Images/weapons/Rusty_Sword.png"),
+                new Weapon("СТАЛЬНОЙ МЕЧ", 12, "pack://application:,,,/Images/weapons/Silver_Sword.png"),
+                new Weapon("БАНАНОВЫЙ ПИСТОЛЕТ", 16, "pack://application:,,,/Images/weapons/Banan_weapon.png"),
+                new Weapon("МАМИНА ШЛЕПАНКА", 18, "pack://application:,,,/Images/weapons/Mom_weapon.png"),
+                new Weapon("ОГНЕННЫЙ КЛИНОК", 22, "pack://application:,,,/Images/weapons/Fire_Sword.png"),
+                new Weapon("МОЛОТ ТОРА", 22, "pack://application:,,,/Images/weapons/Tor_Mjölnir.png"),
+                new Weapon("ОТЦОВСКИЙ РЕМЕНЬ", 25, "pack://application:,,,/Images/weapons/Papa_weapon.png"),
             };
             armorsLst = new List<Armor>()
             {
-                new Armor("Доспех", 10, "pack://application:,,,/Icons/Armor.png"),
+                new Armor("КРОССОВКИ 'АБИБАС'", 7, "pack://application:,,,/Images/armors/abibas_armor.png"),
+                new Armor("ПИЖАМА ШЕЛДОНА", 10, "pack://application:,,,/Images/armors/Sheldon_armor.png"),
+                new Armor("ПЛАЩ ГАРРИ ПОТТЕРА", 14, "pack://application:,,,/Images/armors/Potter_armor.png"),
+                new Armor("БРОНЯ ЖЕЛЕЗНОГО ЧЕЛОВЕКА", 18, "pack://application:,,,/Images/armors/IronMan_armor.png"),
+                new Armor("МАГИЧЕСКАЯ КАРТА ТИНЬКОФФ", 23, "pack://application:,,,/Images/armors/Tinkoff_armor.png"),
+                new Armor("КУРТКА БЭТМЕНА", 30, "pack://application:,,,/Images/armors/Batman_armor.png"),
             };
 
-            ZelebZele = new ItemChest("Целебное зелье", "pack://application:,,,/Icons/armorInvent.png");
+            ZelebZele = new ItemChest("Целебное зелье", "pack://application:,,,/Icons/abibas_armor.png");
         }
 
         public int RandomSelectItem()
         {
             boxIsOpen = true;
 
-            int select = 0;
+            int select = 1;
             //int select = RandomCLS.Next(0, 2);
             switch(select)
             {
@@ -229,10 +240,10 @@ namespace _3ISIP223_PogosyanWPF
             {
                 mesh.Positions = new Point3DCollection
                 {
-                    new Point3D(-0.3, 0, 0),
-                    new Point3D(-0.3, 0.3, 0),
-                    new Point3D(-0.1, 0, 0),
-                    new Point3D(-0.1, 0.3, 0)
+                    new Point3D(-0.4, 0, 0),
+                    new Point3D(-0.4, 0.3, 0),
+                    new Point3D(-0, 0, 0),
+                    new Point3D(-0, 0.3, 0)
                 };
             }
 

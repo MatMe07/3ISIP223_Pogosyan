@@ -179,7 +179,7 @@ namespace _3ISIP223_PogosyanWPF
             }
             else vrag = Enemies.FirstOrDefault(s=>s.model == model);
             //if (vrag == null) return;
-            double attack = Math.Max(0, Player.AttackWeapon - 2 - vrag.Defense);
+            double attack = Math.Max(0, Player.Weapon.Attack - 2 - vrag.Defense);
             if (attack > vrag.HP) attack = vrag.HP;
             attack = Math.Round(attack, 2);
             vrag.HP -= attack;
@@ -204,7 +204,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             double attack = 0;
 
-            attack = enem.EnemAttack(Player.Armor, Player.IsFrozen );
+            attack = enem.EnemAttack(Player.Armor.ArmorHP, Player.IsFrozen );
 
             if (attack == -1)
                 Player.IsFrozen = true;
@@ -218,7 +218,24 @@ namespace _3ISIP223_PogosyanWPF
             return attack;
         }
 
-        
+
+        public void ChangPlayer(ItemChest item)
+        {
+            if(item is Weapon weapon)
+            {
+                Player.Weapon = weapon;
+            }
+            else if (item is Armor armor)
+            {
+                Player.Armor = armor;
+            }
+            else
+            {
+
+            }
+        }
+
+
 
         public void AttackEnemy()
         {

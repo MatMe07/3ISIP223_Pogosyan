@@ -22,6 +22,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
     {
         public _1UIInvent()
         {
+            DataContext = WorkGame.Game;
             InitializeComponent();
         }
     }

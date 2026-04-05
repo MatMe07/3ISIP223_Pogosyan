@@ -60,24 +60,11 @@ namespace _3ISIP223_PogosyanWPF.Model
             Console.WriteLine("VragAtrackuet");
         }
 
-        public virtual void AnimAttackEnemyAndBoss(double attack)
+        public void AnimLogirTextInfo(double attack, string TextAttack = "(_)")
         {
-            if (attack == -1) return;
-            GeometryModel3D geom = model.Model as GeometryModel3D;
-            geom.Material = materialAttack;
-            //geom.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
-            //timerAttackEnemy
-            var timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(200);
-            timer.Tick += (s, e) =>
-            {
-                geom.Material = materialQuiet;
-                timer.Stop();
-            };
-            timer.Start();
-
-            Border borderLogir = GeneratedClass.LogirText("Player", $"{Name}: {attack}", false, true);
+            Border borderLogir = GeneratedClass.LogirText("Player", $"{Name}", attack, false, true, TextAttack);
             Console.WriteLine($"{Name}: {attack} -> Player");
+
             MainWindow.LogerPanel.Children.Add(borderLogir);
 
             var animLogirText = new DoubleAnimation();
@@ -105,6 +92,27 @@ namespace _3ISIP223_PogosyanWPF.Model
             //attackingEnemies[enem] = DateTime.Now;
 
             Console.WriteLine($"Attack enem), attackInterval = {AttackIntervalSec}, attack = {Attack}");
+        }
+
+        public virtual void AnimAttackEnemyAndBoss(double attack)
+        {
+            GeometryModel3D geom = model.Model as GeometryModel3D;
+            geom.Material = materialAttack;
+            //geom.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
+            //timerAttackEnemy
+
+            var timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(200);
+            timer.Tick += (s, e) =>
+            {
+                geom.Material = materialQuiet;
+                timer.Stop();
+            };
+            timer.Start();
+
+
+            AnimLogirTextInfo(attack);
+
         }
 
         public void EnemyInfo()

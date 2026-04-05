@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Media3D;
+using System.Windows.Threading;
 
 namespace _3ISIP223_PogosyanWPF.Model.Units
 {
@@ -80,6 +81,34 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
 
             }
             return Math.Max(0, Attack - playerArmor);
+        }
+
+
+        public override void AnimAttackEnemyAndBoss(double attack)
+        {
+            if (attack == -1)
+            {
+                AnimLogirTextInfo(attack, "заморозил");
+                return;
+            }
+
+            GeometryModel3D geom = model.Model as GeometryModel3D;
+            geom.Material = materialAttack;
+            //geom.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
+            //timerAttackEnemy
+
+            var timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(200);
+            timer.Tick += (s, e) =>
+            {
+                geom.Material = materialQuiet;
+                timer.Stop();
+            };
+            timer.Start();
+
+
+            AnimLogirTextInfo(attack);
+
         }
 
         public override string LastWord()
