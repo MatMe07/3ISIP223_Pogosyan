@@ -60,9 +60,10 @@ namespace _3ISIP223_PogosyanWPF.Model
             Console.WriteLine("VragAtrackuet");
         }
 
-        public void AnimLogirTextInfo(double attack, string TextAttack = "(_)")
+        public void AnimLogirTextInfo(double attack, string TextAttack = "(_)", bool PlayerIsBlock = false, int krit = 0)
         {
-            Border borderLogir = GeneratedClass.LogirText("Player", $"{Name}", attack, false, true, TextAttack);
+            
+            Border borderLogir = GeneratedClass.LogirText("Player", $"{Name}", attack, false, true, TextAttack, PlayerIsBlock, EnemKrit:krit);
             Console.WriteLine($"{Name}: {attack} -> Player");
 
             MainWindow.LogerPanel.Children.Add(borderLogir);
@@ -94,7 +95,7 @@ namespace _3ISIP223_PogosyanWPF.Model
             Console.WriteLine($"Attack enem), attackInterval = {AttackIntervalSec}, attack = {Attack}");
         }
 
-        public virtual void AnimAttackEnemyAndBoss(double attack)
+        public virtual void AnimAttackEnemyAndBoss(double attack, bool PlayerIsblock = false, int Krit = 0)
         {
             GeometryModel3D geom = model.Model as GeometryModel3D;
             geom.Material = materialAttack;
@@ -111,7 +112,8 @@ namespace _3ISIP223_PogosyanWPF.Model
             timer.Start();
 
 
-            AnimLogirTextInfo(attack);
+            //if(PlayerIsblock)
+            AnimLogirTextInfo(attack, PlayerIsBlock:PlayerIsblock, krit:Krit);
 
         }
 
@@ -126,9 +128,9 @@ namespace _3ISIP223_PogosyanWPF.Model
             return "Umer";
         }
 
-        public virtual double EnemAttack(double playerArmor, bool playerFrozen = false)
+        public virtual (double attack, int Krit) EnemAttack(double playerArmor, bool playerFrozen = false)
         {
-            return -1;
+            return (-1, 0);
         }
 
         public virtual void Demo()

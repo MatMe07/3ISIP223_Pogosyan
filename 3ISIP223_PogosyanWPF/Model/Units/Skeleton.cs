@@ -18,9 +18,9 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
             Console.WriteLine($"\n{Name} проходит сквозь вашу защиту! Ваши доспехи бесполезны! {atack} урона!");
         }
 
-        public override double EnemAttack(double playerArmor, bool playerFrozen = false)
+        public override (double attack, int Krit) EnemAttack(double playerArmor, bool playerFrozen = false)
         {
-            return Attack;
+            return (Attack, -3);
         }
         public override string LastWord()
         {

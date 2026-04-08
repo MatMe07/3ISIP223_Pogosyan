@@ -71,8 +71,8 @@ namespace _3ISIP223_PogosyanWPF
         {
             boxIsOpen = true;
 
-            //int select = 2;
-            int select = RandomCLS.Next(1, 3);
+            int select = 0;
+            //int select = RandomCLS.Next(1, 3);
             switch (select)
             {
                 case 0:

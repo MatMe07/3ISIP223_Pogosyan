@@ -89,10 +89,10 @@ namespace _3ISIP223_PogosyanWPF
 
             ModelUIElement3D mod;
             
-            for (double i = -.5; i <= 3; i+=1.5)
+            for (double i = -.5; i <= 0; i+=1.5)
             {
 
-                mod = CreateModelEnemy.CreateModel(Colors.Gray, i, 0, 2);
+                mod = CreateModelEnemy.CreateModel(Colors.Gray, i, 0, -.5);
 
                 //DoubleAnimation attackAnim1 = new DoubleAnimation();
                 //attackAnim1.To = 0;
@@ -194,22 +194,14 @@ namespace _3ISIP223_PogosyanWPF
                 if (IsClicking) return;
 
 
-                //isAttacking = true;
-                //Console.WriteLine(isAttacking + "    ");
                 AttackTimer = DateTime.Now;
-                //var timeline = new ParallelTimeline();
 
                 DoubleAnimation attackAnimation = new DoubleAnimation();
-                attackAnimation.From = 20;  
-                attackAnimation.To = -30;
+                attackAnimation.From = 0;  
+                attackAnimation.To = 30;
                 attackAnimation.Duration = TimeSpan.FromMilliseconds(250);
                 attackAnimation.AutoReverse = true;
-                //attackAnimation.Completed += (s, er) =>
-                //{
-                //    isAttacking = false;
-                //    Console.Write(isAttacking + "    ");
-                //};
-                //Console.WriteLine("Удар");
+
                 WeaponAngle.BeginAnimation(AxisAngleRotation3D.AngleProperty, attackAnimation);
 
 
@@ -325,14 +317,14 @@ namespace _3ISIP223_PogosyanWPF
 
         public void NewLevel()
         {
-            if (WorkGame.Game.step == 4)
+            if (WorkGame.Game.step == 1)
             {
                 GenerateEnemies();
                 WorkGame.Game.step++;
                 return;
             }
 
-            if (!WorkGame.Game.IsGameOrChest || true)
+            if (!WorkGame.Game.IsGameOrChest)
             {
                 GenerateBox();
 
@@ -362,7 +354,7 @@ namespace _3ISIP223_PogosyanWPF
                 DoubleAnimation anim = new DoubleAnimation();
                 anim.From = 0;
                 anim.To = 1;
-                anim.Duration = TimeSpan.FromMilliseconds(350);
+                anim.Duration = TimeSpan.FromMilliseconds(500);
                 anim.AutoReverse = true;
 
                 anim.Completed += (e, s) =>
@@ -435,8 +427,6 @@ namespace _3ISIP223_PogosyanWPF
             Viewport.Children.Add(text);
 
             Border borderLogir;
-            string textLog = "";
-
             if (attack == 0)
             {
                 //textLog = $"Player kill {enem.Name}";
@@ -555,8 +545,18 @@ namespace _3ISIP223_PogosyanWPF
             NewLevel();
         }
         public void IgnoreItem()
+        { 
+            Viewport.Children.Remove(boxSpawn.ItemModel);
+            boxSpawn.OpensBoxClos();
+            ChestHelper.Visibility = Visibility.Collapsed;
+            ChestHelperCtrl.Visibility = Visibility.Collapsed;
+
+            PointAnimCamer(new Point3D(1, camera.Position.Y, -1));
+            NewLevel();
+        }
+        public void UseItem()
         {
-            GetItemPlayer(boxSpawn.IntTypeItem, boxSpawn.selectItem);
+            WorkGame.Game.Player.HP = 100;
             Viewport.Children.Remove(boxSpawn.ItemModel);
             boxSpawn.OpensBoxClos();
             ChestHelper.Visibility = Visibility.Collapsed;
@@ -566,9 +566,8 @@ namespace _3ISIP223_PogosyanWPF
             NewLevel();
         }
 
-
         private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
+       {
             if (e.Key == Key.Escape && _isMouseCaptured)
             {
                 if (_isMouseCaptured)
@@ -591,7 +590,61 @@ namespace _3ISIP223_PogosyanWPF
             {
                 IgnoreItem();
             }
+            if (e.Key == Key.LeftCtrl && boxSpawn.boxIsOpen && ChestHelperCtrl.Visibility == Visibility.Visible)
+            {
+                UseItem();
+            }
+            else if (e.Key == Key.LeftCtrl && WorkGame.Game.Player.CountPotionHP > 0)
+            {
+                //UseItem();
+                WorkGame.Game.UsePotionPlayerHP();
+            }
 
+        }
+
+
+        private void Viewport_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!IsMouseCaptured)
+            {
+
+                var animX = new DoubleAnimation();
+                animX.From = 1.5;
+                animX.To = 0.5;
+                animX.Duration = TimeSpan.FromMilliseconds(300);
+
+                var animY = new DoubleAnimation();
+                animY.From = -0.6;
+                animY.To = -0.5;
+                animY.Duration = TimeSpan.FromMilliseconds(300);
+
+                animX.Completed += (es, sd) => WorkGame.Game.Player.IsBlock = true;
+                ZashitaTrans.BeginAnimation(TranslateTransform3D.OffsetXProperty, animX);
+                ZashitaTrans.BeginAnimation(TranslateTransform3D.OffsetYProperty, animY);
+            }
+
+        }
+
+        private void Viewport_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (!IsMouseCaptured)
+            {
+
+                var animX = new DoubleAnimation();
+                animX.From = 0.5;
+                animX.To = 1.5;
+                animX.Duration = TimeSpan.FromMilliseconds(300);
+                animX.Completed += (es, sd) => WorkGame.Game.Player.IsBlock = false;
+
+                var animY = new DoubleAnimation();
+                animY.From = -0.5;
+                animY.To = -0.6;
+                animY.Duration = TimeSpan.FromMilliseconds(300);
+
+                ZashitaTrans.BeginAnimation(TranslateTransform3D.OffsetXProperty, animX);
+                ZashitaTrans.BeginAnimation(TranslateTransform3D.OffsetYProperty, animY);
+
+            }
         }
     }
 }

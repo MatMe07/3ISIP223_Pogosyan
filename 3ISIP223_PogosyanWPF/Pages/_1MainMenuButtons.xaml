@@ -1,0 +1,48 @@
+﻿<Page x:Class="_3ISIP223_PogosyanWPF.Pages._1MainMenuButtons"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
+      mc:Ignorable="d" 
+      Height="229" Width="200"
+      Title="_1MainMenuButtons">
+    <Page.Resources>
+        <Style TargetType="Border" x:Key="ElementInvent">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <!--<Setter Property="Background" Value="#FF836440"/>-->
+                    <!--<Setter Property="BorderBrush" Value="#FF656363"/>-->
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="1" Text="Dungeon" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+        <Grid Grid.Row="2" Margin="0 15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Border Style="{StaticResource ElementInvent}" Grid.Row="0" Padding="13 5" MouseLeftButtonDown="BorderBtnStart_MouseLeftButtonDown" >
+                <Image Source="/Icons/interface/btn/btnStart.png"/>
+            </Border>
+            <Border Style="{StaticResource ElementInvent}" Grid.Row="1" Padding="13 5" MouseLeftButtonDown="BorderBtnSettings_MouseLeftButtonDown" >
+                <Image Source="/Icons/interface/btn/btnSettings.png"/>
+            </Border>
+            <Border Style="{StaticResource ElementInvent}" Grid.Row="2" Padding="13 5" MouseLeftButtonDown="Border_MouseLeftButtonDown" >
+                <Image Source="/Icons/interface/btn/btnQuit.png"/>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>

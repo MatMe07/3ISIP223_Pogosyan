@@ -9,5 +9,15 @@
                 
             </Setter>
         </Style>
+        <Style TargetType="Border" x:Key="ElementInvent">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <!--<Setter Property="Background" Value="#FF836440"/>-->
+                    <!--<Setter Property="BorderBrush" Value="#FF656363"/>-->
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>

@@ -200,22 +200,25 @@ namespace _3ISIP223_PogosyanWPF
 
 
 
-        public double AttackEnemOrBoss(Enemy enem)
+        public (double attack, int Krit) AttackEnemOrBoss(Enemy enem)
         {
-            double attack = 0;
-
-            attack = enem.EnemAttack(Player.Armor.ArmorHP, Player.IsFrozen );
+            if (Player.IsBlock == true) return (0, 0);
+            (double attack, int Krits) = enem.EnemAttack(Player.Armor.ArmorHP, Player.IsFrozen);
+            //attack = at;
 
             if (attack == -1)
+            {
                 Player.IsFrozen = true;
+                
+            }
             else
             {
-                if (attack >= Player.HP) attack = Player.HP;
+                    if (attack >= Player.HP) attack = Player.HP;
 
-                Player.HP -= attack;
+                    Player.HP -= attack;
 
             }
-            return attack;
+            return (attack, Krits);
         }
 
 
@@ -231,10 +234,15 @@ namespace _3ISIP223_PogosyanWPF
             }
             else
             {
-
+                Player.CountPotionHP++;
             }
         }
 
+        public void UsePotionPlayerHP()
+        {
+            WorkGame.Game.Player.HP = 100;
+            WorkGame.Game.Player.CountPotionHP--;
+        }
 
 
         public void AttackEnemy()
@@ -264,11 +272,11 @@ namespace _3ISIP223_PogosyanWPF
                     Boss.LastAtTime = now;
 
 
-                    
+
 
                     //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
-
-                    Boss.AnimAttackEnemyAndBoss(AttackEnemOrBoss(Boss));
+                    (double attack, int Krit) = AttackEnemOrBoss(Boss);
+                    Boss.AnimAttackEnemyAndBoss(attack, Player.IsBlock, Krit);
 
 
                 }
@@ -289,10 +297,11 @@ namespace _3ISIP223_PogosyanWPF
                         Console.WriteLine($"LastAtTime = {enem.LastAtTime} | delta = {deltaSec} | enem = {enem.Name}");
                         enem.LastAtTime = now;
 
-                        
+
+                        (double attack, int Krit) = AttackEnemOrBoss(enem);
 
                         //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
-                        enem.AnimAttackEnemyAndBoss(AttackEnemOrBoss(enem));
+                        enem.AnimAttackEnemyAndBoss(attack, Player.IsBlock, Krit);
                     }
                 }
 

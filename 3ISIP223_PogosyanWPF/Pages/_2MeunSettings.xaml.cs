@@ -13,21 +13,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace _3ISIP223_PogosyanWPF
+namespace _3ISIP223_PogosyanWPF.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для Level1.xaml
+    /// Логика взаимодействия для _2MeunSettings.xaml
     /// </summary>
-    public partial class Level1 : Page
+    public partial class _2MeunSettings : Page
     {
-        public Level1()
+        public _2MeunSettings()
         {
             InitializeComponent();
         }
 
-        private void ModelUIElement3D_MouseDown(object sender, MouseButtonEventArgs e)
+        private void BorderBtnBack_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            NavigationService.GoBack();
         }
     }
 }

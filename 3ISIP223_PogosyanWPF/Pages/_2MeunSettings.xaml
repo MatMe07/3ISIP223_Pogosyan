@@ -1,0 +1,59 @@
+﻿<Page x:Class="_3ISIP223_PogosyanWPF.Pages._2MeunSettings"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
+      mc:Ignorable="d" 
+       Height="229" Width="200"
+      Title="_2MeunSettings">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border Style="{StaticResource ElementInvent}" Grid.Row="0" Width="70" Margin="10 0"  MouseLeftButtonDown="BorderBtnBack_MouseLeftButtonDown" HorizontalAlignment="Left" >
+            <Image Source="/Icons/interface/btn/btnBack.png"/>
+        </Border>
+        <StackPanel Margin="10" Grid.Row="1">
+            <Border Background="#B2000000" CornerRadius="10" 
+            Padding="10 5"
+            Margin="0 0 0 5">
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                    <Border  Margin="0 5 0 5">
+                        <Image Source="/Icons/left-click.png" Width="20"/>
+                    </Border>
+                    <TextBlock Text=" - Ударить" Foreground="White"  FontSize="5" VerticalAlignment="Center"/>
+
+                </StackPanel>
+            </Border>
+            <Border Background="#B2000000" CornerRadius="10" 
+            Padding="10 5"
+            Margin="0 0 0 5">
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                    <Border  Margin="0 5 0 5">
+                        <Image Source="/Icons/right-click.png" Width="20"/>
+                    </Border>
+                    <TextBlock Text=" - Защита (Зажать)" Foreground="White"  FontSize="5" VerticalAlignment="Center"/>
+
+                </StackPanel>
+            </Border>
+
+            <Border Background="#B2000000" CornerRadius="10" 
+            Padding="10 5"
+            Margin="0 0 0 5" >
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                    <Border Background="#FF444444" CornerRadius="5" Padding="5" Margin="5 5 0 5" HorizontalAlignment="Center">
+                        <TextBlock Text="Ctrl" Foreground="White" FontWeight="Bold" FontSize="4"/>
+                    </Border>
+                    <TextBlock Text=" - Использовать зелье" Foreground="White" FontSize="5" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        
+        
+    </Grid>
+</Page>

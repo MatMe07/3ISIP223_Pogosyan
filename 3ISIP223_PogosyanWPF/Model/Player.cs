@@ -95,6 +95,20 @@ namespace _3ISIP223_PogosyanWPF.Model
         }
 
 
+        private int _countPotionHP = 0;
+        public int CountPotionHP
+        {
+            get
+            {
+                return _countPotionHP;
+            }
+            set
+            {
+                _countPotionHP = value;
+                OnPropertyChanged(nameof(CountPotionHP));
+                OnPropertyChanged(nameof(HP));
+            }
+        }
 
         public bool IsAlive => HP > 0;
         public int Progress { get; set; }
@@ -107,7 +121,7 @@ namespace _3ISIP223_PogosyanWPF.Model
 
         public Player(string name)
         {
-            HP = 100;
+            HP = 10;
             Weapon = new Weapon("МЕЧ", 10, "pack://application:,,,/Images/weapons/swordUs.png");
             //AttackWeapon = 8;
             Armor = new Armor("Доспехи Ланнистеров", 5, "pack://application:,,,/Images/armors/Lanister_armor.png");

@@ -16,7 +16,7 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
 
         public Goblin(string name, double attack, double defense, double hp, ModelUIElement3D mod, string imgQuiet, string imgAttack) : base(name, attack, defense, hp, mod, imgQuiet, imgAttack)
         {
-            ProcentKritAttack = 15;
+            ProcentKritAttack = 90;
             UniqSkill = "Шанс критического удара";
             IsKritAttack = false;
 
@@ -31,8 +31,7 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
 
         public bool TryKrit()
         {
-
-            return false;
+            return KritAttack;
         }
         public override void AttackInfo(double atack)
         {
@@ -47,14 +46,15 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
 
             }
         }
-        public override double EnemAttack(double playerArmor, bool playerFrozen = false)
+
+        public override (double attack, int Krit) EnemAttack(double playerArmor, bool playerFrozen = false)
         {
             if (TryKrit())
             {
                 IsKritAttack = true;
-                return  Math.Max(0, Attack * 2 - playerArmor);
+                return ( Math.Max(0, Attack * 2 - playerArmor), -2);
             }
-            return Math.Max(0, Attack - playerArmor);
+            return (Math.Max(0, Attack - playerArmor), 0);
         }
 
         public override string LastWord()

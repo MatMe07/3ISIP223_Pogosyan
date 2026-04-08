@@ -38,7 +38,7 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
 
         public Magician(string name, double attack, double defense, double hp, ModelUIElement3D mod, string imgQuiet, string imgAttack) : base(name, attack, defense, hp, mod, imgQuiet, imgAttack)
         {
-            ProcentFrozen = 20;
+            ProcentFrozen = 99;
             IsFroz = false;
             UniqSkill = "Шанс заморозки на 1 ход";
         }
@@ -67,30 +67,25 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
             return false;
         }
 
-        public override double EnemAttack(double playerArmor, bool playerFrozen = false)
+        public override (double attack, int Krit) EnemAttack(double playerArmor, bool playerFrozen = false)
         {
             if (!playerFrozen)
             {
                 if (TryFreeze())
                 {
                     //Player.IsFrozen = true;
-                    return -1;
+                    return (-1, -1);
                 }
                 else
-                    return Math.Max(0, Attack - playerArmor);
+                    return (Math.Max(0, Attack - playerArmor), 0);
 
             }
-            return Math.Max(0, Attack - playerArmor);
+            return (Math.Max(0, Attack - playerArmor), 0);
         }
 
 
-        public override void AnimAttackEnemyAndBoss(double attack)
+        public override void AnimAttackEnemyAndBoss(double attack, bool PlayerIsblock = false, int Krit = 0)
         {
-            if (attack == -1)
-            {
-                AnimLogirTextInfo(attack, "заморозил");
-                return;
-            }
 
             GeometryModel3D geom = model.Model as GeometryModel3D;
             geom.Material = materialAttack;
@@ -107,7 +102,12 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
             timer.Start();
 
 
-            AnimLogirTextInfo(attack);
+            if (attack == -1)
+            {
+                AnimLogirTextInfo(attack, "заморозил", PlayerIsblock);
+                //return;
+            }else
+                AnimLogirTextInfo(attack, PlayerIsBlock:PlayerIsblock);
 
         }
 

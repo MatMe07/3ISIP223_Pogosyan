@@ -62,12 +62,39 @@ namespace _3ISIP223_PogosyanWPF
             {"заморозил", new BitmapImage(new Uri("pack://application:,,,/Icons/AttackSymbols/zamorozil_mag.png")) },
             {"(_)", new BitmapImage(new Uri("pack://application:,,,/Icons/AttackSymbols/udar2.png")) },
             {"kill", new BitmapImage(new Uri("pack://application:,,,/Icons/AttackSymbols/Killicon_backstab.png")) },
+            {"shield", new BitmapImage(new Uri("pack://application:,,,/Icons/AttackSymbols/shield.png")) },
+            {"broken-shield", new BitmapImage(new Uri("pack://application:,,,/Icons/AttackSymbols/broken-shield.png")) },
+            {"doubleUdar", new BitmapImage(new Uri("pack://application:,,,/Icons/AttackSymbols/doubleUdar.png")) },
         };
 
-        public static Border LogirText(string player, string enem, double attack, bool killed, bool isEnem = false, string Text = "(_)")
+        public static Border LogirText(string player, string enem, double attack, bool killed, bool isEnem = false, string Text = "(_)", bool isBlock = false, int EnemKrit = 0)
         {
-            
-            Border border = new Border();
+            if (isBlock) Text = "shield";
+
+            switch (EnemKrit)
+            {
+                case -1:
+                    {
+                        Text = "заморозил";
+                        break;
+                    }
+                case -2:
+                    {
+                        Text = "doubleUdar";
+                        break;
+                    }
+                case -3:
+                    {
+                        Text = "broken-shield";
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+
+                Border border = new Border();
             border.Background = (Brush)(new BrushConverter().ConvertFromString("#33000000"));
             border.Padding = new Thickness(10, 2, 10, 2);
             border.Margin = new Thickness(5);
@@ -77,7 +104,7 @@ namespace _3ISIP223_PogosyanWPF
 
             StackPanel stack = new StackPanel();
             stack.Orientation = Orientation.Horizontal;
-            if (attack > 0)
+            if (attack != -1)
             {
                 if (isEnem) enem += $": {attack}";
                 else

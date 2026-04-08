@@ -49,11 +49,7 @@ namespace _3ISIP223_PogosyanWPF
             model.Model = geom;
             //model.Model = new GeometryModel3D(mesh, new DiffuseMaterial(new SolidColorBrush(color)));
 
-            double offZ = 0;
-            //if (offZ < -3) offZ = -3 + offZ;
-            double offX = RandomCLS.Next(0, 3);
-            //if (offX < 0) offX = 0;
-            Console.WriteLine($"enem: Z = {x} | X = {offX}");
+            //Console.WriteLine($"enem: Z = {x} | X = {offX}");
 
             model.Transform = new TranslateTransform3D() { OffsetZ = z, OffsetX = x, OffsetY = y };
 
