@@ -19,17 +19,29 @@ namespace _3ISIP223_PogosyanWPF
     /// </summary>
     public partial class ResulLevelWindow : Window
     {
-        public ResulLevelWindow()
+        public ResulLevelWindow(string WinOrAgain)
         {
+            DataContext = WorkGame.Game;
             InitializeComponent();
+            //Owner = Main
+            switch (WinOrAgain)
+            {
+                case "win":
+                    {
+                        gridWIN.Visibility = Visibility.Visible;
+                        gridTRYAGAIN.Visibility = Visibility.Collapsed;
+                        break;
+                    }
+                case "again":
+                    {
+                        gridWIN.Visibility = Visibility.Collapsed;
+                        gridTRYAGAIN.Visibility = Visibility.Visible;
+                        break;
+                    }
+            }
         }
 
         private void BorderBtnAgain_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void BorderBtnNext_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
         }

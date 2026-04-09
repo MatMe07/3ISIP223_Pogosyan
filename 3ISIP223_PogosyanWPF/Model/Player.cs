@@ -122,7 +122,7 @@ namespace _3ISIP223_PogosyanWPF.Model
         public Player(string name)
         {
             HP = 10;
-            Weapon = new Weapon("МЕЧ", 10, "pack://application:,,,/Images/weapons/swordUs.png");
+            Weapon = new Weapon("МЕЧ", 50, "pack://application:,,,/Images/weapons/swordUs.png");
             //AttackWeapon = 8;
             Armor = new Armor("Доспехи Ланнистеров", 5, "pack://application:,,,/Images/armors/Lanister_armor.png");
             Name = name;

@@ -19,10 +19,10 @@ namespace _3ISIP223_PogosyanWPF.Model.Creater
             //AddEnemy(new CreaterSkeleton());
 
             Bosses = new List<Factory>();
-            AddBoss(new CreaterArhimag());
-            AddBoss(new CreaterCovalski());
+            //AddBoss(new CreaterArhimag());
+            //AddBoss(new CreaterCovalski());
             AddBoss(new CreaterPestov());
-            AddBoss(new CreaterVVG());
+            //AddBoss(new CreaterVVG());
 
         }
 

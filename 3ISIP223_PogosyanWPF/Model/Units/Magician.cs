@@ -84,7 +84,7 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
         }
 
 
-        public override void AnimAttackEnemyAndBoss(double attack, bool PlayerIsblock = false, int Krit = 0)
+        public override void AnimAttackEnemyAndBoss(double attack, bool kill = false, bool PlayerIsblock = false, int Krit = 0)
         {
 
             GeometryModel3D geom = model.Model as GeometryModel3D;
@@ -104,10 +104,10 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
 
             if (attack == -1)
             {
-                AnimLogirTextInfo(attack, "заморозил", PlayerIsblock);
+                AnimLogirTextInfo(attack, kill, "заморозил", PlayerIsblock);
                 //return;
             }else
-                AnimLogirTextInfo(attack, PlayerIsBlock:PlayerIsblock);
+                AnimLogirTextInfo(attack, kill, PlayerIsBlock:PlayerIsblock);
 
         }
 

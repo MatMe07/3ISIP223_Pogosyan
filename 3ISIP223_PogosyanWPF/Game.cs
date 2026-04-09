@@ -27,6 +27,17 @@ namespace _3ISIP223_PogosyanWPF
 
         private Player _player;
 
+        private int _score = 0;
+
+        public int Score
+        {
+            get { return _score; }
+            set {
+                _score = value;
+                OnPropertyChanged(nameof(Score));
+            }
+        }
+
         public Player Player
         {
             get { return _player; }
@@ -276,7 +287,15 @@ namespace _3ISIP223_PogosyanWPF
 
                     //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
                     (double attack, int Krit) = AttackEnemOrBoss(Boss);
-                    Boss.AnimAttackEnemyAndBoss(attack, Player.IsBlock, Krit);
+                    if (Player.IsAlive)
+                    {
+                        Boss.AnimAttackEnemyAndBoss(attack, kill: true, Player.IsBlock, Krit);
+                    }
+                    else
+                    {
+                        Boss.AnimAttackEnemyAndBoss(attack, kill: false, Player.IsBlock, Krit);
+
+                    }
 
 
                 }
@@ -299,9 +318,17 @@ namespace _3ISIP223_PogosyanWPF
 
 
                         (double attack, int Krit) = AttackEnemOrBoss(enem);
+                        if (Player.IsAlive)
+                        {
+                            enem.AnimAttackEnemyAndBoss(attack, kill:true, Player.IsBlock, Krit);
+                        }
+                        else
+                        {
+                            enem.AnimAttackEnemyAndBoss(attack, kill: false, Player.IsBlock, Krit);
+
+                        }
 
                         //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
-                        enem.AnimAttackEnemyAndBoss(attack, Player.IsBlock, Krit);
                     }
                 }
 

@@ -47,6 +47,7 @@ namespace _3ISIP223_PogosyanWPF
         public static StackPanel LogerPanel {  get; set; }
         public static Grid FrozenPanel {  get; set; }
 
+        public static Action WindowWinOrAgain = WindWinOrAgain;
         public MainWindow()
         {
             mainMenu menu = new mainMenu();
@@ -70,14 +71,27 @@ namespace _3ISIP223_PogosyanWPF
 
         }
 
+        public static void WindWinOrAgain()
+        {
+            var CursOver = Mouse.OverrideCursor;
+            Mouse.OverrideCursor = null;
 
+            var windRes = new ResulLevelWindow("win");
+            //windRes.Owner = this;
+            var result = windRes.ShowDialog();
+            if (result == false)
+            {
+                Mouse.OverrideCursor = CursOver;
+
+            }
+        }
 
 
         public void GenerateBoss()
         {
             ModelUIElement3D mod;
             mod = CreateModelEnemy.CreateModel(Colors.Gray, 0.5, 0, -1, isBoss:true);
-            mod.MouseDown += ModelUIElement3D_MouseDown;
+            mod.MouseLeftButtonDown += ModelUIElement3D_MouseDown;
             WorkGame.Game.SelectBoss(mod);
             Console.WriteLine($"{mod}");
             //WorkGame.Game.Enemies.Add(Vrags.Enemies[0].CreateEnemy(mod));
@@ -99,7 +113,7 @@ namespace _3ISIP223_PogosyanWPF
                 //attackAnim1.From = 0;
 
 
-                mod.MouseDown += ModelUIElement3D_MouseDown;
+                mod.MouseLeftButtonDown += ModelUIElement3D_MouseDown;
                 WorkGame.Game.AddEnemis(mod);
                 Console.WriteLine($"{mod}");
                 //WorkGame.Game.Enemies.Add(Vrags.Enemies[0].CreateEnemy(mod));
@@ -146,6 +160,20 @@ namespace _3ISIP223_PogosyanWPF
             //    EnemyAttackTime = DateTime.Now;
             //}
 
+            if (!WorkGame.Game.Player.IsAlive)
+            {
+                var CursOver = Mouse.OverrideCursor;
+                Mouse.OverrideCursor = null;
+
+                var windRes = new ResulLevelWindow("again");
+                windRes.Owner = this;
+                var result = windRes.ShowDialog();
+                if (result == false)
+                {
+                    Mouse.OverrideCursor = CursOver;
+
+                }
+            }
             WorkGame.Game.AttackEnemy();
 
 
@@ -317,14 +345,14 @@ namespace _3ISIP223_PogosyanWPF
 
         public void NewLevel()
         {
-            if (WorkGame.Game.step == 1)
+            if (WorkGame.Game.step == 2 )
             {
                 GenerateEnemies();
                 WorkGame.Game.step++;
                 return;
             }
 
-            if (!WorkGame.Game.IsGameOrChest)
+            if (!WorkGame.Game.IsGameOrChest && false)
             {
                 GenerateBox();
 
@@ -338,17 +366,18 @@ namespace _3ISIP223_PogosyanWPF
             string text = "LEVEL UP!";
             bool boss = false;
 
-            if (WorkGame.Game.step == 2)
+            if (WorkGame.Game.step == 1)
             {
                 GenerateBoss();
                 WorkGame.Game.step++;
                 text = "BOSS";
                 boss = true;
+                //lastBoss = true;
                 //return;
             }
 
-            if (!lastBoss)
-            {
+            //if (!lastBoss)
+            //{
                 LevelUP.Visibility = Visibility.Visible;
                 txtLevel.Text = text;
                 DoubleAnimation anim = new DoubleAnimation();
@@ -368,14 +397,15 @@ namespace _3ISIP223_PogosyanWPF
                     }
                 };  
                 LevelUP.BeginAnimation(OpacityProperty, anim);
-            }
-            else
-            {
-                Console.WriteLine("BOSSSS закончен!!!!!!!");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("BOSSSS закончен!!!!!!!");
 
-                lastBoss = false;
-                //WindowWinBoss();
-            }
+
+            //    lastBoss = false;
+            //    //WindowWinBoss();
+            //}
 
         }
 
@@ -483,10 +513,24 @@ namespace _3ISIP223_PogosyanWPF
             {
                 if (WorkGame.Game.isBoss)
                 {
+                    WorkGame.Game.Score += 10;
                     WorkGame.Game.DeleteBoss();
+                    var CursOver = Mouse.OverrideCursor;
+                    Mouse.OverrideCursor = null;
+
+                    var windRes = new ResulLevelWindow("win");
+                    windRes.Owner = this;
+                    var result = windRes.ShowDialog();
+                    if (result == false)
+                    {
+                        Mouse.OverrideCursor = CursOver;
+
+                    }
                 }
                 else
                 {
+                    WorkGame.Game.Score += 3;
+
                     WorkGame.Game.DeleteEnemis(mod);
                 }
                 Viewport.Children.Remove(mod);

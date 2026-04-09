@@ -5,22 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF"
         mc:Ignorable="d"
-        Title="ResulLevelWindow" Height="164" Width="200" WindowStartupLocation="CenterOwner" WindowStyle="None">
+        Title="ResulLevelWindow" Height="164" Width="200" Background="Transparent" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
 
-    <Window.Resources>
-        <Style TargetType="Border" x:Key="ElementInvent">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <!--<Setter Property="Background" Value="#FF836440"/>-->
-                    <!--<Setter Property="BorderBrush" Value="#FF656363"/>-->
-                    <Setter Property="BorderThickness" Value="1"/>
-                    <Setter Property="Cursor" Value="Hand"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
     <Grid>
-        <Grid Height="164" Width="200" x:Name="gridWIN" Visibility="Collapsed">
+        <Grid Height="164" Width="200" x:Name="gridWIN" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="0.6*"/>
@@ -43,15 +31,15 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Level 1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="7"/>
-                <TextBlock Text="SCORE: 1" Margin="0 5" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="7" Foreground="#FF603928"/>
-                <Border Style="{StaticResource ElementInvent}" Grid.Row="2" Width="90" Padding="13 0 13 5" MouseLeftButtonDown="BorderBtnNext_MouseLeftButtonDown" >
+                <TextBlock Text="{Binding step, StringFormat='\Level {0}'}" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="7"/>
+                <TextBlock Text="{Binding Score, StringFormat='\SCORE {0}'}" Margin="0 5" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="7" Foreground="#FF603928"/>
+                <Border Style="{StaticResource ElementInvent}" Grid.Row="2" Width="90" Padding="13 0 13 5" MouseLeftButtonDown="Border_MouseLeftButtonDown" >
                     <Image Source="/Icons/interface/btn/btnNext.png"/>
                 </Border>
             </Grid>
 
         </Grid>
-        <Grid Height="164" Width="200" Visibility="Visible" x:Name="gridTRYAGAIN" >
+        <Grid Height="164" Width="200" Visibility="Collapsed" x:Name="gridTRYAGAIN" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -73,7 +61,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Level 1" Grid.Row="0" HorizontalAlignment="Center" FontSize="7"/>
+                <TextBlock Text="{Binding step, StringFormat='\Level {0}'}" Grid.Row="0" HorizontalAlignment="Center" FontSize="7"/>
                 <Border Style="{StaticResource ElementInvent}" Grid.Row="1" Width="90" Padding="13 5" MouseLeftButtonDown="BorderBtnAgain_MouseLeftButtonDown" >
                     <Image Source="/Icons/interface/btn/btnAgain.png"/>
                 </Border>

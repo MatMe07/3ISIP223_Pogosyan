@@ -60,10 +60,10 @@ namespace _3ISIP223_PogosyanWPF.Model
             Console.WriteLine("VragAtrackuet");
         }
 
-        public void AnimLogirTextInfo(double attack, string TextAttack = "(_)", bool PlayerIsBlock = false, int krit = 0)
+        public void AnimLogirTextInfo(double attack, bool kill, string TextAttack = "(_)", bool PlayerIsBlock = false, int krit = 0)
         {
             
-            Border borderLogir = GeneratedClass.LogirText("Player", $"{Name}", attack, false, true, TextAttack, PlayerIsBlock, EnemKrit:krit);
+            Border borderLogir = GeneratedClass.LogirText("Player", $"{Name}", attack, kill, true, TextAttack, PlayerIsBlock, EnemKrit:krit);
             Console.WriteLine($"{Name}: {attack} -> Player");
 
             MainWindow.LogerPanel.Children.Add(borderLogir);
@@ -95,7 +95,7 @@ namespace _3ISIP223_PogosyanWPF.Model
             Console.WriteLine($"Attack enem), attackInterval = {AttackIntervalSec}, attack = {Attack}");
         }
 
-        public virtual void AnimAttackEnemyAndBoss(double attack, bool PlayerIsblock = false, int Krit = 0)
+        public virtual void AnimAttackEnemyAndBoss(double attack, bool kill, bool PlayerIsblock = false, int Krit = 0)
         {
             GeometryModel3D geom = model.Model as GeometryModel3D;
             geom.Material = materialAttack;
@@ -113,7 +113,7 @@ namespace _3ISIP223_PogosyanWPF.Model
 
 
             //if(PlayerIsblock)
-            AnimLogirTextInfo(attack, PlayerIsBlock:PlayerIsblock, krit:Krit);
+            AnimLogirTextInfo(attack, kill, PlayerIsBlock:PlayerIsblock, krit:Krit);
 
         }
 
