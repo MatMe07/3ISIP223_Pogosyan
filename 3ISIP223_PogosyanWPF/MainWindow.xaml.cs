@@ -22,10 +22,10 @@ namespace _3ISIP223_PogosyanWPF
         [DllImport("user32.dll")]
         private static extern bool SetCursorPos(int x, int y);
 
-        private Viewport3D viewport;
+        public static Viewport3D viewport {get; set;}
         private PerspectiveCamera camera;
 
-        private bool _isMouseCaptured = false;
+        private bool _isMouseCaptured { get; set; } = false;
 
         private double _rotX = 0; 
         private double _rotY = 0;
@@ -47,7 +47,7 @@ namespace _3ISIP223_PogosyanWPF
         public static StackPanel LogerPanel {  get; set; }
         public static Grid FrozenPanel {  get; set; }
 
-        public static Action WindowWinOrAgain = WindWinOrAgain;
+        //public static Action WindowWinOrAgain = WindWinOrAgain;
         public MainWindow()
         {
             mainMenu menu = new mainMenu();
@@ -62,7 +62,7 @@ namespace _3ISIP223_PogosyanWPF
             viewport = Viewport;
             camera = viewport.Camera as PerspectiveCamera;
             CompositionTarget.Rendering += (s, e) => UpdateCameraDirection();
-
+            WorkGame.Game.GameOver = WindWinOrAgain;
             //Border bo = LogirText("gekk");
             //stackLogir.Children.Add(bo);
             LogerPanel = stackLogir;
@@ -71,21 +71,56 @@ namespace _3ISIP223_PogosyanWPF
 
         }
 
-        public static void WindWinOrAgain()
+        public static void RestartGame()
         {
-            var CursOver = Mouse.OverrideCursor;
-            Mouse.OverrideCursor = null;
+            WorkGame.Game.Restart();
+        }
 
-            var windRes = new ResulLevelWindow("win");
-            //windRes.Owner = this;
+        public void WindWinOrAgain(string text)
+        {
+            //var CursOver = Mouse.OverrideCursor;
+
+            Mouse.OverrideCursor = null;
+            //CompositionTarget.Rendering -= (s, e) => UpdateCameraDirection();
+            var windRes = new ResulLevelWindow(text);
+            windRes.Owner = this;
+            this.IsEnabled = false;
             var result = windRes.ShowDialog();
+            windRes.Closed += (s, e) => this.IsEnabled = true;
             if (result == false)
             {
-                Mouse.OverrideCursor = CursOver;
 
+            }
+            else
+            {
+
+                Mouse.OverrideCursor = Cursors.None;
+                WorkGame.Game.IsPause = false;
+                switch (text)
+                {
+                    case "win":
+                        {
+                            NewLevel();
+
+                            break;
+                        }
+                    case "again":
+                        {
+                            RestartGame();
+                            NewLevel();
+                            break;
+                        }
+                }
+                this.IsEnabled = true;
+
+                //CompositionTarget.Rendering -= (s, e) => UpdateCameraDirection();
             }
         }
 
+        private void WindRes_Closed(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
         public void GenerateBoss()
         {
@@ -160,20 +195,21 @@ namespace _3ISIP223_PogosyanWPF
             //    EnemyAttackTime = DateTime.Now;
             //}
 
-            if (!WorkGame.Game.Player.IsAlive)
-            {
-                var CursOver = Mouse.OverrideCursor;
-                Mouse.OverrideCursor = null;
+            //if (!WorkGame.Game.Player.IsAlive)
+            //{
+            //    var CursOver = Mouse.OverrideCursor;
+            //    Mouse.OverrideCursor = null;
 
-                var windRes = new ResulLevelWindow("again");
-                windRes.Owner = this;
-                var result = windRes.ShowDialog();
-                if (result == false)
-                {
-                    Mouse.OverrideCursor = CursOver;
+            //    var windRes = new ResulLevelWindow("again");
+            //    windRes.Owner = this;
+            //    var result = windRes.ShowDialog();
+            //    if (result == false)
+            //    {
+            //        Mouse.OverrideCursor = CursOver;
 
-                }
-            }
+            //    }
+            //}
+
             WorkGame.Game.AttackEnemy();
 
 
@@ -515,17 +551,19 @@ namespace _3ISIP223_PogosyanWPF
                 {
                     WorkGame.Game.Score += 10;
                     WorkGame.Game.DeleteBoss();
-                    var CursOver = Mouse.OverrideCursor;
-                    Mouse.OverrideCursor = null;
+                    //var CursOver = Mouse.OverrideCursor;
+                    //Mouse.OverrideCursor = null;
 
-                    var windRes = new ResulLevelWindow("win");
-                    windRes.Owner = this;
-                    var result = windRes.ShowDialog();
-                    if (result == false)
-                    {
-                        Mouse.OverrideCursor = CursOver;
+                    //var windRes = new ResulLevelWindow("win");
+                    //windRes.Owner = this;
+                    //var result = windRes.ShowDialog();
+                    //if (result == false)
+                    //{
+                    //    Mouse.OverrideCursor = CursOver;
 
-                    }
+                    //}
+                    WindWinOrAgain("win");
+
                 }
                 else
                 {

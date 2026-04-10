@@ -48,7 +48,7 @@ namespace _3ISIP223_PogosyanWPF
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Close();
+            DialogResult = true;
         }
     }
 }

@@ -38,6 +38,8 @@ namespace _3ISIP223_PogosyanWPF
             }
         }
 
+        public bool IsPause { get; set; } = false;
+
         public Player Player
         {
             get { return _player; }
@@ -90,7 +92,7 @@ namespace _3ISIP223_PogosyanWPF
         }
         public int StepSpendWinOverBoss { get; set; }
         public double HPLostWinOverBoss { get; set; }
-        public bool GameOver { get; set; }
+        //public bool GameOver { get; set; }
         public bool isBoss { get; set; }
         //public bool BosseStumles => true;
         public bool BosseStumles => step % 10 == 0;
@@ -103,6 +105,7 @@ namespace _3ISIP223_PogosyanWPF
 
         public bool IsGameOrChest => RandomCLS.Next(0, 100) > 50;
 
+        public Action<string> GameOver {  get; set; }
         public Game()
         {
             string name = "Player1";
@@ -112,7 +115,7 @@ namespace _3ISIP223_PogosyanWPF
             //EnemiesAA = new List<(Enemy, ModelUIElement3D)>();
             isBoss = false;
             step = 1;
-            GameOver = false;
+            //GameOver = false;
             StepSpendWinOverBoss = 0;
             HPLostWinOverBoss = 0;
             //vrags = new EnemyCreater();
@@ -131,29 +134,6 @@ namespace _3ISIP223_PogosyanWPF
             //    AttackEnemy();
             //};
             //timerAttackEnemy.Start();
-
-        }
-
-        private void AtEnemTimer_Tick(object sender, EventArgs e)
-        {
-            var now = DateTime.Now;
-            var toRemove = new List<Enemy>();
-
-            foreach (var enemy in attackingEnemies.Keys)
-            {
-                if ((now - attackingEnemies[enemy]).TotalMilliseconds >= 200)
-                {
-                    GeometryModel3D geom = enemy.model.Model as GeometryModel3D;
-                    geom.Material = enemy.materialQuiet;
-                    toRemove.Add(enemy);
-                }
-            }
-
-            foreach (var enemy in toRemove)
-            {
-                attackingEnemies.Remove(enemy);
-            }
-
 
         }
 
@@ -258,6 +238,7 @@ namespace _3ISIP223_PogosyanWPF
 
         public void AttackEnemy()
         {
+            if (IsPause ) return;
             //Player.HP -= enemy.Attack;
             DateTime now = DateTime.Now;
             //double deltaMs = (now - lastUpdate).TotalSeconds;
@@ -287,9 +268,12 @@ namespace _3ISIP223_PogosyanWPF
 
                     //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
                     (double attack, int Krit) = AttackEnemOrBoss(Boss);
-                    if (Player.IsAlive)
+                    if (!Player.IsAlive)
                     {
                         Boss.AnimAttackEnemyAndBoss(attack, kill: true, Player.IsBlock, Krit);
+                        IsPause = true;
+                        GameOver("again");
+
                     }
                     else
                     {
@@ -318,9 +302,12 @@ namespace _3ISIP223_PogosyanWPF
 
 
                         (double attack, int Krit) = AttackEnemOrBoss(enem);
-                        if (Player.IsAlive)
+                        if (!Player.IsAlive)
                         {
                             enem.AnimAttackEnemyAndBoss(attack, kill:true, Player.IsBlock, Krit);
+                            IsPause = true;
+                            GameOver("again");
+
                         }
                         else
                         {
@@ -336,6 +323,23 @@ namespace _3ISIP223_PogosyanWPF
         }
 
 
+
+        public void Restart()
+        {
+            //Enemies.Clear();
+            foreach(var enem in Enemies)
+            {
+                MainWindow.viewport.Children.Remove(enem.model);
+
+            }
+            if (Boss != null)
+                MainWindow.viewport.Children.Remove(Boss.model);
+            Player = new Player("Player");
+            step = 0;
+            Score = 0;
+        }
+
+
     }
 
 
@@ -343,6 +347,6 @@ namespace _3ISIP223_PogosyanWPF
     {
         private static Game game = new Game();
 
-        public static Game Game { get { return game; } }
+        public static Game Game { get { return game; }}
     }
 }
