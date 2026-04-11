@@ -43,12 +43,20 @@ namespace _3ISIP223_PogosyanWPF
 
         private void BorderBtnAgain_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            DialogResult = true;
 
         }
 
-        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+
+        private void BorderNext_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DialogResult = true;
+
+        }
+
+        private void BorderClose_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DialogResult = false;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace _3ISIP223_PogosyanWPF
 {
     public class Pestov : Skeleton
     {
-        public Pestov(string name, double attack, double defense, double hp, ModelUIElement3D mod, string imgQuiet, string imgAttack) : base(name, attack, defense, hp, mod, imgQuiet, imgAttack)
+        public Pestov(string name, double attack, double defense, double hp, ModelUIElement3D mod, string imgQuiet, string imgAttack, string imgPoluch) : base(name, attack, defense, hp, mod, imgQuiet, imgAttack, imgPoluch)
         {
             HP *= 1.3;
             MaxHP *= 1.3;

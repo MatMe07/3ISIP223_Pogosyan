@@ -9,7 +9,7 @@ namespace _3ISIP223_PogosyanWPF.Model.Bosses
 {
     public class Covalski : Skeleton
     {
-        public Covalski(string name, double attack, double defense, double hp, System.Windows.Media.Media3D.ModelUIElement3D mod, string imgQuiet, string imgAttack) : base(name, attack, defense, hp, mod, imgQuiet, imgAttack)
+        public Covalski(string name, double attack, double defense, double hp, System.Windows.Media.Media3D.ModelUIElement3D mod, string imgQuiet, string imgAttack, string imgPoluch) : base(name, attack, defense, hp, mod, imgQuiet, imgAttack, imgPoluch)
         {
             HP *= 2.5;
             MaxHP *= 2.5;

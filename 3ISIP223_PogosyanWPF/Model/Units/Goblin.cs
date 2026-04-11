@@ -14,9 +14,9 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
 
         public bool KritAttack => RandomCLS.Next(0, 100) < ProcentKritAttack;
 
-        public Goblin(string name, double attack, double defense, double hp, ModelUIElement3D mod, string imgQuiet, string imgAttack) : base(name, attack, defense, hp, mod, imgQuiet, imgAttack)
+        public Goblin(string name, double attack, double defense, double hp, ModelUIElement3D mod, string imgQuiet, string imgAttack, string imgPoluch) : base(name, attack, defense, hp, mod, imgQuiet, imgAttack, imgPoluch)
         {
-            ProcentKritAttack = 90;
+            ProcentKritAttack = 20;
             UniqSkill = "Шанс критического удара";
             IsKritAttack = false;
 

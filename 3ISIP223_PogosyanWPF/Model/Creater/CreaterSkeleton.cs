@@ -10,9 +10,9 @@ namespace _3ISIP223_PogosyanWPF.Model.Creater
 {
     public class CreaterSkeleton : Factory
     {
-        public override Enemy CreateEnemy(ModelUIElement3D model)
+        public override Enemy CreateEnemy(ModelUIElement3D model = null)
         {
-            return new Skeleton("Скелет", 10, 5, 40, model, "pack://application:,,,/Icons/Armor.png", "pack://application:,,,/Icons/Armor1.png");
+            return new Skeleton("Скелет", 10, 5, 40, model, "pack://application:,,,/Images/EnemAttack/Skeleton/SkeletObich.png", "pack://application:,,,/Images/EnemAttack/Skeleton/UdarSkelet.png", "pack://application:,,,/Images/EnemAttack/Skeleton/SkeletPoluch.png");
 
         }
     }

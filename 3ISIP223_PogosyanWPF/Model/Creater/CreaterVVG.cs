@@ -10,9 +10,9 @@ namespace _3ISIP223_PogosyanWPF.Model.Creater
 {
     public class CreaterVVG : Factory
     {
-        public override Enemy CreateEnemy(ModelUIElement3D model)
+        public override Enemy CreateEnemy(ModelUIElement3D model = null)
         {
-            return new VVG("ВВГ", 12, 3, 30, model, "pack://application:,,,/Icons/Armor.png", "pack://application:,,,/Icons/Armor1.png");
+            return new VVG("ВВГ", 12, 3, 30, model, "pack://application:,,,/Images/EnemAttack/VVG/VVGProsto.png", "pack://application:,,,/Images/EnemAttack/VVG/VVGUdar.png", "pack://application:,,,/Images/EnemAttack/VVG/VVGPoluch.png");
 
         }
     }

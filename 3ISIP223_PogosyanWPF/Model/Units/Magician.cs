@@ -36,9 +36,9 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
             return false;
         }
 
-        public Magician(string name, double attack, double defense, double hp, ModelUIElement3D mod, string imgQuiet, string imgAttack) : base(name, attack, defense, hp, mod, imgQuiet, imgAttack)
+        public Magician(string name, double attack, double defense, double hp, ModelUIElement3D mod, string imgQuiet, string imgAttack, string imgPoluch) : base(name, attack, defense, hp, mod, imgQuiet, imgAttack, imgPoluch)
         {
-            ProcentFrozen = 99;
+            ProcentFrozen = 15;
             IsFroz = false;
             UniqSkill = "Шанс заморозки на 1 ход";
         }
@@ -87,16 +87,16 @@ namespace _3ISIP223_PogosyanWPF.Model.Units
         public override void AnimAttackEnemyAndBoss(double attack, bool kill = false, bool PlayerIsblock = false, int Krit = 0)
         {
 
-            GeometryModel3D geom = model.Model as GeometryModel3D;
-            geom.Material = materialAttack;
-            //geom.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
-            //timerAttackEnemy
+            EnemyModel.ImagePath = materialAttack;
+
 
             var timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(200);
+            timer.Interval = TimeSpan.FromMilliseconds(300);
             timer.Tick += (s, e) =>
             {
-                geom.Material = materialQuiet;
+                //geom.Material = materialQuiet;
+                EnemyModel.ImagePath = materialQuiet;
+
                 timer.Stop();
             };
             timer.Start();

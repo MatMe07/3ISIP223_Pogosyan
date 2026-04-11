@@ -17,7 +17,7 @@ namespace _3ISIP223_PogosyanWPF
         public static Viewport2DVisual3D GetViewport2DText(TranslateTransform3D transform, double num, bool isBosse = false)
         {
             Viewport2DVisual3D viewport2D = new Viewport2DVisual3D();
-            TranslateTransform3D translate = new TranslateTransform3D(transform.OffsetX + (isBosse ? 1.05 : 1.15), .5, transform.OffsetZ);
+            TranslateTransform3D translate = new TranslateTransform3D(transform.OffsetX + (isBosse ? 1 : 1.05), .65, transform.OffsetZ);
             MeshGeometry3D mesh = new MeshGeometry3D();
 
             int lenNum = num.ToString().Length;

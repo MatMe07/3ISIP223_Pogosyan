@@ -76,6 +76,7 @@
     <Compile Include="Model\Creater\EnemyCreater.cs" />
     <Compile Include="Model\Enemy.cs" />
     <Compile Include="Model\Factory.cs" />
+    <Compile Include="Model\EnemyModel.cs" />
     <Compile Include="Model\Units\Goblin.cs" />
     <Compile Include="Model\Bosses\Pestov.cs" />
     <Compile Include="Model\Units\Magician.cs" />
@@ -165,13 +166,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\weapons\swordUs.png" />
-    <Resource Include="hit\Untitled-1.png" />
-    <Resource Include="hit\Untitled-2.png" />
-    <Resource Include="hit\Untitled-3.png" />
-    <Resource Include="hit\Untitled-4.png" />
-    <Resource Include="hit\Untitled-5.png" />
-    <Resource Include="hit\Untitled-6.png" />
-    <Resource Include="hit\Untitled-7.png" />
     <Resource Include="Icons\heartUser.png" />
     <Resource Include="Icons\FrameIcon.png" />
     <Resource Include="Icons\Armor.png" />
@@ -216,17 +210,42 @@
     <Resource Include="Icons\AttackSymbols\shield.png" />
     <Resource Include="Icons\AttackSymbols\broken-shield.png" />
     <Resource Include="Icons\AttackSymbols\doubleUdar.png" />
+    <Resource Include="Icons\interface\frameLevel.png" />
+    <Resource Include="Images\EnemAttack\Goblin\goblinAttack.png" />
+    <Resource Include="Images\EnemAttack\Goblin\goblinObich.png" />
+    <Resource Include="Images\EnemAttack\Goblin\goblinPoluch.png" />
+    <Resource Include="Images\EnemAttack\Skeleton\SkeletObich.png" />
+    <Resource Include="Images\EnemAttack\Skeleton\SkeletPoluch.png" />
+    <Resource Include="Images\EnemAttack\Skeleton\UdarSkelet.png" />
+    <Resource Include="Images\EnemAttack\Mag\MagObich.png" />
+    <Resource Include="Images\EnemAttack\Mag\MagPoluch.png" />
+    <Resource Include="Images\EnemAttack\Mag\MagUdar.png" />
+    <Resource Include="Images\EnemAttack\Pestov\PestovPoluch.png" />
+    <Resource Include="Images\EnemAttack\Pestov\PestovProsto.png" />
+    <Resource Include="Images\EnemAttack\Pestov\PestovUdar.png" />
+    <Resource Include="Images\EnemAttack\VVG\VVGPoluch.png" />
+    <Resource Include="Images\EnemAttack\VVG\VVGProsto.png" />
+    <Resource Include="Images\EnemAttack\VVG\VVGUdar.png" />
+    <Resource Include="Images\EnemAttack\Arhimag\ArchimagPoluch.png" />
+    <Resource Include="Images\EnemAttack\Arhimag\ArchimagProsto.png" />
+    <Resource Include="Images\EnemAttack\Arhimag\ArchimagUdar.png" />
+    <Resource Include="Images\EnemAttack\Covalski\KovalPoluch.png" />
+    <Resource Include="Images\EnemAttack\Covalski\KovalProsto.png" />
+    <Resource Include="Images\EnemAttack\Covalski\KovalUdar.png" />
+    <Resource Include="Images\texturs\Lich_shadow3.png" />
+    <Resource Include="Images\texturs\chest.png" />
+    <Resource Include="Images\texturs\chest2.png" />
+    <Resource Include="Images\texturs\floor.png" />
+    <Resource Include="Images\texturs\floor2.png" />
+    <Resource Include="Images\texturs\floor1.png" />
+    <Resource Include="Images\texturs\dirk.png" />
+    <Resource Include="Images\texturs\karanzaf.png" />
+    <Resource Include="Images\texturs\tree.png" />
+    <Resource Include="Images\texturs\kamen.png" />
+    <Resource Include="Images\texturs\kover1.png" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\EnemAttack\Arhimag\" />
-    <Folder Include="Images\EnemAttack\Covalski\" />
-    <Folder Include="Images\EnemAttack\Goblin\" />
-    <Folder Include="Images\EnemAttack\Mag\" />
-    <Folder Include="Images\EnemAttack\Pestov\" />
-    <Folder Include="Images\EnemAttack\Skeleton\" />
-    <Folder Include="Images\EnemAttack\VVG\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

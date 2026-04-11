@@ -1,5 +1,7 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.Model.Units;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +15,7 @@ using System.Windows.Threading;
 
 namespace _3ISIP223_PogosyanWPF.Model
 {
-    public class Enemy
+    public class Enemy 
     {
         //public Random random = new Random();
 
@@ -29,14 +31,20 @@ namespace _3ISIP223_PogosyanWPF.Model
         public bool IsAlive => HP > 0;
         public string UniqSkill { get; set; }
 
-        public DiffuseMaterial materialQuiet {  get; set; }
-        public DiffuseMaterial materialAttack {  get; set; }
+        public string materialQuiet {  get; set; }
+        public string materialPoluch {  get; set; }
+        public string materialAttack {  get; set; }
+        //private string _materialSelect;
+        public EnemyModel EnemyModel { get; set; }
+
+
+
         public double TimeLastAttack { get; set; }
         //public double _TimeLastAttack { get; set; }
         public DateTime LastAtTime { get; set; }
         public double AttackIntervalSec { get; set; }
 
-        public Enemy(string name, double attack, double defense, double hp, ModelUIElement3D mod, string pathQuiet, string pathAttack)
+        public Enemy(string name, double attack, double defense, double hp, ModelUIElement3D mod, string pathQuiet, string pathAttack, string pathPoluch)
         {
             Name = name;
             Attack = attack;
@@ -48,8 +56,14 @@ namespace _3ISIP223_PogosyanWPF.Model
             //_TimeLastAttack = TimeLastAttack;
             AttackIntervalSec = RandomCLS.Next(2, 6);
             LastAtTime = DateTime.Now;
-            materialQuiet = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(pathQuiet))));
-            materialAttack = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(pathAttack))));
+            materialQuiet = pathQuiet;
+            materialPoluch =pathPoluch;
+            materialAttack = pathAttack;
+            //materialQuiet = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(pathQuiet))));
+            //materialPoluch = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(pathPoluch))));
+            //materialAttack = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(pathAttack))));
+            EnemyModel = new EnemyModel();
+            EnemyModel.ImagePath = pathQuiet;
             //materialQuiet = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
 
         }
@@ -97,16 +111,19 @@ namespace _3ISIP223_PogosyanWPF.Model
 
         public virtual void AnimAttackEnemyAndBoss(double attack, bool kill, bool PlayerIsblock = false, int Krit = 0)
         {
-            GeometryModel3D geom = model.Model as GeometryModel3D;
-            geom.Material = materialAttack;
+            //GeometryModel3D geom = model.Model as GeometryModel3D;
+            EnemyModel.ImagePath = materialAttack;
+            //geom.Material = materialAttack;
             //geom.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
             //timerAttackEnemy
 
             var timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(200);
+            timer.Interval = TimeSpan.FromMilliseconds(300);
             timer.Tick += (s, e) =>
             {
-                geom.Material = materialQuiet;
+                //geom.Material = materialQuiet;
+                EnemyModel.ImagePath = materialQuiet;
+
                 timer.Stop();
             };
             timer.Start();
@@ -114,6 +131,26 @@ namespace _3ISIP223_PogosyanWPF.Model
 
             //if(PlayerIsblock)
             AnimLogirTextInfo(attack, kill, PlayerIsBlock:PlayerIsblock, krit:Krit);
+
+        }
+        public virtual void AnimPoluchEnemyAndBoss()
+        {
+            GeometryModel3D geom = model.Model as GeometryModel3D;
+            EnemyModel.ImagePath = materialPoluch;
+            //geom.Material = materialAttack;
+            //geom.Material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));
+            //timerAttackEnemy
+
+            var timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(300);
+            timer.Tick += (s, e) =>
+            {
+                //geom.Material = materialQuiet;
+                EnemyModel.ImagePath = materialQuiet;
+
+                timer.Stop();
+            };
+            timer.Start();
 
         }
 

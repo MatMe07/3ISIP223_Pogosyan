@@ -14,7 +14,7 @@ namespace _3ISIP223_PogosyanWPF
     public class BoxSpawn
     {
 
-        private ModelUIElement3D _baseBox;
+        //private ModelUIElement3D _baseBox;
 
         private ModelUIElement3D _box = null;
         public ModelUIElement3D Box
@@ -71,8 +71,8 @@ namespace _3ISIP223_PogosyanWPF
         {
             boxIsOpen = true;
 
-            int select = 0;
-            //int select = RandomCLS.Next(1, 3);
+            //int select = 0;
+            int select = RandomCLS.Next(0, 3);
             switch (select)
             {
                 case 0:
@@ -107,107 +107,52 @@ namespace _3ISIP223_PogosyanWPF
         public ModelUIElement3D CreateBoxModel()
         {
             var model = new ModelUIElement3D();
+            GeometryModel3D geometry = new GeometryModel3D();
+
+            DiffuseMaterial material = new DiffuseMaterial();
+            ImageBrush brush = new ImageBrush();
+            brush.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/texturs/chest2.png"));
+            material.Brush = brush;
+            geometry.Material = material;
+
             MeshGeometry3D mesh = new MeshGeometry3D();
-            mesh.Positions.Add(Point3D.Parse("-0.2, -0.3, -0.2"));
-            mesh.Positions.Add(Point3D.Parse("0.2, -0.3, -0.2"));
-            mesh.Positions.Add(Point3D.Parse("-0.2, 0.3, -0.2"));
-            mesh.Positions.Add(Point3D.Parse("0.2, 0.3, -0.2"));
 
+            mesh.Positions = new Point3DCollection
+            {
+                new Point3D(-0.2, -0.4, -0.2),
+                new Point3D(0.2, 0.4, 0.2),
+                new Point3D(-0.2, 0.4, -0.2),
+                new Point3D(0.2, -0.4, 0.2),
+                new Point3D(-0.2, -0.4, 0.2),
+                new Point3D(0.2, 0.4, -0.2),
+                new Point3D(-0.2, 0.4, 0.2),
+                new Point3D(0.2, -0.4, -0.2)
+            };
 
-            mesh.Positions.Add(Point3D.Parse("-0.2, -0.3, 0.2"));
-            mesh.Positions.Add(Point3D.Parse("0.2, -0.3, 0.2"));
-            mesh.Positions.Add(Point3D.Parse("-0.2, 0.3, 0.2"));
-            mesh.Positions.Add(Point3D.Parse("0.2, 0.3, 0.2"));
+            mesh.TriangleIndices = new Int32Collection
+            {
+                0, 1, 2,
+                1, 0, 3,
+                4, 5, 6,
+                5, 4, 7
+            };
 
+            mesh.TextureCoordinates = new PointCollection
+            {
+                new Point(0, 1),
+                new Point(1, 0),
+                new Point(0, 0),
+                new Point(1, 1),
+                new Point(0, 1),
+                new Point(1, 0),
+                new Point(0, 0),
+                new Point(1, 1)
+            };
 
-            mesh.Positions.Add(Point3D.Parse("-0.2, -0.3, -0.2"));
-            mesh.Positions.Add(Point3D.Parse("-0.2, 0.3, -0.2"));
-            mesh.Positions.Add(Point3D.Parse("-0.2, -0.3, 0.2"));
-            mesh.Positions.Add(Point3D.Parse("-0.2, 0.3, 0.2"));
+            geometry.Geometry = mesh;
+            model.Model = geometry;
 
-
-            mesh.Positions.Add(Point3D.Parse("0.2, -0.3, -0.2"));
-            mesh.Positions.Add(Point3D.Parse("0.2, 0.3, -0.2"));
-            mesh.Positions.Add(Point3D.Parse("0.2, -0.3, 0.2"));
-            mesh.Positions.Add(Point3D.Parse("0.2, 0.3, 0.2"));
-
-
-            mesh.Positions.Add(Point3D.Parse("-0.2, -0.3, -0.2"));
-            mesh.Positions.Add(Point3D.Parse("-0.2, -0.3, 0.2"));
-            mesh.Positions.Add(Point3D.Parse("0.2, -0.3, -0.2"));
-            mesh.Positions.Add(Point3D.Parse("0.2, -0.3, 0.2"));
-
-
-            mesh.Positions.Add(Point3D.Parse("-0.2, 0.3, -0.2"));
-            mesh.Positions.Add(Point3D.Parse("-0.2, 0.3, 0.2"));
-            mesh.Positions.Add(Point3D.Parse("0.2, 0.3, -0.2"));
-            mesh.Positions.Add(Point3D.Parse("0.2, 0.3, 0.2"));
-
-
-
-
-
-            mesh.TriangleIndices.Add(0);
-            mesh.TriangleIndices.Add(2);
-            mesh.TriangleIndices.Add(1);
-
-            mesh.TriangleIndices.Add(1);
-            mesh.TriangleIndices.Add(2);
-            mesh.TriangleIndices.Add(3);
-
-            mesh.TriangleIndices.Add(4);
-            mesh.TriangleIndices.Add(5);
-            mesh.TriangleIndices.Add(6);
-
-            mesh.TriangleIndices.Add(5);
-            mesh.TriangleIndices.Add(7);
-            mesh.TriangleIndices.Add(6);
-
-            mesh.TriangleIndices.Add(8);
-            mesh.TriangleIndices.Add(10);
-            mesh.TriangleIndices.Add(9);
-
-            mesh.TriangleIndices.Add(9);
-            mesh.TriangleIndices.Add(10);
-            mesh.TriangleIndices.Add(11);
-
-            mesh.TriangleIndices.Add(12);
-            mesh.TriangleIndices.Add(13);
-            mesh.TriangleIndices.Add(14);
-
-            mesh.TriangleIndices.Add(13);
-            mesh.TriangleIndices.Add(15);
-            mesh.TriangleIndices.Add(14);
-
-            mesh.TriangleIndices.Add(16);
-            mesh.TriangleIndices.Add(17);
-            mesh.TriangleIndices.Add(18);
-
-            mesh.TriangleIndices.Add(17);
-            mesh.TriangleIndices.Add(19);
-            mesh.TriangleIndices.Add(18);
-
-            mesh.TriangleIndices.Add(20);
-            mesh.TriangleIndices.Add(21);
-            mesh.TriangleIndices.Add(22);
-
-            mesh.TriangleIndices.Add(21);
-            mesh.TriangleIndices.Add(23);
-            mesh.TriangleIndices.Add(22);
-
-            //0,1  0,0  1,1  1,0
-            //mesh.TextureCoordinates.Add(new System.Windows.Point(0, 1));
-            //mesh.TextureCoordinates.Add(new System.Windows.Point(0, 0));
-            //mesh.TextureCoordinates.Add(new System.Windows.Point(1, 1));
-            //mesh.TextureCoordinates.Add(new System.Windows.Point(1, 0));
-
-            //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
-            //model.Model = geom;
-            model.Model = new GeometryModel3D(mesh, new DiffuseMaterial(Brushes.Brown));
-
-
-            model.Transform = new TranslateTransform3D() { OffsetZ = -9, OffsetX = 3 };
-
+            model.Transform = new TranslateTransform3D(3, 0, -9);
 
             return model;
         }
@@ -226,6 +171,9 @@ namespace _3ISIP223_PogosyanWPF
             geometry.Material = material;
 
             MeshGeometry3D mesh = new MeshGeometry3D();
+
+            double width, height, depth;
+
             if (isWeapon)
             {
                 mesh.Positions = new Point3DCollection
@@ -235,42 +183,59 @@ namespace _3ISIP223_PogosyanWPF
                     new Point3D(-0.1, 0, 0),
                     new Point3D(-0.1, 0.3, 0)
                 };
-
             }
             else if (isPotion)
             {
-                mesh.Positions = new Point3DCollection
-                {
-                    new Point3D(-0.2, 0, 0),
-                    new Point3D(-0.2, 0.2, 0),
-                    new Point3D(-0.1, 0, 0),
-                    new Point3D(-0.1, 0.2, 0)
-                };
+                width = 0.2;
+                height = 0.2;
+                depth = 0.08;
+
+                float leftOffset = -0.15f;
+
+                mesh.Positions.Add(new Point3D(-0.1 + leftOffset, 0, 0));
+                mesh.Positions.Add(new Point3D(-0.1 + leftOffset, height, 0));
+                mesh.Positions.Add(new Point3D(0.1 + leftOffset, 0, 0));
+                mesh.Positions.Add(new Point3D(0.1 + leftOffset, height, 0));
+
+                mesh.Positions.Add(new Point3D(0 + leftOffset, 0, -depth));
+                mesh.Positions.Add(new Point3D(0 + leftOffset, height, -depth));
+                mesh.Positions.Add(new Point3D(0 + leftOffset, 0, depth));
+                mesh.Positions.Add(new Point3D(0 + leftOffset, height, depth));
             }
             else
             {
-                mesh.Positions = new Point3DCollection
-                {
-                    new Point3D(-0.4, 0, 0),
-                    new Point3D(-0.4, 0.3, 0),
-                    new Point3D(-0, 0, 0),
-                    new Point3D(-0, 0.3, 0)
-                };
+                width = 0.4;
+                height = 0.3;
+                depth = 0.15;
+
+                float leftOffset = -0.15f;
+
+                mesh.Positions.Add(new Point3D(-0.2 + leftOffset, 0, 0));
+                mesh.Positions.Add(new Point3D(-0.2 + leftOffset, height, 0));
+                mesh.Positions.Add(new Point3D(0.2+ leftOffset, 0, 0));
+                mesh.Positions.Add(new Point3D(0.2 + leftOffset, height, 0));
+
+                mesh.Positions.Add(new Point3D(0+ leftOffset, 0, -depth));
+                mesh.Positions.Add(new Point3D(0+ leftOffset, height, -depth));
+                mesh.Positions.Add(new Point3D(0+ leftOffset, 0, depth));
+                mesh.Positions.Add(new Point3D(0+ leftOffset, height, depth));
             }
 
-            mesh.TriangleIndices = new Int32Collection
-            {
-                1, 0, 2,
-                1, 2, 3
-            };
+            mesh.TriangleIndices.Add(1); mesh.TriangleIndices.Add(0); mesh.TriangleIndices.Add(2);
+            mesh.TriangleIndices.Add(1); mesh.TriangleIndices.Add(2); mesh.TriangleIndices.Add(3);
 
-            mesh.TextureCoordinates = new PointCollection
-            {
-                new Point(0, 1),
-                new Point(0, 0),
-                new Point(1, 1),
-                new Point(1, 0)
-            };
+            mesh.TriangleIndices.Add(5); mesh.TriangleIndices.Add(4); mesh.TriangleIndices.Add(6);
+            mesh.TriangleIndices.Add(5); mesh.TriangleIndices.Add(6); mesh.TriangleIndices.Add(7);
+
+            mesh.TextureCoordinates.Add(new Point(0, 1));
+            mesh.TextureCoordinates.Add(new Point(0, 0));
+            mesh.TextureCoordinates.Add(new Point(1, 1));
+            mesh.TextureCoordinates.Add(new Point(1, 0));
+
+            mesh.TextureCoordinates.Add(new Point(0, 1));
+            mesh.TextureCoordinates.Add(new Point(0, 0));
+            mesh.TextureCoordinates.Add(new Point(1, 1));
+            mesh.TextureCoordinates.Add(new Point(1, 0));
 
             geometry.Geometry = mesh;
             model.Model = geometry;

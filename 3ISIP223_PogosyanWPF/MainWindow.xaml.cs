@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -50,6 +52,7 @@ namespace _3ISIP223_PogosyanWPF
         //public static Action WindowWinOrAgain = WindWinOrAgain;
         public MainWindow()
         {
+            DataContext = WorkGame.Game;
             mainMenu menu = new mainMenu();
             boxSpawn = new BoxSpawn();
             //EnemyAttackTime = DateTime.Now;
@@ -79,17 +82,18 @@ namespace _3ISIP223_PogosyanWPF
         public void WindWinOrAgain(string text)
         {
             //var CursOver = Mouse.OverrideCursor;
-
+            WorkGame.Game.IsPause = true;
+            _isMouseCaptured = false;
             Mouse.OverrideCursor = null;
             //CompositionTarget.Rendering -= (s, e) => UpdateCameraDirection();
             var windRes = new ResulLevelWindow(text);
             windRes.Owner = this;
-            this.IsEnabled = false;
+            //this.IsEnabled = false;
             var result = windRes.ShowDialog();
             windRes.Closed += (s, e) => this.IsEnabled = true;
             if (result == false)
             {
-
+                Close();
             }
             else
             {
@@ -100,6 +104,7 @@ namespace _3ISIP223_PogosyanWPF
                 {
                     case "win":
                         {
+                            WorkGame.Game.step++;
                             NewLevel();
 
                             break;
@@ -111,8 +116,7 @@ namespace _3ISIP223_PogosyanWPF
                             break;
                         }
                 }
-                this.IsEnabled = true;
-
+                _isMouseCaptured = true;
                 //CompositionTarget.Rendering -= (s, e) => UpdateCameraDirection();
             }
         }
@@ -124,37 +128,60 @@ namespace _3ISIP223_PogosyanWPF
 
         public void GenerateBoss()
         {
-            ModelUIElement3D mod;
-            mod = CreateModelEnemy.CreateModel(Colors.Gray, 0.5, 0, -1, isBoss:true);
-            mod.MouseLeftButtonDown += ModelUIElement3D_MouseDown;
-            WorkGame.Game.SelectBoss(mod);
-            Console.WriteLine($"{mod}");
-            //WorkGame.Game.Enemies.Add(Vrags.Enemies[0].CreateEnemy(mod));
-            //ModelUIElement3D mod = WorkGame.Game.Enemies[0].model;
-            Viewport.Children.Add(mod);
+            WorkGame.Game.SelectBoss();
+            MeshGeometry3D mesh;
+
+            mesh = CreateModelEnemy.CreateModel(Colors.Gray, isBoss:true);
+            var model = new ModelUIElement3D();
+
+            var imageBrush = new ImageBrush();
+            var binding = new Binding("ImagePath");
+            binding.Source = WorkGame.Game.Boss.EnemyModel;
+            BindingOperations.SetBinding(imageBrush, ImageBrush.ImageSourceProperty, binding);
+
+            var geom = new GeometryModel3D(mesh, new DiffuseMaterial(imageBrush));
+
+            model.MouseLeftButtonDown += ModelUIElement3D_MouseDown;
+
+            model.Model = geom;
+
+            model.Transform = new TranslateTransform3D() { OffsetZ = -1, OffsetX = 1, OffsetY = 0 };
+
+
+            Console.WriteLine($"{model}");
+            WorkGame.Game.Boss.model = model;
+            Viewport.Children.Add(model);
         }
         public void GenerateEnemies()
         {
 
-            ModelUIElement3D mod;
+            MeshGeometry3D mesh;
             
-            for (double i = -.5; i <= 0; i+=1.5)
+            for (double i = -.5; i <= 3; i+=1.5)
             {
 
-                mod = CreateModelEnemy.CreateModel(Colors.Gray, i, 0, -.5);
+                var enem = WorkGame.Game.AddEnemis();
 
-                //DoubleAnimation attackAnim1 = new DoubleAnimation();
-                //attackAnim1.To = 0;
-                //attackAnim1.From = 0;
+                mesh = CreateModelEnemy.CreateModel(Colors.Gray);
+                var model = new ModelUIElement3D();
+
+                var imageBrush = new ImageBrush();
+                var binding = new Binding("ImagePath");
+                binding.Source = enem.EnemyModel;
+                BindingOperations.SetBinding(imageBrush, ImageBrush.ImageSourceProperty, binding);
+
+                var geom = new GeometryModel3D(mesh, new DiffuseMaterial(imageBrush));
+                model.Model = geom;
+
+                model.Transform = new TranslateTransform3D() { OffsetZ = -0, OffsetX = i, OffsetY = 0 };
 
 
-                mod.MouseLeftButtonDown += ModelUIElement3D_MouseDown;
-                WorkGame.Game.AddEnemis(mod);
-                Console.WriteLine($"{mod}");
-                //WorkGame.Game.Enemies.Add(Vrags.Enemies[0].CreateEnemy(mod));
 
-                //ModelUIElement3D mod = WorkGame.Game.Enemies[0].model;
-                Viewport.Children.Add(mod);
+                model.MouseLeftButtonDown += ModelUIElement3D_MouseDown;
+                Console.WriteLine($"{model}");
+                enem.model = model;
+
+                Viewport.Children.Add(model);
 
             }
         }
@@ -186,32 +213,23 @@ namespace _3ISIP223_PogosyanWPF
 
         }
 
+
+        private void UpdateBillboard()
+        {
+            var transform = new Vector3D(SpritePosition.OffsetX, SpritePosition.OffsetY, SpritePosition.OffsetZ);
+            Vector3D direction = new Vector3D(camera.Position.X, camera.Position.Y, camera.Position.Z) - transform;
+            direction.Normalize();
+
+            double angle = Math.Atan2(direction.X, direction.Z) * 180 / Math.PI;
+
+            SpriteRotation.Angle = angle;
+            karandzavRotatation.Angle = angle;
+        }
         private void UpdateCameraDirection()
         {
-            //Console.WriteLine((DateTime.Now - EnemyAttackTime).TotalMilliseconds);
-            //if (IsAttackingEnemy)
-            //{
-            //    EnemyAttack();
-            //    EnemyAttackTime = DateTime.Now;
-            //}
-
-            //if (!WorkGame.Game.Player.IsAlive)
-            //{
-            //    var CursOver = Mouse.OverrideCursor;
-            //    Mouse.OverrideCursor = null;
-
-            //    var windRes = new ResulLevelWindow("again");
-            //    windRes.Owner = this;
-            //    var result = windRes.ShowDialog();
-            //    if (result == false)
-            //    {
-            //        Mouse.OverrideCursor = CursOver;
-
-            //    }
-            //}
-
+            if (WorkGame.Game.IsPause) return;
             WorkGame.Game.AttackEnemy();
-
+            UpdateBillboard();
 
             _currentrotX += (_rotX - _currentrotX) * SmoothingFactor;
             _currentrotY += (_rotY - _currentrotY) * SmoothingFactor;
@@ -381,14 +399,15 @@ namespace _3ISIP223_PogosyanWPF
 
         public void NewLevel()
         {
-            if (WorkGame.Game.step == 2 )
+            Console.WriteLine("\nStep = {0}\n", WorkGame.Game.step);
+            if (WorkGame.Game.step == 1)
             {
                 GenerateEnemies();
-                WorkGame.Game.step++;
+                //WorkGame.Game.step++;
                 return;
             }
 
-            if (!WorkGame.Game.IsGameOrChest && false)
+            if (!WorkGame.Game.IsGameOrChest || true)
             {
                 GenerateBox();
 
@@ -402,10 +421,10 @@ namespace _3ISIP223_PogosyanWPF
             string text = "LEVEL UP!";
             bool boss = false;
 
-            if (WorkGame.Game.step == 1)
+            if (WorkGame.Game.BossMoment || true)
             {
                 GenerateBoss();
-                WorkGame.Game.step++;
+                //WorkGame.Game.step++;
                 text = "BOSS";
                 boss = true;
                 //lastBoss = true;
@@ -429,7 +448,7 @@ namespace _3ISIP223_PogosyanWPF
                     if (!boss)
                     {
                         GenerateEnemies();
-                        WorkGame.Game.step++;
+                        //WorkGame.Game.step++;
                     }
                 };  
                 LevelUP.BeginAnimation(OpacityProperty, anim);
@@ -502,6 +521,7 @@ namespace _3ISIP223_PogosyanWPF
             {
                 //textLog = $"Player: {attack} -> Enemy: {enem.Name}";
                 borderLogir = GeneratedClass.LogirText($"Player", enem.Name, attack, false);
+                enem.AnimPoluchEnemyAndBoss();
             }
 
             Console.WriteLine($"Player: {attack} -> Enemy: {enem.Name}");
@@ -574,6 +594,7 @@ namespace _3ISIP223_PogosyanWPF
                 Viewport.Children.Remove(mod);
                 if (WorkGame.Game.CountEnemies == 0 && !WorkGame.Game.isBoss)
                 {
+                    WorkGame.Game.step++;
                     NewLevel();
                 }
             }
@@ -586,8 +607,8 @@ namespace _3ISIP223_PogosyanWPF
                 case 0:
                     {
                         WorkGame.Game.ChangPlayer(item);
-                        DiffuseMaterial colors_material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(item.pathImg))));
-                        HandModel.Material = colors_material;
+                        //DiffuseMaterial colors_material = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(item.pathImg))));
+                        //HandModel.Material = colors_material;
                         break;
                     }
                 case 1:
@@ -623,7 +644,7 @@ namespace _3ISIP223_PogosyanWPF
             ChestHelper.Visibility = Visibility.Collapsed;
             ChestHelperCtrl.Visibility = Visibility.Collapsed;
 
-            PointAnimCamer(new Point3D(1, camera.Position.Y, -1));
+            PointAnimCamer(new Point3D(1.5, camera.Position.Y, -2));
             NewLevel();
         }
         public void IgnoreItem()
@@ -633,7 +654,7 @@ namespace _3ISIP223_PogosyanWPF
             ChestHelper.Visibility = Visibility.Collapsed;
             ChestHelperCtrl.Visibility = Visibility.Collapsed;
 
-            PointAnimCamer(new Point3D(1, camera.Position.Y, -1));
+            PointAnimCamer(new Point3D(1.5, camera.Position.Y, -2));
             NewLevel();
         }
         public void UseItem()
@@ -644,7 +665,7 @@ namespace _3ISIP223_PogosyanWPF
             ChestHelper.Visibility = Visibility.Collapsed;
             ChestHelperCtrl.Visibility = Visibility.Collapsed;
 
-            PointAnimCamer(new Point3D(1, camera.Position.Y, -1));
+            PointAnimCamer(new Point3D(1.5, camera.Position.Y, -2));
             NewLevel();
         }
 

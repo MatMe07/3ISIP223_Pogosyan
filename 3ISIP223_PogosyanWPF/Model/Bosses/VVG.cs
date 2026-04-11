@@ -10,7 +10,7 @@ namespace _3ISIP223_PogosyanWPF.Model.Bosses
     internal class VVG : Goblin
     {
 
-        public VVG(string name, double attack, double defense, double hp, System.Windows.Media.Media3D.ModelUIElement3D mod, string imgQuiet, string imgAttack) : base(name, attack, defense, hp, mod, imgQuiet, imgAttack)
+        public VVG(string name, double attack, double defense, double hp, System.Windows.Media.Media3D.ModelUIElement3D mod, string imgQuiet, string imgAttack, string imgPoluch) : base(name, attack, defense, hp, mod, imgQuiet, imgAttack, imgPoluch)
         {
             HP *= 2.0;
             MaxHP *= 2.0;

@@ -10,9 +10,9 @@ namespace _3ISIP223_PogosyanWPF.Model.Creater
 {
     public class CreaterCovalski : Factory
     {
-        public override Enemy CreateEnemy(ModelUIElement3D model)
+        public override Enemy CreateEnemy(ModelUIElement3D model = null)
         {
-            return new Covalski("Ковальский", 10, 5, 40, model, "pack://application:,,,/Icons/Armor.png", "pack://application:,,,/Icons/Armor1.png");
+            return new Covalski("Ковальский", 10, 5, 40, model, "pack://application:,,,/Images/EnemAttack/Covalski/KovalProsto.png", "pack://application:,,,/Images/EnemAttack/Covalski/KovalUdar.png", "pack://application:,,,/Images/EnemAttack/Covalski/KovalPoluch.png");
 
         }
     }

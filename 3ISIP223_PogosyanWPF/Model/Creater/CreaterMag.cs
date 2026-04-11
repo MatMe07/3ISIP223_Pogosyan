@@ -10,9 +10,9 @@ namespace _3ISIP223_PogosyanWPF.Model.Creater
 {
     public class CreaterMag : Factory
     {
-        public override Enemy CreateEnemy(ModelUIElement3D model)
+        public override Enemy CreateEnemy(ModelUIElement3D model = null)
         {
-            return new Magician("Маг",15, 2, 25, model, "pack://application:,,,/Icons/Armor.png", "pack://application:,,,/Icons/Armor1.png");
+            return new Magician("Маг",15, 2, 25, model, "pack://application:,,,/Images/EnemAttack/Mag/MagObich.png", "pack://application:,,,/Images/EnemAttack/Mag/MagUdar.png", "pack://application:,,,/Images/EnemAttack/Mag/MagPoluch.png");
 
         }
     }

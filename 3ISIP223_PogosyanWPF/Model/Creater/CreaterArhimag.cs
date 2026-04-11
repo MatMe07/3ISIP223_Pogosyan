@@ -10,9 +10,9 @@ namespace _3ISIP223_PogosyanWPF.Model.Creater
 {
     public class CreaterArhimag : Factory
     {
-        public override Enemy CreateEnemy(ModelUIElement3D model)
+        public override Enemy CreateEnemy(ModelUIElement3D model = null)
         {
-            return new Arhimag("Архимаг C++", 15, 2, 25, model, "pack://application:,,,/Icons/Armor.png", "pack://application:,,,/Icons/Armor1.png");
+            return new Arhimag("Архимаг C++", 15, 2, 25, model, "pack://application:,,,/Images/EnemAttack/Arhimag/ArchimagProsto.png", "pack://application:,,,/Images/EnemAttack/Arhimag/ArchimagUdar.png", "pack://application:,,,/Images/EnemAttack/Arhimag/ArchimagPoluch.png");
 
         }
     }

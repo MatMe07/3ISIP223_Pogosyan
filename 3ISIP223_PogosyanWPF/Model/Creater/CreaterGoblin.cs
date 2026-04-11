@@ -12,9 +12,9 @@ namespace _3ISIP223_PogosyanWPF.Model.Creater
 {
     public class CreaterGoblin : Factory
     {
-        public override Enemy CreateEnemy(ModelUIElement3D model)
+        public override Enemy CreateEnemy(ModelUIElement3D model = null)
         {
-            return new Goblin("Гоблин", 12, 3, 30, model, "pack://application:,,,/Icons/Armor.png", "pack://application:,,,/Icons/Armor1.png");
+            return new Goblin("Гоблин", 12, 3, 30, model, "pack://application:,,,/Images/EnemAttack/Goblin/goblinObich.png", "pack://application:,,,/Images/EnemAttack/Goblin/goblinAttack.png", "pack://application:,,,/Images/EnemAttack/Goblin/goblinPoluch.png");
         }
 
     }

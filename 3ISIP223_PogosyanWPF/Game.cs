@@ -23,7 +23,7 @@ namespace _3ISIP223_PogosyanWPF
 {
     public class Game : INotifyPropertyChanged
     {
-        public bool ChoiceChestOrEnemy => RandomCLS.Next(0, 100) >= 50;
+        public bool BossMoment => step % 5 == 0;
 
         private Player _player;
 
@@ -65,21 +65,13 @@ namespace _3ISIP223_PogosyanWPF
 
         public int CountEnemies => Enemies.Count;
 
-        //private ObservableCollection<Enemy> _enemies;
-        //public List<(Enemy enemy, ModelUIElement3D model)> EnemiesAA;
-
         public List<Enemy> Enemies { get; set; }
-
-        //public 
 
         public void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        //public Enemy Vrag = null;
         public Enemy Boss = null;
-        //public EnemyCreater vrags = null;
-        //public bool HaveEnemy => Vrag != null;
         private int _step;
         public int step
         {
@@ -90,20 +82,9 @@ namespace _3ISIP223_PogosyanWPF
                 OnPropertyChanged(nameof(step));
             }
         }
-        public int StepSpendWinOverBoss { get; set; }
-        public double HPLostWinOverBoss { get; set; }
-        //public bool GameOver { get; set; }
         public bool isBoss { get; set; }
-        //public bool BosseStumles => true;
-        public bool BosseStumles => step % 10 == 0;
 
-        public Dictionary<Enemy, DateTime> attackingEnemies;
-
-        private DispatcherTimer atEnemTimer;
-        private DispatcherTimer timerAttackEnemy;
-
-
-        public bool IsGameOrChest => RandomCLS.Next(0, 100) > 50;
+        public bool IsGameOrChest => RandomCLS.Next(0, 101) > 55;
 
         public Action<string> GameOver {  get; set; }
         public Game()
@@ -112,38 +93,24 @@ namespace _3ISIP223_PogosyanWPF
             Player = new Player(name);
             Vrags = new EnemyCreater();
             Enemies = new List<Enemy>();
-            //EnemiesAA = new List<(Enemy, ModelUIElement3D)>();
             isBoss = false;
             step = 1;
-            //GameOver = false;
-            StepSpendWinOverBoss = 0;
-            HPLostWinOverBoss = 0;
-            //vrags = new EnemyCreater();
-            attackingEnemies = new Dictionary<Enemy, DateTime>();
 
-
-            atEnemTimer = new DispatcherTimer();
-            atEnemTimer.Interval = TimeSpan.FromMilliseconds(16);
-            //atEnemTimer.Tick += AtEnemTimer_Tick;
-            //atEnemTimer.Start();
-
-            timerAttackEnemy = new DispatcherTimer();
-            timerAttackEnemy.Interval = TimeSpan.FromMilliseconds(100);
-            //timerAttackEnemy.Tick += (s, e) =>
-            //{
-            //    AttackEnemy();
-            //};
-            //timerAttackEnemy.Start();
 
         }
 
-        public void AddEnemis(ModelUIElement3D model)
+        public Enemy AddEnemis()
         {
-            Enemies.Add(Vrags.Enemies[RandomCLS.Next(0, Vrags.Enemies.Count)].CreateEnemy(model));
+            if (IsPause) return null;
+            var enm = Vrags.Enemies[RandomCLS.Next(0, Vrags.Enemies.Count)].CreateEnemy();
+            Enemies.Add(enm);
+            return enm;
         }
-        public void SelectBoss(ModelUIElement3D model)
+        public void SelectBoss()
         {
-            Boss = Vrags.Bosses[RandomCLS.Next(0, Vrags.Bosses.Count)].CreateEnemy(model);
+            if (IsPause) return;
+
+            Boss = Vrags.Bosses[RandomCLS.Next(0, Vrags.Bosses.Count)].CreateEnemy();
             isBoss = true;
         }
 
@@ -238,35 +205,26 @@ namespace _3ISIP223_PogosyanWPF
 
         public void AttackEnemy()
         {
-            if (IsPause ) return;
-            //Player.HP -= enemy.Attack;
             DateTime now = DateTime.Now;
-            //double deltaMs = (now - lastUpdate).TotalSeconds;
             double delta = (now - lastUpdate).TotalMilliseconds;
-            //Console.WriteLine($"(now - lastUpdate).TotalSeconds = {delta}");
-            //if (delta < 100 || delta > 300 ) return;
-            //double deltaSeconds = 0.1;
-            //if (deltaMs > 0.1) deltaMs = 0.1;
-
-            //lastUpdate = DateTime.Now;
 
             if (isBoss)
             {
+                if (IsPause)
+                {
+                    Boss.LastAtTime = now;
+                    return;
+                }
                 double deltaSec = (now - Boss.LastAtTime).TotalSeconds;
-                //if (deltaSec > .2) return;
-                //Console.WriteLine(deltaSec);
 
                 if (deltaSec >= Boss.AttackIntervalSec)
                 {
-                    //enem.TimeLastAttack = enem._TimeLastAttack;
-                    //enem.AttackIntervalMs = RandomCLS.Next(4000, 10000);
                     Console.WriteLine($"LastAtTime = {Boss.LastAtTime} | delta = {deltaSec} | enem = {Boss.Name}");
                     Boss.LastAtTime = now;
 
 
 
 
-                    //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
                     (double attack, int Krit) = AttackEnemOrBoss(Boss);
                     if (!Player.IsAlive)
                     {
@@ -286,39 +244,46 @@ namespace _3ISIP223_PogosyanWPF
             }
             else
             {
-                foreach (var enem in Enemies)
+                if (Enemies.Count > 0)
                 {
-                    //enem.TimeLastAttack += delta;
-                    double deltaSec = (now - enem.LastAtTime).TotalSeconds;
-                    //if (deltaSec > .2) return;
-                    //Console.WriteLine(deltaSec);
-
-                    if (deltaSec >= enem.AttackIntervalSec)
+                    for(int i = 0; i < Enemies.Count; i++)
                     {
-                        //enem.TimeLastAttack = enem._TimeLastAttack;
-                        //enem.AttackIntervalMs = RandomCLS.Next(4000, 10000);
-                        Console.WriteLine($"LastAtTime = {enem.LastAtTime} | delta = {deltaSec} | enem = {enem.Name}");
-                        enem.LastAtTime = now;
-
-
-                        (double attack, int Krit) = AttackEnemOrBoss(enem);
-                        if (!Player.IsAlive)
+                        var enem = Enemies[i];
+                    //}
+                    //foreach (var enem in Enemies)
+                    //{
+                        if (IsPause)
                         {
-                            enem.AnimAttackEnemyAndBoss(attack, kill:true, Player.IsBlock, Krit);
-                            IsPause = true;
-                            GameOver("again");
+                            enem.LastAtTime = now;
+                            break;
+                        }
+                        double deltaSec = (now - enem.LastAtTime).TotalSeconds;
+
+                        if (deltaSec >= enem.AttackIntervalSec)
+                        {
+                            Console.WriteLine($"LastAtTime = {enem.LastAtTime} | delta = {deltaSec} | enem = {enem.Name}");
+                            enem.LastAtTime = now;
+
+
+                            (double attack, int Krit) = AttackEnemOrBoss(enem);
+                            if (!Player.IsAlive)
+                            {
+                                enem.AnimAttackEnemyAndBoss(attack, kill:true, Player.IsBlock, Krit);
+                                IsPause = true;
+                                GameOver("again");
+
+                            }
+                            else
+                            {
+                                enem.AnimAttackEnemyAndBoss(attack, kill: false, Player.IsBlock, Krit);
+
+                            }
 
                         }
-                        else
-                        {
-                            enem.AnimAttackEnemyAndBoss(attack, kill: false, Player.IsBlock, Krit);
-
-                        }
-
-                        //var geom = new GeometryModel3D(mesh, new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor.png")))));
                     }
-                }
 
+
+                }
             }
         }
 
@@ -326,17 +291,22 @@ namespace _3ISIP223_PogosyanWPF
 
         public void Restart()
         {
-            //Enemies.Clear();
-            foreach(var enem in Enemies)
+            foreach (var enem in Enemies)
             {
                 MainWindow.viewport.Children.Remove(enem.model);
-
             }
             if (Boss != null)
+            {
                 MainWindow.viewport.Children.Remove(Boss.model);
+                DeleteBoss();
+            }
             Player = new Player("Player");
-            step = 0;
+            step = 1;
             Score = 0;
+
+            Console.WriteLine("Len Enemies = {0}", Enemies.Count);
+            Enemies.Clear();
+            Console.WriteLine("Len Enemies = {0}, clear", Enemies.Count);
         }
 
 
