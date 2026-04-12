@@ -23,7 +23,7 @@ namespace _3ISIP223_PogosyanWPF
 {
     public class Game : INotifyPropertyChanged
     {
-        public bool BossMoment => step % 5 == 0;
+        public bool BossMoment => step % 2 == 0;
 
         private Player _player;
 
@@ -84,7 +84,14 @@ namespace _3ISIP223_PogosyanWPF
         }
         public bool isBoss { get; set; }
 
-        public bool IsGameOrChest => RandomCLS.Next(0, 101) > 55;
+        public bool IsGameOrChest {
+            get
+            {
+                int n = RandomCLS.Next(0, 101);
+                Console.WriteLine("\nRandIsGameOrChest = {0}\n", n);
+                return n > 55;
+            }
+        }
 
         public Action<string> GameOver {  get; set; }
         public Game()

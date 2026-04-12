@@ -243,6 +243,7 @@
     <Resource Include="Images\texturs\tree.png" />
     <Resource Include="Images\texturs\kamen.png" />
     <Resource Include="Images\texturs\kover1.png" />
+    <Resource Include="Images\texturs\walls.png" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
   </ItemGroup>

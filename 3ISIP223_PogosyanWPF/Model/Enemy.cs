@@ -54,14 +54,11 @@ namespace _3ISIP223_PogosyanWPF.Model
             model = mod;
             //TimeLastAttack = ;
             //_TimeLastAttack = TimeLastAttack;
-            AttackIntervalSec = RandomCLS.Next(2, 6);
+            AttackIntervalSec = RandomCLS.Next(3, 10);
             LastAtTime = DateTime.Now;
             materialQuiet = pathQuiet;
             materialPoluch =pathPoluch;
             materialAttack = pathAttack;
-            //materialQuiet = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(pathQuiet))));
-            //materialPoluch = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(pathPoluch))));
-            //materialAttack = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(pathAttack))));
             EnemyModel = new EnemyModel();
             EnemyModel.ImagePath = pathQuiet;
             //materialQuiet = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri("pack://application:,,,/Icons/Armor1.png"))));

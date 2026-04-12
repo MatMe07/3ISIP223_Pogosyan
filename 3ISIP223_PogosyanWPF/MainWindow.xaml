@@ -127,9 +127,9 @@
 
                 <Viewport3D.Camera>
                     <PerspectiveCamera
-            Position="1.5, 0.3, -1"   
-            LookDirection="1, -0.2, -5"
-            FieldOfView="70" />
+            Position="1.5, 0.3, -2"   
+            LookDirection="0, -0.2, -5"
+            FieldOfView="80" />
                 </Viewport3D.Camera>
 
                 <!--<ModelVisual3D>
@@ -295,13 +295,7 @@
                     <ModelVisual3D.Content>
                         <GeometryModel3D>
                             <GeometryModel3D.Material>
-                                <DiffuseMaterial>
-                                    <DiffuseMaterial.Brush>
-                                        <ImageBrush ImageSource="/Images/texturs/floor.png"
-                                    TileMode="Tile"
-                                    Viewport="0,0,0.1,0.1"
-                                    ViewportUnits="RelativeToBoundingBox"/>
-                                    </DiffuseMaterial.Brush>
+                                <DiffuseMaterial Brush="Black">
                                 </DiffuseMaterial>
                             </GeometryModel3D.Material>
                             <GeometryModel3D.Geometry>
@@ -322,18 +316,19 @@
                             <GeometryModel3D.Material>
                                 <DiffuseMaterial>
                                     <DiffuseMaterial.Brush>
-                                        <ImageBrush ImageSource="/Images/texturs/floor.png"
+                                        <ImageBrush ImageSource="/Images/texturs/walls.png"
                                     TileMode="Tile"
-                                    Viewport="0,0,0.1,0.1"
-                                    ViewportUnits="RelativeToBoundingBox"/>
+                                    Viewport="0,0,0.14,0.47"
+                                    ViewportUnits="RelativeToBoundingBox">
+                                        </ImageBrush>
                                     </DiffuseMaterial.Brush>
                                 </DiffuseMaterial>
                             </GeometryModel3D.Material>
                             <GeometryModel3D.Geometry>
                                 <MeshGeometry3D 
-                    Positions="1, 0, -15   1, 1.5, -15   -1, 0, 2   -1, 1.5, 1.5"
+                    Positions="1, 0, -14   1, 1.5, -14   -1, 0, 0   -1, 1.5, 0"
                     TriangleIndices="0,1,2  1,3,2"
-                    TextureCoordinates="0,0  1,0  0,1  1,1"/>
+                    TextureCoordinates="0,1  0,0  1,1  1,0"/>
                             </GeometryModel3D.Geometry>
                         </GeometryModel3D>
                     </ModelVisual3D.Content>
@@ -343,22 +338,12 @@
                 <ModelVisual3D>
                     <ModelVisual3D.Content>
                         <GeometryModel3D>
-                            <GeometryModel3D.Material>
-                                <DiffuseMaterial>
-                                    <DiffuseMaterial.Brush>
-                                        <ImageBrush ImageSource="/Images/texturs/floor.png"
-                                    TileMode="Tile"
-                                    Viewport="0,0,0.1,0.1"
-                                    ViewportUnits="RelativeToBoundingBox"/>
-                                    </DiffuseMaterial.Brush>
-                                </DiffuseMaterial>
-                            </GeometryModel3D.Material>
                             <GeometryModel3D.BackMaterial>
                                 <DiffuseMaterial>
                                     <DiffuseMaterial.Brush>
-                                        <ImageBrush ImageSource="/Images/texturs/floor.png"
+                                        <ImageBrush ImageSource="/Images/texturs/walls.png"
                                     TileMode="Tile"
-                                    Viewport="0,0,0.1,0.1"
+                                    Viewport="0,0,0.16,0.47"
                                     ViewportUnits="RelativeToBoundingBox"/>
                                     </DiffuseMaterial.Brush>
                                 </DiffuseMaterial>
@@ -368,17 +353,17 @@
                                 <MeshGeometry3D 
                     Positions="
                         4, 0, -13
-                        4, 3, -13
+                        4, 1.5, -13
                         3, 0, -7
-                        3, 3, -7
+                        3, 1.5, -7
                         3, 0, -7
-                        3, 3, -7
+                        3, 1.5, -7
                         6, 0, -7
-                        6, 3, -7
+                        6, 1.5, -7
                         6, 0, -7
-                        6, 3, -7
+                        6, 1.5, -7
                         4, 0, 1
-                        4, 3, 1"
+                        4, 1.5, 1"
                     
                     TriangleIndices="
                         0,1,2
@@ -389,167 +374,13 @@
                         9,11,10"
                     
                     TextureCoordinates="
-                        0,0 1,0 0,1 1,1
-                        0,0 1,0 0,1 1,1
-                        0,0 1,0 0,1 1,1"/>
+                        0,1  0,0  1,1  1,0
+                        0,1  0,0  1,1  1,0
+                        0,1  0,0  1,1  1,0"/>
                             </GeometryModel3D.Geometry>
                         </GeometryModel3D>
                     </ModelVisual3D.Content>
                 </ModelVisual3D>
-
-
-                <!--<ModelUIElement3D>
-                <ModelUIElement3D.Model>
-                    <GeometryModel3D>
-                        <GeometryModel3D.Material>
-                                <DiffuseMaterial >
-                                    <DiffuseMaterial.Brush>
-                                        <ImageBrush ImageSource="/Icons/Armor.png"/>
-                                    </DiffuseMaterial.Brush>
-                                </DiffuseMaterial>
-                            --><!--<DiffuseMaterial Brush="AliceBlue"/>--><!--
-                        </GeometryModel3D.Material>  
-                        
-                        
-                        <GeometryModel3D.Geometry>
-                            <MeshGeometry3D 
-                                Positions="
-                                0.8, 0, -4 
-                                .8, 0.4, -4
-                                1.3, 0, -4
-                                1.3, 0.4, -4"
-                                TriangleIndices="1 0 2 1 2 3"
-                                TextureCoordinates="0,1  0,0  1,1  1,0" 
-                                />
-                        </GeometryModel3D.Geometry>
-
-                        <GeometryModel3D.Transform>
-                            <TranslateTransform3D OffsetX="0.5"  OffsetY="0" OffsetZ="2"/>
-                        </GeometryModel3D.Transform>
-                    </GeometryModel3D>
-                </ModelUIElement3D.Model>
-            </ModelUIElement3D>
-
-
-            <Viewport2DVisual3D>
-
-                <Viewport2DVisual3D.Geometry>
-                    <MeshGeometry3D Positions="
-                                    -0.1,  0.1, -4 
-                                    0.1,  0.1, -4
-                                    0.1, -0.1, -4
-                                    -0.1, -0.1, -4"
-                                    TriangleIndices="0,2,1 2,0,3"
-                                    TextureCoordinates="0,0 1,0 1,1 0,1"/>
-                </Viewport2DVisual3D.Geometry>
-
-                <Viewport2DVisual3D.Material>
-                    <DiffuseMaterial Viewport2DVisual3D.IsVisualHostMaterial="True" Brush="Transparent" />
-                </Viewport2DVisual3D.Material>
-
-
-                <Viewport2DVisual3D.Visual>
-                    
-                        <TextBlock Text="23" FontSize="1" Foreground="Red"/>
-                    
-                </Viewport2DVisual3D.Visual>
-
-                <Viewport2DVisual3D.Transform>
-                    <Transform3DGroup>
-                        <TranslateTransform3D OffsetX="1.55"  OffsetY="0.5" OffsetZ="2"/>
-
-                    </Transform3DGroup>
-                </Viewport2DVisual3D.Transform>
-            </Viewport2DVisual3D>-->
-
-
-                <!--<ModelUIElement3D>
-                    <ModelUIElement3D.Model>
-                        <GeometryModel3D>
-                            <GeometryModel3D.Geometry>
-                                <MeshGeometry3D  TextureCoordinates="0,1  0,0  1,1  1,0"
-                                                 Positions="1, 0, -4  1, 0.4, -4  1.3, 0, -4  1.3, 0.4, -4"
-                                                 TriangleIndices="1,0,2, 1,2,3">
-                                </MeshGeometry3D>
-                            </GeometryModel3D.Geometry>
-                            <GeometryModel3D.Material>
-                                <DiffuseMaterial>
-                                    <DiffuseMaterial.Brush>
-                                        <ImageBrush ImageSource="/Icons/Armor.png"/>
-                                    </DiffuseMaterial.Brush>
-                                </DiffuseMaterial>
-                            </GeometryModel3D.Material>
-
-                            <GeometryModel3D.Transform>
-                                <TranslateTransform3D OffsetX="0" OffsetY="0.0" OffsetZ=".4"/>
-                            </GeometryModel3D.Transform>
-                        </GeometryModel3D>
-                    </ModelUIElement3D.Model>
-                </ModelUIElement3D>-->
-
-
-                <!--<ModelUIElement3D  >
-                    <ModelUIElement3D.Model>
-                        <GeometryModel3D>
-                            <GeometryModel3D.Material>
-                                <DiffuseMaterial Brush="Brown" />
-                            </GeometryModel3D.Material>
-                            <GeometryModel3D.Geometry>
-                                <MeshGeometry3D
-                                Positions="
-                -0.2, -0.3, -0.2   0.2, -0.3, -0.2   -0.2, 0.3, -0.2   0.2, 0.3, -0.2  
-                -0.2, -0.3, 0.2    0.2, -0.3, 0.2    -0.2, 0.3, 0.2    0.2, 0.3, 0.2     
-                -0.2, -0.3, -0.2   -0.2, 0.3, -0.2   -0.2, -0.3, 0.2   -0.2, 0.3, 0.2   
-                0.2, -0.3, -0.2    0.2, 0.3, -0.2    0.2, -0.3, 0.2    0.2, 0.3, 0.2     
-                -0.2, -0.3, -0.2   -0.2, -0.3, 0.2   0.2, -0.3, -0.2   0.2, -0.3, 0.2   
-                -0.2, 0.3, -0.2    -0.2, 0.3, 0.2    0.2, 0.3, -0.2    0.2, 0.3, 0.2"    
-                                
-                                            TriangleIndices="
-                0,2,1  1,2,3    
-                4,5,6  5,7,6     
-                8,10,9 9,10,11   
-                12,13,14 13,15,14 
-                16,17,18 17,19,18 
-                20,21,22 21,23,22 
-        "
-                                />
-                            </GeometryModel3D.Geometry>
-                        </GeometryModel3D>
-                    </ModelUIElement3D.Model>
-                    <ModelUIElement3D.Transform>
-                        <TranslateTransform3D  OffsetZ="-1" OffsetX="1.5" />
-                    </ModelUIElement3D.Transform>
-                </ModelUIElement3D>-->
-
-
-
-
-                <!--Position="1, 0.3,-1"   
-            LookDirection="1, -0.2, -5"-->
-
-
-                <!--<Viewport2DVisual3D>
-                    <Viewport2DVisual3D.Geometry>
-                        <MeshGeometry3D Positions="-0.1,0.1,-4 0.1,0.1,-4 0.1,-0.1,-4 -0.1,-0.1,-4"
-                       TriangleIndices="0,2,1 2,0,3"
-                       TextureCoordinates="0,0 1,0 1,1 0,1"/>
-                    </Viewport2DVisual3D.Geometry>
-
-                    <Viewport2DVisual3D.Material>
-                        <DiffuseMaterial Viewport2DVisual3D.IsVisualHostMaterial="True"/>
-                    </Viewport2DVisual3D.Material>
-
-                    <Viewport2DVisual3D.Visual>
-                        <Border Background="#B2000000" CornerRadius="5" Padding="0 5">
-                            <TextBlock Text="1jjhkmm" Foreground="White" FontSize="3" />
-                            
-                        </Border>
-                    </Viewport2DVisual3D.Visual>
-
-                    <Viewport2DVisual3D.Transform>
-                        <TranslateTransform3D OffsetX="2.7" OffsetZ="-5" OffsetY="0.3"/>
-                    </Viewport2DVisual3D.Transform>
-                </Viewport2DVisual3D>-->
 
 
 
@@ -646,8 +477,8 @@
                             <GeometryModel3D.Geometry>
                                 <MeshGeometry3D
                     Positions="
-                        -0.15, 0, 0    0.15, 0.4, 0    -0.15, 0.4, 0    0.15, 0, 0
-                        0, 0, -0.15    0, 0.4, -0.15    0, 0, 0.15       0, 0.4, 0.15"
+    -0.15, -0.3, -0.15    0.15, 0.3, 0.15    -0.15, 0.3, -0.15    0.15, -0.3, 0.15
+    -0.15, -0.3, 0.15     0.15, 0.3, -0.15   -0.15, 0.3, 0.15     0.15, -0.3, -0.15"
                     TriangleIndices="
                         0,1,2  1,0,3
                         4,5,6  5,7,6"
@@ -658,7 +489,7 @@
                         </GeometryModel3D>
                     </ModelVisual3D.Content>
                     <ModelVisual3D.Transform>
-                        <TranslateTransform3D OffsetX="1" OffsetY="-0.05" OffsetZ="-7"/>
+                        <TranslateTransform3D OffsetX="1" OffsetY=".2" OffsetZ="-7"/>
                     </ModelVisual3D.Transform>
                 </ModelVisual3D>
 
@@ -675,8 +506,8 @@
                             <GeometryModel3D.Geometry>
                                 <MeshGeometry3D
                     Positions="
-                        -0.15, 0, 0    0.15, 0.4, 0    -0.15, 0.4, 0    0.15, 0, 0
-                        0, 0, -0.15    0, 0.4, -0.15    0, 0, 0.15       0, 0.4, 0.15"
+    -0.15, -0.3, -0.15    0.15, 0.3, 0.15    -0.15, 0.3, -0.15    0.15, -0.3, 0.15
+    -0.15, -0.3, 0.15     0.15, 0.3, -0.15   -0.15, 0.3, 0.15     0.15, -0.3, -0.15"
                     TriangleIndices="
                         0,1,2  1,0,3
                         4,5,6  5,7,6"
@@ -687,9 +518,11 @@
                         </GeometryModel3D>
                     </ModelVisual3D.Content>
                     <ModelVisual3D.Transform>
-                        <TranslateTransform3D OffsetX="2.7" OffsetY="-0.05" OffsetZ="-9.5"/>
+                        <TranslateTransform3D OffsetX="2.7" OffsetY=".2" OffsetZ="-9.5"/>
                     </ModelVisual3D.Transform>
                 </ModelVisual3D>
+                
+                
                 <ModelVisual3D>
                     <ModelVisual3D.Content>
                         <GeometryModel3D>
@@ -703,8 +536,8 @@
                             <GeometryModel3D.Geometry>
                                 <MeshGeometry3D
                     Positions="
-                        -0.15, 0, 0    0.15, 0.4, 0    -0.15, 0.4, 0    0.15, 0, 0
-                        0, 0, -0.15    0, 0.4, -0.15    0, 0, 0.15       0, 0.4, 0.15"
+    -0.15, -0.3, -0.15    0.15, 0.3, 0.15    -0.15, 0.3, -0.15    0.15, -0.3, 0.15
+    -0.15, -0.3, 0.15     0.15, 0.3, -0.15   -0.15, 0.3, 0.15     0.15, -0.3, -0.15"
                     TriangleIndices="
                         0,1,2  1,0,3
                         4,5,6  5,7,6"
@@ -715,7 +548,7 @@
                         </GeometryModel3D>
                     </ModelVisual3D.Content>
                     <ModelVisual3D.Transform>
-                        <TranslateTransform3D OffsetX="1.3" OffsetY="-0.05" OffsetZ="-10"/>
+                        <TranslateTransform3D OffsetX="1.3" OffsetY=".2" OffsetZ="-10"/>
                     </ModelVisual3D.Transform>
                 </ModelVisual3D>
                 
@@ -733,8 +566,8 @@
                             <GeometryModel3D.Geometry>
                                 <MeshGeometry3D
                     Positions="
-                        -0.15, 0, 0    0.15, 0.4, 0    -0.15, 0.4, 0    0.15, 0, 0
-                        0, 0, -0.15    0, 0.4, -0.15    0, 0, 0.15       0, 0.4, 0.15"
+    -0.1, -0.2, -0.1    0.1, 0.2, 0.1    -0.1, 0.2, -0.1    0.1, -0.2, 0.1
+    -0.1, -0.2, 0.1     0.1, 0.2, -0.1   -0.1, 0.2, 0.1     0.1, -0.2, -0.1"
                     TriangleIndices="
                         0,1,2  1,0,3
                         4,5,6  5,7,6"
@@ -745,40 +578,49 @@
                         </GeometryModel3D>
                     </ModelVisual3D.Content>
                     <ModelVisual3D.Transform>
-                        <TranslateTransform3D OffsetX="3.5" OffsetY="-0.05" OffsetZ="-6.5"/>
+                        <TranslateTransform3D OffsetX="3.5" OffsetY=".1" OffsetZ="-6.5"/>
                     </ModelVisual3D.Transform>
                 </ModelVisual3D>
 
                 
                 
-                <ModelVisual3D>
-                    <ModelVisual3D.Content>
+
+                <ModelUIElement3D>
+                    <ModelUIElement3D.Model>
                         <GeometryModel3D>
                             <GeometryModel3D.Material>
                                 <DiffuseMaterial>
                                     <DiffuseMaterial.Brush>
-                                        <ImageBrush ImageSource="/Images/texturs/kamen.png"/>
+                                        <ImageBrush ImageSource="/Images/texturs/tree.png"/>
                                     </DiffuseMaterial.Brush>
                                 </DiffuseMaterial>
                             </GeometryModel3D.Material>
                             <GeometryModel3D.Geometry>
                                 <MeshGeometry3D
                     Positions="
-                        -0.15, 0, 0    0.15, 0.2, 0    -0.15, 0.2, 0    0.15, 0, 0
-                        0, 0, -0.15    0, 0.2, -0.15    0, 0, 0.15       0, 0.2, 0.15"
+    -0.15, -0.3, -0.15    0.15, 0.3, 0.15    -0.15, 0.3, -0.15    0.15, -0.3, 0.15
+    -0.15, -0.3, 0.15     0.15, 0.3, -0.15   -0.15, 0.3, 0.15     0.15, -0.3, -0.15"
                     TriangleIndices="
                         0,1,2  1,0,3
-                        4,5,6  5,7,6"
+                        4,5,6  5,4,7"
                     TextureCoordinates="
                         0,1  1,0  0,0  1,1
-                        0,1  1,0  0,0  1,1"/>
+                        0,1  1,0  0,0  1,1"
+                />
                             </GeometryModel3D.Geometry>
                         </GeometryModel3D>
-                    </ModelVisual3D.Content>
-                    <ModelVisual3D.Transform>
-                        <TranslateTransform3D OffsetX="3" OffsetY="-0.03" OffsetZ="-3"/>
-                    </ModelVisual3D.Transform>
-                </ModelVisual3D>
+                    </ModelUIElement3D.Model>
+                    <ModelUIElement3D.Transform>
+                        <Transform3DGroup>
+                            <RotateTransform3D>
+                                <RotateTransform3D.Rotation>
+                                    <AxisAngleRotation3D Axis="0 1 0" Angle="0"/>
+                                </RotateTransform3D.Rotation>
+                            </RotateTransform3D>
+                            <TranslateTransform3D  OffsetZ="-2.5" OffsetX="2.5" OffsetY="0.2"/>
+                        </Transform3DGroup>
+                    </ModelUIElement3D.Transform>
+                </ModelUIElement3D>
 
 
             </Viewport3D>

@@ -104,8 +104,8 @@ namespace _3ISIP223_PogosyanWPF
                 {
                     case "win":
                         {
-                            WorkGame.Game.step++;
-                            NewLevel();
+                            //WorkGame.Game.step++;
+                            ////NewLevel();
 
                             break;
                         }
@@ -403,11 +403,10 @@ namespace _3ISIP223_PogosyanWPF
             if (WorkGame.Game.step == 1)
             {
                 GenerateEnemies();
-                //WorkGame.Game.step++;
                 return;
             }
 
-            if (!WorkGame.Game.IsGameOrChest || true)
+            if (!WorkGame.Game.IsGameOrChest)
             {
                 GenerateBox();
 
@@ -421,18 +420,12 @@ namespace _3ISIP223_PogosyanWPF
             string text = "LEVEL UP!";
             bool boss = false;
 
-            if (WorkGame.Game.BossMoment || true)
+            if (WorkGame.Game.BossMoment)
             {
                 GenerateBoss();
-                //WorkGame.Game.step++;
                 text = "BOSS";
                 boss = true;
-                //lastBoss = true;
-                //return;
             }
-
-            //if (!lastBoss)
-            //{
                 LevelUP.Visibility = Visibility.Visible;
                 txtLevel.Text = text;
                 DoubleAnimation anim = new DoubleAnimation();
@@ -452,15 +445,6 @@ namespace _3ISIP223_PogosyanWPF
                     }
                 };  
                 LevelUP.BeginAnimation(OpacityProperty, anim);
-            //}
-            //else
-            //{
-            //    Console.WriteLine("BOSSSS закончен!!!!!!!");
-
-
-            //    lastBoss = false;
-            //    //WindowWinBoss();
-            //}
 
         }
 
@@ -689,15 +673,15 @@ namespace _3ISIP223_PogosyanWPF
                 TakeItem();
             }
 
-            if (e.Key == Key.LeftShift && boxSpawn.boxIsOpen)
+            if ((e.Key == Key.LeftShift || e.Key == Key.RightShift) && boxSpawn.boxIsOpen)
             {
                 IgnoreItem();
             }
-            if (e.Key == Key.LeftCtrl && boxSpawn.boxIsOpen && ChestHelperCtrl.Visibility == Visibility.Visible)
+            if ((e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)  && boxSpawn.boxIsOpen && ChestHelperCtrl.Visibility == Visibility.Visible)
             {
                 UseItem();
             }
-            else if (e.Key == Key.LeftCtrl && WorkGame.Game.Player.CountPotionHP > 0)
+            else if ((e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl) && WorkGame.Game.Player.CountPotionHP > 0)
             {
                 //UseItem();
                 WorkGame.Game.UsePotionPlayerHP();
