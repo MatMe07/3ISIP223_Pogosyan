@@ -35,7 +35,7 @@ namespace _3ISIP223_PogosyanWPF
         private double _currentrotY = 0;
 
         private const double HorizontalSensitivity = 0.1;
-        private const double VerticalSensitivity = 0; 
+        //private const double VerticalSensitivity = 0; 
 
         private const double MinAngle = -50; 
         private const double MaxAngle = 50;
@@ -145,7 +145,7 @@ namespace _3ISIP223_PogosyanWPF
 
             model.Model = geom;
 
-            model.Transform = new TranslateTransform3D() { OffsetZ = -1, OffsetX = 1, OffsetY = 0 };
+            model.Transform = new TranslateTransform3D() { OffsetZ = 0, OffsetX = 1, OffsetY = 0 };
 
 
             Console.WriteLine($"{model}");
@@ -194,19 +194,19 @@ namespace _3ISIP223_PogosyanWPF
             Point center = new Point((this.Width / 2) - 10, (this.Height / 2) - 6);
 
             double deltaX = currentPosition.X - center.X;
-            double deltaY = currentPosition.Y - center.Y;
+            //double deltaY = currentPosition.Y - center.Y;
 
-            if (Math.Abs(deltaX) < 1 && Math.Abs(deltaY) < 1)
+            if (Math.Abs(deltaX) < 1)
             {
                 CenterMouse();
                 return;
             }
 
             _rotX += deltaX * HorizontalSensitivity;
-            _rotY -= deltaY * VerticalSensitivity;
+            //_rotY -= deltaY * VerticalSensitivity;
 
 
-            _rotY = Math.Max(MinAngle, Math.Min(MaxAngle, _rotY));
+            //_rotY = Math.Max(MinAngle, Math.Min(MaxAngle, _rotY));
             _rotX = Math.Max(MinAngle, Math.Min(MaxAngle, _rotX));
 
             CenterMouse();
