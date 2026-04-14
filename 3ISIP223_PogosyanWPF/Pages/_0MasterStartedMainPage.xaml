@@ -18,9 +18,12 @@
         <WrapPanel Orientation="Horizontal" Margin="10">
             <TextBlock Text="Вы выбрали: Анна | Услуга: " VerticalAlignment="Center" FontSize="20"/>
             <ComboBox Width="100" Margin="5 0 10 0" IsEditable="True"/>
+            
+            <TextBlock Text="Дата: " VerticalAlignment="Center" FontSize="20"/>
+            <DatePicker DisplayDate="12.02.2002" VerticalAlignment="Center" Margin="0 0 10 0"/>
             <Button  Content="Показать записи" VerticalAlignment="Center" FontSize="14" Padding="5"/>
         </WrapPanel>
-        <TextBlock Text="Доступные записи" Grid.Row="1" FontWeight="Medium" Margin="10 20 10 10" VerticalAlignment="Center" FontSize="20"/>
+        <TextBlock Text="Доступные записи" Grid.Row="1" FontWeight="Medium" Margin="10 10 10 10" VerticalAlignment="Center" FontSize="20"/>
 
         <ListBox Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
             <ListBox.ItemTemplate>

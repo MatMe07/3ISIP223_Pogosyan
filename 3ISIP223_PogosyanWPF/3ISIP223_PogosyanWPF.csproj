@@ -55,6 +55,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pages\_2ProtductsPage.xaml.cs">
+      <DependentUpon>_2ProtductsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\_3CartsPage.xaml.cs">
+      <DependentUpon>_3CartsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\_4MasterPage.xaml.cs">
+      <DependentUpon>_4MasterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Winodws\ProductWindow.xaml.cs">
+      <DependentUpon>ProductWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Winodws\RecordAppoitmantWIndow.xaml.cs">
+      <DependentUpon>RecordAppoitmantWIndow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -79,6 +94,30 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\_1AccountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\_2ProtductsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\_3CartsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\_4MasterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winodws\ProductWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winodws\RecordAppoitmantWIndow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pages\_0FiltersStartedMainPage.xaml.cs">
@@ -89,6 +128,9 @@
     </Compile>
     <Compile Include="Pages\_0StartedMainPage.xaml.cs">
       <DependentUpon>_0StartedMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\_1AccountPage.xaml.cs">
+      <DependentUpon>_1AccountPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
