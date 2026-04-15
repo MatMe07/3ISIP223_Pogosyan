@@ -64,6 +64,15 @@
     <Compile Include="Pages\_4MasterPage.xaml.cs">
       <DependentUpon>_4MasterPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\_5MenegerPage.xaml.cs">
+      <DependentUpon>_5MenegerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Winodws\DatailAppointment.xaml.cs">
+      <DependentUpon>DatailAppointment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Winodws\InsertServiceWindow.xaml.cs">
+      <DependentUpon>InsertServiceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Winodws\ProductWindow.xaml.cs">
       <DependentUpon>ProductWindow.xaml</DependentUpon>
     </Compile>
@@ -107,6 +116,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\_4MasterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\_5MenegerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winodws\DatailAppointment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winodws\InsertServiceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
