@@ -91,11 +91,133 @@
                     </ListBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Товары" FontSize="16" FontWeight="Medium">
+            <TabItem Header="Заказы" FontSize="16" FontWeight="Medium">
                 <Grid Background="Transparent">
+                    
+                    <ListBox d:ItemsSource="{d:SampleData ItemCount=2}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{x:Null}" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="5">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Text="🧾 ЗАКАЗ №1245" Grid.Column="0" Grid.Row="0" Margin="0 0 10 0"/>
+                                    <TextBlock Text="Иванова Анна" Grid.Column="1" Grid.Row="0" Margin="10 0"/>
+                                    <TextBlock Text="15.04.2026" Grid.Column="2" Grid.Row="0" Margin="10 0"/>
+                                    <TextBlock Text="💳 Карта" Grid.Column="3" Grid.Row="0" Margin="10 0"/>
+                                    <TextBlock Text="2 450 ₽" Grid.Column="4" Grid.Row="0" Margin="10 0"/>
+
+                                    <Border Padding="5" Grid.Row="1" Grid.ColumnSpan="5" BorderThickness="1" Margin="0 5"  BorderBrush="Black" >
+                                        <StackPanel>
+                                            <TextBlock Text="📦 Шампунь 'Объем' x1, " Margin="0 0 0 15" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="Статус: ⏳ ОЖИДАЕТ ВЫДАЧИ" Grid.Column="0"/>
+                                                <Button Grid.Column="1" Content="ВЫДАН" HorizontalAlignment="Right"  />
+
+                                            </Grid>
+
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
 
                 </Grid>
             </TabItem>
+
+            <TabItem Header="Товары" FontSize="16" FontWeight="Medium">
+                <Grid Background="Transparent">
+
+                    <ListBox d:ItemsSource="{d:SampleData ItemCount=4}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{x:Null}" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="5">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Text="ШАМПУНЬ 'ОБЪЕМ'" Grid.Column="0" Grid.Row="0" Margin="0 0 10 0"/>
+                                    <TextBlock Text="L'Oreal" Grid.Column="1" Grid.Row="0" Margin="10 0"/>
+                                    <TextBlock Text="1 200  →" Grid.Column="2" Grid.Row="0" Margin="10 0"/>
+                                    <TextBlock Text="899 ₽" Grid.Column="3" Grid.Row="0" Margin="0 0"/>
+                                    <TextBlock Text="☆ 4.2" Grid.Column="4" Grid.Row="0" Margin="10 0"/>
+                                    <TextBlock Text="Активен" Grid.Column="5" Grid.Row="0" Margin="10 0"/>
+                                    
+                                    
+                                    <Border Padding="5" Grid.Row="1" Grid.ColumnSpan="6" BorderThickness="1" Margin="0 5"  BorderBrush="Black" >
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Тип: Помада" Margin="0 0 0 15" />
+                                                <TextBlock Text=" │ " Margin="0 0 0 15" />
+                                                <TextBlock Text="Скидка: 21%" Margin="0 0 0 15" />
+                                            </StackPanel>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Button Grid.Column="0" Content="РЕДАКТИРОВАТЬ" Margin="5 0"  />
+                                                <Button Grid.Column="1" Content="ЗАМОРОЗИТЬ"  Margin="5 0" />
+                                                <Button Grid.Column="2" Content="СКИДКА"  Margin="5 0" />
+                                                <Button Grid.Column="3" Content="УДАЛИТЬ"   Margin="5 0"/>
+
+                                            </Grid>
+
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                </Grid>
+            </TabItem>
+
+            <TabItem  Header="Производители" FontSize="16" FontWeight="Medium">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+
+                    <TextBlock Text="ПРОИЗВОДИТЕЛИ (15)" />
+                    L'Oreal                              │ Франция      │ [✏️] [🗑️]
+                </Grid>
+            </TabItem>
+            
         </TabControl>
     </Grid>
 </Window>
