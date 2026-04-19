@@ -20,9 +20,11 @@ namespace _3ISIP223_PogosyanWPF.Pages
     /// </summary>
     public partial class _0StartedMainPage : Page
     {
+        public static Frame GetMainPageFrame {  get; set; }
         public _0StartedMainPage()
         {
             InitializeComponent();
+            GetMainPageFrame = mainPageFrame;
         }
     }
 }

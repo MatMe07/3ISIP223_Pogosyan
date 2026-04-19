@@ -23,7 +23,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="МОЙ АККАУНТ" HorizontalAlignment="Center" FontSize="19" FontWeight="Medium" Grid.Column="1" VerticalAlignment="Center"/>
-            <Button Content="Назад" FontSize="14" Grid.Column="0" Padding="10 5" Margin="10"/>
+            <Button Content="Назад"  Style="{StaticResource SecondaryButton}" Grid.Column="0"/>
         </Grid>
         <Grid Grid.Row="1" Margin="10">
             <Grid.RowDefinitions>
@@ -50,7 +50,7 @@
             <ListBox d:ItemsSource="{d:SampleData ItemCount=2}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{x:Null}" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border Background="#7FFFCCCC" CornerRadius="10" Padding="10">
+                        <Border BorderBrush="#7F6AA9AE" BorderThickness="2" CornerRadius="10" Padding="10">
                             <Grid >
                                 <Grid.ColumnDefinitions >
                                     <ColumnDefinition Width="auto"/>

@@ -35,8 +35,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Properties\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Properties\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +65,40 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Appointment.cs">
+      <DependentUpon>KosmeticaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Cart.cs">
+      <DependentUpon>KosmeticaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Core.cs" />
+    <Compile Include="KosmeticaModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KosmeticaModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KosmeticaModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KosmeticaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KosmeticaModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KosmeticaModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Manufacturer.cs">
+      <DependentUpon>KosmeticaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSerive.cs">
+      <DependentUpon>KosmeticaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Order.cs">
+      <DependentUpon>KosmeticaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderItem.cs">
+      <DependentUpon>KosmeticaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pages\_2ProtductsPage.xaml.cs">
       <DependentUpon>_2ProtductsPage.xaml</DependentUpon>
     </Compile>
@@ -66,6 +110,45 @@
     </Compile>
     <Compile Include="Pages\_5MenegerPage.xaml.cs">
       <DependentUpon>_5MenegerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\_6AdminPage.xaml.cs">
+      <DependentUpon>_6AdminPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentMethod.cs">
+      <DependentUpon>KosmeticaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProdCart.cs">
+      <DependentUpon>KosmeticaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Product.cs">
+      <DependentUpon>KosmeticaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductType.cs">
+      <DependentUpon>KosmeticaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service.cs">
+      <DependentUpon>KosmeticaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TypeRole.cs">
+      <DependentUpon>KosmeticaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TypeService.cs">
+      <DependentUpon>KosmeticaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>KosmeticaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MastersView.cs" />
+    <Compile Include="ViewModels\StartedMainView.cs" />
+    <Compile Include="ViewModels\WorkDataBase.cs" />
+    <Compile Include="Winodws\AddChange.xaml.cs">
+      <DependentUpon>AddChange.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Winodws\Admin\AddChangeUserWindow.xaml.cs">
+      <DependentUpon>AddChangeUserWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Winodws\Admin\FrozenDeleteUserWIndow.xaml.cs">
+      <DependentUpon>FrozenDeleteUserWIndow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Winodws\DatailAppointment.xaml.cs">
       <DependentUpon>DatailAppointment.xaml</DependentUpon>
@@ -123,6 +206,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\_6AdminPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winodws\AddChange.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winodws\Admin\AddChangeUserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winodws\Admin\FrozenDeleteUserWIndow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Winodws\DatailAppointment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -170,6 +269,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="KosmeticaModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>KosmeticaModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="KosmeticaModel.edmx.diagram">
+      <DependentUpon>KosmeticaModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -179,8 +286,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="KosmeticaModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>KosmeticaModel.Context.cs</LastGenOutput>
+      <DependentUpon>KosmeticaModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="KosmeticaModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KosmeticaModel.edmx</DependentUpon>
+      <LastGenOutput>KosmeticaModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

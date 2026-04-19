@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="577b386f83f942feacca4b087b5519ef" Name="Diagram1">
+        <EntityTypeShape EntityType="KosmeticaModel.Appointment" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KosmeticaModel.Cart" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KosmeticaModel.Manufacturer" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KosmeticaModel.MasterSerive" Width="1.5" PointX="8.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KosmeticaModel.OrderItem" Width="1.5" PointX="7.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KosmeticaModel.Order" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KosmeticaModel.PaymentMethod" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KosmeticaModel.ProdCart" Width="1.5" PointX="7.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KosmeticaModel.Product" Width="1.5" PointX="5.25" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KosmeticaModel.ProductType" Width="1.5" PointX="3" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KosmeticaModel.Service" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KosmeticaModel.TypeRole" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KosmeticaModel.TypeService" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KosmeticaModel.User" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <AssociationConnector Association="KosmeticaModel.FK_Appointments_PaymentMethods" ManuallyRouted="false" />
+        <AssociationConnector Association="KosmeticaModel.FK_Appointments_Services" ManuallyRouted="false" />
+        <AssociationConnector Association="KosmeticaModel.FK_Appointments_Users_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="KosmeticaModel.FK_Carts_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KosmeticaModel.FK_ProdCarts_Carts" ManuallyRouted="false" />
+        <AssociationConnector Association="KosmeticaModel.FK_Products_Manufacturers" ManuallyRouted="false" />
+        <AssociationConnector Association="KosmeticaModel.FK_MasterSerives_Services" ManuallyRouted="false" />
+        <AssociationConnector Association="KosmeticaModel.FK_MasterSerives_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KosmeticaModel.FK_OrderItems_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="KosmeticaModel.FK_OrderItems_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="KosmeticaModel.FK_Orders_PaymentMethods" ManuallyRouted="false" />
+        <AssociationConnector Association="KosmeticaModel.FK_Orders_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KosmeticaModel.FK_ProdCarts_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="KosmeticaModel.FK_Products_ProductTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="KosmeticaModel.FK_Services_TypeService" ManuallyRouted="false" />
+        <AssociationConnector Association="KosmeticaModel.FK_Users_TypeRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

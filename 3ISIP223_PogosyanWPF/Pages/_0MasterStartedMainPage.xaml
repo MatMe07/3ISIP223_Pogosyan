@@ -3,11 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
+      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="_0MasterStartedMainPage" d:Background="White">
-
+    <Page.DataContext>
+        <local:MastersView />
+    </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -15,33 +17,39 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        
         <WrapPanel Orientation="Horizontal" Margin="10">
-            <TextBlock Text="Вы выбрали: Анна | Услуга: " VerticalAlignment="Center" FontSize="20"/>
-            <ComboBox Width="100" Margin="5 0 10 0" IsEditable="True"/>
-            
-            <TextBlock Text="Дата: " VerticalAlignment="Center" FontSize="20"/>
-            <DatePicker DisplayDate="12.02.2002" VerticalAlignment="Center" Margin="0 0 10 0"/>
-            <Button  Content="Показать записи" VerticalAlignment="Center" FontSize="14" Padding="5"/>
-        </WrapPanel>
-        <TextBlock Text="Доступные записи" Grid.Row="1" FontWeight="Medium" Margin="10 10 10 10" VerticalAlignment="Center" FontSize="20"/>
+            <Button  Content="Назад" Style="{StaticResource SecondaryButton}" Click="Button_Click"/>
+            <TextBlock Text="{Binding Master.FIO,StringFormat='\{0} | Услуга: '}" VerticalAlignment="Center" FontSize="17"/>
+            <ComboBox Width="100" Margin="5 0 10 0" IsEditable="True" SelectedIndex="0"
+                      ItemsSource="{Binding UslugiLst}"
+                      SelectedItem="{Binding SelectedUslug}"
+                      VerticalAlignment="Center" FontSize="15"/>
 
-        <ListBox Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Дата: " VerticalAlignment="Center" FontSize="17"/>
+                <DatePicker  Margin="0 0 10 0" Width="110"  VerticalAlignment="Center" SelectedDate="{Binding SelectedDate}"/>
+
+            </StackPanel>
+        </WrapPanel>
+        <TextBlock Text="Доступные записи" Grid.Row="1" FontWeight="Medium" Margin="10 0 10 10" VerticalAlignment="Center" FontSize="20"/>
+
+        <ListBox Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding Appointments}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border Background="#7FFFCCCC" CornerRadius="10" Padding="10">
+                    <Border BorderBrush="#7F6AA9AE" BorderThickness="2" CornerRadius="10" Padding="10">
                         <Grid >
                             <Grid.RowDefinitions >
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Text="📅 15.04.2026" Grid.Row="0" FontSize="20" Margin="0 0 0 5" FontWeight="Bold"/>
-                            <TextBlock Text="🕐 10:00" Grid.Row="1" FontSize="20" Margin="0 0 0 5" FontWeight="Bold"/>
-                            <TextBlock Text="✨ Маникюр" Grid.Row="2" FontSize="20" Margin="0 0 0 5" FontWeight="Bold"/>
-                            <TextBlock Text="👩 Анна" Grid.Row="3" FontSize="20" Margin="0 0 0 5" FontWeight="Bold"/>
-                            <Button Content="Записаться" Margin="0 5" FontSize="18" Grid.Row="4"/>
+                            <TextBlock Text="{Binding AppointmentDate, StringFormat='📅 d.m.yyyy'}" Grid.Row="0" FontSize="20" Margin="0 0 0 5" FontWeight="Bold"/>
+                            <!--<TextBlock Text="📅 15.04.2026" Grid.Row="0" FontSize="20" Margin="0 0 0 5" FontWeight="Bold"/>-->
+                            <TextBlock Text="{Binding AppointmentDate, StringFormat='🕐 HH:mm'}" Grid.Row="1" FontSize="20" Margin="0 0 0 5" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Service.TypeService.Name, StringFormat='✨ {0}'}" Grid.Row="2" FontSize="20" Margin="0 0 0 5" FontWeight="Bold"/>
+                            <Button Content="Записаться" Margin="0 5" FontSize="18" Grid.Row="4" Style="{StaticResource ConfirmButton}"/>
                         </Grid>
                     </Border>
                 </DataTemplate>

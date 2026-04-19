@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Winodws"
         mc:Ignorable="d"
-        Title="ProductWindow" Height="251" Width="306" WindowStartupLocation="CenterScreen">
+        Title="ProductWindow" Height="263" Width="371" WindowStartupLocation="CenterScreen">
     <Grid >
 
         <Grid.RowDefinitions >
@@ -27,11 +27,11 @@
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.2*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Производитель: " Grid.Row="0" Grid.Column="0" FontSize="16"/>
+            <TextBlock Text="Производитель: " Grid.Row="0" Grid.Column="0" FontSize="16" />
             <TextBlock Text="L'Oreal" Grid.Row="0" Grid.Column="1" FontSize="16"/>
 
             <TextBlock Text="Тип товара: " Grid.Row="1" Grid.Column="0" FontSize="16"/>
@@ -46,10 +46,18 @@
             </Border>
 
             <TextBlock Text="Описание: " Grid.Row="4" Grid.Column="0" FontSize="16"/>
-            <TextBlock Text="Объемный шампунь для тонких волос" TextWrapping="Wrap" Grid.Row="4" Grid.Column="1" Width="165" FontSize="16" HorizontalAlignment="Left"/>
+            <TextBlock Text="Объемный шампунь для тонких волос" TextWrapping="Wrap" Grid.Row="4" Grid.Column="1" FontSize="16"/>
 
         </Grid>
 
-        <Button Content="Добавить в корзину" Grid.Row="3" Margin="5" HorizontalAlignment="Center"/>
+        <Grid Grid.Row="3" Margin="0 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Отмена" Grid.Column="0" Margin="10 0"  Style="{StaticResource SecondaryButton}"/>
+            <Button Content="Добавить в корзину" Grid.Column="1" Margin="10 0" Style="{StaticResource AddButton}" />
+        </Grid>
+
     </Grid>
 </Window>

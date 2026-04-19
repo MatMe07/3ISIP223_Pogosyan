@@ -17,7 +17,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Frame Source="/Pages/_0FiltersStartedMainPage.xaml" Grid.Row="1" x:Name="mainPageFrame"/>
+        <Frame  Source="_0FiltersStartedMainPage.xaml" Grid.Row="1" x:Name="mainPageFrame" NavigationUIVisibility="Hidden"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" >
             <Button Margin="10">

@@ -30,7 +30,7 @@
                         <ListBox Grid.Row="1" Height="90" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid>
+                                    <Grid Margin="0 5">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto"/>
                                             <ColumnDefinition Width="auto"/>
@@ -40,14 +40,14 @@
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock Text="👤 Погосян Эдик" Grid.Column="0" FontSize="16"/>
-                                        
+
                                         <TextBlock Text="|"  Grid.Column="1" FontSize="16" Margin="10 0"/>
-                                        
+
                                         <TextBlock Text="+7 901 903 04 19" Grid.Column="2" FontSize="16"/>
 
                                         <TextBlock Text="|"  Grid.Column="3" FontSize="16" Margin="10 0"/>
 
-                                        <Button Content="Записать" Grid.Column="4"/>
+                                        <Button Content="Записать" Margin="10 0" Grid.Column="4"/>
 
                                     </Grid>
                                 </DataTemplate>
@@ -60,24 +60,24 @@
                             <DataTemplate>
                                 <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="10">
                                     <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                    </Grid.RowDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
 
-                                    <TextBlock Text="📅 15.04.2026 10:00"  Grid.Row="0" FontSize="16"/>
-                                    <TextBlock Text="Услуга: Маникюр"  Grid.Row="1" FontSize="16" Margin="0 5"/>
+                                        <TextBlock Text="📅 15.04.2026 10:00"  Grid.Row="0" FontSize="16"/>
+                                        <TextBlock Text="Услуга: Маникюр"  Grid.Row="1" FontSize="16" Margin="0 5"/>
                                         <TextBlock Text="Мастер: Анна К."  Grid.Row="2" FontSize="16" Margin="0 5"/>
                                         <TextBlock Text="Клиент: Иванова А."  Grid.Row="3" FontSize="16"  Margin="0 5"/>
-                                    <StackPanel Grid.Row="4" Orientation="Horizontal">
-                                        <Button Content="Перенести" Margin="0 5"/>
-                                        <Button Content="Отменить" Margin="5"/>
-                                    </StackPanel>
-                                </Grid> 
-                                    
+                                        <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                            <Button Content="Перенести" Margin="0 5" Style="{StaticResource ConfirmButton}"/>
+                                            <Button Content="Отменить" Margin="5" Style="{StaticResource DeleteButton}"/>
+                                        </StackPanel>
+                                    </Grid>
+
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -93,7 +93,7 @@
             </TabItem>
             <TabItem Header="Заказы" FontSize="16" FontWeight="Medium">
                 <Grid Background="Transparent">
-                    
+
                     <ListBox d:ItemsSource="{d:SampleData ItemCount=2}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{x:Null}" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -126,7 +126,7 @@
                                                     <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
                                                 <TextBlock Text="Статус: ⏳ ОЖИДАЕТ ВЫДАЧИ" Grid.Column="0"/>
-                                                <Button Grid.Column="1" Content="ВЫДАН" HorizontalAlignment="Right"  />
+                                                <Button Grid.Column="1" Content="Выдан" HorizontalAlignment="Right" Style="{StaticResource ConfirmButton}" Background="#FF63B287" />
 
                                             </Grid>
 
@@ -167,8 +167,8 @@
                                     <TextBlock Text="899 ₽" Grid.Column="3" Grid.Row="0" Margin="0 0"/>
                                     <TextBlock Text="☆ 4.2" Grid.Column="4" Grid.Row="0" Margin="10 0"/>
                                     <TextBlock Text="Активен" Grid.Column="5" Grid.Row="0" Margin="10 0"/>
-                                    
-                                    
+
+
                                     <Border Padding="5" Grid.Row="1" Grid.ColumnSpan="6" BorderThickness="1" Margin="0 5"  BorderBrush="Black" >
                                         <StackPanel>
                                             <StackPanel Orientation="Horizontal">
@@ -185,9 +185,9 @@
                                                 </Grid.ColumnDefinitions>
 
                                                 <Button Grid.Column="0" Content="РЕДАКТИРОВАТЬ" Margin="5 0"  />
-                                                <Button Grid.Column="1" Content="ЗАМОРОЗИТЬ"  Margin="5 0" />
-                                                <Button Grid.Column="2" Content="СКИДКА"  Margin="5 0" />
-                                                <Button Grid.Column="3" Content="УДАЛИТЬ"   Margin="5 0"/>
+                                                <Button Grid.Column="1" Content="ЗАМОРОЗИТЬ"  Margin="5 0" Style="{StaticResource FreezeButton}" />
+                                                <Button Grid.Column="2" Content="СКИДКА"  Margin="5 0" Style="{StaticResource ConfirmButton}" />
+                                                <Button Grid.Column="3" Content="УДАЛИТЬ"   Margin="5 0" Style="{StaticResource DeleteButton}"/>
 
                                             </Grid>
 
@@ -213,11 +213,116 @@
                     </Grid.RowDefinitions>
 
 
-                    <TextBlock Text="ПРОИЗВОДИТЕЛИ (15)" />
-                    L'Oreal                              │ Франция      │ [✏️] [🗑️]
+                    <TextBlock Text="ПРОИЗВОДИТЕЛИ (15)" Margin="10"  />
+                    <Button Grid.Column="1" Grid.Row="0" Content="Добавить" Style="{StaticResource ConfirmButton}" HorizontalAlignment="Right"/>
+
+                    <ListBox d:ItemsSource="{d:SampleData ItemCount=6}"  Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}"  Grid.Row="1">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="1" Padding="5">
+                                    <Grid >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Text="L'Oreal" Grid.Column="0" VerticalAlignment="Center" FontSize="20"/>
+                                        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                                            <Button Content="✏️" MinWidth="40" Style="{StaticResource IconButton}" MinHeight="40" />
+                                            <Button Content="🗑️" MinHeight="40" MinWidth="40" Style="{StaticResource IconButton}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </TabItem>
-            
+
+            <TabItem Header="Типы товаров" FontSize="16" FontWeight="Medium">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+
+                    <TextBlock Text="Типы товаров (8)" Margin="10" />
+                    <Button Grid.Column="3" Grid.Row="0" Content="Добавить" HorizontalAlignment="Right" Style="{StaticResource ConfirmButton}"/>
+
+                    <ListBox d:ItemsSource="{d:SampleData ItemCount=6}"  Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" Grid.Row="1">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="1" Padding="5">
+                                    <Grid >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Text="Шампуни" Grid.Column="0" VerticalAlignment="Center" FontSize="20"/>
+                                        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                                            <Button Content="✏️" MinWidth="40" Style="{StaticResource IconButton}" MinHeight="40"/>
+                                            <Button Content="🗑️" MinWidth="40" Style="{StaticResource IconButton}" MinHeight="40"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+
+            </TabItem>
+
+            <TabItem Header="Услуги" FontSize="16" FontWeight="Medium">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+
+                    <TextBlock Text="Типы услуг (8)" Margin="10" />
+                    <Button Grid.Column="3" Grid.Row="0" Content="Добавить" HorizontalAlignment="Right" Style="{StaticResource ConfirmButton}"/>
+
+                    <ListBox d:ItemsSource="{d:SampleData ItemCount=6}"  Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" Grid.Row="1">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black" BorderThickness="1" Padding="5">
+                                    <Grid >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Text="Шампуни" Grid.Column="0" VerticalAlignment="Center" FontSize="20"/>
+                                        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Grid.RowSpan="2">
+                                            <Button Content="✏️" MinWidth="40" Style="{StaticResource IconButton}" MinHeight="40"/>
+                                            <Button Content="🗑️" MinWidth="40" Style="{StaticResource IconButton}" MinHeight="40"/>
+                                        </StackPanel>
+
+                                        <TextBlock Grid.Row="1" Text="└─ Оказывают:" VerticalAlignment="Center" FontSize="18"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+
+            </TabItem>
+
         </TabControl>
     </Grid>
 </Window>

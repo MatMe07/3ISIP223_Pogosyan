@@ -36,6 +36,7 @@
                                     <TextBlock Text="💰 2 500 ₽"/>
                                     <TextBlock Text="⏱️ 90 мин" Margin="5 0"/>
                                 </StackPanel>
+                                <Button Content="Изменить" Margin="0 0 0 5"/>
                             </StackPanel>
                             
                         </Border>

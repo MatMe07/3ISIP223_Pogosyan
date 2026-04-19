@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,22 @@ namespace _3ISIP223_PogosyanWPF.Pages
     /// </summary>
     public partial class _0FiltersStartedMainPage : Page
     {
+
         public _0FiltersStartedMainPage()
         {
             InitializeComponent();
+        }
+
+        private void BtnConfirn_Click(object sender, RoutedEventArgs e)
+        {
+            //lst.SelectedItem
+        }
+
+        private void lst_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //lstMasters.SelectedIndex = -1;
+            _0StartedMainPage.GetMainPageFrame.NavigationService.Navigate(new _0MasterStartedMainPage());
+            lstMasters.SelectedIndex = -1;
         }
     }
 }

@@ -1,21 +1,21 @@
-﻿<Window x:Class="_3ISIP223_PogosyanWPF.Winodws.InsertServiceWindow"
+﻿<Window x:Class="_3ISIP223_PogosyanWPF.Winodws.AddChange"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Winodws"
         mc:Ignorable="d"
-        Title="InsertServiceWindow" Height="164" Width="251">
+        Title="AddChange" Height="160" Width="270">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Добавить услугу" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+        <TextBlock Text="Добавление производителей" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="1" Margin="10 10" HorizontalAlignment="Left">
-            <TextBlock Text="Услуга" FontSize="16" Margin="0 5"/>
-            <ComboBox Width="150"  IsEditable="True"/>
+            <TextBlock Text="Название" FontSize="16" Margin="0 5"/>
+            <TextBox Width="150"  />
         </StackPanel>
         <Grid Grid.Row="2" Margin="0 10">
             <Grid.ColumnDefinitions>
@@ -26,9 +26,6 @@
             <Button Content="Добавить" Grid.Column="1" Margin="10 0" Style="{StaticResource AddButton}"/>
 
         </Grid>
-        
-        
     </Grid>
-    
-    
+
 </Window>
