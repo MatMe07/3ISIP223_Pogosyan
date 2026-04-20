@@ -55,7 +55,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             {
                 _selectedMasterItemFilt = value;
                 OnPropertyChanged(nameof(SelectedMasterItemFilt));
-                ApplyFilter();
+                LoadData();
             }
         }
         private string _selectedUslugItemFilt;
@@ -80,26 +80,60 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             {
                 filtered = filtered.Where(u => u.Uslugi.Contains(_selectedUslugItemFilt)).ToList();
             }
-
-            MasterSerives = new ObservableCollection<User>(filtered);
+            MasterSerives.Clear();
+            foreach(var item in filtered)
+            {
+                MasterSerives.Add(item);
+            }
+            //MasterSerives = new ObservableCollection<User>(filtered);
         }
         public List<string> MastersStrings { get; set; }
 
-        public List<string> TypeServesStrings { get; set; }
+        public ObservableCollection<string> TypeServesStrings { get; set; }
 
         public StartedMainView()
         {
 
             _dataService = WorkDataBase.Instance;
-            MasterSerives =  _dataService.MasterServes;
+            MasterSerives =  new ObservableCollection<User>();
+            TypeServesStrings = new ObservableCollection<string>();
 
-            MastersStrings = MasterSerives.Select(x => x.FIO).Distinct().ToList();
+            MastersStrings = _dataService.MasterServes.Select(x => x.FIO).Distinct().ToList();
+
             MastersStrings.Insert(0, "Все производители");
 
-            TypeServesStrings = TypeServes.Select(x => x.Name).ToList();
-            TypeServesStrings.Insert(0, "Все типы");
+            //SelectedUslugItemFilt = "Все типы";
+            //TypeServesStrings = MasterSerives.SelectMany(m=>m.MasterSerives.Select(x=>x.Service.TypeService.Name)).ToList();
+
+            //TypeServesStrings.Insert(0, "Все типы");
 
         }
+
+        void LoadData()
+        {
+            ApplyFilter();
+            string currentSelected = SelectedUslugItemFilt;
+
+            TypeServesStrings.Clear();
+            TypeServesStrings.Add("Все типы");
+
+            foreach(var serv in MasterSerives.SelectMany(m => m.MasterSerives.Select(x => x.Service.TypeService.Name)))
+            {
+                TypeServesStrings.Add(serv);
+            }
+
+            if (currentSelected != null && TypeServesStrings.Contains(currentSelected))
+            {
+                SelectedUslugItemFilt = currentSelected;
+            }
+            else
+            {
+                SelectedUslugItemFilt = "Все типы";
+            }
+
+        }
+
+
 
 
     }

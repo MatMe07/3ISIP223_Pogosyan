@@ -28,7 +28,7 @@
 
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Дата: " VerticalAlignment="Center" FontSize="17"/>
-                <DatePicker  Margin="0 0 10 0" Width="110"  VerticalAlignment="Center" SelectedDate="{Binding SelectedDate}"/>
+                <DatePicker x:Name="datePick"  Margin="0 0 10 0"  Width="110"  VerticalAlignment="Center" SelectedDate="{Binding SelectedDate}"/>
 
             </StackPanel>
         </WrapPanel>

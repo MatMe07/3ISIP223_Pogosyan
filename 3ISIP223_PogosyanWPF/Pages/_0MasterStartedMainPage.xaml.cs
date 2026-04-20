@@ -23,6 +23,9 @@ namespace _3ISIP223_PogosyanWPF.Pages
         public _0MasterStartedMainPage()
         {
             InitializeComponent();
+
+            datePick.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -3,11 +3,15 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
+      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="_2ProtductsPage" d:Background="White">
-
+    
+    <Page.DataContext>
+        <local:ProductViewModel />
+    </Page.DataContext>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -17,11 +21,13 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Назад" HorizontalAlignment="Left" Style="{StaticResource SecondaryButton}"/>
+        
+        <Button Content="Назад" HorizontalAlignment="Left" Style="{StaticResource SecondaryButton}" Click="Button_Click"/>
+        
         <Grid Grid.Column="1" HorizontalAlignment="Right">
-            <Button Content="Корзина" />
+            <Button Content="Корзина" Click="btnGoToCartPage_Click" />
             <Border HorizontalAlignment="Right" Margin="5" Width="25" Height="20" VerticalAlignment="Top" Background="#FFF55123" CornerRadius="5">
-                <TextBlock Text="99"  HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" />
+                <TextBlock Text="{Binding GetCountCart}"  HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" />
             </Border>
         </Grid>
 
@@ -36,43 +42,77 @@
             </Grid.RowDefinitions>
 
             <TextBlock Text="Фильтры" FontSize="17" FontWeight="Bold"/>
+            
             <StackPanel Grid.Row="1" Margin="0 0 10 10">
                 <TextBlock Text="Тип товара" FontSize="16" Margin="0 5"/>
-                <ComboBox Width="150"  IsEditable="True" HorizontalAlignment="Left"/>
+                <ComboBox Width="150" 
+                          ItemsSource="{Binding TypeLst}"
+                          SelectedItem="{Binding SelectedType}"
+                          HorizontalAlignment="Left" IsEditable="True" />
             </StackPanel>
+            
             <StackPanel Grid.Row="2" Margin="0 0 10 10">
                 <TextBlock Text="Производитель" FontSize="16" Margin="0 5"/>
-                <ComboBox Width="150"  IsEditable="True" HorizontalAlignment="Left"/>
+                <ComboBox Width="150" 
+                          ItemsSource="{Binding ManufacturerLst}"
+                          SelectedItem="{Binding SelectedManufacturer}"
+                          HorizontalAlignment="Left" IsEditable="True"/>
             </StackPanel>
 
             <TextBlock Text="Сортировка" Grid.Row="3" FontSize="17" FontWeight="Bold"/>
-            <StackPanel Grid.Row="4" Margin="0 10 10 10">
+            
+            <StackPanel Grid.Row="4" Margin="0 0 10 10">
                 <TextBlock Text="По оценке" FontSize="16" Margin="0 5"/>
-                <ComboBox Width="150"  IsEditable="True" HorizontalAlignment="Left" />
+                <ComboBox Width="150" 
+                          ItemsSource="{Binding SortLst}"
+                          SelectedItem="{Binding SelectedSort}"
+                          HorizontalAlignment="Left"/>
             </StackPanel>
 
-            <Button Grid.Row="5" Margin="0 5" Content="Применить" HorizontalAlignment="Center" />
+            <Button Grid.Row="5" Margin="0 5 10 5" Content="Сбросить фильтры" HorizontalAlignment="Stretch" 
+                    Click="ResetFilters_Click"/>
         </Grid>
 
-        <ListBox Grid.Row="1" Grid.Column="1" d:ItemsSource="{d:SampleData ItemCount=2}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+        <ListBox Grid.Row="1" Grid.Column="1" 
+                 ItemsSource="{Binding Products}" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="10">
-                        <Grid >
-                            <Grid.RowDefinitions >
+                        <Grid>
+                            <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Text="ШАМПУНЬ 'ОБЪЕМ'" Grid.Row="0" FontSize="15" Margin="5 0" FontWeight="Bold"/>
-                            <Border Grid.Row="1" Background="LightPink" Padding="5" HorizontalAlignment="Left" CornerRadius="7" Margin="5">
-                                <TextBlock Text="1 200 ₽" FontSize="16" FontWeight="Medium"/>
+                            
+                            <TextBlock Text="{Binding Name}" Grid.Row="0" FontSize="15" Margin="5 0" FontWeight="Bold"/>
+                            
+                            
+                            <Border Grid.Row="1" Padding="5" HorizontalAlignment="Left" CornerRadius="7" Margin="5">
+                                <TextBlock Text="{Binding Price, StringFormat='\{0} ₽'}" FontSize="16" FontWeight="Medium"/>
+
+                                <Border.Style>
+                                    <Style TargetType="Border" >
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding DiscountMore15}" Value="True">
+                                                <Setter Property="Background" Value="LightPink"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
                             </Border>
-                            <TextBlock Text="L'Oreal" Grid.Row="2" FontSize="15" Margin="5 5" FontWeight="Medium"/>
-                            <TextBlock Text="⭐ 4.2" Grid.Row="3" FontSize="15" Margin="5 0" FontWeight="Medium"/>
-                            <Button Content="Добавить в корзину" Style="{StaticResource AddButton}" Grid.Row="4" Margin="5"/>
+                            
+                            <TextBlock Text="{Binding Manufacturer.Name}" Grid.Row="2" FontSize="15" Margin="5 5" FontWeight="Medium"/>
+                            <TextBlock Text="{Binding Rating, StringFormat=⭐{0}}" Grid.Row="3" FontSize="15" Margin="5 0" FontWeight="Medium"/>
+                            
+                            <Button Content="Добавить в корзину" 
+                                    Tag="{Binding}" 
+                                    Style="{StaticResource ConfirmButton}" 
+                                    Grid.Row="4" Margin="5"
+                                    Click="btnAddToCart_Click" />
                         </Grid>
                     </Border>
                 </DataTemplate>
@@ -84,6 +124,5 @@
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
-
     </Grid>
 </Page>

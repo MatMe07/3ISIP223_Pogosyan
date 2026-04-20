@@ -26,5 +26,10 @@ namespace _3ISIP223_PogosyanWPF.Pages
             InitializeComponent();
             GetMainPageFrame = mainPageFrame;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            mainPageFrame.NavigationService.Navigate(new _2ProtductsPage());
+        }
     }
 }

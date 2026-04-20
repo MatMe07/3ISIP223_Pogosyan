@@ -138,7 +138,9 @@
     <Compile Include="User.cs">
       <DependentUpon>KosmeticaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="ViewModels\MastersView.cs" />
+    <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\StartedMainView.cs" />
     <Compile Include="ViewModels\WorkDataBase.cs" />
     <Compile Include="Winodws\AddChange.xaml.cs">
