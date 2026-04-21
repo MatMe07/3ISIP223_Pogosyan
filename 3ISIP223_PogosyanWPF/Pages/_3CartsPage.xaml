@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels"
       mc:Ignorable="d" d:Background="White"
-      Title="_3CartsPage" >
+      Title="_3CartsPage" d:Width="800">
 
     <Page.DataContext>
         <local:CartViewModel />
@@ -38,7 +38,7 @@
 
         <ListBox Grid.Row="1" Grid.Column="0" 
                  ItemsSource="{Binding CartItems}" 
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}">
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"  d:ItemsSource="{d:SampleData ItemCount=5}" BorderBrush="{x:Null}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="10">
@@ -75,13 +75,11 @@
                                         Tag="{Binding}"/>
                             </Grid>
 
-                            <TextBlock Grid.Row="3" FontSize="15" Margin="5 0" FontWeight="Medium">
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0:F2} ₽">
-                                        <Binding Path="Product.Price" />
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
+                            <StackPanel Grid.Row="3" >
+                                <TextBlock FontSize="10" Margin="5 0" Text="{Binding Product.Price ,StringFormat='{}{0:F2} ₽'}" TextDecorations="Strikethrough"/>
+                                <TextBlock FontSize="15" Margin="5 0" FontWeight="Medium" Text="{Binding Product.PriceWithDiscount ,StringFormat='{}{0:F2} ₽'}"/>
+
+                            </StackPanel>
 
                             <Button Content="Удалить" Grid.Row="4" Margin="5"
                                     Style="{StaticResource DeleteButton}"

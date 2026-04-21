@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace _3ISIP223_PogosyanWPF.ViewModels
 {
-    public class MastersView : INotifyPropertyChanged
+    public class AppointmentsViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -19,7 +19,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         }
         private WorkDataBase dataBase;
 
-        public MastersView()
+        public AppointmentsViewModel()
         {
             dataBase = WorkDataBase.Instance;
             Master = dataBase.CurrentMaster;

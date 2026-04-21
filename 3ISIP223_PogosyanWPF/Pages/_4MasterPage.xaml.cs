@@ -1,28 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using _3ISIP223_PogosyanWPF.ViewModels;
 
 namespace _3ISIP223_PogosyanWPF.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для _4MasterPage.xaml
-    /// </summary>
     public partial class _4MasterPage : Page
     {
+        private MasterViewModel _viewModel;
+
         public _4MasterPage()
         {
             InitializeComponent();
+            _viewModel = (MasterViewModel)DataContext;
+        }
+
+        private void EditService_Click(object sender, RoutedEventArgs e)
+        {
+            var service = (sender as Button)?.Tag as Service;
+            if (service != null)
+            {
+                _viewModel.UpdateService(service);
+            }
+        }
+
+        private void AddService_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

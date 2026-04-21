@@ -66,10 +66,13 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public ObservableCollection<TypeService> TypeServes { get; set; }
 
-        public ObservableCollection<Appointment> GetAppointmentsMaster(User master, DateTime date)
+        public ObservableCollection<Appointment> GetAppointmentsMaster(User master, DateTime? date=null, int? ClientId = null)
         {
+            var lst = AllAppointemntes.Where(serv => serv.Service.MasterSerives.Where(u => u.User == master).Count() > 0 && serv.Client_ID == ClientId);
+            if (date != null) lst = lst.Where(s => s.AppointmentDate == date);
+            
 
-            return new ObservableCollection<Appointment>(AllAppointemntes.Where(serv => serv.Service.MasterSerives.Where(u => u.User == master).Count() > 0 && serv.AppointmentDate.Date == date && serv.Client_ID == null));
+            return new ObservableCollection<Appointment>(lst);
         }
 
         private Cart CartCurrentUsert;
@@ -82,44 +85,65 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 return CartCurrentUsert;
             }
         }
-        //{
-        //    // Логика получения корзины по CurrentUser.User_ID
-        //    return 
-        //}
         private List<ProdCart> ProdCarts;
         public List<ProdCart> GetCartItems(int cartId)
         {
             if (ProdCarts == null) ProdCarts = Core.Kosmetica.ProdCarts.Where(p=>p.Cart.User_ID == GetCurrentUserCart.User_ID).ToList();
-            // Логика получения товаров из ProdCarts по Cart_ID
+            
             return ProdCarts;
         }
 
-        // Удалить товар из корзины
+
+        public List<Appointment> GetMasterAppointments(int idMaster)
+        {
+            return null;
+        }
+        public List<Service> GetMasterServices()
+        {
+            return null;
+        }
+
         public void RemoveFromCart(int cartId, int productId)
         {
-            // DELETE FROM ProdCarts WHERE Cart_ID = cartId AND Product_ID = productId
         }
 
-        // Обновить количество товара
         public void UpdateCartQuantity(int cartId, int productId, int quantity)
         {
-            // UPDATE ProdCarts SET Quantity = quantity WHERE Cart_ID = cartId AND Product_ID = productId
         }
 
-        // Обновить общую сумму корзины
         public void UpdateCartTotal(Cart cart)
         {
-            // UPDATE Carts SET Quantity = cart.Quantity, TotalPrice = cart.TotalPrice WHERE Cart_ID = cart.Cart_ID
         }
 
-        // Создать заказ из корзины
         public void CreateOrderFromCart(Cart cart, List<ProdCart> items)
         {
-            // 1. Создать заказ в Orders
-            // 2. Добавить товары в OrderItems
-            // 3. Очистить корзину (удалить все из ProdCarts)
         }
 
+
+        //public List<Service> GetMasterServices => Core.Kosmetica.MasterSerives.Join(Core.Kosmetica.Services, p => p.Service_ID, s => s.Service_ID, (p, s) => new { p.Service, s.TypeService, p.User, s.Price, s.DurationMinutes}).ToList();
+
+        public void AddServiceToMaster(int IdMaster, Service service)
+        {
+
+        }
+        public void RemoveServiceFromMaster(int IdMaster, Service service)
+        {
+
+        }
+
+        public void UpdateService(Service service)
+        {
+        }
+
+        public void UpdateAppointmentStatus(Appointment appointment, string status)
+        {
+        }
+
+        // Получить название типа услуги по ID
+        public string GetTypeServiceName(int typeServiceId)
+        {
+            return "";
+        }
 
         public WorkDataBase()
         {

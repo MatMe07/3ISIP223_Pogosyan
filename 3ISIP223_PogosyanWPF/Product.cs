@@ -40,6 +40,8 @@ namespace _3ISIP223_PogosyanWPF
                 return Discount > 15;
             }
         }
+
+        public decimal PriceWithDiscount => Price - (Price * Discount / 100);
         public virtual Manufacturer Manufacturer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderItem> OrderItems { get; set; }

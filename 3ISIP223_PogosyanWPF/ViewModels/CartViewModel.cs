@@ -47,17 +47,17 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             UpdateTotals();
         }
 
-        private ObservableCollection<ProdCart> _cartItems;
-        public ObservableCollection<ProdCart> CartItems
-        {
-            get { return _cartItems; }
-            set
-            {
-                _cartItems = value;
-                OnPropertyChanged(nameof(CartItems));
+        //private ObservableCollection<ProdCart> _cartItems;
+        public ObservableCollection<ProdCart> CartItems { get; set; }
+        //{
+        //    get { return _cartItems; }
+        //    set
+        //    {
+        //        _cartItems = value;
+        //        OnPropertyChanged(nameof(CartItems));
 
-            }
-        }
+        //    }
+        //}
 
         private int _totalQuantity;
         public int TotalQuantity
@@ -94,8 +94,8 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         void UpdateTotals()
         {
-            TotalQuantity = _allCartItems.Sum(i => i.Quantity);
-            TotalPrice = _allCartItems.Sum(i => i.Product.Price * (100 - i.Product.Discount) / 100 * i.Quantity);
+            TotalQuantity = CartItems.Sum(i => i.Quantity);
+            TotalPrice = CartItems.Sum(i => i.Product.Price * (100 - i.Product.Discount) / 100 * i.Quantity);
         }
 
         public void RemoveFromCart(ProdCart item)
@@ -104,6 +104,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             dataBase.RemoveFromCart(item.Cart_ID, item.Product_ID);
             UpdateCartItemsList();
             UpdateTotals();
+
         }
 
         public void UpdateQuantity(ProdCart item, int newQuantity)
@@ -115,14 +116,22 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             }
 
             item.Quantity = newQuantity;
+
+            //var index = _allCartItems.FindIndex(i => i.ProdCarts == item.ProdCarts);
+            //if (index >= 0)
+            //{
+            //_allCartItems[index].Quantity = newQuantity;
+
             dataBase.UpdateCartQuantity(item.Cart_ID, item.Product_ID, newQuantity);
+
+            //CartItems[index] = _allCartItems[index] ;
 
             _currentCart.TotalPrice = TotalPrice;
             _currentCart.Quantity = TotalQuantity;
             dataBase.UpdateCartTotal(_currentCart);
 
+            UpdateCartItemsList();
             UpdateTotals();
-            OnPropertyChanged(nameof(CartItems));
 
         }
 
@@ -142,7 +151,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
             dataBase.CreateOrderFromCart(_currentCart, _allCartItems);
 
-            _allCartItems.Clear();
+            CartItems.Clear();
             _currentCart.TotalPrice = 0;
             _currentCart.Quantity = 0;
             dataBase.UpdateCartTotal(_currentCart);

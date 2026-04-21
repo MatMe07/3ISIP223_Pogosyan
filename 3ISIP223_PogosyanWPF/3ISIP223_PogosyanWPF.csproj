@@ -138,8 +138,12 @@
     <Compile Include="User.cs">
       <DependentUpon>KosmeticaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
-    <Compile Include="ViewModels\MastersView.cs" />
+    <Compile Include="ViewModels\AppointmentsViewModel.cs" />
+    <Compile Include="ViewModels\ManagerViewModel.cs" />
+    <Compile Include="ViewModels\MasterAppointmentDetailsViewModel.cs" />
+    <Compile Include="ViewModels\MasterViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\StartedMainView.cs" />
     <Compile Include="ViewModels\WorkDataBase.cs" />
