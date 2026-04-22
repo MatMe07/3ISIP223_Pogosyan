@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,22 @@ namespace _3ISIP223_PogosyanWPF.Winodws
     /// </summary>
     public partial class DatailAppointment : Window
     {
-        public DatailAppointment()
+        private MasterAppointmentDetailsViewModel viewModel;
+        public DatailAppointment(Appointment appointment)
         {
             InitializeComponent();
+            DataContext = viewModel = new MasterAppointmentDetailsViewModel(appointment);
+            viewModel.Appointment = appointment;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
+
+        private void btnOtmena_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
         }
     }
 }

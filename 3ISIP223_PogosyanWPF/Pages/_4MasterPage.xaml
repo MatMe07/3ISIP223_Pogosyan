@@ -72,9 +72,9 @@
 
             <TextBlock Text="Мои записи" FontSize="20" FontWeight="Bold"/>
 
-            <ListBox Grid.Row="1" 
+            <ListBox Grid.Row="1" x:Name="lstAppoints"
                      ItemsSource="{Binding MasterAppointments}"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}">
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}"  SelectedItem="{Binding CurrentAppointment}" SelectionChanged="ListBox_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border Background="#7F808080" CornerRadius="10" Padding="10">

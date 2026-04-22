@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.Winodws;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -21,6 +22,23 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         private User _currentMaster;
         private List<Service> _allMasterServices;
         private List<Appointment> _allMasterAppointments;
+
+        private Appointment _CurrentAppointment;
+        public Appointment CurrentAppointment
+        {
+            get
+            {
+                return _CurrentAppointment;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    _CurrentAppointment = value;
+                    OpenWindowAppointmentDeteail();
+                }
+            }
+        }
 
         public MasterViewModel()
         {
@@ -45,26 +63,45 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             UpdateAppointmentsList();
         }
 
-        private ObservableCollection<Service> _masterServices;
-        public ObservableCollection<Service> MasterServices
+        void OpenWindowAppointmentDeteail()
         {
-            get { return _masterServices; }
-            set
+            var wind = new DatailAppointment(CurrentAppointment);
+            var res = wind.ShowDialog();
+
+            if (res == true)
             {
-                _masterServices = value;
-                OnPropertyChanged(nameof(MasterServices));
+
+                CloseAppoint();
             }
         }
 
-        private ObservableCollection<Appointment> _masterAppointments;
-        public ObservableCollection<Appointment> MasterAppointments
+        //private ObservableCollection<Service> _masterServices;
+        public ObservableCollection<Service> MasterServices { get; set; }
+        //{
+        //    get { return _masterServices; }
+        //    set
+        //    {
+        //        _masterServices = value;
+        //        OnPropertyChanged(nameof(MasterServices));
+        //    }
+        //}
+
+        //private ObservableCollection<Appointment> _masterAppointments;
+        public ObservableCollection<Appointment> MasterAppointments { get; set; }
+        //{
+        //    get { return _masterAppointments; }
+        //    set
+        //    {
+        //        _masterAppointments = value;
+        //        OnPropertyChanged(nameof(MasterAppointments));
+        //    }
+        //}
+
+        public void CloseAppoint()
         {
-            get { return _masterAppointments; }
-            set
-            {
-                _masterAppointments = value;
-                OnPropertyChanged(nameof(MasterAppointments));
-            }
+            CurrentAppointment.Status = "Completed";
+            MasterAppointments[MasterAppointments.IndexOf(CurrentAppointment)] = CurrentAppointment;
+            UpdateAppointmentsList();
         }
 
         void UpdateServicesList()
@@ -79,7 +116,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         void UpdateAppointmentsList()
         {
             MasterAppointments.Clear();
-            foreach (var appointment in _allMasterAppointments)
+            foreach (var appointment in _allMasterAppointments.Where(m=>m.User != null))
             {
                 MasterAppointments.Add(appointment);
             }

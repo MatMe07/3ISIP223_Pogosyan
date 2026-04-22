@@ -3,9 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Winodws"
+        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels"
         mc:Ignorable="d"
-        Title="DatailAppointment" Height="257" Width="325">
+        Title="DatailAppointment" Height="300" Width="460">
+    <!--<Window.DataContext>
+        <local:MasterAppointmentDetailsViewModel/>
+    </Window.DataContext>-->
+    
     <Grid >
 
         <Grid.RowDefinitions >
@@ -34,19 +38,19 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Text="ФИО: " Grid.Row="0" Grid.Column="0" FontSize="16" Margin="0 4"/>
-            <TextBlock Text="Погосян Эдик" Grid.Row="0" Grid.Column="1" FontSize="16" Margin="0 4"/>
+            <TextBlock Text="{Binding GetClientFIO}" Grid.Row="0" Grid.Column="1" FontSize="16" Margin="0 4"/>
 
             <TextBlock Text="Услуга: " Grid.Row="1" Grid.Column="0" FontSize="16" Margin="0 4"/>
-            <TextBlock Text="МАНИКЮР" Grid.Row="1" Grid.Column="1" FontSize="16" Margin="0 4"/>
+            <TextBlock Text="{Binding GetService}" Grid.Row="1" Grid.Column="1" FontSize="16" Margin="0 4"/>
 
             <TextBlock Text="Телефон: " Grid.Row="2" Grid.Column="0" FontSize="16" Margin="0 4 10 0"/>
-            <TextBlock Text="+7 9019030419" Grid.Row="2" Grid.Column="1" FontSize="16" Margin="0 4"/>
+            <TextBlock Text="{Binding GetClientPhone}" Grid.Row="2" Grid.Column="1" FontSize="16" Margin="0 4"/>
 
             <TextBlock Text="Дата: " Grid.Row="3" Grid.Column="0" FontSize="16" Margin="0 4"/>
-            <TextBlock Text="15 АПРЕЛЯ 2026 г." Grid.Row="3" Grid.Column="1" FontSize="16" Margin="0 4"/>
+            <TextBlock Text="{Binding GetAppointDate}" Grid.Row="3" Grid.Column="1" FontSize="16" Margin="0 4"/>
 
             <TextBlock Text="Время: " Grid.Row="4" Grid.Column="0" FontSize="16" Margin="0 4"/>
-            <TextBlock Text="10:00"  Grid.Row="4" Grid.Column="1"  FontSize="16" HorizontalAlignment="Left" Margin="0 4"/>
+            <TextBlock Text="{Binding GetAppointTime}"  Grid.Row="4" Grid.Column="1"  FontSize="16" HorizontalAlignment="Left" Margin="0 4"/>
 
         </Grid>
 
@@ -55,8 +59,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Content="Отмена" Grid.Column="0"  Style="{StaticResource SecondaryButton}"  Margin="5"/>
-            <Button Content="Завершить запись" Grid.Column="1"  Margin="5" Style="{StaticResource ConfirmButton}"/>
+            <Button Content="Отмена" Grid.Column="0"  Style="{StaticResource SecondaryButton}"  Margin="5" Click="btnOtmena_Click" />
+            <Button Content="Завершить запись" Grid.Column="1"  Margin="5" Style="{StaticResource ConfirmButton}" Click="Button_Click"/>
         </Grid>
     </Grid>
 </Window>

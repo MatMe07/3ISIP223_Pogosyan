@@ -33,5 +33,10 @@ namespace _3ISIP223_PogosyanWPF.Pages
             var result = wind.ShowDialog();
             Console.WriteLine(tServ);
         }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            lstAppoints.SelectedIndex = -1;
+        }
     }
 }

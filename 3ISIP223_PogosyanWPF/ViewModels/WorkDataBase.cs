@@ -45,7 +45,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         {
             get
             {
-                if (_products == null) _products = Core.Kosmetica.Products.ToList();
+                if (_products == null) _products = Core.Kosmetica.Products.Where(s=>!s.IsFrozen).ToList();
                 return _products;
             }
 
@@ -121,6 +121,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public void UpdateCartTotal(Cart cart)
         {
+
         }
 
         public void CreateOrderFromCart(Cart cart, List<ProdCart> items)
@@ -139,8 +140,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                     User = CurrentUser,
                     Service = service,
                 };
-            Core.Kosmetica.MasterSerives.Add( mast
-                );
+            Core.Kosmetica.MasterSerives.Add(mast);
             Core.Kosmetica.SaveChanges();
             //var d = MasterServes.Select(m => m.MasterSerives);
             AllMasterServices.Add(mast);
@@ -167,8 +167,8 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public List<TypeService> GetAllTypeServicesMaster(int MasterID)
         {
-            var d = MasterServes.SelectMany(m => m.MasterSerives.Where(x => x.User_ID != MasterID).Select(s=>s.Service.TypeService)).ToList();
-            return d;
+            var df = Services.Where(s => !MasterServes.SelectMany(m => m.MasterSerives.Select(ms => ms.Service)).Contains(s)).Select(s=>s.TypeService).ToList();
+            return df;
         }
 
         public WorkDataBase()
