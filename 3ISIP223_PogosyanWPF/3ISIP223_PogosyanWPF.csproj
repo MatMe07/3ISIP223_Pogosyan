@@ -99,6 +99,9 @@
     <Compile Include="OrderItem.cs">
       <DependentUpon>KosmeticaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pages\LoginRegisterWindow.xaml.cs">
+      <DependentUpon>LoginRegisterWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\_2ProtductsPage.xaml.cs">
       <DependentUpon>_2ProtductsPage.xaml</DependentUpon>
     </Compile>
@@ -138,6 +141,7 @@
     <Compile Include="User.cs">
       <DependentUpon>KosmeticaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
     <Compile Include="ViewModels\AppointmentsViewModel.cs" />
@@ -147,17 +151,29 @@
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\StartedMainView.cs" />
     <Compile Include="ViewModels\WorkDataBase.cs" />
-    <Compile Include="Winodws\AddChange.xaml.cs">
-      <DependentUpon>AddChange.xaml</DependentUpon>
+    <Compile Include="Winodws\AddEditManufacturerWindow.xaml.cs">
+      <DependentUpon>AddEditManufacturerWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Winodws\Admin\AddChangeUserWindow.xaml.cs">
-      <DependentUpon>AddChangeUserWindow.xaml</DependentUpon>
+    <Compile Include="Winodws\AddEditProductTypeWindow.xaml.cs">
+      <DependentUpon>AddEditProductTypeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Winodws\Admin\FrozenDeleteUserWIndow.xaml.cs">
-      <DependentUpon>FrozenDeleteUserWIndow.xaml</DependentUpon>
+    <Compile Include="Winodws\AddEditProductWindow.xaml.cs">
+      <DependentUpon>AddEditProductWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Winodws\AddEditServiceTypeWindow.xaml.cs">
+      <DependentUpon>AddEditServiceTypeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Winodws\Admin\AddEditUserWindow.xaml.cs">
+      <DependentUpon>AddEditUserWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Winodws\CreateAppointmentWindow.xaml.cs">
+      <DependentUpon>CreateAppointmentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Winodws\DatailAppointment.xaml.cs">
       <DependentUpon>DatailAppointment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Winodws\EditDiscountWindow.xaml.cs">
+      <DependentUpon>EditDiscountWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Winodws\InsertServiceWindow.xaml.cs">
       <DependentUpon>InsertServiceWindow.xaml</DependentUpon>
@@ -167,6 +183,9 @@
     </Compile>
     <Compile Include="Winodws\RecordAppoitmantWIndow.xaml.cs">
       <DependentUpon>RecordAppoitmantWIndow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Winodws\RescheduleAppointmentWindow.xaml.cs">
+      <DependentUpon>RescheduleAppointmentWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -180,6 +199,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\LoginRegisterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\_0FiltersStartedMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -216,19 +239,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Winodws\AddChange.xaml">
+    <Page Include="Winodws\AddEditManufacturerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Winodws\Admin\AddChangeUserWindow.xaml">
+    <Page Include="Winodws\AddEditProductTypeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Winodws\Admin\FrozenDeleteUserWIndow.xaml">
+    <Page Include="Winodws\AddEditProductWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winodws\AddEditServiceTypeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winodws\Admin\AddEditUserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winodws\CreateAppointmentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Winodws\DatailAppointment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winodws\EditDiscountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -241,6 +280,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Winodws\RecordAppoitmantWIndow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winodws\RescheduleAppointmentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -59,8 +59,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Content="Отмена" Grid.Column="0"  Style="{StaticResource SecondaryButton}"  Margin="5" Click="btnOtmena_Click" />
-            <Button Content="Завершить запись" Grid.Column="1"  Margin="5" Style="{StaticResource ConfirmButton}" Click="Button_Click"/>
+            <Button Content="Отмена" Grid.Column="0"  Style="{StaticResource SecondaryButton}"  Margin="5" Click="btnOtmena_Click"  />
+            <Button Content="Завершить запись" Grid.Column="1"  Margin="5" Style="{StaticResource ConfirmButton}" Click="Button_Click" x:Name="btnEompleted"/>
         </Grid>
     </Grid>
 </Window>

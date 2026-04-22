@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using _3ISIP223_PogosyanWPF.ViewModels;
 
 namespace _3ISIP223_PogosyanWPF.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для _1AccountPage.xaml
-    /// </summary>
     public partial class _1AccountPage : Page
     {
+        private AccountViewModel _viewModel;
+
         public _1AccountPage()
         {
             InitializeComponent();
+            _viewModel = (AccountViewModel)DataContext;
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (NavigationService.CanGoBack)
+                NavigationService.GoBack();
         }
     }
 }

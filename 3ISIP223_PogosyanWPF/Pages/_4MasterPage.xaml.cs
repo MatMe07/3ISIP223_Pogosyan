@@ -21,20 +21,23 @@ namespace _3ISIP223_PogosyanWPF.Pages
             var service = (sender as Button)?.Tag as Service;
             if (service != null)
             {
-                _viewModel.RemoveService(service);
+                var result = MessageBox.Show($"Удалить услугу \"{service.TypeService?.Name}\"?",
+                    "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    _viewModel.RemoveService(service);
+                }
             }
         }
 
         private void AddService_Click(object sender, RoutedEventArgs e)
         {
-            string tServ = null;
             var wind = new InsertServiceWindow(_viewModel);
-            
-            var result = wind.ShowDialog();
-            Console.WriteLine(tServ);
+            wind.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            wind.ShowDialog();
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lstAppoints_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             lstAppoints.SelectedIndex = -1;
         }

@@ -3,10 +3,14 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
+      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="_1AccountPage" d:Background="White">
+
+    <Page.DataContext>
+        <local:AccountViewModel />
+    </Page.DataContext>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -16,55 +20,78 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="МОЙ АККАУНТ" HorizontalAlignment="Center" FontSize="19" FontWeight="Medium" Grid.Column="1" VerticalAlignment="Center"/>
-            <Button Content="Назад"  Style="{StaticResource SecondaryButton}" Grid.Column="0"/>
+            <Button Content="Назад" Style="{StaticResource SecondaryButton}" Grid.Column="0" Click="BackButton_Click"/>
         </Grid>
+
         <Grid Grid.Row="1" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
+
             <TextBlock Text="ФИО" Grid.Row="0" Grid.Column="0" FontSize="16"/>
-            <TextBlock Text="Погосян Эдик" Grid.Row="0" Grid.Column="1" FontSize="16"/>
+            <TextBlock Text="{Binding FullName}" Grid.Row="0" Grid.Column="1" FontSize="16"/>
+
             <TextBlock Text="Телефон" Grid.Row="1" Grid.Column="0" FontSize="16" Margin="0 5 20 5"/>
-            <TextBlock Text="+7 (999) 123-45-67" Grid.Row="1" Grid.Column="1" FontSize="16" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding Phone}" Grid.Row="1" Grid.Column="1" FontSize="16" VerticalAlignment="Center"/>
+
             <TextBlock Text="Почта" Grid.Row="2" Grid.Column="0" FontSize="16"/>
-            <TextBlock Text="memat@gmail.com" Grid.Row="2" Grid.Column="1" FontSize="16"/>
-            
+            <TextBlock Text="{Binding Email}" Grid.Row="2" Grid.Column="1" FontSize="16"/>
         </Grid>
 
         <StackPanel Grid.Row="2" Margin="10">
             <TextBlock Text="ИСТОРИЯ ЗАПИСЕЙ" FontSize="16" FontWeight="Medium" Margin="0 0 0 10"/>
-            <ListBox d:ItemsSource="{d:SampleData ItemCount=2}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{x:Null}" >
+
+            <ListBox ItemsSource="{Binding UserAppointments}" 
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                     BorderBrush="{x:Null}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="#7F6AA9AE" BorderThickness="2" CornerRadius="10" Padding="10">
-                            <Grid >
-                                <Grid.ColumnDefinitions >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="📅 15.04.2026" Grid.Column="0" FontSize="15" Margin="5 0" FontWeight="Bold"/>
-                                <TextBlock Text="🕐 10:00" Grid.Column="1" FontSize="15" Margin="5 0" FontWeight="Bold"/>
-                                <TextBlock Text="✨ Маникюр" Grid.Column="2" FontSize="15" Margin="5 0" FontWeight="Bold"/>
-                                <TextBlock Text="👩 Анна" Grid.Column="3" FontSize="15" Margin="5 0" FontWeight="Bold"/>
-                                <TextBlock Text="Выполнено" Grid.Column="4" FontSize="15" Margin="5 0" FontWeight="Bold"/>
-                                
+
+                                <TextBlock Text="{Binding AppointmentDate, StringFormat='📅 dd.MM.yyyy'}" 
+                                           Grid.Column="0" FontSize="15" Margin="5 0" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding AppointmentDate, StringFormat='🕐 HH:mm'}" 
+                                           Grid.Column="1" FontSize="15" Margin="5 0" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Service.TypeService.Name, StringFormat='✨ {0}'}" 
+                                           Grid.Column="2" FontSize="15" Margin="5 0" FontWeight="Bold"/>
+                                <TextBlock Grid.Column="4" FontSize="15" Margin="5 0" FontWeight="Bold">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text" Value="⏳ Ожидает"/>
+                                            <Setter Property="Foreground" Value="#FF8C00"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Status}" Value="Completed">
+                                                    <Setter Property="Text" Value="✅ Выполнено"/>
+                                                    <Setter Property="Foreground" Value="Green"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="Cancelled">
+                                                    <Setter Property="Text" Value="❌ Отменено"/>
+                                                    <Setter Property="Foreground" Value="Red"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                             </Grid>
                         </Border>
                     </DataTemplate>
@@ -76,18 +103,19 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
-
         </StackPanel>
-        
 
         <StackPanel Grid.Row="3" Margin="10">
             <TextBlock Text="ИСТОРИЯ ЗАКАЗОВ" FontSize="16" FontWeight="Medium" Margin="0 0 0 10"/>
-            <ListBox d:ItemsSource="{d:SampleData ItemCount=1}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{x:Null}" >
+
+            <ListBox ItemsSource="{Binding UserOrders}" 
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                     BorderBrush="{x:Null}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="#7F000000" BorderThickness="1" CornerRadius="10" Padding="10">
-                            <Grid >
-                                <Grid.ColumnDefinitions >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="auto"/>
@@ -99,30 +127,50 @@
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="🧾 ЗАКАЗ №1245" Grid.Column="0" FontSize="15" Margin="5 0" FontWeight="Bold"/>
-                                <TextBlock Text="📅 15.04.2026" Grid.Column="1" FontSize="15" Margin="5 0" FontWeight="Bold"/>
-                                <TextBlock Text="💵 Карта" Grid.Column="2" FontSize="15" Margin="5 0" FontWeight="Bold"/>
-                                <TextBlock Text="👩 2 333.00 ₽" Grid.Column="3" FontSize="15" Margin="5 0" FontWeight="Bold"/>
-                                <TextBlock Text="Выдан" Grid.Column="4" FontSize="15" Margin="5 0" FontWeight="Bold"/>
+
+                                <TextBlock Text="{Binding Order_ID, StringFormat='🧾 ЗАКАЗ №{0}'}" 
+                                           Grid.Column="0" FontSize="15" Margin="5 0" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding OrderDate, StringFormat='📅 dd.MM.yyyy'}" 
+                                           Grid.Column="1" FontSize="15" Margin="5 0" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding PaymentMethod.Name, StringFormat='💵 {0}'}" 
+                                           Grid.Column="2" FontSize="15" Margin="5 0" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding TotalAmount, StringFormat='💰 {0:F2} ₽'}" 
+                                           Grid.Column="3" FontSize="15" Margin="5 0" FontWeight="Bold"/>
+                                <TextBlock Grid.Column="4" FontSize="15" Margin="5 0" FontWeight="Bold">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text" Value="⏳ Ожидает выдачи"/>
+                                            <Setter Property="Foreground" Value="#FF8C00"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Status}" Value="True">
+                                                    <Setter Property="Text" Value="✅ Выдан"/>
+                                                    <Setter Property="Foreground" Value="Green"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+
                                 <StackPanel Grid.Row="1" Grid.ColumnSpan="6">
-                                    <ListBox Grid.Row="1" Margin="5 3 5 0" Grid.ColumnSpan="5" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.HorizontalScrollBarVisibility="Auto" BorderBrush="{x:Null}"  >
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Шампунь 'Объем'"/>
-                                                <TextBlock Text="x1" Margin="5 0 0 0" Foreground="Blue"/>
-                                                <TextBlock Text="|" Margin="10 0 0 0"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                    
-                                    <ListBox.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel/>
-                                        </ItemsPanelTemplate>
-                                    </ListBox.ItemsPanel>
-                                </ListBox>
-                                    
+                                    <ListBox ItemsSource="{Binding OrderItems}" 
+                                             ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                                             BorderBrush="{x:Null}">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" Margin="0 2">
+                                                    <TextBlock Text="{Binding Product.Name}"/>
+                                                    <TextBlock Text=" x" Margin="5 0 0 0"/>
+                                                    <TextBlock Text="{Binding Quantity}" Foreground="Blue"/>
+                                                    <TextBlock Text=" | " Margin="5 0 0 0"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                        <ListBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                    </ListBox>
                                 </StackPanel>
                             </Grid>
                         </Border>
@@ -135,9 +183,6 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
-
         </StackPanel>
-        
-        
     </Grid>
 </Page>

@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
-        <Frame Source="/Pages/_4MasterPage.xaml" NavigationUIVisibility="Hidden" />
-        <!--<Frame Source="/Pages/_0StartedMainPage.xaml" NavigationUIVisibility="Hidden" />-->
+        <Frame Source="/Pages/_0StartedMainPage.xaml" NavigationUIVisibility="Hidden" />
     </Grid>
 </Window>

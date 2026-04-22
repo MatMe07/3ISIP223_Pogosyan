@@ -26,6 +26,12 @@ namespace _3ISIP223_PogosyanWPF.Winodws
             InitializeComponent();
             DataContext = viewModel = new MasterAppointmentDetailsViewModel(appointment);
             viewModel.Appointment = appointment;
+
+            if (appointment.Status == "Completed")
+            {
+                btnEompleted.IsEnabled = false;
+            }
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

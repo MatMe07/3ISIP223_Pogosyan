@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace _3ISIP223_PogosyanWPF.ViewModels
 {
@@ -18,46 +19,17 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         }
 
         private WorkDataBase dataBase;
-        private Cart _currentCart;
-        private List<ProdCart> _allCartItems;
 
-        public CartViewModel()
+        private ObservableCollection<ProdCart> _cartItems;
+        public ObservableCollection<ProdCart> CartItems
         {
-            dataBase = WorkDataBase.Instance;
-
-            CartItems = new ObservableCollection<ProdCart>();
-
-            LoadAllData();
-        }
-
-        void LoadAllData()
-        {
-            _currentCart = dataBase.GetCurrentUserCart;
-
-            if (_currentCart != null)
+            get { return _cartItems; }
+            set
             {
-                _allCartItems = dataBase.GetCartItems(_currentCart.Cart_ID).ToList();
+                _cartItems = value;
+                OnPropertyChanged(nameof(CartItems));
             }
-            else
-            {
-                _allCartItems = new List<ProdCart>();
-            }
-
-            UpdateCartItemsList();
-            UpdateTotals();
         }
-
-        //private ObservableCollection<ProdCart> _cartItems;
-        public ObservableCollection<ProdCart> CartItems { get; set; }
-        //{
-        //    get { return _cartItems; }
-        //    set
-        //    {
-        //        _cartItems = value;
-        //        OnPropertyChanged(nameof(CartItems));
-
-        //    }
-        //}
 
         private int _totalQuantity;
         public int TotalQuantity
@@ -67,7 +39,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             {
                 _totalQuantity = value;
                 OnPropertyChanged(nameof(TotalQuantity));
-
             }
         }
 
@@ -79,32 +50,53 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             {
                 _totalPrice = value;
                 OnPropertyChanged(nameof(TotalPrice));
-
             }
+        }
+
+        public CartViewModel()
+        {
+            dataBase = WorkDataBase.Instance;
+            CartItems = new ObservableCollection<ProdCart>();
+
+            LoadAllData();
+        }
+
+        void LoadAllData()
+        {
+            UpdateCartItemsList();
+            UpdateTotals();
         }
 
         void UpdateCartItemsList()
         {
             CartItems.Clear();
-            foreach (var item in _allCartItems)
+            if (dataBase.CurrentUserCartItems != null)
             {
-                CartItems.Add(item);
+                foreach (var item in dataBase.CurrentUserCartItems)
+                {
+                    CartItems.Add(item);
+                }
             }
         }
 
         void UpdateTotals()
         {
-            TotalQuantity = CartItems.Sum(i => i.Quantity);
-            TotalPrice = CartItems.Sum(i => i.Product.Price * (100 - i.Product.Discount) / 100 * i.Quantity);
+            TotalQuantity = dataBase.GetCountCart;
+            TotalPrice = dataBase.CurrentUserCart?.TotalPrice ?? 0;
         }
 
         public void RemoveFromCart(ProdCart item)
         {
-            _allCartItems.Remove(item);
-            dataBase.RemoveFromCart(item.Cart_ID, item.Product_ID);
-            UpdateCartItemsList();
-            UpdateTotals();
+            var result = MessageBox.Show($"Удалить товар {item.Product.Name} из корзины?",
+                "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
+            if (result == MessageBoxResult.Yes)
+            {
+                dataBase.RemoveFromCart(item);
+                UpdateCartItemsList();
+                UpdateTotals();
+                OnPropertyChanged(nameof(CartItems));
+            }
         }
 
         public void UpdateQuantity(ProdCart item, int newQuantity)
@@ -115,24 +107,9 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 return;
             }
 
-            item.Quantity = newQuantity;
-
-            //var index = _allCartItems.FindIndex(i => i.ProdCarts == item.ProdCarts);
-            //if (index >= 0)
-            //{
-            //_allCartItems[index].Quantity = newQuantity;
-
-            dataBase.UpdateCartQuantity(item.Cart_ID, item.Product_ID, newQuantity);
-
-            //CartItems[index] = _allCartItems[index] ;
-
-            _currentCart.TotalPrice = TotalPrice;
-            _currentCart.Quantity = TotalQuantity;
-            dataBase.UpdateCartTotal(_currentCart);
-
+            dataBase.UpdateCartQuantity(item, newQuantity);
             UpdateCartItemsList();
             UpdateTotals();
-
         }
 
         public void IncreaseQuantity(ProdCart item)
@@ -147,17 +124,31 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public void CreateOrder()
         {
-            if (_allCartItems.Count == 0) return;
+            if (dataBase.CurrentUserCartItems == null || dataBase.CurrentUserCartItems.Count == 0)
+            {
+                MessageBox.Show("Корзина пуста", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
-            dataBase.CreateOrderFromCart(_currentCart, _allCartItems);
+            if (dataBase.CurrentUser == null)
+            {
+                MessageBox.Show("Для оформления заказа необходимо войти в аккаунт",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
-            CartItems.Clear();
-            _currentCart.TotalPrice = 0;
-            _currentCart.Quantity = 0;
-            dataBase.UpdateCartTotal(_currentCart);
+            var result = MessageBox.Show("Оформить заказ?",
+                "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            UpdateCartItemsList();
-            UpdateTotals();
+            if (result == MessageBoxResult.Yes)
+            {
+                dataBase.CreateOrderFromCart();
+                UpdateCartItemsList();
+                UpdateTotals();
+
+                MessageBox.Show("Заказ успешно оформлен!",
+                    "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

@@ -11,7 +11,8 @@ namespace _3ISIP223_PogosyanWPF
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -27,6 +28,8 @@ namespace _3ISIP223_PogosyanWPF
         public int PaymentMethod_ID { get; set; }
         public bool Status { get; set; }
         public decimal TotalAmount { get; set; }
+
+        public string GetAllOrderItems => $"{string.Join(", ", OrderItems.Select(o=>o.Product.Name))}";
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderItem> OrderItems { get; set; }

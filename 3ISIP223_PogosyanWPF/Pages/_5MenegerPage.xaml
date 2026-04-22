@@ -1,19 +1,26 @@
-﻿<Window x:Class="_3ISIP223_PogosyanWPF.Pages._5MenegerPage"
+﻿<Page x:Class="_3ISIP223_PogosyanWPF.Pages._5MenegerPage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
+        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels"
         mc:Ignorable="d"
-        Title="_5MenegerPage" Height="450" Width="800">
+        Title="_5MenegerPage" d:Height="500" d:Width="800">
+
+    <Page.DataContext>
+        <local:ManagerViewModel/>
+    </Page.DataContext>
+
     <Grid>
-        <TabControl HorizontalAlignment="Center" Height="434" VerticalAlignment="Center" Width="800">
+        <TabControl>
+
             <TabItem Header="Записи" FontSize="16" FontWeight="Medium">
-                <Grid Background="Transparent" >
+                <Grid Background="Transparent">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+
                     <Grid Grid.Row="0" Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
@@ -24,38 +31,42 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="0" />
+                            <TextBox Grid.Column="0" Text="{Binding SearchClientText, UpdateSourceTrigger=PropertyChanged}"/>
                             <Button Content="Найти" Grid.Column="1" HorizontalAlignment="Left" Margin="10 0"/>
                         </Grid>
-                        <ListBox Grid.Row="1" Height="90" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+
+                        <ListBox Grid.Row="1" Height="200" 
+                                 ItemsSource="{Binding FoundClients}"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch"  d:ItemsSource="{d:SampleData ItemCount=5}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid Margin="0 5">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto"/>
-                                            <ColumnDefinition Width="auto"/>
-                                            <ColumnDefinition Width="auto"/>
-                                            <ColumnDefinition Width="auto"/>
-                                            <ColumnDefinition Width="auto"/>
-                                        </Grid.ColumnDefinitions>
+                                    <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Padding="10 0">
+                                        <Grid Margin="0 5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="3*"/>
+                                                <ColumnDefinition Width=".1*"/>
+                                                <ColumnDefinition Width="3*"/>
+                                                <ColumnDefinition Width=".1*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
 
-                                        <TextBlock Text="👤 Погосян Эдик" Grid.Column="0" FontSize="16"/>
+                                            <TextBlock Text="{Binding FIO}" Grid.Column="0" FontSize="16"/>
+                                            <TextBlock Text="||" Grid.Column="1" FontSize="16" Margin="0 0"/>
+                                            <TextBlock Text="{Binding Phone}" Grid.Column="2" FontSize="16"/>
+                                            <TextBlock Text="||" Grid.Column="3" FontSize="16" Margin="0 0"/>
+                                            <Button Content="Записать" Margin="0 0" Grid.Column="4" 
+                                                Click="CreateAppointment_Click" Tag="{Binding}"/>
+                                        </Grid>
 
-                                        <TextBlock Text="|"  Grid.Column="1" FontSize="16" Margin="10 0"/>
-
-                                        <TextBlock Text="+7 901 903 04 19" Grid.Column="2" FontSize="16"/>
-
-                                        <TextBlock Text="|"  Grid.Column="3" FontSize="16" Margin="10 0"/>
-
-                                        <Button Content="Записать" Margin="10 0" Grid.Column="4"/>
-
-                                    </Grid>
+                                    </Border>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </Grid>
 
-                    <ListBox Grid.Row="1" Margin="10" d:ItemsSource="{d:SampleData ItemCount=5}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                    <ListBox Grid.Row="1" Margin="10" 
+                             ItemsSource="{Binding Appointments}"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" d:ItemsSource="{d:SampleData ItemCount=5}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" Padding="10">
@@ -68,20 +79,20 @@
                                             <RowDefinition Height="auto"/>
                                         </Grid.RowDefinitions>
 
-                                        <TextBlock Text="📅 15.04.2026 10:00"  Grid.Row="0" FontSize="16"/>
-                                        <TextBlock Text="Услуга: Маникюр"  Grid.Row="1" FontSize="16" Margin="0 5"/>
-                                        <TextBlock Text="Мастер: Анна К."  Grid.Row="2" FontSize="16" Margin="0 5"/>
-                                        <TextBlock Text="Клиент: Иванова А."  Grid.Row="3" FontSize="16"  Margin="0 5"/>
+                                        <TextBlock Text="{Binding AppointmentDate, StringFormat=📅 dd.MM.yyyy HH:mm}" Grid.Row="0" FontSize="16"/>
+                                        <TextBlock Text="{Binding Service.TypeService.Name, StringFormat=Услуга: {0}}" Grid.Row="1" FontSize="16" Margin="0 5"/>
+                                        <!--<TextBlock Text="{Binding User.LastName, StringFormat=Мастер: {0}}" Grid.Row="2" FontSize="16" Margin="0 5"/>-->
+                                        <TextBlock Text="{Binding User.FIO, StringFormat=Клиент: {0}}" Grid.Row="3" FontSize="16" Margin="0 5"/>
                                         <StackPanel Grid.Row="4" Orientation="Horizontal">
-                                            <Button Content="Перенести" Margin="0 5" Style="{StaticResource ConfirmButton}"/>
-                                            <Button Content="Отменить" Margin="5" Style="{StaticResource DeleteButton}"/>
+                                            <Button Content="Перенести" Margin="0 5" Style="{StaticResource ConfirmButton}" 
+                                                    Click="RescheduleAppointment_Click" Tag="{Binding}"/>
+                                            <Button Content="Отменить" Margin="5" Style="{StaticResource DeleteButton}"
+                                                    Click="CancelAppointment_Click" Tag="{Binding}"/>
                                         </StackPanel>
                                     </Grid>
-
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-
 
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -91,52 +102,75 @@
                     </ListBox>
                 </Grid>
             </TabItem>
+
             <TabItem Header="Заказы" FontSize="16" FontWeight="Medium">
                 <Grid Background="Transparent">
-
-                    <ListBox d:ItemsSource="{d:SampleData ItemCount=2}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{x:Null}" >
+                    <ListBox ItemsSource="{Binding Orders}" 
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                             BorderBrush="{x:Null}" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalContentAlignment="Stretch">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="5">
-
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Text="🧾 ЗАКАЗ №1245" Grid.Column="0" Grid.Row="0" Margin="0 0 10 0"/>
-                                    <TextBlock Text="Иванова Анна" Grid.Column="1" Grid.Row="0" Margin="10 0"/>
-                                    <TextBlock Text="15.04.2026" Grid.Column="2" Grid.Row="0" Margin="10 0"/>
-                                    <TextBlock Text="💳 Карта" Grid.Column="3" Grid.Row="0" Margin="10 0"/>
-                                    <TextBlock Text="2 450 ₽" Grid.Column="4" Grid.Row="0" Margin="10 0"/>
+                                    <TextBlock Text="{Binding Order_ID, StringFormat='🧾 ЗАКАЗ №{0}'}" Grid.Column="0" Grid.Row="0" Margin="0 0 10 0"/>
+                                    <TextBlock Text="{Binding User.FIO}" Grid.Column="1" Grid.Row="0" Margin="10 0"/>
+                                    <TextBlock Text="{Binding OrderDate, StringFormat=dd.MM.yyyy}" Grid.Column="2" Grid.Row="0" Margin="10 0"/>
+                                    <TextBlock Text="{Binding PaymentMethod.Name, StringFormat=💳 {0}}" Grid.Column="3" Grid.Row="0" Margin="10 0"/>
+                                    <TextBlock Text="{Binding TotalAmount, StringFormat=\{0\} ₽}" Grid.Column="4" Grid.Row="0" Margin="10 0"/>
 
-                                    <Border Padding="5" Grid.Row="1" Grid.ColumnSpan="5" BorderThickness="1" Margin="0 5"  BorderBrush="Black" >
+                                    <Border Padding="5" Grid.Row="1" Grid.ColumnSpan="5" BorderThickness="1" Margin="0 5" BorderBrush="Black">
                                         <StackPanel>
-                                            <TextBlock Text="📦 Шампунь 'Объем' x1, " Margin="0 0 0 15" />
+                                            <TextBlock Text="{Binding GetAllOrderItems, StringFormat=📦 Товары: {0}}" Margin="0 0 0 15"/>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Text="Статус: ⏳ ОЖИДАЕТ ВЫДАЧИ" Grid.Column="0"/>
-                                                <Button Grid.Column="1" Content="Выдан" HorizontalAlignment="Right" Style="{StaticResource ConfirmButton}" Background="#FF63B287" />
-
+                                                <TextBlock Grid.Column="0" VerticalAlignment="Center">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Text" Value="Статус: ⏳ ОЖИДАЕТ ВЫДАЧИ"/>
+                                                            <Setter Property="Foreground" Value="Black"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Status}" Value="True">
+                                                                    <Setter Property="Text" Value="Статус: ✅ ВЫДАН"/>
+                                                                    <Setter Property="Foreground" Value="#28A745"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                                <Button Grid.Column="1" Content="Выдан" HorizontalAlignment="Right"
+                                            Click="CloseOrder_Click" Tag="{Binding}" Margin="10 0">
+                                                    <Button.Style>
+                                                        <Style TargetType="Button" BasedOn="{StaticResource ConfirmButton}">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Status}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Button.Style>
+                                                </Button>
                                             </Grid>
-
                                         </StackPanel>
                                     </Border>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-
                 </Grid>
             </TabItem>
 
@@ -150,16 +184,19 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Товары (15)" Margin="10"  />
-                    <Button Grid.Column="1" Grid.Row="0" Content="Добавить" Style="{StaticResource ConfirmButton}" HorizontalAlignment="Right"/>
-                    <ListBox d:ItemsSource="{d:SampleData ItemCount=4}" Grid.Row="1" Grid.ColumnSpan="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{x:Null}" >
+
+                    <TextBlock Text="{Binding Products.Count, StringFormat=Товары ({0})}" Margin="10"/>
+                    <Button Grid.Column="1" Grid.Row="0" Content="Добавить" Style="{StaticResource ConfirmButton}" 
+                            HorizontalAlignment="Right" Click="AddProduct_Click"/>
+
+                    <ListBox ItemsSource="{Binding Products}" Grid.Row="1" Grid.ColumnSpan="2"  HorizontalContentAlignment="Stretch"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{x:Null}" d:ItemsSource="{d:SampleData ItemCount=5}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="5">
-
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="auto"/>
@@ -170,47 +207,57 @@
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Text="ШАМПУНЬ 'ОБЪЕМ'" Grid.Column="0" Grid.Row="0" Margin="0 0 10 0"/>
-                                    <TextBlock Text="L'Oreal" Grid.Column="1" Grid.Row="0" Margin="10 0"/>
-                                    <TextBlock Text="1 200  →" Grid.Column="2" Grid.Row="0" Margin="10 0"/>
-                                    <TextBlock Text="899 ₽" Grid.Column="3" Grid.Row="0" Margin="0 0"/>
-                                    <TextBlock Text="☆ 4.2" Grid.Column="4" Grid.Row="0" Margin="10 0"/>
-                                    <TextBlock Text="Активен" Grid.Column="5" Grid.Row="0" Margin="10 0"/>
+                                    <TextBlock Text="{Binding Name}" Grid.Column="0" Grid.Row="0" Margin="0 0 10 0"/>
+                                    <TextBlock Text="{Binding Manufacturer.Name}" Grid.Column="1" Grid.Row="0" Margin="10 0"/>
+                                    <TextBlock Text="{Binding Price}" Grid.Column="2" Grid.Row="0" Margin="10 0"/>
+                                    <TextBlock Text="→" Grid.Column="3" Grid.Row="0"/>
+                                    <TextBlock Text="{Binding PriceWithDiscount, StringFormat='\{0:f2} ₽'}" Grid.Column="4" Grid.Row="0"/>
+                                    <TextBlock Text="{Binding Rating, StringFormat=☆ {0}}" Grid.Column="5" Grid.Row="0" Margin="10 0"/>
+                                    <TextBlock Grid.Column="6" Grid.Row="0" Margin="10 0">
+                                    </TextBlock>
 
-
-                                    <Border Padding="5" Grid.Row="1" Grid.ColumnSpan="6" BorderThickness="1" Margin="0 5"  BorderBrush="Black" >
+                                    <Border Padding="5" Grid.Row="1" Grid.ColumnSpan="7" BorderThickness="1" Margin="0 5" BorderBrush="Black">
                                         <StackPanel>
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Тип: Помада" Margin="0 0 0 15" />
-                                                <TextBlock Text=" │ " Margin="0 0 0 15" />
-                                                <TextBlock Text="Скидка: 21%" Margin="0 0 0 15" />
+                                                <TextBlock Text="{Binding ProductType.Name, StringFormat=Тип: {0}}" Margin="0 0 0 15"/>
+                                                <TextBlock Text=" │ " Margin="0 0 0 15"/>
+                                                <TextBlock Text="{Binding Discount, StringFormat=Скидка: {0}%}" Margin="0 0 0 15"/>
                                             </StackPanel>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
 
-                                                <Button Grid.Column="0" Content="РЕДАКТИРОВАТЬ" Margin="5 0"  />
-                                                <Button Grid.Column="1" Content="ЗАМОРОЗИТЬ"  Margin="5 0" Style="{StaticResource FreezeButton}" />
-                                                <Button Grid.Column="2" Content="СКИДКА"  Margin="5 0" Style="{StaticResource ConfirmButton}" />
-                                                <!--<Button Grid.Column="3" Content="УДАЛИТЬ"   Margin="5 0" Style="{StaticResource DeleteButton}"/>-->
-
+                                                <Button Grid.Column="0" Content="РЕДАКТИРОВАТЬ" Margin="5 0" 
+                                                        Click="EditProduct_Click" Tag="{Binding}"/>
+                                                <Button Grid.Column="1" Margin="5 0" 
+        Click="ToggleFreezeProduct_Click" Tag="{Binding}">
+                                                    <Button.Style>
+                                                        <Style TargetType="Button" BasedOn="{StaticResource FreezeButton}">
+                                                            <Setter Property="Content" Value="❄️ ЗАМОРОЗИТЬ"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsFrozen}" Value="True">
+                                                                    <Setter Property="Content" Value="🔥 РАЗМОРОЗИТЬ"/>
+                                                                    <Setter Property="Background" Value="#28A745"/>
+                                                                    <Setter Property="Foreground" Value="White"/>
+                                                                    <Setter Property="BorderBrush" Value="#28A745"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Button.Style>
+                                                </Button>
                                             </Grid>
-
                                         </StackPanel>
                                     </Border>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-
                 </Grid>
             </TabItem>
 
-            <TabItem  Header="Производители" FontSize="16" FontWeight="Medium">
+            <TabItem Header="Производители" FontSize="16" FontWeight="Medium">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -221,24 +268,27 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
+                    <TextBlock Text="{Binding Manufacturers.Count, StringFormat=ПРОИЗВОДИТЕЛИ ({0})}" Margin="10"/>
+                    <Button Grid.Column="1" Grid.Row="0" Content="Добавить" Style="{StaticResource ConfirmButton}" 
+                            HorizontalAlignment="Right" Click="AddManufacturer_Click"/>
 
-                    <TextBlock Text="ПРОИЗВОДИТЕЛИ (15)" Margin="10"  />
-                    <Button Grid.Column="1" Grid.Row="0" Content="Добавить" Style="{StaticResource ConfirmButton}" HorizontalAlignment="Right"/>
-
-                    <ListBox d:ItemsSource="{d:SampleData ItemCount=6}"  Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}"  Grid.Row="1">
+                    <ListBox ItemsSource="{Binding Manufacturers}" Grid.ColumnSpan="2" 
+                             HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="Black" BorderThickness="1" Padding="5">
-                                    <Grid >
+                                    <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="auto"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Text="L'Oreal" Grid.Column="0" VerticalAlignment="Center" FontSize="20"/>
+                                        <TextBlock Text="{Binding Name}" Grid.Column="0" VerticalAlignment="Center" FontSize="20"/>
                                         <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
-                                            <Button Content="✏️" MinWidth="40" Style="{StaticResource IconButton}" MinHeight="40" />
-                                            <Button Content="🗑️" MinHeight="40" MinWidth="40" Style="{StaticResource IconButton}"/>
+                                            <Button Content="✏️" MinWidth="40" Style="{StaticResource IconButton}" MinHeight="40"
+                                                    Click="EditManufacturer_Click" Tag="{Binding}"/>
+                                            <Button Content="🗑️" MinHeight="40" MinWidth="40" Style="{StaticResource IconButton}"
+                                                    Click="DeleteManufacturer_Click" Tag="{Binding}"/>
                                         </StackPanel>
                                     </Grid>
                                 </Border>
@@ -259,24 +309,27 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
+                    <TextBlock Text="{Binding ProductTypes.Count, StringFormat=Типы товаров ({0})}" Margin="10"/>
+                    <Button Grid.Column="1" Grid.Row="0" Content="Добавить" HorizontalAlignment="Right" 
+                            Style="{StaticResource ConfirmButton}" Click="AddProductType_Click"/>
 
-                    <TextBlock Text="Типы товаров (8)" Margin="10" />
-                    <Button Grid.Column="3" Grid.Row="0" Content="Добавить" HorizontalAlignment="Right" Style="{StaticResource ConfirmButton}"/>
-
-                    <ListBox d:ItemsSource="{d:SampleData ItemCount=6}"  Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" Grid.Row="1">
+                    <ListBox ItemsSource="{Binding ProductTypes}" Grid.ColumnSpan="2" 
+                             HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="Black" BorderThickness="1" Padding="5">
-                                    <Grid >
+                                    <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="auto"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBlock Text="Шампуни" Grid.Column="0" VerticalAlignment="Center" FontSize="20"/>
+                                        <TextBlock Text="{Binding Name}" Grid.Column="0" VerticalAlignment="Center" FontSize="20"/>
                                         <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
-                                            <Button Content="✏️" MinWidth="40" Style="{StaticResource IconButton}" MinHeight="40"/>
-                                            <Button Content="🗑️" MinWidth="40" Style="{StaticResource IconButton}" MinHeight="40"/>
+                                            <Button Content="✏️" MinWidth="40" Style="{StaticResource IconButton}" MinHeight="40"
+                                                    Click="EditProductType_Click" Tag="{Binding}"/>
+                                            <Button Content="🗑️" MinWidth="40" Style="{StaticResource IconButton}" MinHeight="40"
+                                                    Click="DeleteProductType_Click" Tag="{Binding}"/>
                                         </StackPanel>
                                     </Grid>
                                 </Border>
@@ -284,7 +337,6 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
-
             </TabItem>
 
             <TabItem Header="Услуги" FontSize="16" FontWeight="Medium">
@@ -298,40 +350,38 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
+                    <TextBlock Text="{Binding ServiceTypes.Count, StringFormat=Типы услуг ({0})}" Margin="10"/>
+                    <Button Grid.Column="1" Grid.Row="0" Content="Добавить" HorizontalAlignment="Right" 
+                            Style="{StaticResource ConfirmButton}" Click="AddServiceType_Click"/>
 
-                    <TextBlock Text="Типы услуг (8)" Margin="10" />
-                    <Button Grid.Column="3" Grid.Row="0" Content="Добавить" HorizontalAlignment="Right" Style="{StaticResource ConfirmButton}"/>
-
-                    <ListBox d:ItemsSource="{d:SampleData ItemCount=6}"  Grid.ColumnSpan="2" HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" Grid.Row="1">
+                    <ListBox ItemsSource="{Binding ServiceTypes}" Grid.ColumnSpan="2" 
+                             HorizontalContentAlignment="Stretch" BorderBrush="{x:Null}" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="Black" BorderThickness="1" Padding="5">
-                                    <Grid >
+                                    <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="auto"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="auto"/>
-                                            <RowDefinition Height="auto"/>
                                         </Grid.RowDefinitions>
 
-                                        <TextBlock Text="Шампуни" Grid.Column="0" VerticalAlignment="Center" FontSize="20"/>
+                                        <TextBlock Text="{Binding Name}" Grid.Column="0" VerticalAlignment="Center" FontSize="20"/>
                                         <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Grid.RowSpan="2">
-                                            <Button Content="✏️" MinWidth="40" Style="{StaticResource IconButton}" MinHeight="40"/>
-                                            <Button Content="🗑️" MinWidth="40" Style="{StaticResource IconButton}" MinHeight="40"/>
+                                            <Button Content="✏️" MinWidth="40" Style="{StaticResource IconButton}" MinHeight="40"
+                                                    Click="EditServiceType_Click" Tag="{Binding}"/>
+                                            <Button Content="🗑️" MinWidth="40" Style="{StaticResource IconButton}" MinHeight="40"
+                                                    Click="DeleteServiceType_Click" Tag="{Binding}"/>
                                         </StackPanel>
-
-                                        <TextBlock Grid.Row="1" Text="└─ Оказывают:" VerticalAlignment="Center" FontSize="18"/>
                                     </Grid>
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
-
             </TabItem>
-
         </TabControl>
     </Grid>
-</Window>
+</Page>

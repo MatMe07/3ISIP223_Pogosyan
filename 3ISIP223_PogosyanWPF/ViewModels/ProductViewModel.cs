@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace _3ISIP223_PogosyanWPF.ViewModels
 {
@@ -35,7 +36,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         void LoadAllData()
         {
-            _allProducts = dataBase.AllProducts.ToList();
+            _allProducts = dataBase.AllProductsNotFrizzen.ToList();
 
             TypeLst.Clear();
             TypeLst.Add("Все типы");
@@ -54,8 +55,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             }
 
             SelectedType = "Все типы";
-            
-            // 
+
             ManufacturerLst.Clear();
             ManufacturerLst.Add("Все производители");
 
@@ -73,14 +73,12 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             }
 
             SelectedManufacturer = "Все производители";
-            
 
             ApplyFilter();
         }
 
         public ObservableCollection<Product> Products { get; set; }
         public ObservableCollection<string> TypeLst { get; set; }
-
         public ObservableCollection<string> ManufacturerLst { get; set; }
 
         private string _selectedType;
@@ -126,9 +124,29 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             "По убыванию",
         };
 
+        public int GetCountCart => dataBase.GetCountCart;
+
         public void AddToCart(Product product)
         {
-            Console.WriteLine(product.Name);
+            if (dataBase.CurrentUser == null)
+            {
+                MessageBox.Show("Для добавления в корзину необходимо войти в аккаунт",
+                    "Требуется авторизация", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (dataBase.CurrentUser.IsFrozen)
+            {
+                MessageBox.Show("Ваш аккаунт заморожен. Обратитесь к администратору.",
+                    "Доступ запрещен", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            dataBase.AddToCart(product);
+            OnPropertyChanged(nameof(GetCountCart));
+
+            MessageBox.Show($"{product.Name} добавлен в корзину",
+                "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         void ApplyFilter()
@@ -160,8 +178,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 Products.Add(product);
             }
         }
-
-        public int GetCountCart => dataBase.GetCountCart;
 
         public void ResetFilters()
         {

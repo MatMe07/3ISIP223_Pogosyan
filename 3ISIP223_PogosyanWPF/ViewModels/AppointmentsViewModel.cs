@@ -12,29 +12,80 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-
         public void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
         private WorkDataBase dataBase;
+        private List<Appointment> _allAppointmentsForDate;
+
+        private ObservableCollection<Appointment> _appointments;
+        public ObservableCollection<Appointment> Appointments
+        {
+            get { return _appointments; }
+            set
+            {
+                _appointments = value;
+                OnPropertyChanged(nameof(Appointments));
+            }
+        }
+
+        private ObservableCollection<string> _uslugiLst;
+        public ObservableCollection<string> UslugiLst
+        {
+            get { return _uslugiLst; }
+            set
+            {
+                _uslugiLst = value;
+                OnPropertyChanged(nameof(UslugiLst));
+            }
+        }
+
+        private DateTime _selectedDate;
+        public DateTime SelectedDate
+        {
+            get { return _selectedDate; }
+            set
+            {
+                _selectedDate = value.Date;
+                OnPropertyChanged(nameof(SelectedDate));
+                LoadDataForDate(_selectedDate);
+            }
+        }
+
+        private string _selectedUslug;
+        public string SelectedUslug
+        {
+            get { return _selectedUslug; }
+            set
+            {
+                _selectedUslug = value;
+                OnPropertyChanged(nameof(SelectedUslug));
+                ApplyFiltr();
+            }
+        }
+
+        public User Master { get; set; }
 
         public AppointmentsViewModel()
         {
             dataBase = WorkDataBase.Instance;
             Master = dataBase.CurrentMaster;
+
             UslugiLst = new ObservableCollection<string>();
             Appointments = new ObservableCollection<Appointment>();
-            //UslugiLst.Insert(0, "Все услуги");
+
             SelectedDate = DateTime.Today.Date;
             SelectedUslug = "Все услуги";
-            //Appointments = dataBase.GetAppointmentsMaster(Master, SelectedDate);
-            //UslugiLst.AddRange(Appointments.Select(a => a.Service.TypeService.Name).Distinct());
-            //SelectedDate = DateTime.Now.Date;
+
+            LoadDataForDate(SelectedDate);
         }
+
         void LoadDataForDate(DateTime date)
         {
             _allAppointmentsForDate = dataBase.GetAppointmentsMaster(Master, date).ToList();
+
             string currentSelected = SelectedUslug;
 
             UslugiLst.Clear();
@@ -42,7 +93,11 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
             if (_allAppointmentsForDate != null)
             {
-                var distinctServices = _allAppointmentsForDate.Select(a => a.Service.TypeService.Name).Distinct();
+                var distinctServices = _allAppointmentsForDate
+                    .Select(a => a.Service?.TypeService?.Name)
+                    .Where(n => n != null)
+                    .Distinct()
+                    .OrderBy(n => n);
 
                 foreach (var serviceName in distinctServices)
                 {
@@ -59,64 +114,29 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 SelectedUslug = "Все услуги";
             }
 
-
             ApplyFiltr();
-
         }
-
-        private List<Appointment> _allAppointmentsForDate;
-        private DateTime _selectedDate;
-        public DateTime SelectedDate
-        {
-            get { return _selectedDate; }
-            set
-            {
-                _selectedDate = value.Date;
-                LoadDataForDate(_selectedDate);
-            }
-        }
-
-        private string _SelectedUslug;
-        public string SelectedUslug
-        {
-            get { return _SelectedUslug; }
-            set
-            {
-                _SelectedUslug = value;
-                ApplyFiltr();
-                OnPropertyChanged(nameof(SelectedUslug));
-            }
-        }
-
-        private List<string> _uslugiLst;
-        public ObservableCollection<string> UslugiLst { get; set; }
-        //{
-        //    get { return _uslugiLst; }
-        //    set
-        //    {
-        //        _uslugiLst = value;
-        //        OnPropertyChanged(nameof(UslugiLst));
-        //    }
-        //}
-
-        public User Master { get; set; }
-
-        public ObservableCollection<Appointment> Appointments { get; set; } 
 
         void ApplyFiltr()
         {
+            if (_allAppointmentsForDate == null)
+            {
+                Appointments.Clear();
+                return;
+            }
 
-            var appoints = _allAppointmentsForDate;
+            var appoints = _allAppointmentsForDate.AsEnumerable();
+
             if (SelectedUslug != null && SelectedUslug != "Все услуги")
             {
-                appoints = appoints.Where(a=>a.Service.TypeService.Name == SelectedUslug).ToList();
+                appoints = appoints.Where(a => a.Service?.TypeService?.Name == SelectedUslug);
             }
+
             Appointments.Clear();
-            foreach (var appointment in appoints)
+            foreach (var appointment in appoints.OrderBy(a => a.AppointmentDate))
             {
                 Appointments.Add(appointment);
             }
         }
-
     }
 }

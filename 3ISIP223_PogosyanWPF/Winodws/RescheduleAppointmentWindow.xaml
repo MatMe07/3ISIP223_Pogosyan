@@ -1,0 +1,70 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="_3ISIP223_PogosyanWPF.Winodws.RescheduleAppointmentWindow"
+        Title="Перенос записи" Height="580" Width="450"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Перенос записи" FontSize="18" FontWeight="Bold" 
+                   HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+        <Border Grid.Row="1" Background="#F5F5F5" CornerRadius="5" Padding="10" Margin="0,5">
+            <StackPanel>
+                <TextBlock Text="📋 Текущая запись" FontWeight="Bold" Margin="0,0,0,5"/>
+                <TextBlock x:Name="txtCurrentDateTime" FontSize="13"/>
+                <TextBlock x:Name="txtClient" FontSize="13" Margin="0,5,0,0"/>
+                <TextBlock x:Name="txtService" FontSize="13"/>
+                <TextBlock x:Name="txtMaster" FontSize="13"/>
+            </StackPanel>
+        </Border>
+
+        <TextBlock Grid.Row="2" Text="📅 Новая дата:" FontWeight="Bold" Margin="0,15,0,5"/>
+        <DatePicker x:Name="dpNewDate" Grid.Row="3" Margin="0,0,0,10"
+                    SelectedDate="{Binding SelectedDate, Mode=TwoWay}">
+            
+        </DatePicker>
+
+        <TextBlock Grid.Row="4" Text="🕐 Новое время:" FontWeight="Bold" Margin="0,10,0,5"/>
+        <ComboBox x:Name="cmbNewTime" Grid.Row="5" Margin="0,0,0,15"
+                  IsEditable="True" SelectedIndex="-1"/>
+
+        <Border Grid.Row="6" Background="#E8F4FD" CornerRadius="5" Padding="10" Margin="0,5">
+            <StackPanel>
+                <TextBlock Text="✅ Доступные слоты у мастера:" FontWeight="Bold" Margin="0,0,0,5"/>
+                <ListBox x:Name="lstAvailableSlots" Height="80"
+                         SelectionChanged="AvailableSlots_SelectionChanged" av:ItemsSource="{av:SampleData ItemCount=5}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" FontSize="13"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="7" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Отмена" Grid.Column="0" Margin="5" 
+                    Style="{StaticResource SecondaryButton}" Click="Cancel_Click"/>
+            <Button Content="Сохранить" Grid.Column="1" Margin="5" 
+                    Style="{StaticResource ConfirmButton}" Click="Save_Click"/>
+        </Grid>
+    </Grid>
+</Window>

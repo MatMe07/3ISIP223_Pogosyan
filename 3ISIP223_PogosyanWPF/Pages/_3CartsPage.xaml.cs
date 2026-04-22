@@ -16,9 +16,6 @@ using System.Windows.Shapes;
 
 namespace _3ISIP223_PogosyanWPF.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для _3CartsPage.xaml
-    /// </summary>
     public partial class _3CartsPage : Page
     {
         private CartViewModel _viewModel;

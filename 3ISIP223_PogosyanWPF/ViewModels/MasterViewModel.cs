@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace _3ISIP223_PogosyanWPF.ViewModels
 {
@@ -66,13 +68,20 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         void OpenWindowAppointmentDeteail()
         {
             var wind = new DatailAppointment(CurrentAppointment);
+            wind.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             var res = wind.ShowDialog();
 
             if (res == true)
             {
-
                 CloseAppoint();
             }
+
+
+            _CurrentAppointment = null;
+            OnPropertyChanged(nameof(CurrentAppointment));
+            //listAppoint.SelectedIndex = -1;
+
         }
 
         //private ObservableCollection<Service> _masterServices;
@@ -100,8 +109,13 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public void CloseAppoint()
         {
             CurrentAppointment.Status = "Completed";
-            MasterAppointments[MasterAppointments.IndexOf(CurrentAppointment)] = CurrentAppointment;
+            var index = _allMasterAppointments.FindIndex(a => a.Appointment_ID == CurrentAppointment.Appointment_ID);
+            if (index != -1)
+            {
+                _allMasterAppointments[index] = CurrentAppointment;
+            }
             UpdateAppointmentsList();
+            dataBase.UpdateAppointmentStatus(CurrentAppointment, "Completed");
         }
 
         void UpdateServicesList()
@@ -137,43 +151,17 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             UpdateServicesList();
         }
 
-        public void UpdateService(Service service)
-        {
-            dataBase.UpdateService(service);
-            var index = _allMasterServices.FindIndex(s => s.Service_ID == service.Service_ID);
-            if (index != -1)
-            {
-                _allMasterServices[index] = service;
-            }
-            UpdateServicesList();
-        }
+        //public void UpdateService(Service service)
+        //{
+        //    dataBase.UpdateService(service);
+        //    var index = _allMasterServices.FindIndex(s => s.Service_ID == service.Service_ID);
+        //    if (index != -1)
+        //    {
+        //        _allMasterServices[index] = service;
+        //    }
+        //    UpdateServicesList();
+        //}
 
-        public void CompleteAppointment(Appointment appointment)
-        {
-            appointment.Status = "Completed";
-            dataBase.UpdateAppointmentStatus(appointment, "Completed");
-
-            var index = _allMasterAppointments.FindIndex(a => a.Appointment_ID == appointment.Appointment_ID);
-            if (index != -1)
-            {
-                _allMasterAppointments[index] = appointment;
-            }
-            UpdateAppointmentsList();
-        }
-
-
-        public void CancelAppointment(Appointment appointment)
-        {
-            appointment.Status = "Cancelled";
-            dataBase.UpdateAppointmentStatus(appointment, "Cancelled");
-
-            var index = _allMasterAppointments.FindIndex(a => a.Appointment_ID == appointment.Appointment_ID);
-            if (index != -1)
-            {
-                _allMasterAppointments[index] = appointment;
-            }
-            UpdateAppointmentsList();
-        }
 
     }
 }

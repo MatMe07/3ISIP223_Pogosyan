@@ -33,7 +33,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
         {
             var context = (sender as Button).Tag as Product;
             ProductViewModel.AddToCart(context);
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

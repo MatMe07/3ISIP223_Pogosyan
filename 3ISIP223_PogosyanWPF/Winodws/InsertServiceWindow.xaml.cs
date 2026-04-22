@@ -36,8 +36,17 @@ namespace _3ISIP223_PogosyanWPF.Winodws
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            masterView.AddService(typeServices.FirstOrDefault(s=>s.Name == typeServiceSelectItemStirng));
-            DialogResult = true;
+            if (typeServiceSelectItemStirng == null)
+            {
+                MessageBox.Show($"Выберите услугу!!!",
+                    "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            else
+            {
+                masterView.AddService(typeServices.FirstOrDefault(s => s.Name == typeServiceSelectItemStirng));
+                DialogResult = true;
+
+            }
         }
 
         private void BtnOtmena_Click(object sender, RoutedEventArgs e)
