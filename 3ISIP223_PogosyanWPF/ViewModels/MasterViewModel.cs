@@ -33,11 +33,13 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             LoadAllData();
         }
 
+        public int GetUserID => _currentMaster.User_ID;
+
         void LoadAllData()
         {
             _allMasterServices = dataBase.GetMasterServices().ToList();
 
-            _allMasterAppointments = dataBase.GetMasterAppointments(_currentMaster.User_ID).ToList();
+            _allMasterAppointments = dataBase.GetAppointmentsMaster(_currentMaster, isMaster:true).ToList();
 
             UpdateServicesList();
             UpdateAppointmentsList();
@@ -83,10 +85,11 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             }
         }
 
-        public void AddService(Service service)
+        public void AddService(TypeService Tservice)
         {
-            dataBase.AddServiceToMaster(_currentMaster.User_ID, service); 
-            _allMasterServices.Add(service);
+            var serv = dataBase.GetServiceByTypeService(Tservice);
+            dataBase.AddServiceToMaster(_currentMaster.User_ID, serv );
+            _allMasterServices.Add(serv);
             UpdateServicesList();
         }
 
@@ -120,6 +123,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             }
             UpdateAppointmentsList();
         }
+
 
         public void CancelAppointment(Appointment appointment)
         {

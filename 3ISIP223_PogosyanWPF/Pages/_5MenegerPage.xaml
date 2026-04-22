@@ -142,8 +142,17 @@
 
             <TabItem Header="Товары" FontSize="16" FontWeight="Medium">
                 <Grid Background="Transparent">
-
-                    <ListBox d:ItemsSource="{d:SampleData ItemCount=4}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{x:Null}" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Товары (15)" Margin="10"  />
+                    <Button Grid.Column="1" Grid.Row="0" Content="Добавить" Style="{StaticResource ConfirmButton}" HorizontalAlignment="Right"/>
+                    <ListBox d:ItemsSource="{d:SampleData ItemCount=4}" Grid.Row="1" Grid.ColumnSpan="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="{x:Null}" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="5">
@@ -187,7 +196,7 @@
                                                 <Button Grid.Column="0" Content="РЕДАКТИРОВАТЬ" Margin="5 0"  />
                                                 <Button Grid.Column="1" Content="ЗАМОРОЗИТЬ"  Margin="5 0" Style="{StaticResource FreezeButton}" />
                                                 <Button Grid.Column="2" Content="СКИДКА"  Margin="5 0" Style="{StaticResource ConfirmButton}" />
-                                                <Button Grid.Column="3" Content="УДАЛИТЬ"   Margin="5 0" Style="{StaticResource DeleteButton}"/>
+                                                <!--<Button Grid.Column="3" Content="УДАЛИТЬ"   Margin="5 0" Style="{StaticResource DeleteButton}"/>-->
 
                                             </Grid>
 

@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using _3ISIP223_PogosyanWPF.ViewModels;
+using _3ISIP223_PogosyanWPF.Winodws;
 
 namespace _3ISIP223_PogosyanWPF.Pages
 {
@@ -14,18 +16,22 @@ namespace _3ISIP223_PogosyanWPF.Pages
             _viewModel = (MasterViewModel)DataContext;
         }
 
-        private void EditService_Click(object sender, RoutedEventArgs e)
+        private void DeleteService_Click(object sender, RoutedEventArgs e)
         {
             var service = (sender as Button)?.Tag as Service;
             if (service != null)
             {
-                _viewModel.UpdateService(service);
+                _viewModel.RemoveService(service);
             }
         }
 
         private void AddService_Click(object sender, RoutedEventArgs e)
         {
-
+            string tServ = null;
+            var wind = new InsertServiceWindow(_viewModel);
+            
+            var result = wind.ShowDialog();
+            Console.WriteLine(tServ);
         }
     }
 }

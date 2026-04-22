@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Winodws"
+        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels"
         mc:Ignorable="d"
-        Title="InsertServiceWindow" Height="164" Width="251">
+        Title="InsertServiceWindow" Height="189" Width="257">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -15,15 +16,15 @@
         <TextBlock Text="Добавить услугу" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="1" Margin="10 10" HorizontalAlignment="Left">
             <TextBlock Text="Услуга" FontSize="16" Margin="0 5"/>
-            <ComboBox Width="150"  IsEditable="True"/>
+            <ComboBox x:Name="comboTypes" Width="150" ItemsSource="{Binding typeServicesStrings}" IsEditable="True" SelectedItem="{Binding typeServiceSelectItemStirng}"/>
         </StackPanel>
         <Grid Grid.Row="2" Margin="0 10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Content="Отмена" Grid.Column="0"  Style="{StaticResource SecondaryButton}" Margin="10 0"/>
-            <Button Content="Добавить" Grid.Column="1" Margin="10 0" Style="{StaticResource AddButton}"/>
+            <Button Content="Отмена" Grid.Column="0"  Style="{StaticResource SecondaryButton}" Margin="10 0" Click="BtnOtmena_Click"/>
+            <Button Content="Добавить" Grid.Column="1" Margin="10 0" Style="{StaticResource AddButton}" Click="Button_Click"/>
 
         </Grid>
         

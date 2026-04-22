@@ -66,10 +66,16 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public ObservableCollection<TypeService> TypeServes { get; set; }
 
-        public ObservableCollection<Appointment> GetAppointmentsMaster(User master, DateTime? date=null, int? ClientId = null)
+        public ObservableCollection<Appointment> GetAppointmentsMaster(User master, DateTime? date=null, int? ClientId = null, bool? isMaster = null)
         {
-            var lst = AllAppointemntes.Where(serv => serv.Service.MasterSerives.Where(u => u.User == master).Count() > 0 && serv.Client_ID == ClientId);
-            if (date != null) lst = lst.Where(s => s.AppointmentDate == date);
+            List<Appointment> lst = null;
+            if (isMaster != null && (bool)isMaster)
+            {
+                lst = AllAppointemntes.Where(serv => serv.Service.MasterSerives.Where(u => u.User == master).Count() > 0).OrderBy(a=>a.AppointmentDate.Date).ToList();
+
+            }else 
+                lst = AllAppointemntes.Where(serv => serv.Service.MasterSerives.Where(u => u.User == master).Count() > 0 && serv.Client_ID == ClientId && serv.AppointmentDate == date).ToList();
+            //if (date != null) lst = lst.Where(s => s.AppointmentDate == date);
             
 
             return new ObservableCollection<Appointment>(lst);
@@ -94,13 +100,15 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         }
 
 
-        public List<Appointment> GetMasterAppointments(int idMaster)
-        {
-            return null;
-        }
+
+        public List<Service> Services;
+        public List<MasterSerive> AllMasterServices;
+
         public List<Service> GetMasterServices()
         {
-            return null;
+
+            var maServices = AllMasterServices.Where(s=>s.User == CurrentUser).Select(f=>f.Service).ToList();
+            return maServices;
         }
 
         public void RemoveFromCart(int cartId, int productId)
@@ -117,6 +125,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public void CreateOrderFromCart(Cart cart, List<ProdCart> items)
         {
+
         }
 
 
@@ -124,6 +133,17 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public void AddServiceToMaster(int IdMaster, Service service)
         {
+            var mast =
+                new MasterSerive()
+                {
+                    User = CurrentUser,
+                    Service = service,
+                };
+            Core.Kosmetica.MasterSerives.Add( mast
+                );
+            Core.Kosmetica.SaveChanges();
+            //var d = MasterServes.Select(m => m.MasterSerives);
+            AllMasterServices.Add(mast);
 
         }
         public void RemoveServiceFromMaster(int IdMaster, Service service)
@@ -139,17 +159,26 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         {
         }
 
-        // Получить название типа услуги по ID
         public string GetTypeServiceName(int typeServiceId)
         {
             return "";
+        }
+        public Service GetServiceByTypeService(TypeService typeService) => Services.FirstOrDefault(s => s.TypeService == typeService);
+
+        public List<TypeService> GetAllTypeServicesMaster(int MasterID)
+        {
+            var d = MasterServes.SelectMany(m => m.MasterSerives.Where(x => x.User_ID != MasterID).Select(s=>s.Service.TypeService)).ToList();
+            return d;
         }
 
         public WorkDataBase()
         {
             TypeServes = new ObservableCollection<TypeService>( Core.Kosmetica.TypeServices);
+            Services = Core.Kosmetica.Services.ToList();
+            AllMasterServices = Core.Kosmetica.MasterSerives.ToList();
+            CurrentUser = MasterServes.First();
             //TypeServes[0].Services.Where(s => s.MasterSerives.Where(m => m.User_ID == 1).Count() > 0);
-            
+
         }
     }
 }

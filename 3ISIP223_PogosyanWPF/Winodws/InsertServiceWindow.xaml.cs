@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,29 @@ namespace _3ISIP223_PogosyanWPF.Winodws
     /// </summary>
     public partial class InsertServiceWindow : Window
     {
-        public InsertServiceWindow()
+        public MasterViewModel masterView;
+        public string typeServiceSelectItemStirng {  get; set; }
+        public List<TypeService> typeServices;
+        public List<string> typeServicesStrings {  get; set; }
+        public InsertServiceWindow(MasterViewModel viewModel)
         {
             InitializeComponent();
+            DataContext = this;
+            masterView = viewModel;
+            typeServices = WorkDataBase.Instance.GetAllTypeServicesMaster(viewModel.GetUserID);
+            typeServicesStrings = WorkDataBase.Instance.GetAllTypeServicesMaster(viewModel.GetUserID).Select(s=>s.Name).ToList();
+            comboTypes.SelectedIndex = 0;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            masterView.AddService(typeServices.FirstOrDefault(s=>s.Name == typeServiceSelectItemStirng));
+            DialogResult = true;
+        }
+
+        private void BtnOtmena_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
         }
     }
 }
