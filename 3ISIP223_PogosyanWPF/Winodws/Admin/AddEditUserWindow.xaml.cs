@@ -27,6 +27,12 @@ namespace _3ISIP223_PogosyanWPF.Winodws
                 txtEmail.Text = user.Email;
                 cmbRole.SelectedItem = user.TypeRole?.Name;
                 txtPassword.Text = user.password;
+
+                if (user.TypeRole.Name == "Администратор")
+                {
+                    cmbRole.IsEnabled = false;
+                }
+
             }
         }
 

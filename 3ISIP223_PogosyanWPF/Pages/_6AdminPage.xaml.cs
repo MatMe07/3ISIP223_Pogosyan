@@ -13,6 +13,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
         {
             InitializeComponent();
             _viewModel = (AdminViewModel)DataContext;
+
         }
 
         private void AddUser_Click(object sender, RoutedEventArgs e)

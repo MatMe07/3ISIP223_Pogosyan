@@ -100,7 +100,11 @@
                                                     <DataTrigger Binding="{Binding IsFrozen}" Value="True">
                                                         <Setter Property="Visibility" Value="Collapsed"/>
                                                     </DataTrigger>
+                                                    <DataTrigger Binding="{Binding TypeRole.Name}" Value="Администратор">
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                    </DataTrigger>
                                                 </Style.Triggers>
+
                                             </Style>
                                         </Button.Style>
                                     </Button>
@@ -113,13 +117,24 @@
                                                     <DataTrigger Binding="{Binding IsFrozen}" Value="True">
                                                         <Setter Property="Visibility" Value="Visible"/>
                                                     </DataTrigger>
+
                                                 </Style.Triggers>
                                             </Style>
                                         </Button.Style>
                                     </Button>
                                     <Button Grid.Column="2" Content="УДАЛИТЬ" Margin="10 0" 
-                                            Style="{StaticResource DeleteButton}"
-                                            Click="DeleteUser_Click" Tag="{Binding}"/>
+                                            Click="DeleteUser_Click" Tag="{Binding}">
+
+                                        <Button.Style>
+                                            <Style TargetType="Button" BasedOn="{StaticResource DeleteButton}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding TypeRole.Name}" Value="Администратор">
+                                                        <Setter Property="IsEnabled" Value="False"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
                                 </Grid>
                             </StackPanel>
                         </Border>

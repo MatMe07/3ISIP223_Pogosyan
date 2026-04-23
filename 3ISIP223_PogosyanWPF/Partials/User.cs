@@ -11,5 +11,6 @@ namespace _3ISIP223_PogosyanWPF
         public string FIO => $"{FirstName} {LastName} {SecondName}";
 
         public string Uslugi => string.Join("\n - ", MasterSerives.Select(serv => serv.Service.TypeService.Name));
+
     }
 }

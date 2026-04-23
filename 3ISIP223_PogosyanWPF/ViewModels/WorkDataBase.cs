@@ -704,6 +704,12 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             ClearCart();
         }
 
+
+        public void ClearCartCache()
+        {
+            _currentUserCart = null;
+            _currentUserCartItems = null;
+        }
         public WorkDataBase()
         {
             TypeServes = new ObservableCollection<TypeService>( Core.Kosmetica.TypeServices);

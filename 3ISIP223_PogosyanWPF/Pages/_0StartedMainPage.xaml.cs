@@ -25,16 +25,21 @@ namespace _3ISIP223_PogosyanWPF.Pages
             {
                 AccountPageBtn.Visibility = Visibility.Collapsed;
                 btnSign.Visibility = Visibility.Visible;
+                btnOutAcc.Visibility = Visibility.Collapsed;
             }
             else
             {
                 AccountPageBtn.Visibility = Visibility.Visible;
                 btnSign.Visibility = Visibility.Collapsed;
+                btnOutAcc.Visibility = Visibility.Visible;
+
             }
 
             if (_dataBase.CurrentUser != null && (_dataBase.CurrentUser.TypeRole.Name == "Администратор" || _dataBase.CurrentUser.TypeRole.Name == "Менеджер" || _dataBase.CurrentUser.TypeRole.Name == "Мастер"))
             {
                 btnProducts.Visibility = Visibility.Collapsed;
+                btnOutAcc.Visibility = Visibility.Visible;
+
             }
         }
 
@@ -92,6 +97,24 @@ namespace _3ISIP223_PogosyanWPF.Pages
                     mainPageFrame.Navigate(new _6AdminPage());
                     //adminWindow.ShowDialog();
                 }
+            }
+        }
+        private void BtnAccOut_Click(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Вы уверены, что хотите выйти из аккаунта?",
+                "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                _dataBase.CurrentUser = null;
+                _dataBase.ClearCartCache();
+
+                UpdateButtonsVisibility();
+
+                mainPageFrame.Navigate(new _0FiltersStartedMainPage());
+
+                MessageBox.Show("Вы вышли из аккаунта", "Успех",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }
