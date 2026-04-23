@@ -505,6 +505,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
 
 
+
         public void AddUser(User user)
         {
             Core.Kosmetica.Users.Add(user);
@@ -655,7 +656,53 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 .ToList();
         }
 
+        private List<TypeRole> _allroles;
+        public List<TypeRole> Allroles
+        {
+            get
+            {
+                if (_allroles == null) _allroles = Core.Kosmetica.TypeRoles.ToList();
+                return _allroles;
+            }
+            set
+            {
+                _allroles = value;
+            }
+        }
 
+
+        public void CreateOrderFromCartWithDetails(DateTime deliveryDate, int paymentMethodId)
+        {
+            if (CurrentUserCart == null || CurrentUserCartItems == null || CurrentUserCartItems.Count == 0) return;
+
+            var order = new Order
+            {
+                User_ID = CurrentUser.User_ID,
+                OrderDate = DateTime.Now,
+                DeliveryDate = deliveryDate,
+                PaymentMethod_ID = paymentMethodId,
+                Status = false,
+                TotalAmount = CurrentUserCart.TotalPrice
+            };
+
+            Core.Kosmetica.Orders.Add(order);
+            Core.Kosmetica.SaveChanges();
+
+            foreach (var item in CurrentUserCartItems)
+            {
+                var orderItem = new OrderItem
+                {
+                    Order_ID = order.Order_ID,
+                    Product_ID = item.Product_ID,
+                    Quantity = item.Quantity,
+                    PriceAtOrder = item.Product.Price * (100 - item.Product.Discount) / 100
+                };
+                Core.Kosmetica.OrderItems.Add(orderItem);
+            }
+
+            Core.Kosmetica.SaveChanges();
+            ClearCart();
+        }
 
         public WorkDataBase()
         {

@@ -117,6 +117,8 @@
     <Compile Include="Pages\_6AdminPage.xaml.cs">
       <DependentUpon>_6AdminPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Partials\Product.cs" />
+    <Compile Include="Partials\User.cs" />
     <Compile Include="PaymentMethod.cs">
       <DependentUpon>KosmeticaModel.tt</DependentUpon>
     </Compile>
@@ -177,6 +179,9 @@
     </Compile>
     <Compile Include="Winodws\InsertServiceWindow.xaml.cs">
       <DependentUpon>InsertServiceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Winodws\OrderConfirmationWindow.xaml.cs">
+      <DependentUpon>OrderConfirmationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Winodws\ProductWindow.xaml.cs">
       <DependentUpon>ProductWindow.xaml</DependentUpon>
@@ -272,6 +277,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Winodws\InsertServiceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Winodws\OrderConfirmationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

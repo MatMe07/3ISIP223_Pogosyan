@@ -15,7 +15,7 @@ namespace _3ISIP223_PogosyanWPF.Winodws
             _viewModel = viewModel;
             _editingUser = user;
 
-            cmbRole.ItemsSource = _viewModel.AllRoles;
+            cmbRole.ItemsSource = _viewModel.AllRoles.Select(s => s.Name) ;
 
             if (user != null)
             {
@@ -26,6 +26,7 @@ namespace _3ISIP223_PogosyanWPF.Winodws
                 txtPhone.Text = user.Phone;
                 txtEmail.Text = user.Email;
                 cmbRole.SelectedItem = user.TypeRole?.Name;
+                txtPassword.Text = user.password;
             }
         }
 
@@ -48,6 +49,11 @@ namespace _3ISIP223_PogosyanWPF.Winodws
                 MessageBox.Show("Введите телефон", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+            if (string.IsNullOrWhiteSpace(txtPassword.Text))
+            {
+                MessageBox.Show("Введите пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
             if (cmbRole.SelectedItem == null)
             {
@@ -65,7 +71,8 @@ namespace _3ISIP223_PogosyanWPF.Winodws
                     Phone = txtPhone.Text,
                     Email = txtEmail.Text,
                     Role_ID = cmbRole.SelectedIndex + 1,
-                    IsFrozen = false
+                    IsFrozen = false,
+                    password = txtPassword.Text
                 };
                 _viewModel.AddUser(user);
             }

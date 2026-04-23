@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.Winodws;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -122,6 +123,8 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             UpdateQuantity(item, item.Quantity - 1);
         }
 
+
+
         public void CreateOrder()
         {
             if (dataBase.CurrentUserCartItems == null || dataBase.CurrentUserCartItems.Count == 0)
@@ -137,18 +140,21 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 return;
             }
 
-            var result = MessageBox.Show("Оформить заказ?",
-                "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
+            var orderWindow = new OrderConfirmationWindow(dataBase.CurrentUserCartItems.ToList(), dataBase.CurrentUserCart.TotalPrice);
+            if (orderWindow.ShowDialog() == true)
             {
-                dataBase.CreateOrderFromCart();
+                var deliveryDate = orderWindow.SelectedDeliveryDate;
+                var paymentMethodId = orderWindow.SelectedPaymentMethodId;
+
+                dataBase.CreateOrderFromCartWithDetails(deliveryDate, paymentMethodId);
                 UpdateCartItemsList();
                 UpdateTotals();
 
-                MessageBox.Show("Заказ успешно оформлен!",
+                MessageBox.Show($"Заказ успешно оформлен!\nДата получения: {deliveryDate:dd.MM.yyyy}",
                     "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
+
     }
 }

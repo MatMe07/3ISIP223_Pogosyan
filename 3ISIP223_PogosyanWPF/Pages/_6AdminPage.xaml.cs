@@ -72,9 +72,9 @@ namespace _3ISIP223_PogosyanWPF.Pages
         {
             var comboBox = sender as ComboBox;
             var user = comboBox?.Tag as User;
-            var newRole = comboBox?.SelectedItem as string;
+            var newRole = comboBox?.SelectedItem as TypeRole;
 
-            if (user != null && !string.IsNullOrEmpty(newRole))
+            if (user != null && newRole != null)
             {
                 _viewModel.ChangeUserRole(user, newRole);
             }

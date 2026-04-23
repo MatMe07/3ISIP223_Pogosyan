@@ -43,8 +43,18 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             }
         }
 
-        private List<string> _allRoles;
-        public List<string> AllRoles
+        private List<string> _allRolesString;
+        public List<string> AllRolesString
+        {
+            get { return _allRolesString; }
+            set
+            {
+                _allRolesString = value;
+                OnPropertyChanged(nameof(AllRolesString));
+            }
+        }
+        private List<TypeRole> _allRoles;
+        public List<TypeRole> AllRoles
         {
             get { return _allRoles; }
             set
@@ -58,7 +68,8 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         {
             dataBase = WorkDataBase.Instance;
             Users = new ObservableCollection<User>();
-            AllRoles = new List<string> { "Клиент", "Мастер", "Менеджер", "Администратор" };
+            //AllRoles = new List<string> { "Клиент", "Мастер", "Менеджер", "Администратор" };
+            AllRoles = dataBase.Allroles;
             LoadAllData();
         }
 
@@ -129,7 +140,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             UpdateUsersList();
         }
 
-        public void ChangeUserRole(User user, string newRoleName)
+        public void ChangeUserRole(User user, TypeRole newRoleName)
         {
             var roleId = AllRoles.IndexOf(newRoleName) + 1;
             user.Role_ID = roleId;

@@ -31,17 +31,7 @@ namespace _3ISIP223_PogosyanWPF
         public int Manufacturer_ID { get; set; }
         public bool IsFrozen { get; set; }
         public string PathImage { get; set; }
-
-        public bool DiscountMore15
-        {
-            get
-            {
-                Console.WriteLine($"{Name}: discount = {Discount}");
-                return Discount > 15;
-            }
-        }
-
-        public decimal PriceWithDiscount => Price - (Price * Discount / 100);
+    
         public virtual Manufacturer Manufacturer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderItem> OrderItems { get; set; }

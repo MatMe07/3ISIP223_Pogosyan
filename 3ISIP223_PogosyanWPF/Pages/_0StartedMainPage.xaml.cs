@@ -30,7 +30,11 @@ namespace _3ISIP223_PogosyanWPF.Pages
             {
                 AccountPageBtn.Visibility = Visibility.Visible;
                 btnSign.Visibility = Visibility.Collapsed;
+            }
 
+            if (_dataBase.CurrentUser != null && (_dataBase.CurrentUser.TypeRole.Name == "Администратор" || _dataBase.CurrentUser.TypeRole.Name == "Менеджер" || _dataBase.CurrentUser.TypeRole.Name == "Мастер"))
+            {
+                btnProducts.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -74,6 +78,20 @@ namespace _3ISIP223_PogosyanWPF.Pages
             if (loginWindow.ShowDialog() == true)
             {
                 UpdateButtonsVisibility();
+                if (_dataBase.CurrentUser.TypeRole?.Name == "Мастер")
+                {
+                    mainPageFrame.Navigate(new _4MasterPage());
+                }
+                else if (_dataBase.CurrentUser.TypeRole?.Name == "Менеджер")
+                {
+                    mainPageFrame.Navigate(new _5MenegerPage());
+                    //managerWindow.ShowDialog();
+                }
+                else if (_dataBase.CurrentUser.TypeRole?.Name == "Администратор")
+                {
+                    mainPageFrame.Navigate(new _6AdminPage());
+                    //adminWindow.ShowDialog();
+                }
             }
         }
     }

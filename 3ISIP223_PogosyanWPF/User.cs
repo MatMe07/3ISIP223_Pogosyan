@@ -11,8 +11,7 @@ namespace _3ISIP223_PogosyanWPF
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-
+    
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,10 +22,7 @@ namespace _3ISIP223_PogosyanWPF
             this.MasterSerives = new HashSet<MasterSerive>();
             this.Orders = new HashSet<Order>();
         }
-
-        public string FIO => $"{FirstName} {LastName} {SecondName}";
-
-        public string Uslugi => string.Join("\n - ", MasterSerives.Select(serv=>serv.Service.TypeService.Name));
+    
         public int User_ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -36,6 +32,7 @@ namespace _3ISIP223_PogosyanWPF
         public int Role_ID { get; set; }
         public bool IsFrozen { get; set; }
         public string PathImage { get; set; }
+        public string password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointments { get; set; }

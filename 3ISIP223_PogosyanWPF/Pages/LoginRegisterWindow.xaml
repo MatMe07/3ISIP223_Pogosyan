@@ -16,7 +16,6 @@
         </Grid.RowDefinitions>
 
         <TabControl Grid.Row="1" FontSize="14">
-            <!-- ВКЛАДКА ВХОДА -->
             <TabItem Header="🔐 Вход">
                 <Grid Margin="20">
                     <Grid.RowDefinitions>

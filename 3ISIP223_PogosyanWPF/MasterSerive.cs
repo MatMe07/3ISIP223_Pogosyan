@@ -20,6 +20,5 @@ namespace _3ISIP223_PogosyanWPF
     
         public virtual Service Service { get; set; }
         public virtual User User { get; set; }
-
     }
 }

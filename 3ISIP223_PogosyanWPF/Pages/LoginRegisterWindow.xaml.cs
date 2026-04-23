@@ -41,8 +41,11 @@ namespace _3ISIP223_PogosyanWPF.Winodws
                 return;
             }
 
-            // TODO: Добавить проверку пароля (сейчас пропускаем)
-            // if (user.Password != password) ...
+            if (user.password != password)
+            {
+                MessageBox.Show("Пользователь не найден", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
             if (user.IsFrozen)
             {
@@ -115,7 +118,9 @@ namespace _3ISIP223_PogosyanWPF.Winodws
                 Phone = phone,
                 Email = email,
                 Role_ID = 1,
-                IsFrozen = false
+                IsFrozen = false,
+                password = password
+                
             };
 
             _dataBase.AddUser(newUser);
