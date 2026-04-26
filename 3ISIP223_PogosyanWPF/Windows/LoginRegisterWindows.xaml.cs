@@ -1,5 +1,4 @@
-﻿using _3ISIP223_PogosyanWPF.Windows;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,22 +10,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace _3ISIP223_PogosyanWPF
+namespace _3ISIP223_PogosyanWPF.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для LoginRegisterWindows.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LoginRegisterWindows : Window
     {
-        public MainWindow()
+        public LoginRegisterWindows()
         {
-            //var wind = new LoginRegisterWindows();
-            //var res = wind.ShowDialog();
-            //if (res != false) this.Close();
             InitializeComponent();
+        }
+
+        private void Login_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Register_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
