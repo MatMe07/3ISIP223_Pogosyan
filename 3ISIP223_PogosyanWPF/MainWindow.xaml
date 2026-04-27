@@ -12,11 +12,42 @@
             <ColumnDefinition  Width="auto"/>
             <ColumnDefinition  Width="*"/>
         </Grid.ColumnDefinitions>
+        
+        <TabControl TabStripPlacement="Left">
+            <TabItem ToolTip="Каталог книг" >
+                <TabItem.Header>
+                    <Image Source="/Icons/book-bookmark.png"/>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem ToolTip="Списки книг">
+                <TabItem.Header>
+                    <Image Source="/Icons/wishlist.png"/>
 
-        <StackPanel>
-            <Button Background="Transparent" BorderBrush="Transparent">
-                <!--<Image Source=""/>-->
-            </Button>
-        </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem ToolTip="Администрирование">
+                <TabItem.Header>
+                    <Image Source="/Icons/setting.png"/>
+
+                </TabItem.Header>
+            </TabItem>
+            <TabItem ToolTip="Страница автора">
+                <TabItem.Header>
+                    <Image Source="/Icons/author.png"/>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem ToolTip="Предупреждение о заморозке">
+                <TabItem.Header>
+                    <Image Source="/Icons/Predupreоdenie.png"/>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem ToolTip="Профиль">
+                <TabItem.Header>
+                    <Image Source="/Icons/profile.png"/>
+                </TabItem.Header>
+            </TabItem>
+        </TabControl>
+
+        <Frame Grid.Column="1" Source="/Pages/CatalogPage.xaml" />
     </Grid>
 </Window>
