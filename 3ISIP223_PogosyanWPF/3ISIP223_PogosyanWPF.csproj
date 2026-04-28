@@ -194,6 +194,7 @@
     <Resource Include="Icons\wishlist.png" />
     <Resource Include="Icons\icon-filter.png" />
     <Resource Include="poster.jpg" />
+    <Resource Include="PosterBook.jpg" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
   </ItemGroup>
