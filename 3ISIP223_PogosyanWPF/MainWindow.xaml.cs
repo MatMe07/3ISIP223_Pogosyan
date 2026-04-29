@@ -26,9 +26,7 @@ namespace _3ISIP223_PogosyanWPF
             //var wind = new LoginRegisterWindows();
             //var res = wind.ShowDialog();
             //if (res != false) this.Close();
-            var wind = new BookWindow();
-            var res = wind.ShowDialog();
-            if (res != false) this.Close();
+
 
 
             InitializeComponent();

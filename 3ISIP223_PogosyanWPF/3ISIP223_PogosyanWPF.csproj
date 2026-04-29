@@ -72,6 +72,9 @@
     <Compile Include="Pages\AuthorPage.xaml.cs">
       <DependentUpon>AuthorPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\BookPage.xaml.cs">
+      <DependentUpon>BookPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\CatalogPage.xaml.cs">
       <DependentUpon>CatalogPage.xaml</DependentUpon>
     </Compile>
@@ -83,9 +86,6 @@
     </Compile>
     <Compile Include="Windows\AddEditBookPage.xaml.cs">
       <DependentUpon>AddEditBookPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\BookWindow.xaml.cs">
-      <DependentUpon>BookWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\LoginRegisterWindows.xaml.cs">
       <DependentUpon>LoginRegisterWindows.xaml</DependentUpon>
@@ -110,6 +110,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\BookPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\CatalogPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -123,10 +127,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\AddEditBookPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\BookWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

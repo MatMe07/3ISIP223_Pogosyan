@@ -8,16 +8,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition  Width="auto"/>
             <ColumnDefinition  Width="*"/>
-        </Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>-->
         
         <TabControl TabStripPlacement="Left">
             <TabItem ToolTip="Каталог книг" >
                 <TabItem.Header>
                     <Image Source="/Icons/book-bookmark.png"/>
                 </TabItem.Header>
+                <Frame Grid.Column="1" Source="/Pages/BookPage.xaml" />
+
             </TabItem>
             <TabItem ToolTip="Списки книг">
                 <TabItem.Header>
@@ -48,6 +50,5 @@
             </TabItem>
         </TabControl>
 
-        <Frame Grid.Column="1" Source="/Pages/CatalogPage.xaml" />
     </Grid>
 </Window>
