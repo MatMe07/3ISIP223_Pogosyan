@@ -32,5 +32,11 @@ namespace _3ISIP223_PogosyanWPF.Pages
         {
             //LstReviews.SelectedIndex = -1;
         }
+
+        private void btnReviewPoints_Click(object sender, RoutedEventArgs e)
+        {
+            var cont = FindResource("ReviewListMenu");
+            
+        }
     }
 }
