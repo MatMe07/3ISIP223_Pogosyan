@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,10 +34,66 @@ namespace _3ISIP223_PogosyanWPF.Pages
             //LstReviews.SelectedIndex = -1;
         }
 
+        private void ReviewListItem_Click(object sender, RoutedEventArgs e)
+        {
+            var menuItem = sender as MenuItem;
+            //int bookId = (int)menuItem.Tag;
+            string status = menuItem.Header.ToString();
+
+            //AddBookToReadingList(bookId, status);
+
+            (menuItem.Parent as ContextMenu).IsOpen = false;
+        }
+
+
+        private void ReadingListItem_Click(object sender, RoutedEventArgs e)
+        {
+            var menuItem = sender as MenuItem;
+            //int bookId = (int)menuItem.Tag;
+            string status = menuItem.Header.ToString();
+
+            //AddBookToReadingList(bookId, status);
+
+            (menuItem.Parent as ContextMenu).IsOpen = false;
+        }
+
         private void btnReviewPoints_Click(object sender, RoutedEventArgs e)
         {
-            var cont = FindResource("ReviewListMenu");
-            
+            var button = sender as Button;
+            //var bookId = (int)button.Tag;
+
+            var contextMenu = FindResource("ReviewListMenu") as ContextMenu;
+            contextMenu.PlacementTarget = button;
+            contextMenu.IsOpen = true;
+            foreach (MenuItem item in contextMenu.Items)
+            {
+                //item.Click -= ReadingListItem_Click;
+                item.Click += ReviewListItem_Click;
+                //item.Tag = bookId;
+            }
+        }
+
+        private void BtnAddList_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            //var bookId = (int)button.Tag;
+
+            var cont = FindResource("ReadingListMenu") as ContextMenu;
+            cont.PlacementTarget = button;
+            cont.IsOpen = true;
+            foreach (MenuItem item in cont.Items)
+            {
+                //item.Click -= ReadingListItem_Click;
+                item.Click += ReadingListItem_Click;
+                //item.Tag = bookId;
+            }
+        }
+
+        private void btnOpenReading_Click(object sender, RoutedEventArgs e)
+        {
+            var wind = new ReadingBookWindow();
+            var res = wind.ShowDialog();
+            //if (res != false) this.Close();
         }
     }
 }

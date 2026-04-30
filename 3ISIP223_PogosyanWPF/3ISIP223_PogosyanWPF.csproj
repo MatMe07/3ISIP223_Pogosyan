@@ -90,6 +90,9 @@
     <Compile Include="Windows\LoginRegisterWindows.xaml.cs">
       <DependentUpon>LoginRegisterWindows.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ReadingBookWindow.xaml.cs">
+      <DependentUpon>ReadingBookWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -131,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\LoginRegisterWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ReadingBookWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

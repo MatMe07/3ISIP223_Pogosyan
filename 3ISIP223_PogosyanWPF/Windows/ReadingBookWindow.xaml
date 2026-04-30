@@ -1,0 +1,58 @@
+﻿<Window x:Class="_3ISIP223_PogosyanWPF.Windows.ReadingBookWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
+        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Windows"
+        mc:Ignorable="d"
+        Title="Чтение фрагмента: Евгений Онегин" Height="450" Width="800" WindowStyle="None" WindowStartupLocation="CenterScreen" >
+    <Grid Background="#FFFBF0D9" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#FFE9EBF0">
+            <Grid>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Margin="5" Style="{StaticResource MaterialDesignToolForegroundButton}" 
+                        Padding="0"  Foreground="Black" Height="30" 
+                        materialDesign:RippleAssist.RippleSizeMultiplier="0.1"
+                        materialDesign:RippleAssist.IsCentered="False"
+                        Click="btnBack_Click" HorizontalAlignment="Left" >
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="LessThan" Height="20" Width="20"/>
+                            <TextBlock Text="Евгений Онегин" VerticalAlignment="Center" Margin="5 0" FontWeight="Bold" />
+                            <TextBlock Text="Александр Пушкин" VerticalAlignment="Center" Margin="5 0" FontWeight="Bold" Foreground="#FF84657C"  />
+                        </StackPanel>
+                        
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="1" Margin="5"  Padding="0" Style="{StaticResource MaterialDesignToolForegroundButton}" Foreground="Black" Height="30" Click="btnMaximize_Click" HorizontalAlignment="Right" >
+                    <Button.Content>
+                        <materialDesign:PackIcon x:Name="btnIconMaxim" Kind="Fullscreen" Height="30" Width="30"/>
+                    </Button.Content>
+                    
+
+                </Button>
+            </Grid>
+        </Border>
+        <ScrollViewer  Background="Transparent" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top"  MinHeight="400" Grid.Row="1">
+            <!--<materialDesign:Card>-->
+                <TextBlock x:Name="TextContent" 
+                   TextWrapping="Wrap" 
+                   FontFamily="Tahoma" 
+                   FontSize="16" 
+                   Padding="10" MaxWidth="500"/>
+
+            <!--</materialDesign:Card>-->
+        </ScrollViewer>
+
+    </Grid>
+</Window>

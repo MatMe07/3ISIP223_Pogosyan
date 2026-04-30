@@ -14,9 +14,15 @@
             <MenuItem Header="Пожаловаться на отзыв" Tag="Пожаловаться на отзыв"/>
             <MenuItem Header="Заморозить отзыв" Tag="В планах"/>
         </ContextMenu>
+        <ContextMenu x:Key="ReadingListMenu">
+            <MenuItem Header="Заброшено" Tag="Заброшено"/>
+            <MenuItem Header="В планах" Tag="В планах"/>
+            <MenuItem Header="Читаю" Tag="Читаю"/>
+            <MenuItem Header="Прочитано" Tag="Прочитано"/>
+        </ContextMenu>
     </Page.Resources>
 
-    <Grid Margin="10">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
@@ -34,13 +40,13 @@
                     <DropShadowEffect BlurRadius="10" Opacity="0.5" ShadowDepth="0"/>
                 </Image.Effect>
             </Image>
-            <Button Content="Читать фрагмент" Grid.Row="1" Margin="0 10" FontSize="12"/>
-            <Button Content="🚩 Пожаловаться на книгу" Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" HorizontalContentAlignment="Left" FontSize="12"/>
+            <Button Content="Читать фрагмент" Style="{StaticResource MaterialDesignRaisedLightButton}"  FontWeight="Black" Foreground="White" Grid.Row="1" Margin="0 10" FontSize="12" Click="btnOpenReading_Click"/>
+            <Button Content="🚩 Пожаловаться на книгу" Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}"  HorizontalContentAlignment="Left" FontSize="12"/>
             <Button Content="🚩 Пожаловаться на автора" Grid.Row="3" Style="{StaticResource MaterialDesignFlatButton}" HorizontalContentAlignment="Left" FontSize="12"/>
             <Button Content="🚩 Заморозить автора" Grid.Row="4" Style="{StaticResource MaterialDesignFlatButton}" HorizontalContentAlignment="Left" FontSize="12"/>
         </Grid>
         <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
-            <Grid Margin="20">
+            <Grid Margin="15 5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
@@ -58,7 +64,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Евгений Онегин" Style="{StaticResource H1Text}"/>
-                    <Button Content="Добавить в список" Grid.Column="1" HorizontalAlignment="Right"/>
+                    <Button Content="Добавить в список"  Style="{StaticResource MaterialDesignRaisedLightButton}" FontWeight="Black" Foreground="White" Grid.Column="1" HorizontalAlignment="Right" Click="BtnAddList_Click" />
 
                 </Grid>
 
@@ -112,7 +118,7 @@
                                         <TextBlock Text="7 дней назад" FontSize="10" Margin="0 2" Foreground="#626165"/>
                                     </StackPanel>
 
-                                    <materialDesign:RatingBar Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Value="4.3"  >
+                                    <materialDesign:RatingBar Grid.Column="1" IsHitTestVisible="False" HorizontalAlignment="Right" VerticalAlignment="Bottom" Value="4.3"  >
                                         <materialDesign:RatingBar.LayoutTransform >
                                             <ScaleTransform ScaleX="0.8" ScaleY="0.8"></ScaleTransform>
                                         </materialDesign:RatingBar.LayoutTransform>
