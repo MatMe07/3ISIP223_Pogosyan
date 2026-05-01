@@ -22,11 +22,14 @@ namespace _3ISIP223_PogosyanWPF.Pages
     public partial class BookPage : Page
     {
         public List<string> lstRand {  get; set; }
+        private MainWindow mainWindow;
+
         public BookPage()
         {
             lstRand = new List<string> { "fdf", "sdf"};
             DataContext = this;
             InitializeComponent();
+            mainWindow = MainWindow.GetInstance();
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -91,7 +94,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         private void btnOpenReading_Click(object sender, RoutedEventArgs e)
         {
-            var mainWindow = MainWindow.GetInstance();
             mainWindow.BlurAdd(true);
             var wind = new ReadingBookWindow();
             wind.Owner = mainWindow;
@@ -102,12 +104,16 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         private void btnAddReview_Click(object sender, RoutedEventArgs e)
         {
-            var mainWindow = MainWindow.GetInstance();
             mainWindow.BlurAdd(true);
             var wind = new AddReviewWindow();
             wind.Owner = mainWindow;
             var res = wind.ShowDialog();
             mainWindow.BlurAdd(false);
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.frameCatalog.NavigationService.GoBack();
         }
     }
 }

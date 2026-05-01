@@ -60,8 +60,9 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-            var res = MessageBox.Show("Книга {bookId} → {status}");
+            var wind = MainWindow.GetInstance();
+            wind.frameCatalog.NavigationService.Navigate(new BookPage());
+            //var res = MessageBox.Show("Книга {bookId} → {status}");
             //if (res == MessageBoxResult.OK) listBooks.SelectedIndex = -1;
 
         }

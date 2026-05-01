@@ -1,4 +1,5 @@
-﻿using _3ISIP223_PogosyanWPF.Windows;
+﻿using _3ISIP223_PogosyanWPF.Pages;
+using _3ISIP223_PogosyanWPF.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,17 +23,14 @@ namespace _3ISIP223_PogosyanWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static Frame GetFrameCatalog {  get; set; }
         public MainWindow()
         {
             //var wind = new LoginRegisterWindows();
             //var res = wind.ShowDialog();
             //if (res != false) this.Close();
-
-
-
-
-
             InitializeComponent();
+            frameCatalog.NavigationService.Navigate(new CatalogPage());
         }
         public static MainWindow GetInstance()
         {

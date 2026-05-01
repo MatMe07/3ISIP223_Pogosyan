@@ -28,7 +28,7 @@
                 <TabItem.Header>
                     <Image Source="/Icons/book-bookmark.png"/>
                 </TabItem.Header>
-                <Frame Grid.Column="1" Source="/Pages/BookPage.xaml" Margin="10 0 0 0"/>
+                <Frame Grid.Column="1" NavigationUIVisibility="Hidden" x:Name="frameCatalog" Source="/Pages/CatalogPage.xaml" Margin="10 0 0 0"/>
 
             </TabItem>
             <TabItem ToolTip="Списки книг">

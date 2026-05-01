@@ -27,7 +27,24 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Column="0" Margin="10 0" Style="{StaticResource MaterialDesignToolForegroundButton}" 
+                        Padding="0"  Foreground="Black" Height="30" 
+                        materialDesign:RippleAssist.RippleSizeMultiplier="0.1"
+                        materialDesign:RippleAssist.IsCentered="False"
+                        Click="btnBack_Click" HorizontalAlignment="Left" >
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="LessThan" Height="20" Width="20"/>
+                    <TextBlock Text="Назад" VerticalAlignment="Center" Margin="10 0" FontWeight="Bold" />
+                </StackPanel>
+
+            </Button.Content>
+        </Button>
+        <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -45,7 +62,7 @@
             <Button Content="🚩 Пожаловаться на автора" Grid.Row="3" Style="{StaticResource MaterialDesignFlatButton}" HorizontalContentAlignment="Left" FontSize="12"/>
             <Button Content="🚩 Заморозить автора" Grid.Row="4" Style="{StaticResource MaterialDesignFlatButton}" HorizontalContentAlignment="Left" FontSize="12"/>
         </Grid>
-        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+        <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
             <Grid Margin="15 5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
