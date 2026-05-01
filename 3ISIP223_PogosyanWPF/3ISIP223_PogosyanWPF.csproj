@@ -87,6 +87,9 @@
     <Compile Include="Windows\AddEditBookPage.xaml.cs">
       <DependentUpon>AddEditBookPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\AddReviewWindow.xaml.cs">
+      <DependentUpon>AddReviewWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\LoginRegisterWindows.xaml.cs">
       <DependentUpon>LoginRegisterWindows.xaml</DependentUpon>
     </Compile>
@@ -130,6 +133,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\AddEditBookPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddReviewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,6 +209,7 @@
     <Resource Include="Icons\icon-filter.png" />
     <Resource Include="poster.jpg" />
     <Resource Include="PosterBook.jpg" />
+    <Resource Include="NoneUserPath.png" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
   </ItemGroup>

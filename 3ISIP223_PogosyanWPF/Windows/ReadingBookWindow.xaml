@@ -7,7 +7,7 @@
 
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Windows"
         mc:Ignorable="d"
-        Title="Чтение фрагмента: Евгений Онегин" Height="450" Width="800" WindowStyle="None" WindowStartupLocation="CenterScreen" >
+        Title="Чтение фрагмента: Евгений Онегин" Height="450" Width="800" WindowStyle="None" WindowStartupLocation="CenterOwner" >
     <Grid Background="#FFFBF0D9" >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -20,7 +20,7 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Margin="5" Style="{StaticResource MaterialDesignToolForegroundButton}" 
+                <Button Grid.Column="0" Margin="10 5" Style="{StaticResource MaterialDesignToolForegroundButton}" 
                         Padding="0"  Foreground="Black" Height="30" 
                         materialDesign:RippleAssist.RippleSizeMultiplier="0.1"
                         materialDesign:RippleAssist.IsCentered="False"
@@ -28,7 +28,7 @@
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="LessThan" Height="20" Width="20"/>
-                            <TextBlock Text="Евгений Онегин" VerticalAlignment="Center" Margin="5 0" FontWeight="Bold" />
+                            <TextBlock Text="Евгений Онегин" VerticalAlignment="Center" Margin="10 0" FontWeight="Bold" />
                             <TextBlock Text="Александр Пушкин" VerticalAlignment="Center" Margin="5 0" FontWeight="Bold" Foreground="#FF84657C"  />
                         </StackPanel>
                         

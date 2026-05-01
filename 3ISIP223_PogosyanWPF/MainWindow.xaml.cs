@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -32,6 +33,23 @@ namespace _3ISIP223_PogosyanWPF
 
 
             InitializeComponent();
+        }
+        public static MainWindow GetInstance()
+        {
+            return Application.Current.MainWindow as MainWindow;
+        }
+        public void BlurAdd(bool IsBlur)
+        {
+            if (IsBlur)
+            {
+                BlurEffect blurEffect = new BlurEffect();
+                blurEffect.Radius = 10;
+                this.Effect = blurEffect;
+            }
+            else
+            {
+                this.Effect = null;
+            }
         }
     }
 }

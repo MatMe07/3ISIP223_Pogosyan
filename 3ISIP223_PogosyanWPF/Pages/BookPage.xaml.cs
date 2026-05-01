@@ -91,9 +91,23 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         private void btnOpenReading_Click(object sender, RoutedEventArgs e)
         {
+            var mainWindow = MainWindow.GetInstance();
+            mainWindow.BlurAdd(true);
             var wind = new ReadingBookWindow();
+            wind.Owner = mainWindow;
             var res = wind.ShowDialog();
-            //if (res != false) this.Close();
+            mainWindow.BlurAdd(false);
+            
+        }
+
+        private void btnAddReview_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = MainWindow.GetInstance();
+            mainWindow.BlurAdd(true);
+            var wind = new AddReviewWindow();
+            wind.Owner = mainWindow;
+            var res = wind.ShowDialog();
+            mainWindow.BlurAdd(false);
         }
     }
 }
