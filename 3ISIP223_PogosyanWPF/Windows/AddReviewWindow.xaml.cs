@@ -23,5 +23,10 @@ namespace _3ISIP223_PogosyanWPF.Windows
         {
             InitializeComponent();
         }
+
+        private void btnPublish_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
     }
 }

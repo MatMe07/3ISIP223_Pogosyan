@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Windows"
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" WindowStartupLocation="CenterOwner"
         
         mc:Ignorable="d"
         Title="Оставить отзыв" Height="370" Width="529" Background="#FFF4F4FC" >
@@ -44,6 +44,6 @@
         </RichTextBox>
         <TextBlock Text="Поставьте оценку и напишите отзыв" Grid.Row="3" Margin="15 0" FontSize="12" FontWeight="Medium" Foreground="#FF9D9C9F" />
 
-        <Button Content="Опубликовать" Grid.Row="4" HorizontalAlignment="Left" FontSize="14" Margin="0 15"/>
+        <Button Content="Опубликовать"  Grid.Row="4" HorizontalAlignment="Left" FontSize="14" Margin="0 15" Click="btnPublish_Click"/>
     </Grid>
 </Window>

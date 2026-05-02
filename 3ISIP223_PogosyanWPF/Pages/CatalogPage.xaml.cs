@@ -25,7 +25,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
         public List<string> lst {  get; set; }
         public CatalogPage()
         {
-            lst = new List<string> { "hello", "world" };
+            lst = new List<string> { "hello", "world" , "world" , "world" , "world" , "world" , "world" , "world" , "world" };
             DataContext = this;
             InitializeComponent();
             //listB.ItemsSource = lst;
@@ -61,7 +61,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var wind = MainWindow.GetInstance();
-            wind.frameCatalog.NavigationService.Navigate(new BookPage());
+            wind.frameCatalog.NavigationService.Navigate(new BookPage("CatalogPage"));
             //var res = MessageBox.Show("Книга {bookId} → {status}");
             //if (res == MessageBoxResult.OK) listBooks.SelectedIndex = -1;
 

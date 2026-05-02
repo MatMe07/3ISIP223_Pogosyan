@@ -23,11 +23,13 @@ namespace _3ISIP223_PogosyanWPF.Pages
     {
         public List<string> lstRand {  get; set; }
         private MainWindow mainWindow;
+        public string WhereFrom;
 
-        public BookPage()
+        public BookPage(string whereFrom)
         {
             lstRand = new List<string> { "fdf", "sdf"};
             DataContext = this;
+            WhereFrom = whereFrom;
             InitializeComponent();
             mainWindow = MainWindow.GetInstance();
         }
@@ -113,7 +115,13 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            mainWindow.frameCatalog.NavigationService.GoBack();
+            if (WhereFrom == "ListPage")
+            {
+                mainWindow.frameListBook.NavigationService.GoBack();
+
+            }
+            else if (WhereFrom == "CatalogPage")
+                mainWindow.frameCatalog.NavigationService.GoBack();
         }
     }
 }
