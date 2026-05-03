@@ -77,9 +77,10 @@
                 </Grid.RowDefinitions>
                 <TabControl  Grid.Row="0" 
                           Style="{StaticResource MaterialDesignNavigationRailTabControl}"
-                          TabStripPlacement="Top" Background="White">
-                    <TabItem  Width="90">
-                        <TabItem.Header>
+                             
+                          TabStripPlacement="Top" Background="White" SelectionChanged="TabControl_SelectionChanged">
+                    <TabItem  Width="90" Tag="Все книги">
+                        <TabItem.Header >
                             <StackPanel >
                                 <materialDesign:PackIcon Width="24"
                                                Height="24"
@@ -94,7 +95,7 @@
                         <!--</ScrollViewer>-->
                     </TabItem>
 
-                    <TabItem Width="90">
+                    <TabItem Width="90" Tag="Заброшено">
                         <TabItem.Header>
                             <StackPanel >
                                 <materialDesign:PackIcon Width="34"
@@ -106,7 +107,7 @@
                         </TabItem.Header>
                     </TabItem>
 
-                    <TabItem  Width="90">
+                    <TabItem  Width="90" Tag="В планах">
                         <TabItem.Header>
                             <StackPanel >
                                 <materialDesign:PackIcon Width="24"
@@ -118,7 +119,7 @@
                         </TabItem.Header>
                     </TabItem>
 
-                    <TabItem  Width="90">
+                    <TabItem  Width="90" Tag="Читаю">
                         <TabItem.Header>
                             <StackPanel >
                                 <materialDesign:PackIcon Width="24"
@@ -130,7 +131,7 @@
                         </TabItem.Header>
                     </TabItem>
 
-                    <TabItem  Width="90">
+                    <TabItem Width="90" Tag="Прочитано">
                         <TabItem.Header>
                             <StackPanel >
                                 <materialDesign:PackIcon Width="24"

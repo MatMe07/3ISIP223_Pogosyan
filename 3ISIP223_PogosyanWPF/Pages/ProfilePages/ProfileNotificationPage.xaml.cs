@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using _3ISIP223_PogosyanWPF.Pages.ProfilePages;
 
-namespace _3ISIP223_PogosyanWPF.Pages
+namespace _3ISIP223_PogosyanWPF.Pages.ProfilePages
 {
     /// <summary>
-    /// Логика взаимодействия для ProfilePage.xaml
+    /// Логика взаимодействия для ProfileNotificationPage.xaml
     /// </summary>
-    public partial class ProfilePage : Page
+    public partial class ProfileNotificationPage : Page
     {
-        public ProfilePage()
+        public ProfileNotificationPage()
         {
             InitializeComponent();
-            frameProfilePage.NavigationService.Navigate(new ProfileMainPage());
         }
     }
 }

@@ -4,11 +4,83 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
+       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="800" d:Background="White"
       Title="ProfilePage">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" MaxWidth="180" Margin="0 20">
+                <Border CornerRadius="25" Width="50" Height="50" >
+                    <Border.Background>
+                        <ImageBrush ImageSource="/NoneUserPath.png"/>
+                    </Border.Background>
+                </Border>
+                <Button Grid.Column="0" Margin="10 5" Style="{StaticResource MaterialDesignToolForegroundButton}" 
+                        Padding="0"  Foreground="Black" Height="30" 
+                        materialDesign:RippleAssist.RippleSizeMultiplier="0.1"
+                        materialDesign:RippleAssist.IsCentered="False"
+                         HorizontalAlignment="Left" >
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Mat Me" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <materialDesign:PackIcon Kind="GreaterThan" Margin="5 5" Height="15" Width="15"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+            <TabControl  Grid.Row="1"
+                          Style="{StaticResource MaterialDesignNavigationRailTabControl}"
+                    materialDesign:NavigationRailAssist.SelectionCornerRadius="10"
+
+                    materialDesign:NavigationRailAssist.ShowSelectionBackground="True"
+                     materialDesign:ElevationAssist.Elevation="Dp0" 
+                          TabStripPlacement="Left" Background="White" >
+                <TabItem  MinWidth="150" Height="40" Margin="0 5" Tag="Все книги">
+                    <TabItem.Header >
+                        <TextBlock FontSize="18" HorizontalAlignment="Left" Text="Главная" Width="130"/>
+                    </TabItem.Header>
+                </TabItem>
+
+                <TabItem MinWidth="150" Height="40" Margin="0 5" Tag="Заброшено" Padding="0"  HorizontalContentAlignment="Stretch">
+                    <TabItem.Header >
+                        <TextBlock FontSize="18" HorizontalAlignment="Left" Text="Мои отзывы"   Width="130"/>
+
+                    </TabItem.Header>
+                </TabItem>
+
+                <TabItem  MinWidth="150" Height="40" Margin="0 5" Tag="В планах">
+                    <TabItem.Header>
+                        <TextBlock Margin="10 0" FontSize="18" HorizontalAlignment="Left" Text="Уведомления"  Width="130"/>
+                    </TabItem.Header>
+                </TabItem>
+            </TabControl>
+            <Button Content="Выход" Grid.Row="2" Margin="5 15" 
+                    materialDesign:RippleAssist.RippleSizeMultiplier="0"
+                    HorizontalAlignment="Left">
+                <Button.Style>
+                    <Style  BasedOn="{StaticResource MaterialDesignToolButton}" TargetType="Button">
+                        <Setter Property="Foreground" Value="#868ca2"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="#0A1E78"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+
+        <Frame Grid.Column="1" x:Name="frameProfilePage"/>
     </Grid>
 </Page>

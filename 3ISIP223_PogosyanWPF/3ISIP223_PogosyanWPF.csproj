@@ -84,6 +84,18 @@
     <Compile Include="Pages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ProfilePages\ProfileEditPage.xaml.cs">
+      <DependentUpon>ProfileEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ProfilePages\ProfileMainPage.xaml.cs">
+      <DependentUpon>ProfileMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ProfilePages\ProfileMyReviewsPage.xaml.cs">
+      <DependentUpon>ProfileMyReviewsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ProfilePages\ProfileNotificationPage.xaml.cs">
+      <DependentUpon>ProfileNotificationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AddEditBookPage.xaml.cs">
       <DependentUpon>AddEditBookPage.xaml</DependentUpon>
     </Compile>
@@ -129,6 +141,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ProfilePages\ProfileEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ProfilePages\ProfileMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ProfilePages\ProfileMyReviewsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ProfilePages\ProfileNotificationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

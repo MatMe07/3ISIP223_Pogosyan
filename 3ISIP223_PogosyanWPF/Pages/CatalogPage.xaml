@@ -71,7 +71,7 @@
             </Grid>
         </materialDesign:ColorZone>
 
-        <ListBox Grid.Row="1" Margin="-5 0" d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="listBooks"  ItemsSource="{Binding lst}" 
+        <ListBox Grid.Row="1"  d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="listBooks"  ItemsSource="{Binding lst}" 
                  Style="{StaticResource MaterialDesignNavigationPrimaryListBox}" SelectionChanged="ListBox_SelectionChanged" >
             <ListBox.ItemTemplate >
                 <DataTemplate >
@@ -89,7 +89,9 @@
                                     <ImageBrush ImageSource="/poster.jpg" Stretch="UniformToFill"/>
                                 </Border.Background>
                             </Border>
-                            <Button Grid.Row="4" FontSize="13" Content="➕" Margin="0 5 0 0" Click="AddToListButton_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Width="30" Height="30" Padding="0"/>
+                            <Button Grid.Row="4" FontSize="13" Content="➕" Margin="0 5 5 0" Click="AddToListButton_Click" HorizontalAlignment="Right" 
+                                    materialDesign:ElevationAssist.Elevation="Dp1" 
+                                    VerticalAlignment="Top" Width="30" Height="30" Padding="0" Background="#96673AB7" BorderBrush="Transparent"/>
 
                         </Grid>
                         <TextBlock Text="Евгений Онегин"  FontWeight="DemiBold" Grid.Row="1" Margin="0 3" TextWrapping="WrapWithOverflow"/>
