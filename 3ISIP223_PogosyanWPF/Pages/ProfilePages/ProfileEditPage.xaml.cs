@@ -20,9 +20,20 @@ namespace _3ISIP223_PogosyanWPF.Pages.ProfilePages
     /// </summary>
     public partial class ProfileEditPage : Page
     {
-        public ProfileEditPage()
+        public Frame FrameMainPage;
+        public Action Action;
+        public ProfileEditPage(Action action)
         {
             InitializeComponent();
+            Action = action;
+        }
+
+
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            //FrameMainPage.NavigationService.Navigate(new ProfileMainPage());
+            Action();
         }
     }
 }

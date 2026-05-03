@@ -1,0 +1,47 @@
+﻿<Page x:Class="_3ISIP223_PogosyanWPF.Pages.WarningPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      
+      d:Background="White"
+      
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="WarningPage">
+
+    <Grid Margin="10">
+        <GroupBox VerticalAlignment="Top" >
+            <GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Alert" Width="25" Height="25"/>
+                    <TextBlock Grid.Row="1" Text="ВНИМАНИЕ: Ваш аккаунт заморожен" 
+                                   Margin="5 0"
+                                   Style="{StaticResource H1Text}" FontSize="18" VerticalAlignment="Center" />
+
+                </StackPanel>
+            </GroupBox.Header>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <materialDesign:PackIcon Kind="BrainFreeze" Width="90" Height="90" HorizontalAlignment="Center" Foreground="#FF673AB7" />
+                <TextBlock Grid.Row="1"
+                               Margin="5"
+                        Text="Причина: [текст причины от администратора]" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                <TextBlock Grid.Row="2"
+                               Margin="5"
+                        Text="Дата: [дата заморозки]" Style="{StaticResource MaterialDesignBody2TextBlock}"/>
+                <Button Grid.Row="3" Content="Оспорить" Margin="5" Click="btnContest_Click" />
+            </Grid>
+
+        </GroupBox>
+
+    </Grid>
+</Page>

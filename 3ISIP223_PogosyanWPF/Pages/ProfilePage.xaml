@@ -30,7 +30,8 @@
                         Padding="0"  Foreground="Black" Height="30" 
                         materialDesign:RippleAssist.RippleSizeMultiplier="0.1"
                         materialDesign:RippleAssist.IsCentered="False"
-                         HorizontalAlignment="Left" >
+                        
+                         HorizontalAlignment="Left" Click="btnEditProfile_Click" >
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Mat Me" VerticalAlignment="Center" FontWeight="Bold"/>
@@ -40,28 +41,29 @@
                 </Button>
             </StackPanel>
             <TabControl  Grid.Row="1"
+                         x:Name="tabControlPage"
                           Style="{StaticResource MaterialDesignNavigationRailTabControl}"
                     materialDesign:NavigationRailAssist.SelectionCornerRadius="10"
 
                     materialDesign:NavigationRailAssist.ShowSelectionBackground="True"
                      materialDesign:ElevationAssist.Elevation="Dp0" 
-                          TabStripPlacement="Left" Background="White" >
-                <TabItem  MinWidth="150" Height="40" Margin="0 5" Tag="Все книги">
+                          TabStripPlacement="Left" Background="White" SelectionChanged="TabControl_SelectionChanged" >
+                <TabItem  MinWidth="150" Height="40" Margin="0 5" Tag="Главная">
                     <TabItem.Header >
-                        <TextBlock FontSize="18" HorizontalAlignment="Left" Text="Главная" Width="130"/>
+                        <TextBlock FontSize="16" HorizontalAlignment="Left" Text="Главная" Width="130"/>
                     </TabItem.Header>
                 </TabItem>
 
-                <TabItem MinWidth="150" Height="40" Margin="0 5" Tag="Заброшено" Padding="0"  HorizontalContentAlignment="Stretch">
+                <TabItem MinWidth="150" Height="40" Margin="0 5" Tag="Мои отзывы" Padding="0"  HorizontalContentAlignment="Stretch">
                     <TabItem.Header >
-                        <TextBlock FontSize="18" HorizontalAlignment="Left" Text="Мои отзывы"   Width="130"/>
+                        <TextBlock FontSize="16" HorizontalAlignment="Left" Text="Мои отзывы"   Width="130"/>
 
                     </TabItem.Header>
                 </TabItem>
 
-                <TabItem  MinWidth="150" Height="40" Margin="0 5" Tag="В планах">
+                <TabItem  MinWidth="150" Height="40" Margin="0 5" Tag="Уведомления">
                     <TabItem.Header>
-                        <TextBlock Margin="10 0" FontSize="18" HorizontalAlignment="Left" Text="Уведомления"  Width="130"/>
+                        <TextBlock Margin="10 0" FontSize="16" HorizontalAlignment="Left" Text="Уведомления"  Width="130"/>
                     </TabItem.Header>
                 </TabItem>
             </TabControl>
@@ -81,6 +83,6 @@
             </Button>
         </Grid>
 
-        <Frame Grid.Column="1" x:Name="frameProfilePage"/>
+        <Frame Grid.Column="1" x:Name="frameProfilePage"  Margin="30 10" Source="/Pages/ProfilePages/ProfileMainPage.xaml" />
     </Grid>
 </Page>

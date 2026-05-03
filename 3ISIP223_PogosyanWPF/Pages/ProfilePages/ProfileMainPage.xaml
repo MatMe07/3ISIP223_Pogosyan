@@ -11,6 +11,77 @@
       Title="ProfileMainPage">
 
     <Grid>
+        <StackPanel >
+            <Grid Margin="10 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="0 5 50 5">
+                    <materialDesign:PackIcon Kind="Account" Width="25" Height="25"/>
+                    <TextBlock Text="Имя" VerticalAlignment="Center" Margin="5 0" FontSize="15" Foreground="#FF70778F"/>
+                </StackPanel>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="Иван Петров" VerticalAlignment="Center" FontSize="15"/>
+                
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="0 5 50 5">
+                    <materialDesign:PackIcon Kind="AccountKey" Width="25" Height="25"/>
+                    <TextBlock Text="Логин" VerticalAlignment="Center" Margin="5 0" FontSize="15" Foreground="#FF70778F"/>
+                </StackPanel>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="ivan.petrov" VerticalAlignment="Center" FontSize="15"/>
+                
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Margin="0 5 50 5">
+                    <materialDesign:PackIcon Kind="Email" Width="25" Height="25"/>
+                    <TextBlock Text="Email" VerticalAlignment="Center" Margin="5 0" FontSize="15" Foreground="#FF70778F"/>
+                </StackPanel>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="ivan@example.com" VerticalAlignment="Center" FontSize="15"/>
+                
+                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Margin="0 5 50 5">
+                    <materialDesign:PackIcon Kind="GuyFawkesMask" Width="25" Height="25"/>
+                    <TextBlock Text="Роль" VerticalAlignment="Center" Margin="5 0" FontSize="15" Foreground="#FF70778F"/>
+                </StackPanel>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="Пользователь" VerticalAlignment="Center" FontSize="15"/>
+
+            </Grid>
+            <Border Margin="10" Padding="15" CornerRadius="20" BorderThickness="1" Background="Transparent" materialDesign:ElevationAssist.Elevation="Dp2" >
+                <Grid Background="Transparent">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="FountainPenTip" Foreground="#FF3D3DC7" Width="25" Height="25"/>
+                        <TextBlock Text="Стать автором" FontSize="17" FontWeight="Bold" VerticalAlignment="Center" Margin="5 0"/>
+                    </StackPanel>
+                    <TextBlock Text="Для тех, кто не только читает книги, но и пишет их" FontSize="16" Grid.Row="1" Margin="0 5"/>
+
+                </Grid>
+
+                <Border.Style>
+                    <Style TargetType="Border">
+                        
+                        <Style.Triggers >
+                            <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="#D7D7F3"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="BorderBrush" Value="#eaeaf9"/>
+                        </Trigger>
+                            
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+        </StackPanel>
+        
         
     </Grid>
 </Page>

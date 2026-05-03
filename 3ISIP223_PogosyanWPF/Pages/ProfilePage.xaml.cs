@@ -26,5 +26,51 @@ namespace _3ISIP223_PogosyanWPF.Pages
             InitializeComponent();
             frameProfilePage.NavigationService.Navigate(new ProfileMainPage());
         }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            var selectTabItem = (sender as TabControl).SelectedItem as TabItem;
+            //if ()
+            //lst.Clear();
+            if (selectTabItem != null)
+            {
+
+                switch (selectTabItem.Tag.ToString())
+            {
+                case "Мои отзывы":
+                    {
+                        frameProfilePage.NavigationService.Navigate(new ProfileMyReviewsPage());
+                        break;
+                    }
+                case "Главная":
+                    {
+                        frameProfilePage.NavigationService.Navigate(new ProfileMainPage());
+
+                        break;
+                    }
+                case "Уведомления":
+                    {
+                        frameProfilePage.NavigationService.Navigate(new ProfileNotificationPage());
+
+                        break;
+                    }
+
+            }
+            }
+        }
+
+        public void BackToMainPage()
+        {
+            tabControlPage.SelectedIndex = 0;
+        }
+
+
+        private void btnEditProfile_Click(object sender, RoutedEventArgs e)
+        {
+            frameProfilePage.NavigationService.Navigate(new ProfileEditPage(BackToMainPage));
+            tabControlPage.SelectedIndex = -1;
+
+        }
     }
 }

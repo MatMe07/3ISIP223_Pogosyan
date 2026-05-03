@@ -96,6 +96,9 @@
     <Compile Include="Pages\ProfilePages\ProfileNotificationPage.xaml.cs">
       <DependentUpon>ProfileNotificationPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\WarningPage.xaml.cs">
+      <DependentUpon>WarningPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\AddEditBookPage.xaml.cs">
       <DependentUpon>AddEditBookPage.xaml</DependentUpon>
     </Compile>
@@ -107,6 +110,9 @@
     </Compile>
     <Compile Include="Windows\ReadingBookWindow.xaml.cs">
       <DependentUpon>ReadingBookWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\UnfreezeRequestsWindow.xaml.cs">
+      <DependentUpon>UnfreezeRequestsWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -160,6 +166,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\WarningPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\AddEditBookPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -173,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\ReadingBookWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\UnfreezeRequestsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

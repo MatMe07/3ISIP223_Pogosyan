@@ -14,14 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace _3ISIP223_PogosyanWPF.Pages.ProfilePages
+namespace _3ISIP223_PogosyanWPF.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для ProfileNotificationPage.xaml
+    /// Логика взаимодействия для WarningPage.xaml
     /// </summary>
-    public partial class ProfileNotificationPage : Page
+    public partial class WarningPage : Page
     {
-        public ProfileNotificationPage()
+        public WarningPage()
         {
             InitializeComponent();
         }

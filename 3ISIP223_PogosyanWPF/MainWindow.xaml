@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="_3ISIP223_PogosyanWPF.MainWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    x:Class="_3ISIP223_PogosyanWPF.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="480" Width="800" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" MinHeight="480" MinWidth="650" Height="480" Width="800" WindowStartupLocation="CenterScreen">
     <!--<Window.Effect>
         <BlurEffect Radius="4"/>
     </Window.Effect>-->
@@ -62,7 +63,11 @@
                     <!--<Image Source="/Icons/Predupreоdenie.png"/>-->
                     <materialDesign:PackIcon Kind="LockAlert" Width="30" Height="30"/>
 
+
                 </TabItem.Header>
+                <Frame  NavigationUIVisibility="Hidden" Source="/Pages/WarningPage.xaml" Margin="10 0 0 0"/>
+
+
             </TabItem>
             <TabItem ToolTip="Профиль">
                 <TabItem.Header>

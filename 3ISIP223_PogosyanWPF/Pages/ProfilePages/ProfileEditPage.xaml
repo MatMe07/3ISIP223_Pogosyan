@@ -5,11 +5,74 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages.ProfilePages"
        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      d:Background="White"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProfileEditPage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="0 15">
+            <Button Padding="0" Click="btnBack_Click" >
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="ArrowLeft" Width="25" Height="25"/>
+                </Button.Content>
+                <Button.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignToolButton}" TargetType="Button">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="#7F000000" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <TextBlock Text="Редактировать профиль" Style="{StaticResource H4Text}" FontSize="17" Margin="10 0" VerticalAlignment="Center" />
+        </StackPanel>
+        <Border CornerRadius="35" Width="70" Height="70" Grid.Row="1" HorizontalAlignment="Left" >
+            <Border.Background>
+                <ImageBrush ImageSource="/NoneUserPath.png">
+                    
+                </ImageBrush>
+                
+            </Border.Background>
+        </Border>
+        <Grid Grid.Row="2" Margin="0 15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBox Margin="5" Style="{StaticResource MaterialDesignOutlinedTextBox}" BorderBrush="#E2E4EA" materialDesign:HintAssist.Hint="Имя" Padding="10"/>
+            <TextBox Grid.Column="1" Margin="5" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                     BorderBrush="#E2E4EA" materialDesign:HintAssist.Hint="Логин" Padding="10" IsEnabled="False" Text="memat"/>
+            <TextBox Grid.Column="0" Grid.Row="1" Margin="5" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                     BorderBrush="#E2E4EA" materialDesign:HintAssist.Hint="Email" Padding="10" />
+            <TextBox Grid.Column="1" Grid.Row="1" Margin="5" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                     BorderBrush="#E2E4EA" materialDesign:HintAssist.Hint="Роль" Padding="10"  IsEnabled="False" Text="Пользователь"/>
+            <Button Content="Сохранить изменения" Grid.Row="2" Grid.ColumnSpan="2" Margin="0 20" IsEnabled="False">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                        <Style.Triggers>
+                            <DataTrigger>
+                                
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
     </Grid>
 </Page>
