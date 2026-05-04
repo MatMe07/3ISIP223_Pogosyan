@@ -72,6 +72,12 @@
     <Compile Include="Pages\AuthorPage.xaml.cs">
       <DependentUpon>AuthorPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AuthorPages\FrozenBooksPage.xaml.cs">
+      <DependentUpon>FrozenBooksPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AuthorPages\PublishedBooksPage.xaml.cs">
+      <DependentUpon>PublishedBooksPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\BookPage.xaml.cs">
       <DependentUpon>BookPage.xaml</DependentUpon>
     </Compile>
@@ -131,6 +137,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\AuthorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AuthorPages\FrozenBooksPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AuthorPages\PublishedBooksPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

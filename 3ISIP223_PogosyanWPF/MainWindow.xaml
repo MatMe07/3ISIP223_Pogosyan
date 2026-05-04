@@ -57,6 +57,8 @@
                     <!--<materialDesign:PackIcon Kind="TwoFactorAuthentication" Width="30" Height="30"/>-->
 
                 </TabItem.Header>
+                <Frame  NavigationUIVisibility="Hidden" Source="/Pages/AuthorPage.xaml" Margin="10 0 0 0"/>
+
             </TabItem>
             <TabItem ToolTip="Предупреждение о заморозке">
                 <TabItem.Header>
