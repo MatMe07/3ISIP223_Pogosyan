@@ -4,9 +4,130 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Windows"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="AddEditBookPage" Height="450" Width="800">
-    <Grid>
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="None"
+        Title="AddEditBookPage" Height="450" Width="800" MinHeight="480" MinWidth="650" >
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone Background="#FFE9EBF0">
+            <Grid>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Margin="10 5" Style="{StaticResource MaterialDesignToolForegroundButton}" 
+                        Padding="0"  Foreground="Black" Height="30" 
+                        materialDesign:RippleAssist.RippleSizeMultiplier="0.1"
+                        materialDesign:RippleAssist.IsCentered="False"
+                        Click="btnBack_Click" HorizontalAlignment="Left" >
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="LessThan" Height="20" Width="20"/>
+                            <TextBlock Text="Вернуться к списку произведений" VerticalAlignment="Center" Margin="10 0" FontWeight="Bold" />
+                        </StackPanel>
+
+                    </Button.Content>
+                </Button>
+                <StackPanel Grid.Column="1" Margin="5" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button   Padding="0" Style="{StaticResource MaterialDesignToolForegroundButton}" Foreground="Black" Height="30" Click="btnMaximize_Click" >
+                        <Button.Content>
+                            <materialDesign:PackIcon x:Name="btnIconMaxim" Kind="Fullscreen" Height="30" Width="30"/>
+                        </Button.Content>
+
+                    </Button>
+                    <Button Margin="10 0 0 0"  Padding="0" Style="{StaticResource MaterialDesignToolForegroundButton}" Foreground="Black" Height="30" Click="btnBack_Click" >
+                        <Button.Content>
+                            <materialDesign:PackIcon  Kind="WindowClose"  Height="25" Width="25"/>
+                        </Button.Content>
+
+                    </Button>
+
+                </StackPanel>
+            </Grid>
+        </materialDesign:ColorZone>
+        <Grid Grid.Row="1" MaxWidth="1100">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="1" Text="Новое произведение" Margin="10 5 10 10"
+                   x:Name="textTitle" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+            <Grid Grid.Row="2" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" >
+                    <Image Source="/poster2.jpg" Width="150"/>
+                    <Button Content="Загрузить обложку" Style="{StaticResource MaterialDesignRaisedDarkButton}"/>
+                </StackPanel>
+                <Grid Grid.Column="1" Margin="15">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBox materialDesign:HintAssist.Hint="Название"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}" Padding="8"
+                             HorizontalContentAlignment="Stretch"/>
+                    <RichTextBox Grid.Row="1" Margin="0 5" 
+                     Style="{StaticResource MaterialDesignOutlinedRichTextBox}" 
+                     VerticalContentAlignment="Top" Padding="10" ScrollViewer.VerticalScrollBarVisibility="Auto" MinHeight="80" MaxHeight="120"
+                     materialDesign:HintAssist.Hint="Описание"  Background="White" BorderBrush="#FFE2E4EA" >
+                        <FlowDocument>
+                            <Block.LineHeight >
+                                1
+                            </Block.LineHeight>
+                        </FlowDocument>
+                    </RichTextBox>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2">
+                        <Button HorizontalAlignment="Left" Margin="0 15" Padding="5 0" Click="btnAttachFile_Click">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Paperclip" RenderTransformOrigin="0.5,0.5">
+                                    <materialDesign:PackIcon.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform Angle="45"/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </materialDesign:PackIcon.RenderTransform>
+                                </materialDesign:PackIcon>
+                                <TextBlock Text="Прикрепить текст книги" Margin="5 0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10 0">
+                            <materialDesign:PackIcon Kind="Paper"/>
+                            <TextBlock Text="Текст.txt" x:Name="txtFileAttach"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <RichTextBox Grid.Row="3" Margin="0 5"  x:Name="ContentFile" IsReadOnly="True"
+                     Style="{StaticResource MaterialDesignOutlinedRichTextBox}" 
+                     VerticalContentAlignment="Top" Padding="10" ScrollViewer.VerticalScrollBarVisibility="Auto" MinHeight="90" MaxHeight="120"
+                     materialDesign:HintAssist.Hint="Текст"  Background="White" BorderBrush="#FFE2E4EA" >
+                        <FlowDocument>
+                            <Block.LineHeight >
+                                1
+                            </Block.LineHeight>
+                        </FlowDocument>
+                        
+                    </RichTextBox>
+                </Grid>
+            </Grid>
+        </Grid>
+        
+        
+        
         
     </Grid>
 </Window>

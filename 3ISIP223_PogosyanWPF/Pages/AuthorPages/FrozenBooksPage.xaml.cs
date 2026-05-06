@@ -20,9 +20,18 @@ namespace _3ISIP223_PogosyanWPF.Pages.AuthorPages
     /// </summary>
     public partial class FrozenBooksPage : Page
     {
+        public List<string> lstRand { get; set; }
+
         public FrozenBooksPage()
         {
+            lstRand = new List<string> { "fdf", "sdf", "sdf", "sdf" };
+            DataContext = this;
             InitializeComponent();
+        }
+
+        private void btnChallengeBook_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

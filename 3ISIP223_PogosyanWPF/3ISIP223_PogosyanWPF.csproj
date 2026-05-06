@@ -266,6 +266,7 @@
     <Resource Include="poster.jpg" />
     <Resource Include="PosterBook.jpg" />
     <Resource Include="NoneUserPath.png" />
+    <Resource Include="poster2.jpg" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
   </ItemGroup>

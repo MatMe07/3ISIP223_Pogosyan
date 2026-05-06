@@ -16,9 +16,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button Content="➕ Добавить книгу" HorizontalAlignment="Left" Margin="0 0 0 10"/>
+        <Button Content="➕ Добавить книгу" HorizontalAlignment="Left" Margin="0 0 0 10" Click="btnAddBook_Click"/>
 
-        <ItemsControl Visibility="Visible" Grid.Row="8"  d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="LstReviews"  HorizontalContentAlignment="Stretch"  ItemsSource="{Binding lstRand}">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Visibility="Visible" >
+            <ItemsControl  d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="LstReviews"  ItemsSource="{Binding lstRand}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0 8">
@@ -79,6 +80,8 @@
 
 
         </ItemsControl>
+            
+        </ScrollViewer>
 
     </Grid>
 </Page>

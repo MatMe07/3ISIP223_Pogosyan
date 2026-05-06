@@ -14,7 +14,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border Background="#FFE9EBF0">
+        <materialDesign:ColorZone Background="#FFE9EBF0">
             <Grid>
                 <Grid.ColumnDefinitions >
                     <ColumnDefinition Width="auto"/>
@@ -42,7 +42,7 @@
 
                 </Button>
             </Grid>
-        </Border>
+        </materialDesign:ColorZone>
         <ScrollViewer  Background="Transparent" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top"  MinHeight="400" Grid.Row="1">
             <!--<materialDesign:Card>-->
                 <TextBlock x:Name="TextContent" 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,7 @@ namespace _3ISIP223_PogosyanWPF.Pages.AuthorPages
 
         public PublishedBooksPage()
         {
-            lstRand = new List<string> { "fdf", "sdf" };
+            lstRand = new List<string> { "fdf", "sdf", "sdf", "sdf", "sdf" };
             DataContext = this;
             InitializeComponent();
         }
@@ -32,6 +33,16 @@ namespace _3ISIP223_PogosyanWPF.Pages.AuthorPages
         private void btnEditBook_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void btnAddBook_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = MainWindow.GetInstance();
+            mainWindow.BlurAdd(true);
+            var wind = new AddEditBookPage();
+            wind.Owner = mainWindow;
+            var res = wind.ShowDialog();
+            mainWindow.BlurAdd(false);
         }
     }
 }
