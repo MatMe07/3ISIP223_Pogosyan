@@ -270,11 +270,14 @@
     <Resource Include="PosterBook.jpg" />
     <Resource Include="NoneUserPath.png" />
     <Resource Include="poster2.jpg" />
+    <AdditionalFiles Include="Images\Covers\poster2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AdditionalFiles>
+    <Resource Include="Images\Covers\empty_cover_booknet.jpg" />
     <Content Include="Properties\EntityFramework.dll" />
     <Content Include="Properties\EntityFramework.SqlServer.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\Covers\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

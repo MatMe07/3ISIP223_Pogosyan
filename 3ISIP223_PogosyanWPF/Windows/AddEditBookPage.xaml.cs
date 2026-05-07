@@ -1,14 +1,15 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -24,9 +25,14 @@ namespace _3ISIP223_PogosyanWPF.Windows
     public partial class AddEditBookPage : Window
     {
      
-        
+        public ObservableCollection<string> lst { get; set; }
+        public ObservableCollection<string> AllLst { get; set; }
+
         public AddEditBookPage()
         {
+            lst = new ObservableCollection<string>();
+            AllLst = new ObservableCollection<string> { "Трагедия", "Комедия ", "Детектив", "Фантастика", "Поэма", "Элегия"};
+            DataContext = this;
             InitializeComponent();
         }
 
@@ -97,16 +103,16 @@ namespace _3ISIP223_PogosyanWPF.Windows
                 var ind = dialog.FileName.LastIndexOf('\\')+1;
                 var imgPath = dialog.FileName.Substring(ind);
                 var p = Environment.CurrentDirectory;
-                
-                var path = $"{p}\\Images\\Covers\\{imgPath}";
+                var firstInd = p.Substring(0, p.LastIndexOf("\\"));
+                var df = firstInd.Substring(0, firstInd.LastIndexOf("\\"));
+                var path = $"{df}\\Images\\Covers\\{imgPath}";
+
                 bi = new BitmapImage();
                 bi.BeginInit();
                 bi.UriSource = new Uri(dialog.FileName);
                 bi.EndInit();
 
-                //var bitImage = new BitmapImage( new Uri(dialog.FileName));
                 ImageCover.Source = bi;
-                //bitImage
                 JpegBitmapEncoder jpg = new JpegBitmapEncoder();
                 jpg.Frames.Add(BitmapFrame.Create(bi));
 
@@ -115,25 +121,21 @@ namespace _3ISIP223_PogosyanWPF.Windows
                     jpg.Save(stm);
                 }
 
-
-                //SaveFileDialog save = new SaveFileDialog();
-                //save.Title = "Save picture as ";
-                //save.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
-                //if (bi != null)
-                //{
-                //    if (save.ShowDialog() == true)
-                //    {
-                        
-                //        JpegBitmapEncoder jpg = new JpegBitmapEncoder();
-                //        jpg.Frames.Add(BitmapFrame.Create(bi));
-                //        using (Stream stm = File.Create(save.FileName))
-                //        {
-                //            jpg.Save(stm);
-                //        }
-                //    }
-                //}
-
             }
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectItm = (sender as ComboBox).SelectedItem?.ToString();
+            if (lst.FirstOrDefault(s=>s == selectItm) == null)
+                lst.Add(selectItm);
+            (sender as ComboBox).SelectedIndex = -1;
+        }
+
+        private void Chip_DeleteClick(object sender, RoutedEventArgs e)
+        {
+            var ch = sender as MaterialDesignThemes.Wpf.Chip;
+            lst.Remove(ch.Content.ToString());
         }
     }
 }
