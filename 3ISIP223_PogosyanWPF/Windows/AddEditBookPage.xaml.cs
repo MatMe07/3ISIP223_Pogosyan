@@ -23,6 +23,8 @@ namespace _3ISIP223_PogosyanWPF.Windows
     /// </summary>
     public partial class AddEditBookPage : Window
     {
+     
+        
         public AddEditBookPage()
         {
             InitializeComponent();
@@ -86,16 +88,50 @@ namespace _3ISIP223_PogosyanWPF.Windows
         private void btnLoadCover_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFileDialog();
+            BitmapImage bi = null;
             dialog.DefaultExt = ".jpg";
             dialog.Filter = "Image documents (.jpg)|*.jpg";
             bool? res = dialog.ShowDialog();
             if (res == true)
             {
-                Image img = new Image();
+                var ind = dialog.FileName.LastIndexOf('\\')+1;
+                var imgPath = dialog.FileName.Substring(ind);
+                var p = Environment.CurrentDirectory;
                 
-                var bitImage = new BitmapImage( new Uri(dialog.FileName));
-                ImageCover.Source = bitImage;
+                var path = $"{p}\\Images\\Covers\\{imgPath}";
+                bi = new BitmapImage();
+                bi.BeginInit();
+                bi.UriSource = new Uri(dialog.FileName);
+                bi.EndInit();
+
+                //var bitImage = new BitmapImage( new Uri(dialog.FileName));
+                ImageCover.Source = bi;
                 //bitImage
+                JpegBitmapEncoder jpg = new JpegBitmapEncoder();
+                jpg.Frames.Add(BitmapFrame.Create(bi));
+
+                using (Stream stm = File.Create(path))
+                {
+                    jpg.Save(stm);
+                }
+
+
+                //SaveFileDialog save = new SaveFileDialog();
+                //save.Title = "Save picture as ";
+                //save.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
+                //if (bi != null)
+                //{
+                //    if (save.ShowDialog() == true)
+                //    {
+                        
+                //        JpegBitmapEncoder jpg = new JpegBitmapEncoder();
+                //        jpg.Frames.Add(BitmapFrame.Create(bi));
+                //        using (Stream stm = File.Create(save.FileName))
+                //        {
+                //            jpg.Save(stm);
+                //        }
+                //    }
+                //}
 
             }
         }
