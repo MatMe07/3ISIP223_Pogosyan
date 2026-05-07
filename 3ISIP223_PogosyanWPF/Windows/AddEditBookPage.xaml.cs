@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -51,6 +53,7 @@ namespace _3ISIP223_PogosyanWPF.Windows
         private void btnAttachFile_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFileDialog();
+            int maxChars = 500;
             dialog.DefaultExt = ".txt";
             dialog.Filter = "Text documents (.txt)|*.txt";
             bool? res = dialog.ShowDialog();
@@ -67,9 +70,32 @@ namespace _3ISIP223_PogosyanWPF.Windows
                     fileStream = new FileStream(dialog.FileName, FileMode.OpenOrCreate);
                     range.Load(fileStream, DataFormats.Text);
                     fileStream.Close();
+
+                    if (range.Text.Length > maxChars)
+                    {
+                        range.Text = range.Text.Substring(0, maxChars) + "...";
+                    }
+
                 }
 
 
+
+            }
+        }
+
+        private void btnLoadCover_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.DefaultExt = ".jpg";
+            dialog.Filter = "Image documents (.jpg)|*.jpg";
+            bool? res = dialog.ShowDialog();
+            if (res == true)
+            {
+                Image img = new Image();
+                
+                var bitImage = new BitmapImage( new Uri(dialog.FileName));
+                ImageCover.Source = bitImage;
+                //bitImage
 
             }
         }
