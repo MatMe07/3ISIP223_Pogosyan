@@ -72,6 +72,15 @@
     <Compile Include="Pages\AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AdminPages\AuthorRequestsPage.xaml.cs">
+      <DependentUpon>AuthorRequestsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminPages\ComplaintPage.xaml.cs">
+      <DependentUpon>ComplaintPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminPages\UnfreezeRequestsPages.xaml.cs">
+      <DependentUpon>UnfreezeRequestsPages.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AuthorPage.xaml.cs">
       <DependentUpon>AuthorPage.xaml</DependentUpon>
     </Compile>
@@ -136,6 +145,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\AdminPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminPages\AuthorRequestsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminPages\ComplaintPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminPages\UnfreezeRequestsPages.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -19,14 +19,27 @@ namespace _3ISIP223_PogosyanWPF.Windows
     /// </summary>
     public partial class UnfreezeRequestsWindow : Window
     {
-        public UnfreezeRequestsWindow()
+
+        public int LengthUnfreezeText { get; set; } = 0;
+        public UnfreezeRequestsWindow(string types)
         {
+            DataContext = this;
             InitializeComponent();
+
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
+        }
+
+        private void richTextsUnfreeze_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextRange textRange = new TextRange(
+                richTextsUnfreeze.Document.ContentStart,
+                richTextsUnfreeze.Document.ContentEnd
+            );
+            LengthUnfreezeText = textRange.Text.Length;
         }
     }
 }

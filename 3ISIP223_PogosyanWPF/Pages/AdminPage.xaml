@@ -5,10 +5,85 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
       mc:Ignorable="d" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      
       d:DesignHeight="450" d:DesignWidth="800" d:Background="White"
       Title="AdminPage">
 
     <Grid>
-        
+        <TabControl  Grid.Row="0" 
+                          Style="{StaticResource MaterialDesignNavigationRailTabControl}"
+                             
+                          TabStripPlacement="Top" Background="White" >
+            <TabItem  Width="100" Tag="Жалобы">
+                <TabItem.Header >
+                    <StackPanel >
+                        <materialDesign:PackIcon Width="24"
+                                               Height="24"
+                                               HorizontalAlignment="Center"
+                                               Kind="InformationSlabBox" />
+                        <TextBlock HorizontalAlignment="Center" Text="Жалобы" />
+                    </StackPanel>
+                </TabItem.Header>
+
+                <!--<ScrollViewer Margin="0">-->
+                <Frame  NavigationUIVisibility="Hidden"  Source="/Pages/AdminPages/ComplaintPage.xaml" Margin="10 0 0 0"/>
+
+                <!--</ScrollViewer>-->
+            </TabItem>
+
+            <TabItem Width="100" Tag="Разморозка">
+                <TabItem.Header>
+                    <StackPanel >
+                        <materialDesign:PackIcon Width="34"
+                                               Height="24"
+                                               HorizontalAlignment="Center"
+                                               Kind="SnowflakeMelt" />
+                        <TextBlock HorizontalAlignment="Center" Text="Разморозка" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Frame  NavigationUIVisibility="Hidden"  Source="/Pages/AdminPages/UnfreezeRequestsPages.xaml" Margin="10 0 0 0"/>
+
+            </TabItem>
+
+            <TabItem  Width="100" Tag="Заявки">
+                <TabItem.Header>
+                    <StackPanel >
+                        <materialDesign:PackIcon Width="24"
+                                               Height="24"
+                                               HorizontalAlignment="Center"
+                                               Kind="MessageDraw" />
+                        <TextBlock HorizontalAlignment="Center" Text="Заявки" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Frame  NavigationUIVisibility="Hidden"  Source="/Pages/AdminPages/AuthorRequestsPage.xaml" Margin="10 0 0 0"/>
+
+            </TabItem>
+
+            <TabItem  Width="100" Tag="Заморожено">
+                <TabItem.Header>
+                    <StackPanel >
+                        <materialDesign:PackIcon Width="24"
+                                               Height="24"
+                                               HorizontalAlignment="Center"
+                                               Kind="FreezeAdvisory" />
+                        <TextBlock HorizontalAlignment="Center" Text="Заморожено" />
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+
+            <TabItem Width="100" Tag="Пользователи">
+                <TabItem.Header>
+                    <StackPanel >
+                        <materialDesign:PackIcon Width="24"
+                                               Height="24"
+                                               HorizontalAlignment="Center"
+                                               Kind="Users" />
+                        <TextBlock HorizontalAlignment="Center" Text="Пользователи" />
+                    </StackPanel>
+                </TabItem.Header>
+            </TabItem>
+        </TabControl>
+
     </Grid>
 </Page>

@@ -1,5 +1,4 @@
-﻿using _3ISIP223_PogosyanWPF.Windows;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,30 +13,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace _3ISIP223_PogosyanWPF.Pages.AuthorPages
+namespace _3ISIP223_PogosyanWPF.Pages.AdminPages
 {
     /// <summary>
-    /// Логика взаимодействия для FrozenBooksPage.xaml
+    /// Логика взаимодействия для UnfreezeRequestsPages.xaml
     /// </summary>
-    public partial class FrozenBooksPage : Page
+    public partial class UnfreezeRequestsPages : Page
     {
         public List<string> lstRand { get; set; }
 
-        public FrozenBooksPage()
+        public UnfreezeRequestsPages()
         {
             lstRand = new List<string> { "fdf", "sdf", "sdf", "sdf" };
             DataContext = this;
             InitializeComponent();
-        }
-
-        private void btnChallengeBook_Click(object sender, RoutedEventArgs e)
-        {
-            var mainWindow = MainWindow.GetInstance();
-            mainWindow.BlurAdd(true);
-            var wind = new UnfreezeRequestsWindow("Book");
-            wind.Owner = mainWindow;
-            var res = wind.ShowDialog();
-            mainWindow.BlurAdd(false);
         }
     }
 }

@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Drawing.Imaging;
+//using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+//using static MaterialDesignThemes.Wpf.Theme;
 
 namespace _3ISIP223_PogosyanWPF.Windows
 {
@@ -27,13 +29,31 @@ namespace _3ISIP223_PogosyanWPF.Windows
      
         public ObservableCollection<string> lst { get; set; }
         public ObservableCollection<string> AllLst { get; set; }
+            
+        private BitmapImage bi = null;
+        private string PathIm = "";
 
-        public AddEditBookPage()
+        public AddEditBookPage(bool IsEdit)
         {
             lst = new ObservableCollection<string>();
             AllLst = new ObservableCollection<string> { "Трагедия", "Комедия ", "Детектив", "Фантастика", "Поэма", "Элегия"};
             DataContext = this;
             InitializeComponent();
+            LoadData(IsEdit);
+        }
+
+        public void LoadData(bool IsEdit)
+        {
+            if (IsEdit)
+            {
+                textTitle.Text = "Редактировать произведение";
+
+            }
+            else
+            {
+                textTitle.Text = "Новое произведение";
+
+            }
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -94,7 +114,6 @@ namespace _3ISIP223_PogosyanWPF.Windows
         private void btnLoadCover_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFileDialog();
-            BitmapImage bi = null;
             dialog.DefaultExt = ".jpg";
             dialog.Filter = "Image documents (.jpg)|*.jpg";
             bool? res = dialog.ShowDialog();
@@ -105,7 +124,8 @@ namespace _3ISIP223_PogosyanWPF.Windows
                 var p = Environment.CurrentDirectory;
                 var firstInd = p.Substring(0, p.LastIndexOf("\\"));
                 var df = firstInd.Substring(0, firstInd.LastIndexOf("\\"));
-                var path = $"{df}\\Images\\Covers\\{imgPath}";
+
+                PathIm = $"{df}\\Images\\Covers\\{imgPath}";
 
                 bi = new BitmapImage();
                 bi.BeginInit();
@@ -113,29 +133,47 @@ namespace _3ISIP223_PogosyanWPF.Windows
                 bi.EndInit();
 
                 ImageCover.Source = bi;
-                JpegBitmapEncoder jpg = new JpegBitmapEncoder();
-                jpg.Frames.Add(BitmapFrame.Create(bi));
-
-                using (Stream stm = File.Create(path))
-                {
-                    jpg.Save(stm);
-                }
 
             }
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectItm = (sender as ComboBox).SelectedItem?.ToString();
-            if (lst.FirstOrDefault(s=>s == selectItm) == null)
-                lst.Add(selectItm);
-            (sender as ComboBox).SelectedIndex = -1;
+            var comboBox = sender as ComboBox;  
+            var selectItm = comboBox.SelectedItem?.ToString();
+            if (comboBox.SelectedItem != null)
+            {
+                if(lst.FirstOrDefault(s => s == selectItm) == null)
+                    lst.Add(selectItm);
+
+
+                comboBox.SelectedIndex = -1;
+                Keyboard.ClearFocus();
+            }
         }
 
         private void Chip_DeleteClick(object sender, RoutedEventArgs e)
         {
             var ch = sender as MaterialDesignThemes.Wpf.Chip;
             lst.Remove(ch.Content.ToString());
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+        }
+
+        private void btnSend_Click(object sender, RoutedEventArgs e)
+        {
+            JpegBitmapEncoder jpg = new JpegBitmapEncoder();
+            jpg.Frames.Add(BitmapFrame.Create(bi));
+
+            using (Stream stm = File.Create(PathIm))
+            {
+                jpg.Save(stm);
+            }
+
+            DialogResult = true;
         }
     }
 }

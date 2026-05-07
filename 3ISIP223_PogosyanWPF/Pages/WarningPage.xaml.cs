@@ -30,7 +30,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
         {
             var mainWindow = MainWindow.GetInstance();
             mainWindow.BlurAdd(true);
-            var wind = new UnfreezeRequestsWindow();
+            var wind = new UnfreezeRequestsWindow("Account");
             wind.Owner = mainWindow;
             var res = wind.ShowDialog();
             mainWindow.BlurAdd(false);
