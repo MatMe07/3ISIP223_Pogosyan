@@ -58,8 +58,8 @@
                 </Image.Effect>
             </Image>
             <Button Content="Читать фрагмент" Style="{StaticResource MaterialDesignRaisedLightButton}"  FontWeight="Black" Foreground="White" Grid.Row="1" Margin="0 10" FontSize="12" Click="btnOpenReading_Click"/>
-            <Button Content="🚩 Пожаловаться на книгу" Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}"  HorizontalContentAlignment="Left" FontSize="12"/>
-            <Button Content="🚩 Пожаловаться на автора" Grid.Row="3" Style="{StaticResource MaterialDesignFlatButton}" HorizontalContentAlignment="Left" FontSize="12"/>
+            <Button Content="🚩 Пожаловаться на книгу" Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}"  HorizontalContentAlignment="Left" FontSize="12" Click="btnComplainBook_Click" />
+            <Button Content="🚩 Пожаловаться на автора" Grid.Row="3" Style="{StaticResource MaterialDesignFlatButton}" HorizontalContentAlignment="Left" FontSize="12" Click="btnComplainUser_Click"/>
             <Button Content="🚩 Заморозить автора" Grid.Row="4" Style="{StaticResource MaterialDesignFlatButton}" HorizontalContentAlignment="Left" FontSize="12"/>
         </Grid>
         <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True">

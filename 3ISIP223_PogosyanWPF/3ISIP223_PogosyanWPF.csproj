@@ -78,8 +78,14 @@
     <Compile Include="Pages\AdminPages\ComplaintPage.xaml.cs">
       <DependentUpon>ComplaintPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AdminPages\FrozenPage.xaml.cs">
+      <DependentUpon>FrozenPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AdminPages\UnfreezeRequestsPages.xaml.cs">
       <DependentUpon>UnfreezeRequestsPages.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AdminPages\UsersPage.xaml.cs">
+      <DependentUpon>UsersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AuthorPage.xaml.cs">
       <DependentUpon>AuthorPage.xaml</DependentUpon>
@@ -123,6 +129,9 @@
     <Compile Include="Windows\AddReviewWindow.xaml.cs">
       <DependentUpon>AddReviewWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\FreezeRequestPage.xaml.cs">
+      <DependentUpon>FreezeRequestPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\LoginRegisterWindows.xaml.cs">
       <DependentUpon>LoginRegisterWindows.xaml</DependentUpon>
     </Compile>
@@ -131,6 +140,9 @@
     </Compile>
     <Compile Include="Windows\UnfreezeRequestsWindow.xaml.cs">
       <DependentUpon>UnfreezeRequestsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\UserEditWindow.xaml.cs">
+      <DependentUpon>UserEditWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -156,7 +168,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\AdminPages\FrozenPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AdminPages\UnfreezeRequestsPages.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AdminPages\UsersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -216,6 +236,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\FreezeRequestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\LoginRegisterWindows.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -225,6 +249,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\UnfreezeRequestsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\UserEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

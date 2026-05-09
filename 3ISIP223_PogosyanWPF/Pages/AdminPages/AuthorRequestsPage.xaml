@@ -11,7 +11,7 @@
       Title="AuthorRequestsPage">
 
     <Grid>
-        <Grid HorizontalAlignment="Center" Visibility="Visible" x:Name="absenceVisible">
+        <Grid HorizontalAlignment="Center" Visibility="Collapsed" x:Name="absenceVisible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -25,7 +25,7 @@
                        Style="{StaticResource MaterialDesignHeadline6TextBlock}" HorizontalAlignment="Center" Foreground="#FFA9A9B4"/>
         </Grid>
 
-        <ScrollViewer Visibility="Collapsed" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Visibility="Visible" VerticalScrollBarVisibility="Auto">
 
             <ItemsControl x:Name="LstComplaints" 
                       HorizontalContentAlignment="Stretch" 

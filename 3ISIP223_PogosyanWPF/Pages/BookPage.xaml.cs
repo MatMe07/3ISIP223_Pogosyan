@@ -123,5 +123,25 @@ namespace _3ISIP223_PogosyanWPF.Pages
             else if (WhereFrom == "CatalogPage")
                 mainWindow.frameCatalog.NavigationService.GoBack();
         }
+
+        private void btnComplainBook_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = MainWindow.GetInstance();
+            mainWindow.BlurAdd(true);
+            var wind = new FreezeRequestPage("Book");
+            wind.Owner = mainWindow;
+            var res = wind.ShowDialog();
+            mainWindow.BlurAdd(false);
+        }
+
+        private void btnComplainUser_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = MainWindow.GetInstance();
+            mainWindow.BlurAdd(true);
+            var wind = new FreezeRequestPage("Account");
+            wind.Owner = mainWindow;
+            var res = wind.ShowDialog();
+            mainWindow.BlurAdd(false);
+        }
     }
 }
