@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e70487ccabd1491f94c15749e378a2bd" Name="Diagram1">
+        <EntityTypeShape EntityType="ShutAndKingModel.AuthorRequest" Width="1.5" PointX="8.25" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShutAndKingModel.BookGenre" Width="1.5" PointX="10.5" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShutAndKingModel.Book" Width="1.5" PointX="8.25" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShutAndKingModel.Complaint" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShutAndKingModel.Genre" Width="1.5" PointX="8.25" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShutAndKingModel.ReadingList" Width="1.5" PointX="10.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShutAndKingModel.Reason" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShutAndKingModel.Review" Width="1.5" PointX="13.5" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShutAndKingModel.Role" Width="1.5" PointX="3.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShutAndKingModel.StatusesReading" Width="1.5" PointX="8.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShutAndKingModel.StatusesRequest" Width="1.5" PointX="6" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShutAndKingModel.TargetType" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShutAndKingModel.UnfreezeRequest" Width="1.5" PointX="13.5" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShutAndKingModel.User" Width="1.5" PointX="6" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="ShutAndKingModel.FK_AuthorRequests_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_AuthorRequests_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_BookGenres_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_BookGenres_Genre" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_Books_Author" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_Complaints_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_ReadingLists_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_Reviews_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_UnfreezeRequests_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_Complaints_Complainer" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_Complaints_Moderator" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_Complaints_Reason" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_Complaints_Review" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_Complaints_TargetType" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_ReadingLists_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_ReadingLists_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_Users_FreezeReason" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_Reviews_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_Users_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_UnfreezeRequests_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_UnfreezeRequests_TargetType" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_UnfreezeRequests_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

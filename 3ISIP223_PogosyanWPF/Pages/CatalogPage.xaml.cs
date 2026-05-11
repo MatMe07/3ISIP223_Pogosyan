@@ -26,7 +26,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
         public CatalogPage()
         {
             lst = new List<string> { "hello", "world" , "world" , "world" , "world" , "world" , "world" , "world" , "world" };
-            DataContext = this;
+            //DataContext = this;
             InitializeComponent();
             //listB.ItemsSource = lst;
         }
@@ -66,5 +66,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
             //if (res == MessageBoxResult.OK) listBooks.SelectedIndex = -1;
 
         }
+
     }
 }
