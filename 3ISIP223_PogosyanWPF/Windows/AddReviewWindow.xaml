@@ -3,12 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Windows"
+        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         WindowStartupLocation="CenterOwner"
         
         mc:Ignorable="d"
         Title="Оставить отзыв" Height="370" Width="529" Background="#FFF4F4FC" >
+
+    <Window.DataContext>
+        <local:AddReviewViewModel/>
+    </Window.DataContext>
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -23,11 +27,11 @@
                     <ImageBrush ImageSource="/NoneUserPath.png"/>
                 </Border.Background>
             </Border>
-            <TextBlock Text="Mat Me" VerticalAlignment="Center" Margin="5 0" FontWeight="Black" FontSize="15"/>
+            <TextBlock Text="{Binding UserName}" VerticalAlignment="Center" Margin="5 0" FontWeight="Black" FontSize="15"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 10">
             <TextBlock Text="Ваша оценка" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="14"/>
-            <materialDesign:RatingBar Margin="10 2">
+            <materialDesign:RatingBar Margin="10 2" Value="{Binding SelectView}">
                 <materialDesign:RatingBar.LayoutTransform >
                     <ScaleTransform ScaleX="0.9" ScaleY="0.9"></ScaleTransform>
                 </materialDesign:RatingBar.LayoutTransform>
@@ -35,12 +39,14 @@
         </StackPanel>
         <RichTextBox Grid.Row="2" Margin="0 5" 
                      Style="{StaticResource MaterialDesignOutlinedRichTextBox}" 
+                     DataContext="{Binding EditorTextRange, Mode=TwoWay}"
                      VerticalContentAlignment="Top" Padding="10" ScrollViewer.VerticalScrollBarVisibility="Auto" MinHeight="80" MaxHeight="150"
                      materialDesign:HintAssist.Hint="Что думаете о книге?" Background="White" BorderBrush="#FFE2E4EA" >
             <FlowDocument>
                 <Block.LineHeight >
                     1
                 </Block.LineHeight>
+                
             </FlowDocument>
         </RichTextBox>
         <TextBlock Text="Поставьте оценку и напишите отзыв" Grid.Row="3" Margin="15 0" FontSize="12" FontWeight="Medium" Foreground="#FF9D9C9F" />

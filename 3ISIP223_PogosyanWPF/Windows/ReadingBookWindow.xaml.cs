@@ -22,7 +22,7 @@ namespace _3ISIP223_PogosyanWPF.Windows
         public ReadingBookWindow()
         {
             InitializeComponent();
-            LoadText();
+            //LoadText();
         }
 
         private void LoadText()

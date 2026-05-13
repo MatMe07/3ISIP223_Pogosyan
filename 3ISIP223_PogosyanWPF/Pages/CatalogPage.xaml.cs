@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -67,5 +68,17 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         }
 
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var wind = MainWindow.GetInstance();
+            Book book = book = (sender as Border).Tag as Book;
+
+            if ( book == null)
+            {
+                book = (sender as TextBlock).Tag as Book;
+            }
+            (DataContext as CatalogViewModel).SetSelectBook(book);
+            wind.frameCatalog.NavigationService.Navigate(new BookPage("CatalogPage"));
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,7 @@ namespace _3ISIP223_PogosyanWPF.Windows
 
         private void btnPublish_Click(object sender, RoutedEventArgs e)
         {
+            (DataContext as AddReviewViewModel).AddReview();
             DialogResult = true;
         }
     }

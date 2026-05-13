@@ -28,16 +28,12 @@ namespace _3ISIP223_PogosyanWPF.Pages
         public BookPage(string whereFrom)
         {
             lstRand = new List<string> { "fdf", "sdf", "sdf", "sdf"};
-            DataContext = this;
+            //DataContext = this;
             WhereFrom = whereFrom;
             InitializeComponent();
             mainWindow = MainWindow.GetInstance();
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //LstReviews.SelectedIndex = -1;
-        }
 
         private void ReviewListItem_Click(object sender, RoutedEventArgs e)
         {
@@ -74,7 +70,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
             {
                 //item.Click -= ReadingListItem_Click;
                 item.Click += ReviewListItem_Click;
-                //item.Tag = bookId;
             }
         }
 
@@ -101,7 +96,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
             wind.Owner = mainWindow;
             var res = wind.ShowDialog();
             mainWindow.BlurAdd(false);
-            
         }
 
         private void btnAddReview_Click(object sender, RoutedEventArgs e)

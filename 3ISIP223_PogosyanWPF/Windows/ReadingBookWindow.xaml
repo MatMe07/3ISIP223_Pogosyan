@@ -5,9 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 
-        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Windows"
+        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels"
         mc:Ignorable="d"
         Title="Чтение фрагмента: Евгений Онегин" Height="450" Width="800" WindowStyle="None" WindowStartupLocation="CenterOwner" >
+
+    <Window.DataContext>
+        <local:ReadingBookViewModel/>
+    </Window.DataContext>
+    
     <Grid Background="#FFFBF0D9" >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -28,8 +33,8 @@
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="LessThan" Height="20" Width="20"/>
-                            <TextBlock Text="Евгений Онегин" VerticalAlignment="Center" Margin="10 0" FontWeight="Bold" />
-                            <TextBlock Text="Александр Пушкин" VerticalAlignment="Center" Margin="5 0" FontWeight="Bold" Foreground="#FF84657C"  />
+                            <TextBlock Text="{Binding SelectedBook.Title}" VerticalAlignment="Center" Margin="10 0" FontWeight="Bold" />
+                            <TextBlock Text="{Binding SelectedBook.User.DisplayName}" VerticalAlignment="Center" Margin="5 0" FontWeight="Bold" Foreground="#FF84657C"  />
                         </StackPanel>
                         
                     </Button.Content>
@@ -49,6 +54,7 @@
                    TextWrapping="Wrap" 
                    FontFamily="Tahoma" 
                    FontSize="16" 
+                   Text="{Binding SelectedBook.Content}"
                    Padding="10" MaxWidth="500"/>
 
             <!--</materialDesign:Card>-->

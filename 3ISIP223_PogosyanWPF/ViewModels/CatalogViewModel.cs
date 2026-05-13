@@ -84,6 +84,11 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             }
         }
 
+        public void SetSelectBook(Book book)
+        {
+            dataBase.SelectedBook= book;
+        }
+
 
         public void FilterdSearch()
         {
