@@ -1,4 +1,5 @@
-﻿using _3ISIP223_PogosyanWPF.Windows;
+﻿using _3ISIP223_PogosyanWPF.ViewModels;
+using _3ISIP223_PogosyanWPF.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,8 @@ namespace _3ISIP223_PogosyanWPF.Pages
         private MainWindow mainWindow;
         public string WhereFrom;
 
+        private BookViewModel viewModel;
+
         public BookPage(string whereFrom)
         {
             lstRand = new List<string> { "fdf", "sdf", "sdf", "sdf"};
@@ -32,18 +35,28 @@ namespace _3ISIP223_PogosyanWPF.Pages
             WhereFrom = whereFrom;
             InitializeComponent();
             mainWindow = MainWindow.GetInstance();
+            viewModel = DataContext as BookViewModel;
         }
 
 
         private void ReviewListItem_Click(object sender, RoutedEventArgs e)
         {
             var menuItem = sender as MenuItem;
+            Console.WriteLine("Click");
+
+            if (menuItem.IsChecked == true)
+            {
+                string status = menuItem.Header.ToString();
+
+                var SelectReview = menuItem.Tag as Review;
+
+                viewModel.ShowMessage(SelectReview);
+
+                menuItem.IsChecked = false;
+            }
             //int bookId = (int)menuItem.Tag;
-            string status = menuItem.Header.ToString();
 
-            //AddBookToReadingList(bookId, status);
-
-            (menuItem.Parent as ContextMenu).IsOpen = false;
+                (menuItem.Parent as ContextMenu).IsOpen = false;
         }
 
 
@@ -61,16 +74,18 @@ namespace _3ISIP223_PogosyanWPF.Pages
         private void btnReviewPoints_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            //var bookId = (int)button.Tag;
+            var SelectReview = button.Tag as Review;
 
             var contextMenu = FindResource("ReviewListMenu") as ContextMenu;
-            contextMenu.DataContext = DataContext;
+
+            contextMenu.DataContext = viewModel;
             contextMenu.PlacementTarget = button;
             contextMenu.IsOpen = true;
             foreach (MenuItem item in contextMenu.Items)
             {
                 //item.Click -= ReadingListItem_Click;
                 item.Click += ReviewListItem_Click;
+                item.Tag = SelectReview;
             }
         }
 
@@ -106,6 +121,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
             wind.Owner = mainWindow;
             var res = wind.ShowDialog();
             mainWindow.BlurAdd(false);
+            if (res == true) viewModel.LoadReviews();
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -121,22 +137,15 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         private void btnComplainBook_Click(object sender, RoutedEventArgs e)
         {
-            var mainWindow = MainWindow.GetInstance();
-            mainWindow.BlurAdd(true);
-            var wind = new FreezeRequestPage("Book");
-            wind.Owner = mainWindow;
-            var res = wind.ShowDialog();
-            mainWindow.BlurAdd(false);
+            viewModel.ShowMessage(SelBook: (sender as Button).Tag as Book);
+
         }
 
         private void btnComplainUser_Click(object sender, RoutedEventArgs e)
         {
-            var mainWindow = MainWindow.GetInstance();
-            mainWindow.BlurAdd(true);
-            var wind = new FreezeRequestPage("Account");
-            wind.Owner = mainWindow;
-            var res = wind.ShowDialog();
-            mainWindow.BlurAdd(false);
+            viewModel.ShowMessage(Author:((sender as Button).Tag as Book).User);
+
         }
+
     }
 }

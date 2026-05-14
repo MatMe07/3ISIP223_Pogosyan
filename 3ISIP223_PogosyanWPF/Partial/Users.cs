@@ -9,8 +9,35 @@ namespace _3ISIP223_PogosyanWPF
 {
     public partial class User
     {
-        public Visibility IsAuthorVisibility => Role.RoleName == "Автор" ? Visibility.Visible : Visibility.Collapsed ;
-        public Visibility IsAdminVisibility => Role.RoleName == "Администратор" ? Visibility.Visible : Visibility.Collapsed ;
-        public Visibility IsUserVisibility => Role.RoleName == "Пользователь" ? Visibility.Visible : Visibility.Collapsed ;
+        public Visibility IsAuthorVisibility
+        {
+            get
+            {
+                return Role.RoleName == "Автор" ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+        public Visibility IsAdminVisibility
+        {
+            get
+            {
+                return Role.RoleName == "Администратор" ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+        public Visibility IsUserVisibility
+        {
+            get
+            {
+                return Role.RoleName == "Читатель" ? Visibility.Visible : Visibility.Collapsed;
+
+            }
+        }
+        public Visibility IsUserAndAuthorVisibility
+        {
+            get
+            {
+                return Role.RoleName == "Читатель" || Role.RoleName == "Автор" ? Visibility.Visible : Visibility.Collapsed;
+
+            }
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace _3ISIP223_PogosyanWPF
 {
     public partial class Review
     {
-        public double RatingFive => Rating / 2.0;
+        //public double RatingFive => Rating / 2.0;
 
     }
 }

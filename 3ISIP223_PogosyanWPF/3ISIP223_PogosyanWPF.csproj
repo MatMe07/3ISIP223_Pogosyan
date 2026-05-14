@@ -198,6 +198,7 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />
     <Compile Include="ViewModels\CatalogViewModel.cs" />
+    <Compile Include="ViewModels\FreezeRequestViewModel.cs" />
     <Compile Include="ViewModels\ReadingBookViewModel.cs" />
     <Compile Include="ViewModels\WorkDataBase.cs" />
     <Compile Include="Windows\AddEditBookPage.xaml.cs">

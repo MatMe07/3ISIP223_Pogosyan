@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,19 +20,33 @@ namespace _3ISIP223_PogosyanWPF.Windows
     /// </summary>
     public partial class FreezeRequestPage : Window
     {
-        public FreezeRequestPage(string types)
+        private Object Items;
+        public FreezeRequestPage(string types, object items)
         {
             InitializeComponent();
+            (DataContext as FreezeRequestViewModel).ChangeTitle(types);
+            Items = items;
+            //LoadTitles(types);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = false;
+            //DialogResult = false;
+            this.Close();
         }
+
+            
+        //public void LoadTitles(string types)
+        //{
+
+        //}
 
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+            //DialogResult = true;
+            (DataContext as FreezeRequestViewModel).SaveRequest(Items);
+            this.Close();
+
         }
     }
 }

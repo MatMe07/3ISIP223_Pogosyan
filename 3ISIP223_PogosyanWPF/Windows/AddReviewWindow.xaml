@@ -37,20 +37,6 @@
                 </materialDesign:RatingBar.LayoutTransform>
             </materialDesign:RatingBar>
         </StackPanel>
-        <RichTextBox Visibility="Collapsed"
-                     Style="{StaticResource MaterialDesignOutlinedRichTextBox}" 
-                     
-                     DataContext="{Binding EditorTextRange, Mode=TwoWay}"
-                     VerticalContentAlignment="Top" Padding="10" ScrollViewer.VerticalScrollBarVisibility="Auto" MinHeight="80" MaxHeight="150"
-                     materialDesign:HintAssist.Hint="Что думаете о книге?" Background="White" BorderBrush="#FFE2E4EA" >
-            <FlowDocument>
-                <Block.LineHeight >
-                    1
-                </Block.LineHeight>
-                
-            </FlowDocument>
-        </RichTextBox>
-
         <TextBox Grid.Row="2"
                  Margin="0 5" materialDesign:HintAssist.Hint="Что думаете о книге?" Style="{StaticResource  MaterialDesignOutlinedTextBox}" 
                  Padding="7 3"

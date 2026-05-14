@@ -32,16 +32,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
 
 
-        private TextRange _editorTextRange;
-        public TextRange EditorTextRange
-        {
-            get => _editorTextRange;
-            set
-            {
-                _editorTextRange = value;
-                OnPropertyChanged(nameof(EditorTextRange));
-            }
-        }
 
         private string _editorText;
         public string EditorText

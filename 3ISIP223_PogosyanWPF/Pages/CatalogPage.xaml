@@ -139,7 +139,7 @@
                                 </materialDesign:ColorZone>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <materialDesign:PackIcon Kind="Star" Foreground="#FF5A617C"/>
-                                    <TextBlock Text="{Binding RatingFive}"
+                                    <TextBlock Text="{Binding Rating}"
                                            Margin="3 0 0 0"
                                            Foreground="#FF5A617C" TextWrapping="WrapWithOverflow" VerticalAlignment="Center"/>
                                 </StackPanel>

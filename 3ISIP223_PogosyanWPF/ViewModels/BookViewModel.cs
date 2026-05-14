@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.Windows;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,9 +13,29 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public BookViewModel()
         {
             SelectedBook = dataBase.SelectedBook;
-            ReviewsBooks = dataBase.GetReviewsToBook(SelectedBook.BookId);
-            GetCountReviews = ReviewsBooks.Count;
+            LoadReviews();
+            //GetCountReviews = ReviewsBooks.Count;
         }
+        public void LoadReviews()
+        {
+            ReviewsBooks = dataBase.GetReviewsToBook(SelectedBook.BookId);
+
+        }
+
+        private double _totalRatingBook;
+        public double TotalRatingBook
+        {
+            get { 
+                _totalRatingBook = Math.Round( ReviewsBooks.Average(s=>s.Rating), 1);
+                return _totalRatingBook; 
+            }
+            set
+            {
+                _totalRatingBook = value;
+                OnPropertyChanged(nameof(TotalRatingBook));
+            }
+        }
+
         private Book _selectedBook;
         public Book SelectedBook
         {
@@ -33,6 +54,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         {
             get
             {
+                _CountReviews = ReviewsBooks.Count;
                 return _CountReviews;
             }
             set
@@ -59,11 +81,40 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             {
                 _ReviewsBooks = value; 
                 OnPropertyChanged(nameof(ReviewsBooks));
+                OnPropertyChanged(nameof(GetCountReviews));
+                OnPropertyChanged(nameof(SelectedBook));
+                OnPropertyChanged(nameof(TotalRatingBook));
+
             }
         }
 
         public string AllGenresBook => string.Join(", ", dataBase.GetBookGenres(SelectedBook.BookId).Select(b=>b.Genre.GenreName));
 
+
+        public void ShowMessage(Review SelReview = null, Book SelBook = null, User Author = null)
+        {
+            MainWindow mainWindow = MainWindow.GetInstance();
+
+            mainWindow.BlurAdd(true);
+            FreezeRequestPage wind;
+            if (SelReview != null)
+            {
+                wind = new FreezeRequestPage("отзыв", SelReview);
+            }
+            else if (SelBook != null)
+            {
+                wind = new FreezeRequestPage("книгу", SelBook);
+            }
+            else
+            {
+                wind = new FreezeRequestPage("автора", Author);
+            }
+            wind.Owner = mainWindow;
+            var res = wind.ShowDialog();
+
+            mainWindow.BlurAdd(false);
+
+        }
 
     }
 }

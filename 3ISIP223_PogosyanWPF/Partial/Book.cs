@@ -8,7 +8,7 @@ namespace _3ISIP223_PogosyanWPF
 {
     public partial class Book
     {
-        public double RatingFive => (Rating ?? 0) / 2.0;
+        //public double RatingFive => (Rating ?? 0) / 2.0;
 
     }
 }
