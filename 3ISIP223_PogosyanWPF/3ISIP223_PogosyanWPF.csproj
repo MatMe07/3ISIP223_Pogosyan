@@ -151,6 +151,7 @@
     </Compile>
     <Compile Include="Partial\Book.cs" />
     <Compile Include="Partial\Review.cs" />
+    <Compile Include="Partial\Users.cs" />
     <Compile Include="ReadingList.cs">
       <DependentUpon>ShutAndKingEntities.tt</DependentUpon>
     </Compile>

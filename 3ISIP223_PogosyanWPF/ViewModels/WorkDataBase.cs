@@ -92,7 +92,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public void AddReview(double rating, string Comment)
         {
-
+            int RatingTEN = (int)(rating * 2);
         }
 
     }

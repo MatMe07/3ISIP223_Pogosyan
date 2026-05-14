@@ -64,6 +64,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
             //var bookId = (int)button.Tag;
 
             var contextMenu = FindResource("ReviewListMenu") as ContextMenu;
+            contextMenu.DataContext = DataContext;
             contextMenu.PlacementTarget = button;
             contextMenu.IsOpen = true;
             foreach (MenuItem item in contextMenu.Items)

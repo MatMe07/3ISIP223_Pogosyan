@@ -16,7 +16,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public void AddReview()
         {
-            dataBase.AddReview(SelectRatingReview,EditorTextRange.Text);
+            dataBase.AddReview(SelectRatingReview,EditorText);
         }
 
 
@@ -30,6 +30,8 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             }
         }
 
+
+
         private TextRange _editorTextRange;
         public TextRange EditorTextRange
         {
@@ -38,6 +40,17 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             {
                 _editorTextRange = value;
                 OnPropertyChanged(nameof(EditorTextRange));
+            }
+        }
+
+        private string _editorText;
+        public string EditorText
+        {
+            get => _editorText;
+            set
+            {
+                _editorText = value;
+                OnPropertyChanged(nameof(EditorText));
             }
         }
 

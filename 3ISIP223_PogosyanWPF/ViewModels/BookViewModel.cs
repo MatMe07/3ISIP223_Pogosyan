@@ -43,6 +43,10 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         }
 
         public bool IsAuthor => dataBase.IsAuthor;
+        public bool IsAdmin => dataBase.IsAdmin;
+
+
+        public User GetUser => dataBase.User;
 
         private ObservableCollection<Review> _ReviewsBooks;
         public ObservableCollection<Review> ReviewsBooks
