@@ -84,6 +84,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
             foreach (MenuItem item in contextMenu.Items)
             {
                 //item.Click -= ReadingListItem_Click;
+                item.Click -= ReviewListItem_Click;
                 item.Click += ReviewListItem_Click;
                 item.Tag = SelectReview;
             }

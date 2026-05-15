@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace _3ISIP223_PogosyanWPF.ViewModels
 {
@@ -12,13 +14,23 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
     {
         public CatalogViewModel()
         {
-            _Allbooks = dataBase.Books;
-
-
-            Books = new ObservableCollection<Book>( _Allbooks);
+            LoadBooks();
             SortStrings = new List<string> { "Все", "По названию", "По оценке" };
             FilterListStrings = dataBase.Genres.Select(a=>a.GenreName).ToList();
             FilterListStrings.Insert(0, "Все");
+            StatusesReadings = dataBase.StatusesReading;
+            StatusesReadingsString = new ObservableCollection<string>( StatusesReadings.Select(a=>a.Name));
+            StatusesReadingsMItem = new ObservableCollection<MenuItem>();
+            foreach (var it in StatusesReadingsString)
+            {
+                StatusesReadingsMItem.Add(new MenuItem() { Header = it, IsCheckable= true });
+            }
+        }
+        public void LoadBooks()
+        {
+            _Allbooks = dataBase.Books;
+
+            Books = new ObservableCollection<Book>(_Allbooks);
         }
 
 
@@ -72,6 +84,8 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public List<string> FilterListStrings { get; set; }
 
 
+        //public ObservableCollection<>
+
         private string _selectedFiltItem = "Все";
         public string SelectedFiltItem
         {
@@ -89,6 +103,53 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             dataBase.SelectedBook= book;
         }
 
+        public void UpdBooks()
+        {
+            LoadBooks();
+        }
+
+
+        private ObservableCollection<StatusesReading> _statusesReadings;
+        public ObservableCollection<StatusesReading> StatusesReadings
+        {
+            get
+            {
+                return _statusesReadings;
+            }
+            set
+            {
+                _statusesReadings = value;
+                OnPropertyChanged(nameof(StatusesReadings));
+            }
+        }
+        public ObservableCollection<string> StatusesReadingsString {  get; set; }
+        public ObservableCollection<MenuItem> StatusesReadingsMItem {  get; set; }
+
+        public bool CheckReadigItemToList(Book book, string item)
+        {
+            var FirsBook = dataBase.ReadingLists.FirstOrDefault(b=>b.Book == book);
+            if (FirsBook == null) return false;
+            var status = FirsBook.StatusesReading.Name;
+            if (status != null)
+            {
+                return status == item;
+            }
+            return false;
+        }
+
+        public void RemoveBookFromReadingList(Book book)
+        {
+            dataBase.RemoveBookFromReadingList(book);
+
+        }
+        public void AddBookToReadingList(Book book, string status)
+        {
+            dataBase.AddBookToReadingList(book, status);
+        }
+        public void UpdateToReadingList(Book book, string status)
+        {
+            dataBase.UpdateBookStatus(book, status);
+        }
 
         public void FilterdSearch()
         {

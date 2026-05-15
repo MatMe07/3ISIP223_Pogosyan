@@ -6,15 +6,22 @@
       xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800" d:Background="White"
+      d:DesignHeight="450" d:DesignWidth="800" d:Background="White" Loaded="Page_Loaded"
       Title="CatalogPage">
 
     <Page.Resources>
-        <ContextMenu x:Key="ReadingListMenu">
-            <MenuItem Header="Заброшено" Tag="Заброшено"/>
-            <MenuItem Header="В планах" Tag="В планах"/>
-            <MenuItem Header="Читаю" Tag="Читаю"/>
-            <MenuItem Header="Прочитано" Tag="Прочитано"/>
+        <ContextMenu x:Key="ReadingListMenu" ItemsSource="{Binding StatusesReadingsMItem}">
+            <!--<ContextMenu.ItemTemplate>
+                <DataTemplate>
+                    <MenuItem Header="{Binding Name}" IsCheckable="True"/>
+                </DataTemplate>
+            </ContextMenu.ItemTemplate>
+            --><!--<MenuItem Header="Заброшено" Tag="Заброшено"  IsCheckable="True"/>
+            <MenuItem Header="В планах" Tag="В планах" IsCheckable="True"/>
+            <MenuItem Header="Читаю" Tag="Читаю" IsCheckable="True"/>
+            <MenuItem Header="Прочитано" Tag="Прочитано" IsCheckable="True"/>-->
+
+
         </ContextMenu>
     </Page.Resources>
 
@@ -108,7 +115,7 @@
                                     </Border.Style>
                                 </Border>
                                 <Button Grid.Row="4" FontSize="13" Content="➕" Margin="0 5 5 0" Click="AddToListButton_Click" HorizontalAlignment="Right" 
-                                    materialDesign:ElevationAssist.Elevation="Dp1" 
+                                    materialDesign:ElevationAssist.Elevation="Dp1" Tag="{Binding}"
                                     VerticalAlignment="Top" Width="30" Height="30" Padding="0" Background="#99673AB7" BorderBrush="Transparent"/>
 
                             </Grid>

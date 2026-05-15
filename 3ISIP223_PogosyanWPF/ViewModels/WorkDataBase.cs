@@ -26,8 +26,10 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             bookGenres = Core.kingEntities.BookGenres.ToList();
             _AllReviews = new ObservableCollection<Review>( Core.kingEntities.Reviews);
             User = Core.kingEntities.Users.FirstOrDefault(u=>u.Role.RoleName == "Автор");
+            ReadingLists = new ObservableCollection<ReadingList>(Core.kingEntities.ReadingLists.Where(b=>b.UserId == User.UserId).ToList());
             GetReasons = new ObservableCollection<Reason>( Core.kingEntities.Reasons);
             targetTypes = Core.kingEntities.TargetTypes.ToList();
+            StatusesReading = new ObservableCollection<StatusesReading>( Core.kingEntities.StatusesReadings);
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
 
@@ -35,6 +37,20 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public bool IsAdmin => User.Role.RoleName == "Администратор";
 
         public User User { get; set; }
+
+        private ObservableCollection<ReadingList> _readingLists;
+        public ObservableCollection<ReadingList> ReadingLists
+        {
+            get
+            {
+                return _readingLists;
+            }
+            set
+            {
+                _readingLists = value;
+                OnPropertyChanged(nameof(ReadingLists));
+            }
+        }
 
 
         private Book _selectedBook;
@@ -62,6 +78,11 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             {
                 if (_books == null) _books = new ObservableCollection<Book>(Core.kingEntities.Books);
                 return _books;
+            }
+            set
+            {
+                _books = value;
+                OnPropertyChanged(nameof(Books));
             }
 
         }
@@ -97,6 +118,20 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public ObservableCollection<Reason> GetReasons { get; set; }
 
+        private ObservableCollection<StatusesReading> _statusesReading;
+        public ObservableCollection<StatusesReading> StatusesReading
+        {
+            get
+            {
+                return _statusesReading;
+            }
+            set
+            {
+                _statusesReading = value;
+                OnPropertyChanged(nameof(StatusesReading));
+            }
+        }
+
         public void AddReview(double rating, string Comment)
         {
             Review review = new Review()
@@ -111,10 +146,19 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             Core.kingEntities.Reviews.Add(review);
             _AllReviews.Add(review);
             Core.kingEntities.SaveChanges();
+
+            Core.kingEntities.Entry(SelectedBook).Reload();
+
+            //UpdBooks();
         }
 
-        public void SaveFreezeRequest(Object item, Reason reason)
+        public void UpdBooks()
+        {
+            Books = new ObservableCollection<Book>( Core.kingEntities.Books);
+        }
 
+
+        public void SaveFreezeRequest(Object item, Reason reason)
         {
             Complaint complaint;
             if (item is Book book)
@@ -158,5 +202,59 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             Core.kingEntities.SaveChanges();
         }
 
+        public void RemoveBookFromReadingList(Book book)
+        {
+            var re = ReadingLists.FirstOrDefault(r => r.BookId == book.BookId);
+            if (re != null)
+            {
+                Core.kingEntities.ReadingLists.Remove(re);
+                ReadingLists.Remove(re);
+                Core.kingEntities.SaveChanges();
+            }
+        }
+        public void AddBookToReadingList(Book book, string status)
+        {
+            ReadingList readingList = new ReadingList()
+            {
+                User = User,
+                Book= book,
+                StatusesReading = StatusesReading.First(a=>a.Name == status),
+                AddedAt = DateTime.Now,
+            };
+            Core.kingEntities.ReadingLists.Add(readingList);
+            ReadingLists.Add(readingList);
+            Core.kingEntities.SaveChanges();
+        }
+        public void UpdateBookStatus(Book book, string newStatus)
+        {
+            var existingRecord = ReadingLists
+                .FirstOrDefault(r => r.BookId == book.BookId && r.UserId == User.UserId);
+
+            if (existingRecord != null)
+            {
+                var statusEntity = StatusesReading.FirstOrDefault(s => s.Name == newStatus);
+                if (statusEntity != null)
+                {
+                    existingRecord.StatusesReading = statusEntity;
+                    existingRecord.StatusId = statusEntity.StatusId;
+                    existingRecord.AddedAt = DateTime.Now;
+
+                    Core.kingEntities.SaveChanges();
+                }
+            }
+            else
+            {
+                ReadingList readingList = new ReadingList()
+                {
+                    User = User,
+                    Book = book,
+                    StatusesReading = StatusesReading.First(a => a.Name == newStatus),
+                    AddedAt = DateTime.Now,
+                };
+                Core.kingEntities.ReadingLists.Add(readingList);
+                ReadingLists.Add(readingList);
+                Core.kingEntities.SaveChanges();
+            }
+        }
     }
 }

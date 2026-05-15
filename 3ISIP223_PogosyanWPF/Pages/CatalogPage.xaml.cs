@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 
 namespace _3ISIP223_PogosyanWPF.Pages
 {
@@ -24,39 +25,119 @@ namespace _3ISIP223_PogosyanWPF.Pages
     {
 
         public List<string> lst {  get; set; }
+        private CatalogViewModel viewModel;
         public CatalogPage()
         {
             lst = new List<string> { "hello", "world" , "world" , "world" , "world" , "world" , "world" , "world" , "world" };
             //DataContext = this;
             InitializeComponent();
+            viewModel = DataContext as CatalogViewModel;
             //listB.ItemsSource = lst;
         }
 
         private void AddToListButton_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            //var bookId = (int)button.Tag;
+            var book = button.Tag as Book;
 
             var contextMenu = FindResource("ReadingListMenu") as ContextMenu;
+            contextMenu.DataContext = viewModel;
+
             contextMenu.PlacementTarget = button;
+            contextMenu.Tag = book;
             contextMenu.IsOpen = true;
             foreach (MenuItem item in contextMenu.Items)
             {
                 //item.Click -= ReadingListItem_Click;
-                item.Click += ReadingListItem_Click;
-                //item.Tag = bookId;
+                //item.Click -= ReadingListItem_Click;
+                item.Checked -= ReadingListItem_Checked;
+                //item.Unchecked -= ReadingListItem_Unchecked;
+
+                var stat = viewModel.CheckReadigItemToList(book, item.Header.ToString());
+                Console.WriteLine($"{item.Header} - {stat}");
+
+                item.IsChecked = stat;
+
+
+                item.Checked += ReadingListItem_Checked;
+                //item.Unchecked += ReadingListItem_Unchecked;
+
+                //item.Click += ReadingListItem_Click;
+                item.Tag = contextMenu;
             }
         }
+
+        private void ReadingListItem_Checked(object sender, RoutedEventArgs e)
+        {
+            var menuItem = sender as MenuItem;
+            var contextMenu = menuItem.Tag as ContextMenu;
+            var book = contextMenu.Tag as Book;
+            string status = menuItem.Header.ToString();
+            Console.WriteLine($"CHECKED: {menuItem.Header} - {menuItem.IsChecked}");
+
+
+            foreach (MenuItem item in contextMenu.Items)
+            {
+                if (item == menuItem && item.IsChecked)
+                {
+                    item.IsChecked = false;
+                    viewModel.RemoveBookFromReadingList(book);
+                }
+                else if (item != menuItem && item.IsCheckable && item.IsChecked)
+                {
+                    item.IsChecked = false;
+                    //viewModel.RemoveBookFromReadingList(book);
+                }
+            }
+
+            //viewModel.AddBookToReadingList(book, status);
+            viewModel.UpdateToReadingList(book, status);
+
+            contextMenu.IsOpen = false;
+        }
+
+        private void ReadingListItem_Unchecked(object sender, RoutedEventArgs e)
+        {
+            var menuItem = sender as MenuItem;
+            var contextMenu = menuItem.Tag as ContextMenu;
+            var book = contextMenu.Tag as Book;
+            Console.WriteLine($"UNCHECKED: {menuItem.Header} - {menuItem.IsChecked}");
+
+            //viewModel.RemoveBookFromReadingList(book);
+            contextMenu.IsOpen = false;
+        }
+
+
 
         private void ReadingListItem_Click(object sender, RoutedEventArgs e)
         {
             var menuItem = sender as MenuItem;
-            //int bookId = (int)menuItem.Tag;
+            var contextMenu = menuItem.Tag as ContextMenu;
+            var book = contextMenu.Tag as Book;
             string status = menuItem.Header.ToString();
 
-            //AddBookToReadingList(bookId, status);
-
-            (menuItem.Parent as ContextMenu).IsOpen = false;
+            if (menuItem.IsChecked)
+            {
+                // Уже выбран - удаляем книгу из списков
+                menuItem.IsChecked = false;
+                viewModel.RemoveBookFromReadingList(book);
+                Console.WriteLine($"Книга удалена из списка чтения");
+            }
+            else
+            {
+                // Не выбран - добавляем/обновляем статус
+                foreach (MenuItem item in contextMenu.Items)
+                {
+                    if (item.IsCheckable && item != menuItem && item.IsChecked)
+                    {
+                        item.IsChecked = false;
+                    }
+                }
+                menuItem.IsChecked = true;
+                viewModel.UpdateToReadingList(book, status);
+                Console.WriteLine($"Книге присвоен статус: {status}");
+            }
+            //(menuItem.Parent as ContextMenu).IsOpen = false;
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -71,14 +152,19 @@ namespace _3ISIP223_PogosyanWPF.Pages
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var wind = MainWindow.GetInstance();
-            Book book = book = (sender as Border).Tag as Book;
+            Book book = (sender as Border).Tag as Book;
 
             if ( book == null)
             {
                 book = (sender as TextBlock).Tag as Book;
             }
-            (DataContext as CatalogViewModel).SetSelectBook(book);
+            viewModel.SetSelectBook(book);
             wind.frameCatalog.NavigationService.Navigate(new BookPage("CatalogPage"));
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            viewModel.UpdBooks();
         }
     }
 }

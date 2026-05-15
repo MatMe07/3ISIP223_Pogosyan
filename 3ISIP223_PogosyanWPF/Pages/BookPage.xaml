@@ -114,7 +114,7 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <materialDesign:PackIcon Kind="Star"  Foreground="#FFFF5E1A"/>
                         <TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="3 0"
-                            Text="{Binding TotalRatingBook}" Foreground="#FF3B393F" FontWeight="Bold" FontSize="15"/>
+                            Text="{Binding SelectedBook.Rating}" Foreground="#FF3B393F" FontWeight="Bold" FontSize="15"/>
                     </StackPanel>
                     <TextBlock Text="{Binding GetCountReviews, StringFormat='\{0} оценок'}" Foreground="#626165" />
                     <!--<materialDesign:RatingBar  Value="4.3"/>-->
