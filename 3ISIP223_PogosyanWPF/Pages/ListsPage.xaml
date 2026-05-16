@@ -3,20 +3,17 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
+      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800" d:Background="White"
-      Title="ListsPage">
+      Title="ListsPage" Loaded="Page_Loaded" >
     <Page.Resources>
-        <ContextMenu x:Key="ReadingListMenu">
-            
-            <MenuItem Header="Заброшено" Tag="Заброшено" BorderThickness="1" BorderBrush="Black"/>
-            <MenuItem Header="В планах" Tag="В планах" BorderThickness="0" BorderBrush="Black"/>
-            <MenuItem Header="Читаю" Tag="Читаю" BorderThickness="0" BorderBrush="Black"/>
-            <MenuItem Header="Прочитано" Tag="Прочитано" BorderThickness="0" BorderBrush="Black"/>
-        </ContextMenu>
+        <ContextMenu x:Key="ReadingListMenu" ItemsSource="{Binding StatusesReadingsMItem}"/>
     </Page.Resources>
+    <Page.DataContext>
+        <local:ListsViewModel/>
+    </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -49,7 +46,7 @@
                         </Button>
 
                         <TextBox x:Name="SearchBox"
-                     Grid.Column="1"
+                     Grid.Column="1" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"
                                  FontSize="15"
                      materialDesign:HintAssist.Hint="Поиск по названию или автору"
                      materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
@@ -57,134 +54,121 @@
                      />
                     </Grid>
                 </Border>
+
                 <StackPanel Orientation="Horizontal" Margin="0 10 0 0" Grid.Row="1">
                     <materialDesign:PackIcon Kind="FilterCogOutline" Height="25" Width="25"/>
-                    <!--<Image Source="/Icons/icon-filter.png" Width="20"/>-->
-                    <ComboBox Margin="5 0 20 0" Width="150" Padding="5" Background="White" Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                        <ComboBoxItem Content="hel"/>
+                    <ComboBox Margin="5 0 20 0" Width="150" Padding="5" Background="White" Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              materialDesign:HintAssist.Hint="Сортировка" ItemsSource="{Binding SortStrings}" 
+                              SelectedIndex="0"
+                              SelectedItem="{Binding SelectedSortItem}">
                     </ComboBox>
-                    <ComboBox Width="150" Padding="5" Background="White" Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                        <ComboBoxItem Content="hel"/>
+                    <ComboBox Width="150" Padding="5" Background="White" 
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                              SelectedItem="{Binding SelectedFiltItem}"
+                              ItemsSource="{Binding FilterListStrings}"
+                              materialDesign:HintAssist.Hint="Фильтрация">
                     </ComboBox>
                 </StackPanel>
             </Grid>
         </materialDesign:ColorZone>
+
         <materialDesign:Card Grid.Row="1">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TabControl  Grid.Row="0" 
+                <TabControl  Grid.Row="0" Margin="0 0 0 5"
                           Style="{StaticResource MaterialDesignNavigationRailTabControl}"
-                             
-                          TabStripPlacement="Top" Background="White" SelectionChanged="TabControl_SelectionChanged">
-                    <TabItem  Width="90" Tag="Все книги">
-                        <TabItem.Header >
-                            <StackPanel >
-                                <materialDesign:PackIcon Width="24"
-                                               Height="24"
-                                               HorizontalAlignment="Center"
-                                               Kind="Books" />
-                                <TextBlock HorizontalAlignment="Center" Text="Все книги" />
-                            </StackPanel>
-                        </TabItem.Header>
+                          ItemsSource="{Binding tabItems}" SelectedItem="{Binding SelectTabItem}"
+                          TabStripPlacement="Top" Background="White" >
 
-                        <!--<ScrollViewer Margin="0">-->
-
-                        <!--</ScrollViewer>-->
-                    </TabItem>
-
-                    <TabItem Width="90" Tag="Заброшено">
-                        <TabItem.Header>
-                            <StackPanel >
-                                <materialDesign:PackIcon Width="34"
-                                               Height="24"
-                                               HorizontalAlignment="Center"
-                                               Kind="BookCancel" />
-                                <TextBlock HorizontalAlignment="Center" Text="Заброшено" />
-                            </StackPanel>
-                        </TabItem.Header>
-                    </TabItem>
-
-                    <TabItem  Width="90" Tag="В планах">
-                        <TabItem.Header>
-                            <StackPanel >
-                                <materialDesign:PackIcon Width="24"
-                                               Height="24"
-                                               HorizontalAlignment="Center"
-                                               Kind="Book" />
-                                <TextBlock HorizontalAlignment="Center" Text="В планах" />
-                            </StackPanel>
-                        </TabItem.Header>
-                    </TabItem>
-
-                    <TabItem  Width="90" Tag="Читаю">
-                        <TabItem.Header>
-                            <StackPanel >
-                                <materialDesign:PackIcon Width="24"
-                                               Height="24"
-                                               HorizontalAlignment="Center"
-                                               Kind="BookOpenPageVariant" />
-                                <TextBlock HorizontalAlignment="Center" Text="Читаю" />
-                            </StackPanel>
-                        </TabItem.Header>
-                    </TabItem>
-
-                    <TabItem Width="90" Tag="Прочитано">
-                        <TabItem.Header>
-                            <StackPanel >
-                                <materialDesign:PackIcon Width="24"
-                                               Height="24"
-                                               HorizontalAlignment="Center"
-                                               Kind="BookCheck" />
-                                <TextBlock HorizontalAlignment="Center" Text="Прочитано" />
-                            </StackPanel>
-                        </TabItem.Header>
-                    </TabItem>
                 </TabControl>
 
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0 0 0 10">
 
-                <ListBox Grid.Row="1" VerticalContentAlignment="Stretch"  Margin="0 0" d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="listBooks"  ItemsSource="{Binding lst}" 
-                 Style="{StaticResource MaterialDesignNavigationPrimaryListBox}" SelectionChanged="ListBox_SelectionChanged" >
-                    <ListBox.ItemTemplate >
-                        <DataTemplate >
-                            <Grid Margin="5" Width="135">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
+                    <ItemsControl Grid.Row="1" VerticalContentAlignment="Stretch" d:ItemsSource="{d:SampleData ItemCount=5}"
+                                  x:Name="listBooks"  ItemsSource="{Binding Books}">
+                        <ItemsControl.ItemTemplate >
+                            <DataTemplate >
+                                <Grid Margin="10" Width="135">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
 
-                                <Border CornerRadius="10" ClipToBounds="True" Height="190" >
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="/poster.jpg" Stretch="UniformToFill"/>
-                                    </Border.Background>
-                                </Border>
+                                    <Border CornerRadius="10" ClipToBounds="True" Height="190" 
+                                            MouseLeftButtonDown="Border_MouseLeftButtonDown" Tag="{Binding}">
+                                        
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding CoverPath}" Stretch="UniformToFill"/>
+                                        </Border.Background>
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Cursor" Value="Hand"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
 
-                                <TextBlock Text="Евгений Онегин"  FontWeight="DemiBold" Grid.Row="1" Margin="0 3" TextWrapping="WrapWithOverflow"/>
-                                <TextBlock Text="Александр Пушкин" Grid.Row="2"  Foreground="#FF5A617C" TextWrapping="WrapWithOverflow"/>
-                                <TextBlock Text="★ 4,9" Grid.Row="3"  Foreground="#FF5A617C" TextWrapping="WrapWithOverflow"/>
-                                <Button Grid.Row="4" FontSize="11" Content="Переместить" Margin="0 5 0 0" Click="AddToListButton_Click"/>
+                                    <TextBlock Text="{Binding Title}"  Tag="{Binding}" FontSize="16" FontWeight="Bold" Grid.Row="1" Margin="0 3"
+                                               TextWrapping="WrapWithOverflow" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Cursor" Value="Hand"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock Text="{Binding User.DisplayName}" Grid.Row="2"  Foreground="#FF5A617C" TextWrapping="WrapWithOverflow"/>
+                                    <StackPanel Grid.Row="3" Margin="0 8 0 0" Orientation="Horizontal">
+                                        <materialDesign:ColorZone
+                                Background="#FFF0F1F4" 
+                                Padding="5 5" 
+                                CornerRadius="10"
+                                Margin="0 0 5 0"
+                                >
+                                            <StackPanel Orientation="Horizontal">
+                                                <materialDesign:PackIcon Kind="Text" />
+                                                <TextBlock Text="Текст" Margin="5 0 0 0"/>
+                                            </StackPanel>
 
-                            </Grid>
-                        </DataTemplate>
+                                        </materialDesign:ColorZone>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <materialDesign:PackIcon Kind="Star" Foreground="#FF5A617C"/>
+                                            <TextBlock Text="{Binding Rating}"
+                                           Margin="3 0 0 0"
+                                           Foreground="#FF5A617C" TextWrapping="WrapWithOverflow" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <Button Grid.Row="4" FontSize="11" Content="Переместить" Margin="0 5 0 0" Tag="{Binding}" Click="AddToListButton_Click"/>
 
-                    </ListBox.ItemTemplate>
+                                </Grid>
+                            </DataTemplate>
+
+                        </ItemsControl.ItemTemplate>
 
 
 
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
 
 
-                </ListBox>
+                    </ItemsControl>
 
+                </ScrollViewer>
 
             </Grid>
         </materialDesign:Card>

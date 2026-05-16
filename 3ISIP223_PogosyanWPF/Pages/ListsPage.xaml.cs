@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -22,100 +23,94 @@ namespace _3ISIP223_PogosyanWPF.Pages
     public partial class ListsPage : Page
     {
 
-        public ObservableCollection<string> lst { get; set; }
+        //public ObservableCollection<string> lst { get; set; }
+        private ListsViewModel viewModel;
 
         public ListsPage()
         {
-            lst = new ObservableCollection<string> { "hello", "world" , "world" , "world" , "world" , "world" , "world" , "world" , "world" , "world" , "world" , "world" };
-            DataContext = this;
+            //lst = new ObservableCollection<string> { "hello", "world" , "world" , "world" , "world" , "world" , "world" , "world" , "world" , "world" , "world" , "world" };
+            //DataContext = this;
             InitializeComponent();
+            viewModel = DataContext as ListsViewModel;
         }
+
 
         private void AddToListButton_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            //var bookId = (int)button.Tag;
+            var book = button.Tag as Book;
 
             var contextMenu = FindResource("ReadingListMenu") as ContextMenu;
+            contextMenu.DataContext = viewModel;
+
             contextMenu.PlacementTarget = button;
+            contextMenu.Tag = book;
             contextMenu.IsOpen = true;
             foreach (MenuItem item in contextMenu.Items)
             {
-                //item.Click -= ReadingListItem_Click;
+                item.Click -= ReadingListItem_Click;
+
+                var isChecked = viewModel.CheckReadigItemToList(book, item.Header.ToString());
+                item.IsChecked = isChecked;
+
                 item.Click += ReadingListItem_Click;
-                //item.Tag = bookId;
+
+                item.Tag = contextMenu;
             }
         }
         private void ReadingListItem_Click(object sender, RoutedEventArgs e)
         {
-            var menuItem = sender as MenuItem;
-            //int bookId = (int)menuItem.Tag;
-            string status = menuItem.Header.ToString();
+            var menuitem = sender as MenuItem;
+            var contextMenu = menuitem.Tag as ContextMenu;
+            var book = contextMenu.Tag as Book;
+            string clickedStatus = menuitem.Header.ToString();
 
-            //AddBookToReadingList(bookId, status);
+            bool wasChecked = menuitem.IsChecked;
 
-            (menuItem.Parent as ContextMenu).IsOpen = false;
+            menuitem.IsChecked = !wasChecked;
+
+            if (wasChecked)
+            {
+                foreach (MenuItem item in contextMenu.Items)
+                {
+                    if (item.IsCheckable && item != menuitem && item.IsChecked)
+                    {
+                        item.IsChecked = false;
+                    }
+                }
+
+                menuitem.IsChecked = true;
+                viewModel.UpdateToReadingList(book, clickedStatus);
+            }
+            else
+            {
+                menuitem.IsChecked = false;
+                viewModel.RemoveBookFromReadingList(book);
+            }
+
+            contextMenu.IsOpen = false;
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+
+
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var wind = MainWindow.GetInstance();
-            wind.frameListBook.NavigationService.Navigate(new BookPage("ListPage"));
-            listBooks.SelectedIndex = -1;
-            //var res = MessageBox.Show("Книга {bookId} → {status}");
-            //if (res == MessageBoxResult.OK) listBooks.SelectedIndex = -1;
+            Book book = (sender as Border)?.Tag as Book;
 
-        }
-
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-            var selectTabItem = (sender as TabControl).SelectedItem as TabItem;
-            //if ()
-            lst.Clear();
-
-            switch (selectTabItem.Tag.ToString())
+            if (book == null)
             {
-                case "Все книги":
-                    {
-                        lst.Add("1");
-                        lst.Add("1");
-                        lst.Add("1");
-                        lst.Add("1");
-                        lst.Add("1");
-                        lst.Add("1");
-                        break;
-                    }
-                case "Заброшено":
-                    {
-                        lst.Add("1");
-                        lst.Add("1");
-                        lst.Add("1");
-                        lst.Add("1");
-                        lst.Add("1");
-                        break;
-                    }
-                case "В планах":
-                    {
-                        lst.Add("1");
-                        lst.Add("1");
-                        lst.Add("1");
-                        lst.Add("1");
-                        break;
-                    }
-                case "Читаю":
-                    {
-                        lst.Add("1");
-                        lst.Add("1");
-                        lst.Add("1");
-                        break;
-                    }
-                case "Прочитано":
-                    {
-                        lst.Add("1");
-                        break;
-                    }
+                book = (sender as TextBlock).Tag as Book;
             }
+            viewModel.SetSelectBook(book);
+            wind.frameListBook.NavigationService.Navigate(new BookPage("ListPage"));
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            viewModel.UpdBooks();
+        }
+
     }
 }

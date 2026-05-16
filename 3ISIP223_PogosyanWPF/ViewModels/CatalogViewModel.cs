@@ -20,6 +20,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             SortStrings = new List<string> { "Все", "По названию", "По оценке" };
             FilterListStrings = dataBase.Genres.Select(a=>a.GenreName).ToList();
             FilterListStrings.Insert(0, "Все");
+
             StatusesReadings = dataBase.StatusesReading;
             StatusesReadingsString = new ObservableCollection<string>( StatusesReadings.Select(a=>a.Name));
             StatusesReadingsMItem = new ObservableCollection<MenuItem>();
@@ -35,7 +36,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
             Books = new ObservableCollection<Book>(_Allbooks);
         }
-
 
         private ObservableCollection<Book> _Allbooks;
         private ObservableCollection<Book> _books;
@@ -68,7 +68,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 FilterdSearch();
             }
         }
-
 
         public List<string> SortStrings { get; set; }
 
@@ -112,7 +111,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         }
 
 
-        private ObservableCollection<StatusesReading> _statusesReadings;
+        //private ObservableCollection<StatusesReading> _statusesReadings;
         public ObservableCollection<StatusesReading> StatusesReadings { get; set; }
 
         public ObservableCollection<string> StatusesReadingsString {  get; set; }

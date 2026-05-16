@@ -52,6 +52,12 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             }
         }
 
+        public ObservableCollection<ReadingList> GetReadingLists(string status)
+        {
+            if (status == "Все книги") return _readingLists;
+            return new ObservableCollection<ReadingList>( _readingLists.Where(r=>r.StatusesReading.Name == status));
+        }
+
 
         private Book _selectedBook;
         public Book SelectedBook
@@ -211,19 +217,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 ReadingLists.Remove(re);
                 Core.kingEntities.SaveChanges();
             }
-        }
-        public void AddBookToReadingList(Book book, string status)
-        {
-            ReadingList readingList = new ReadingList()
-            {
-                User = User,
-                Book= book,
-                StatusesReading = StatusesReading.First(a=>a.Name == status),
-                AddedAt = DateTime.Now,
-            };
-            Core.kingEntities.ReadingLists.Add(readingList);
-            ReadingLists.Add(readingList);
-            Core.kingEntities.SaveChanges();
         }
         public bool UpdateBookStatus(Book book, string newStatus)
         {

@@ -24,11 +24,11 @@ namespace _3ISIP223_PogosyanWPF.Pages
     public partial class CatalogPage : Page
     {
 
-        public List<string> lst {  get; set; }
+        //public List<string> lst {  get; set; }
         private CatalogViewModel viewModel;
         public CatalogPage()
         {
-            lst = new List<string> { "hello", "world" , "world" , "world" , "world" , "world" , "world" , "world" , "world" };
+            //lst = new List<string> { "hello", "world" , "world" , "world" , "world" , "world" , "world" , "world" , "world" };
             //DataContext = this;
             InitializeComponent();
             viewModel = DataContext as CatalogViewModel;
@@ -92,19 +92,10 @@ namespace _3ISIP223_PogosyanWPF.Pages
         }
 
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var wind = MainWindow.GetInstance();
-            wind.frameCatalog.NavigationService.Navigate(new BookPage("CatalogPage"));
-            //var res = MessageBox.Show("Книга {bookId} → {status}");
-            //if (res == MessageBoxResult.OK) listBooks.SelectedIndex = -1;
-
-        }
-
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var wind = MainWindow.GetInstance();
-            Book book = (sender as Border).Tag as Book;
+            Book book = (sender as Border)?.Tag as Book;
 
             if ( book == null)
             {

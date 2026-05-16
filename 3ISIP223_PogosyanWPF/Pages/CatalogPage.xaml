@@ -78,8 +78,7 @@
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0 0 0 10">
 
-            <ItemsControl  d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="listBooks"  ItemsSource="{Binding Books}" 
-                  >
+            <ItemsControl  d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="listBooks"  ItemsSource="{Binding Books}">
                 <ItemsControl.ItemTemplate >
                     <DataTemplate >
                         <Grid Margin="10" Width="135">
