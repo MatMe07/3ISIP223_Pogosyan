@@ -11,7 +11,9 @@
     <!--<Window.Effect>
         <BlurEffect Radius="4"/>
     </Window.Effect>-->
-    <Grid MaxWidth="1100" Margin="0 0">
+    <materialDesign:DialogHost SnackbarMessageQueue="{Binding ElementName=MySnackbar, Path=MessageQueue}">
+
+        <Grid MaxWidth="1100" Margin="0 0">
         <!--<Grid.ColumnDefinitions>
             <ColumnDefinition  Width="auto"/>
             <ColumnDefinition  Width="*"/>
@@ -80,6 +82,9 @@
                     <Frame  NavigationUIVisibility="Hidden" x:Name="frameUserAccount" Source="/Pages/ProfilePage.xaml" Margin="10 0 0 0"/>
             </TabItem>
         </TabControl>
+        <materialDesign:Snackbar x:Name="MySnackbar"  Foreground="White"  HorizontalAlignment="Right" Grid.RowSpan="2"/>
 
     </Grid>
+
+    </materialDesign:DialogHost>
 </Window>

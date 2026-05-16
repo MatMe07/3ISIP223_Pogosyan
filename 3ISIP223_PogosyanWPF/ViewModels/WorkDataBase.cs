@@ -225,7 +225,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             ReadingLists.Add(readingList);
             Core.kingEntities.SaveChanges();
         }
-        public void UpdateBookStatus(Book book, string newStatus)
+        public bool UpdateBookStatus(Book book, string newStatus)
         {
             var existingRecord = ReadingLists
                 .FirstOrDefault(r => r.BookId == book.BookId && r.UserId == User.UserId);
@@ -241,6 +241,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
                     Core.kingEntities.SaveChanges();
                 }
+                return true;
             }
             else
             {
@@ -254,6 +255,8 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 Core.kingEntities.ReadingLists.Add(readingList);
                 ReadingLists.Add(readingList);
                 Core.kingEntities.SaveChanges();
+                return false;
+
             }
         }
     }

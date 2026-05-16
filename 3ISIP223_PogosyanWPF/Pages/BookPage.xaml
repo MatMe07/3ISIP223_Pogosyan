@@ -19,12 +19,8 @@
             <MenuItem Header="Заморозить отзыв" IsCheckable="True"
                        Visibility="{Binding GetUser.IsAdminVisibility}"/>
         </ContextMenu>
-        <ContextMenu x:Key="ReadingListMenu">
-            <MenuItem Header="Заброшено" Tag="Заброшено" IsCheckable="True"/>
-            <MenuItem Header="В планах" Tag="В планах" IsCheckable="True"/>
-            <MenuItem Header="Читаю" Tag="Читаю" IsCheckable="True"/>
-            <MenuItem Header="Прочитано" Tag="Прочитано" IsCheckable="True"/>
-        </ContextMenu>
+        <ContextMenu x:Key="ReadingListMenu" ItemsSource="{Binding StatusesReadingsMItem}"/>
+
     </Page.Resources>
 
 
@@ -99,7 +95,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{Binding SelectedBook.Title}" Style="{StaticResource H1Text}"/>
-                    <Button Content="Добавить в список"  Style="{StaticResource MaterialDesignRaisedLightButton}"
+                    <Button Content="Добавить в список"  Style="{StaticResource MaterialDesignRaisedLightButton}" Tag="{Binding SelectedBook}"
                             FontWeight="Black" Foreground="White" Grid.Column="1" HorizontalAlignment="Right" Click="BtnAddList_Click" />
 
                 </Grid>

@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ActionsClass.cs" />
     <Compile Include="AuthorRequest.cs">
       <DependentUpon>ShutAndKingEntities.tt</DependentUpon>
     </Compile>

@@ -1,10 +1,12 @@
 ﻿using _3ISIP223_PogosyanWPF.Windows;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace _3ISIP223_PogosyanWPF.ViewModels
 {
@@ -14,6 +16,16 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         {
             SelectedBook = dataBase.SelectedBook;
             LoadReviews();
+
+
+            StatusesReadings = dataBase.StatusesReading;
+            StatusesReadingsString = new ObservableCollection<string>(StatusesReadings.Select(a => a.Name));
+            StatusesReadingsMItem = new ObservableCollection<MenuItem>();
+            MyMessageQueue = new SnackbarMessageQueue();
+            foreach (var it in StatusesReadingsString)
+            {
+                StatusesReadingsMItem.Add(new MenuItem() { Header = it, IsCheckable = true });
+            }
             //GetCountReviews = ReviewsBooks.Count;
         }
         public void LoadReviews()
@@ -21,6 +33,42 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             ReviewsBooks = dataBase.GetReviewsToBook(SelectedBook.BookId);
 
         }
+
+        public ObservableCollection<StatusesReading> StatusesReadings { get; set; }
+
+        public ObservableCollection<string> StatusesReadingsString { get; set; }
+        public ObservableCollection<MenuItem> StatusesReadingsMItem { get; set; }
+
+        public SnackbarMessageQueue MyMessageQueue { get; set; }
+
+        public bool CheckReadigItemToList(Book book, string item)
+        {
+            var FirsBook = dataBase.ReadingLists.FirstOrDefault(b => b.Book == book);
+            if (FirsBook == null) return false;
+            var status = FirsBook.StatusesReading.Name;
+            if (status != null)
+            {
+                return status == item;
+            }
+            return false;
+        }
+
+        public void RemoveBookFromReadingList(Book book)
+        {
+            dataBase.RemoveBookFromReadingList(book);
+            ActionsClass.RemoveBookFromReadingList(book, MyMessageQueue);
+
+        }
+
+        public void UpdateToReadingList(Book book, string status)
+        {
+            var updOrAdd = dataBase.UpdateBookStatus(book, status);
+
+            ActionsClass.UpdateToReadingList(book, status, updOrAdd, MyMessageQueue);
+
+        }
+
+
 
         private double _totalRatingBook;
         public double TotalRatingBook

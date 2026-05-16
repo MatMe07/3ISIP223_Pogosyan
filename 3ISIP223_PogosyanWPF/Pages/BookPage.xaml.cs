@@ -60,16 +60,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
         }
 
 
-        private void ReadingListItem_Click(object sender, RoutedEventArgs e)
-        {
-            var menuItem = sender as MenuItem;
-            //int bookId = (int)menuItem.Tag;
-            string status = menuItem.Header.ToString();
-
-            //AddBookToReadingList(bookId, status);
-
-            (menuItem.Parent as ContextMenu).IsOpen = false;
-        }
 
         private void btnReviewPoints_Click(object sender, RoutedEventArgs e)
         {
@@ -93,18 +83,61 @@ namespace _3ISIP223_PogosyanWPF.Pages
         private void BtnAddList_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            //var bookId = (int)button.Tag;
+            var book = button.Tag as Book;
 
-            var cont = FindResource("ReadingListMenu") as ContextMenu;
-            cont.PlacementTarget = button;
-            cont.IsOpen = true;
-            foreach (MenuItem item in cont.Items)
+            var contextMenu = FindResource("ReadingListMenu") as ContextMenu;
+            contextMenu.DataContext = viewModel;
+
+            contextMenu.PlacementTarget = button;
+            contextMenu.Tag = book;
+            contextMenu.IsOpen = true;
+            foreach (MenuItem item in contextMenu.Items)
             {
-                //item.Click -= ReadingListItem_Click;
+                item.Click -= ReadingListItem_Click;
+
+                var isChecked = viewModel.CheckReadigItemToList(book, item.Header.ToString());
+                item.IsChecked = isChecked;
+                Console.WriteLine($"{item.Header.ToString()} - {isChecked}");
                 item.Click += ReadingListItem_Click;
-                //item.Tag = bookId;
+
+                item.Tag = contextMenu;
             }
         }
+
+
+        private void ReadingListItem_Click(object sender, RoutedEventArgs e)
+        {
+            var menuitem = sender as MenuItem;
+            var contextMenu = menuitem.Tag as ContextMenu;
+            var book = contextMenu.Tag as Book;
+            string clickedStatus = menuitem.Header.ToString();
+
+            bool wasChecked = menuitem.IsChecked;
+
+            menuitem.IsChecked = !wasChecked;
+
+            if (wasChecked)
+            {
+                foreach (MenuItem item in contextMenu.Items)
+                {
+                    if (item.IsCheckable && item != menuitem && item.IsChecked)
+                    {
+                        item.IsChecked = false;
+                    }
+                }
+
+                menuitem.IsChecked = true;
+                viewModel.UpdateToReadingList(book, clickedStatus);
+            }
+            else
+            {
+                menuitem.IsChecked = false;
+                viewModel.RemoveBookFromReadingList(book);
+            }
+
+            contextMenu.IsOpen = false;
+        }
+
 
         private void btnOpenReading_Click(object sender, RoutedEventArgs e)
         {

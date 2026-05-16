@@ -48,97 +48,49 @@ namespace _3ISIP223_PogosyanWPF.Pages
             contextMenu.IsOpen = true;
             foreach (MenuItem item in contextMenu.Items)
             {
-                //item.Click -= ReadingListItem_Click;
-                //item.Click -= ReadingListItem_Click;
-                item.Checked -= ReadingListItem_Checked;
-                //item.Unchecked -= ReadingListItem_Unchecked;
+                item.Click -= ReadingListItem_Click;
 
-                var stat = viewModel.CheckReadigItemToList(book, item.Header.ToString());
-                Console.WriteLine($"{item.Header} - {stat}");
+                var isChecked = viewModel.CheckReadigItemToList(book, item.Header.ToString());
+                item.IsChecked = isChecked;
 
-                item.IsChecked = stat;
+                item.Click += ReadingListItem_Click;
 
-
-                item.Checked += ReadingListItem_Checked;
-                //item.Unchecked += ReadingListItem_Unchecked;
-
-                //item.Click += ReadingListItem_Click;
                 item.Tag = contextMenu;
             }
         }
-
-        private void ReadingListItem_Checked(object sender, RoutedEventArgs e)
-        {
-            var menuItem = sender as MenuItem;
-            var contextMenu = menuItem.Tag as ContextMenu;
-            var book = contextMenu.Tag as Book;
-            string status = menuItem.Header.ToString();
-            Console.WriteLine($"CHECKED: {menuItem.Header} - {menuItem.IsChecked}");
-
-
-            foreach (MenuItem item in contextMenu.Items)
-            {
-                if (item == menuItem && item.IsChecked)
-                {
-                    item.IsChecked = false;
-                    viewModel.RemoveBookFromReadingList(book);
-                }
-                else if (item != menuItem && item.IsCheckable && item.IsChecked)
-                {
-                    item.IsChecked = false;
-                    //viewModel.RemoveBookFromReadingList(book);
-                }
-            }
-
-            //viewModel.AddBookToReadingList(book, status);
-            viewModel.UpdateToReadingList(book, status);
-
-            contextMenu.IsOpen = false;
-        }
-
-        private void ReadingListItem_Unchecked(object sender, RoutedEventArgs e)
-        {
-            var menuItem = sender as MenuItem;
-            var contextMenu = menuItem.Tag as ContextMenu;
-            var book = contextMenu.Tag as Book;
-            Console.WriteLine($"UNCHECKED: {menuItem.Header} - {menuItem.IsChecked}");
-
-            //viewModel.RemoveBookFromReadingList(book);
-            contextMenu.IsOpen = false;
-        }
-
-
-
         private void ReadingListItem_Click(object sender, RoutedEventArgs e)
         {
-            var menuItem = sender as MenuItem;
-            var contextMenu = menuItem.Tag as ContextMenu;
+            var menuitem = sender as MenuItem;
+            var contextMenu = menuitem.Tag as ContextMenu;
             var book = contextMenu.Tag as Book;
-            string status = menuItem.Header.ToString();
+            string clickedStatus = menuitem.Header.ToString();
 
-            if (menuItem.IsChecked)
+            bool wasChecked = menuitem.IsChecked;
+
+            menuitem.IsChecked = !wasChecked;
+
+            if (wasChecked)
             {
-                // Уже выбран - удаляем книгу из списков
-                menuItem.IsChecked = false;
-                viewModel.RemoveBookFromReadingList(book);
-                Console.WriteLine($"Книга удалена из списка чтения");
-            }
-            else
-            {
-                // Не выбран - добавляем/обновляем статус
                 foreach (MenuItem item in contextMenu.Items)
                 {
-                    if (item.IsCheckable && item != menuItem && item.IsChecked)
+                    if (item.IsCheckable && item != menuitem && item.IsChecked)
                     {
                         item.IsChecked = false;
                     }
                 }
-                menuItem.IsChecked = true;
-                viewModel.UpdateToReadingList(book, status);
-                Console.WriteLine($"Книге присвоен статус: {status}");
+
+                menuitem.IsChecked = true;
+                viewModel.UpdateToReadingList(book, clickedStatus);
             }
-            //(menuItem.Parent as ContextMenu).IsOpen = false;
+            else
+            {
+                menuitem.IsChecked = false;
+                viewModel.RemoveBookFromReadingList(book);
+            }
+
+            contextMenu.IsOpen = false;
         }
+
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

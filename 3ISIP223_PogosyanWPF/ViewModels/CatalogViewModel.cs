@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -7,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace _3ISIP223_PogosyanWPF.ViewModels
 {
@@ -21,6 +23,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             StatusesReadings = dataBase.StatusesReading;
             StatusesReadingsString = new ObservableCollection<string>( StatusesReadings.Select(a=>a.Name));
             StatusesReadingsMItem = new ObservableCollection<MenuItem>();
+            MyMessageQueue = new SnackbarMessageQueue();
             foreach (var it in StatusesReadingsString)
             {
                 StatusesReadingsMItem.Add(new MenuItem() { Header = it, IsCheckable= true });
@@ -110,18 +113,8 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
 
         private ObservableCollection<StatusesReading> _statusesReadings;
-        public ObservableCollection<StatusesReading> StatusesReadings
-        {
-            get
-            {
-                return _statusesReadings;
-            }
-            set
-            {
-                _statusesReadings = value;
-                OnPropertyChanged(nameof(StatusesReadings));
-            }
-        }
+        public ObservableCollection<StatusesReading> StatusesReadings { get; set; }
+
         public ObservableCollection<string> StatusesReadingsString {  get; set; }
         public ObservableCollection<MenuItem> StatusesReadingsMItem {  get; set; }
 
@@ -140,17 +133,19 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public void RemoveBookFromReadingList(Book book)
         {
             dataBase.RemoveBookFromReadingList(book);
+            ActionsClass.RemoveBookFromReadingList(book, MyMessageQueue);
 
         }
-        public void AddBookToReadingList(Book book, string status)
-        {
-            dataBase.AddBookToReadingList(book, status);
-        }
+
         public void UpdateToReadingList(Book book, string status)
         {
-            dataBase.UpdateBookStatus(book, status);
+            var updOrAdd = dataBase.UpdateBookStatus(book, status);
+
+            ActionsClass.UpdateToReadingList(book, status, updOrAdd, MyMessageQueue);
+
         }
 
+        public SnackbarMessageQueue MyMessageQueue { get; set; }
         public void FilterdSearch()
         {
             List<Book> filt = null;
