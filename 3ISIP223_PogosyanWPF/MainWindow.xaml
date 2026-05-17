@@ -82,7 +82,9 @@
                     <Frame  NavigationUIVisibility="Hidden" x:Name="frameUserAccount" Source="/Pages/ProfilePage.xaml" Margin="10 0 0 0"/>
                 </TabItem>
             </TabControl>
-            <materialDesign:Snackbar x:Name="MySnackbar"  Foreground="White"  HorizontalAlignment="Right" Grid.RowSpan="2"/>
+            <materialDesign:Snackbar x:Name="MySnackbar" 
+
+                                     Foreground="White" FontFamily="{DynamicResource MaterialDesignFont}"  HorizontalAlignment="Right" Grid.RowSpan="2"/>
 
     </Grid>
 

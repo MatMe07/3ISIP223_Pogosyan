@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using static MaterialDesignThemes.Wpf.Theme.ToolBar;
@@ -24,13 +25,15 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public WorkDataBase()
         {
             bookGenres = Core.kingEntities.BookGenres.ToList();
-            _AllReviews = new ObservableCollection<Review>( Core.kingEntities.Reviews);
+            _AllReviews = new ObservableCollection<Review>( Core.kingEntities.Reviews.Where(r=>!r.IsFrozen));
             User = Core.kingEntities.Users.FirstOrDefault(u=>u.Role.RoleName == "Администратор");
             ReadingLists = new ObservableCollection<ReadingList>(Core.kingEntities.ReadingLists.Where(b=>b.UserId == User.UserId));
             GetReasons = new ObservableCollection<Reason>( Core.kingEntities.Reasons);
             targetTypes = Core.kingEntities.TargetTypes.ToList();
             StatusesReading = new ObservableCollection<StatusesReading>( Core.kingEntities.StatusesReadings);
+            statusesRequests = Core.kingEntities.StatusesRequests.ToList();
 
+            Books = new ObservableCollection<Book>(Core.kingEntities.Books.Where(b=>!b.IsFrozen));
             Complaints = new ObservableCollection<Complaint>(Core.kingEntities.Complaints);
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
@@ -79,21 +82,17 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public List<BookGenre> GetBookGenres(int bookID) => bookGenres.Where(b=>b.BookId == bookID).ToList();
 
 
-        private ObservableCollection<Book> _books;
-        public ObservableCollection<Book> Books
+        //private ObservableCollection<Book> _books;
+        public ObservableCollection<Book> Books;
+        public ObservableCollection<Book> GetAllBooks
         {
             get
             {
-                if (_books == null) _books = new ObservableCollection<Book>(Core.kingEntities.Books);
-                return _books;
+                return new ObservableCollection<Book>(Books.Where(r => !r.IsFrozen));
             }
-            set
-            {
-                _books = value;
-                OnPropertyChanged(nameof(Books));
-            }
-
         }
+
+
 
 
         private ObservableCollection<Review> _AllReviews;
@@ -101,7 +100,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public ObservableCollection<Review> GetReviewsToBook(int bookID)
         {
-            return new ObservableCollection<Review>(_AllReviews.Where(r => r.BookId == bookID));
+            return new ObservableCollection<Review>(_AllReviews.Where(r => r.BookId == bookID && !r.IsFrozen));
         }
 
         private List<Genre> _genres;
@@ -164,14 +163,86 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             //UpdBooks();
         }
 
-        public void UpdBooks()
-        {
-            Books = new ObservableCollection<Book>( Core.kingEntities.Books);
-        }
+        //public void UpdBooks()
+        //{
+        //    Books = new ObservableCollection<Book>( Core.kingEntities.Books);
+        //}
 
         //private ObservableCollection<Complaint> _complaints;
         public ObservableCollection<Complaint> Complaints { get; set; }
 
+        public List<StatusesRequest> statusesRequests { get; set; }
+        public bool AcceptComplain(Complaint complaint)
+        {
+            var CompDB = Complaints.FirstOrDefault(c=>c.ComplaintId==complaint.ComplaintId);
+            //if (CompDB.StatusesRequest != statusesRequests.First(a => a.Name == "На расмотрении")) return false;
+
+            CompDB.StatusesRequest = statusesRequests.First(a=>a.Name == "Одобрена");
+            switch (CompDB.TargetType.Name)
+            {
+                case "Author":
+                    {
+                        Core.kingEntities.Users.First(a=>a.UserId == CompDB.User1.UserId).IsFrozen = true;
+                        break;
+                    }
+                case "Book":
+                    {
+                        //Books
+                        //Core.kingEntities.Users.First(a=>a.UserId == CompDB.User1.UserId).IsFrozen = true;
+                        var book = Books.First(b => b.BookId == CompDB.BookId);
+                        book.IsFrozen = true;
+                        //Books.Remove(book);
+                        break;
+                    }
+                case "Review":
+                    {
+                        var revi = _AllReviews.First(r => r.ReviewId == CompDB.ReviewId);
+                        revi.IsFrozen = true;
+                        //_AllReviews.Remove(revi);
+                        break;
+                    }
+            }
+            Core.kingEntities.SaveChanges();
+            return true;
+        }
+        public bool CancelAcceptRejectComplaint(Complaint complaint)
+        {
+            var CompDB = Complaints.FirstOrDefault(c=>c.ComplaintId==complaint.ComplaintId);
+            //if (CompDB.StatusesRequest != statusesRequests.First(a => a.Name == "На расмотрении")) return false;
+
+            CompDB.StatusesRequest = statusesRequests.First(a=>a.Name == "На рассмотрении");
+            switch (CompDB.TargetType.Name)
+            {
+                case "Author":
+                    {
+                        Core.kingEntities.Users.First(a => a.UserId == CompDB.User1.UserId).IsFrozen = false;
+                        break;
+                    }
+                case "Book":
+                    {
+                        //Books
+                        //Core.kingEntities.Users.First(a=>a.UserId == CompDB.User1.UserId).IsFrozen = true;
+                        Books.First(b => b.BookId == CompDB.BookId).IsFrozen = false;
+                        break;
+                    }
+                case "Review":
+                    {
+                        _AllReviews.First(r => r.ReviewId == CompDB.ReviewId).IsFrozen = false;
+                        break;
+                    }
+            }
+            Core.kingEntities.SaveChanges();
+            return true;
+        }
+        public bool RejectComplain(Complaint complaint)
+        {
+            var CompDB = Complaints.FirstOrDefault(c=>c.ComplaintId==complaint.ComplaintId);
+            //if (CompDB.StatusesRequest != statusesRequests.First(a => a.Name == "На расмотрении")) return false;
+
+            CompDB.StatusesRequest = statusesRequests.First(a=>a.Name == "Отклонена");
+            Core.kingEntities.SaveChanges();
+            return true;
+        }
         //public ObservableCollection<Complaint> GetComplaints => 
 
         public void SaveFreezeRequest(Object item, Reason reason)

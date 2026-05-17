@@ -32,7 +32,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         }
         public void LoadBooks()
         {
-            _Allbooks = dataBase.Books;
+            _Allbooks = dataBase.GetAllBooks;
 
             Books = new ObservableCollection<Book>(_Allbooks);
         }

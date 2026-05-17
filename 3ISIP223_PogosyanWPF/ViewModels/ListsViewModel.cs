@@ -46,7 +46,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public void LoadBooks()
         {
-            _Allbooks = new ObservableCollection<Book>(dataBase.Books.Join(
+            _Allbooks = new ObservableCollection<Book>(dataBase.GetAllBooks.Join(
                     dataBase.GetReadingLists("Все книги")
                     .Select(r => r.Book),
                     b => b.BookId,

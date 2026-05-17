@@ -58,6 +58,9 @@
                                         <TextBlock Style="{StaticResource H4Text}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center">
                                         <Run Text="Жалоба #"/><Run Text="{Binding ComplaintId}"/>
                                         </TextBlock>
+                                        <Border Background="#FFFDE8E8" CornerRadius="10" Padding="6,2,6,2" Margin="10,0,0,0">
+                                            <TextBlock Text="{Binding StatusesRequest.Name}" FontSize="11" Foreground="{Binding GetColorStatus}" VerticalAlignment="Center"/>
+                                        </Border>
                                     </StackPanel>
 
                                     <TextBlock Grid.Column="1" Text="{Binding CreatedAt, StringFormat='dd MMMM yyyy'}" FontSize="12" Foreground="#FF626165" VerticalAlignment="Center"/>
@@ -104,22 +107,22 @@
                                     </Border>
                                 </StackPanel>
 
-                                <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
-                                    <Button x:Name="BtnAccept" 
+                                <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 5 0 0" Visibility="{Binding VisibilityButtons}">
+                                    <Button x:Name="BtnAccept" Tag="{Binding}"
                                         Style="{StaticResource MaterialDesignFlatButton}" 
-                                        Margin="0,0,10,0">
+                                        Margin="0,0,10,0" Click="BtnAccept_Click">
                                         <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Kind="Check" Height="18" Width="18" Foreground="#FF04BE5A"/>
-                                            <TextBlock Text="Заморозить" Margin="5,0,0,0" Foreground="#FF04BE5A" VerticalAlignment="Center"/>
+                                            <TextBlock Text="Принять" Margin="5 0 0 0" Foreground="#FF04BE5A" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
 
-                                    <Button x:Name="BtnReject" 
-                                        Style="{StaticResource MaterialDesignFlatButton}" 
+                                    <Button x:Name="BtnReject" Tag="{Binding}"
+                                        Style="{StaticResource MaterialDesignFlatButton}" Click="BtnReject_Click" 
                                         >
                                         <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Kind="Close" Height="18" Width="18" Foreground="#FFE74C3C"/>
-                                            <TextBlock Text="Отклонить" Margin="5,0,0,0" Foreground="#FFE74C3C" VerticalAlignment="Center"/>
+                                            <TextBlock Text="Отклонить" Margin="5 0 0 0" Foreground="#FFE74C3C" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
                                 </StackPanel>

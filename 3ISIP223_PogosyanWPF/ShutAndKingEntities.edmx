@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище ShutAndKingModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище ShutAndKingModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AuthorRequests">
           <Key>
             <PropertyRef Name="RequestId" />
@@ -48,6 +48,7 @@
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="AuthorId" Type="int" />
           <Property Name="ComplaintsTypeId" Type="int" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Genres">
           <Key>
@@ -140,7 +141,7 @@
           <Property Name="ReasonId" Type="int" />
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK_AuthorRequests_Status">
+        <Association Name="FK_AuthorRequests_StatusesRequest">
           <End Role="StatusesRequest" Type="Self.StatusesRequest" Multiplicity="1" />
           <End Role="AuthorRequests" Type="Self.AuthorRequests" Multiplicity="*" />
           <ReferentialConstraint>
@@ -257,6 +258,18 @@
             </Principal>
             <Dependent Role="Complaints">
               <PropertyRef Name="ReviewId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Complaints_StatusesRequest">
+          <End Role="StatusesRequest" Type="Self.StatusesRequest" Multiplicity="1" />
+          <End Role="Complaints" Type="Self.Complaints" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusesRequest">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Complaints">
+              <PropertyRef Name="StatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -419,7 +432,7 @@
           <EntitySet Name="TargetTypes" EntityType="Self.TargetTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnfreezeRequests" EntityType="Self.UnfreezeRequests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_AuthorRequests_Status" Association="Self.FK_AuthorRequests_Status">
+          <AssociationSet Name="FK_AuthorRequests_StatusesRequest" Association="Self.FK_AuthorRequests_StatusesRequest">
             <End Role="StatusesRequest" EntitySet="StatusesRequest" />
             <End Role="AuthorRequests" EntitySet="AuthorRequests" />
           </AssociationSet>
@@ -457,6 +470,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Complaints_Review" Association="Self.FK_Complaints_Review">
             <End Role="Reviews" EntitySet="Reviews" />
+            <End Role="Complaints" EntitySet="Complaints" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Complaints_StatusesRequest" Association="Self.FK_Complaints_StatusesRequest">
+            <End Role="StatusesRequest" EntitySet="StatusesRequest" />
             <End Role="Complaints" EntitySet="Complaints" />
           </AssociationSet>
           <AssociationSet Name="FK_Complaints_TargetType" Association="Self.FK_Complaints_TargetType">
@@ -508,8 +525,7 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ShutAndKingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -572,6 +588,8 @@
           <NavigationProperty Name="Reason" Relationship="Self.FK_Complaints_Reason" FromRole="Complaints" ToRole="Reasons" />
           <NavigationProperty Name="Review" Relationship="Self.FK_Complaints_Review" FromRole="Complaints" ToRole="Reviews" />
           <NavigationProperty Name="TargetType" Relationship="Self.FK_Complaints_TargetType" FromRole="Complaints" ToRole="TargetTypes" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="StatusesRequest" Relationship="ShutAndKingModel.FK_Complaints_StatusesRequest" FromRole="Complaint" ToRole="StatusesRequest" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -643,6 +661,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AuthorRequests" Relationship="Self.FK_AuthorRequests_Status" FromRole="StatusesRequest" ToRole="AuthorRequests" />
           <NavigationProperty Name="UnfreezeRequests" Relationship="Self.FK_UnfreezeRequests_Status" FromRole="StatusesRequest" ToRole="UnfreezeRequests" />
+          <NavigationProperty Name="Complaints" Relationship="ShutAndKingModel.FK_Complaints_StatusesRequest" FromRole="StatusesRequest" ToRole="Complaint" />
         </EntityType>
         <EntityType Name="TargetType">
           <Key>
@@ -1059,7 +1078,23 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="UnfreezeRequests" EntitySet="UnfreezeRequests" />
           </AssociationSet>
+          <AssociationSet Name="FK_Complaints_StatusesRequest" Association="ShutAndKingModel.FK_Complaints_StatusesRequest">
+            <End Role="StatusesRequest" EntitySet="StatusesRequests" />
+            <End Role="Complaint" EntitySet="Complaints" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Complaints_StatusesRequest">
+          <End Type="ShutAndKingModel.StatusesRequest" Role="StatusesRequest" Multiplicity="1" />
+          <End Type="ShutAndKingModel.Complaint" Role="Complaint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusesRequest">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Complaint">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1103,6 +1138,7 @@
           <EntitySetMapping Name="Complaints">
             <EntityTypeMapping TypeName="ShutAndKingModel.Complaint">
               <MappingFragment StoreEntitySet="Complaints">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="ComplaintId" ColumnName="ComplaintId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="BookId" ColumnName="BookId" />

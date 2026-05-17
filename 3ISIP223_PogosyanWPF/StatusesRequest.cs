@@ -19,6 +19,7 @@ namespace _3ISIP223_PogosyanWPF
         {
             this.AuthorRequests = new HashSet<AuthorRequest>();
             this.UnfreezeRequests = new HashSet<UnfreezeRequest>();
+            this.Complaints = new HashSet<Complaint>();
         }
     
         public int StatusId { get; set; }
@@ -28,5 +29,7 @@ namespace _3ISIP223_PogosyanWPF
         public virtual ICollection<AuthorRequest> AuthorRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UnfreezeRequest> UnfreezeRequests { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Complaint> Complaints { get; set; }
     }
 }

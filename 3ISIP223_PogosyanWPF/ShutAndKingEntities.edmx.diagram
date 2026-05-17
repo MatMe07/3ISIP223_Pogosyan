@@ -41,6 +41,7 @@
         <AssociationConnector Association="ShutAndKingModel.FK_UnfreezeRequests_Status" ManuallyRouted="false" />
         <AssociationConnector Association="ShutAndKingModel.FK_UnfreezeRequests_TargetType" ManuallyRouted="false" />
         <AssociationConnector Association="ShutAndKingModel.FK_UnfreezeRequests_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ShutAndKingModel.FK_Complaints_StatusesRequest" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

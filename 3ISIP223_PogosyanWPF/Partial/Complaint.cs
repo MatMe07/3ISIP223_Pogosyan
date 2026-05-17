@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace _3ISIP223_PogosyanWPF
 {
@@ -68,6 +69,40 @@ namespace _3ISIP223_PogosyanWPF
                 return CompT;
             }
             set {}
+        }
+        public string GetColorStatus
+        {
+            get
+            {
+                switch (StatusesRequest.Name)
+                {
+                    case "Одобрена":
+                        {
+                            return "#4CAF50";
+
+                        }
+                    case "Отклонена":
+                        {
+                            return "#F44336";
+                        }
+                    default:
+                        {
+                            return "#FF9800";
+
+                        }
+                }
+            }
+            set { }
+        }
+
+        public Visibility VisibilityButtons
+        {
+            get
+            {
+                if (StatusesRequest.Name == "На рассмотрении") return Visibility.Visible;
+                else return Visibility.Collapsed;
+            }
+            set { }
         }
         public int GetComplTypeId
         {

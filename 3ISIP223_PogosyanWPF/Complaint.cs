@@ -22,6 +22,7 @@ namespace _3ISIP223_PogosyanWPF
         public System.DateTime CreatedAt { get; set; }
         public Nullable<int> AuthorId { get; set; }
         public int ComplaintsTypeId { get; set; }
+        public int StatusID { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual User User { get; set; }
@@ -29,5 +30,6 @@ namespace _3ISIP223_PogosyanWPF
         public virtual Reason Reason { get; set; }
         public virtual Review Review { get; set; }
         public virtual TargetType TargetType { get; set; }
+        public virtual StatusesRequest StatusesRequest { get; set; }
     }
 }
