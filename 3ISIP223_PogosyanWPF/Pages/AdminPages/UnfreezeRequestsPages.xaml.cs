@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.ViewModels.AdminViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,13 +21,30 @@ namespace _3ISIP223_PogosyanWPF.Pages.AdminPages
     /// </summary>
     public partial class UnfreezeRequestsPages : Page
     {
-        public List<string> lstRand { get; set; }
+        //public List<string> lstRand { get; set; }
 
         public UnfreezeRequestsPages()
         {
-            lstRand = new List<string> { "fdf", "sdf", "sdf", "sdf" };
-            DataContext = this;
+            //lstRand = new List<string> { "fdf", "sdf", "sdf", "sdf" };
+            //DataContext = this;
             InitializeComponent();
         }
+        private void BtnAccept_Click(object sender, RoutedEventArgs e)
+        {
+            var complaint = (sender as Button).Tag as UnfreezeRequest;
+            (DataContext as UnfreezeRequestsViewModel).AcceptClick(complaint);
+        }
+
+        private void BtnReject_Click(object sender, RoutedEventArgs e)
+        {
+            var compl = (sender as Button).Tag as UnfreezeRequest;
+            (DataContext as UnfreezeRequestsViewModel).RejectClick(compl);
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            (DataContext as UnfreezeRequestsViewModel).LoadData();
+        }
+
     }
 }

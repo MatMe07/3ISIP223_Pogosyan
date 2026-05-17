@@ -34,7 +34,9 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             statusesRequests = Core.kingEntities.StatusesRequests.ToList();
 
             Books = new ObservableCollection<Book>(Core.kingEntities.Books.Where(b=>!b.IsFrozen));
+            unfreezeRequests = new ObservableCollection<UnfreezeRequest>(Core.kingEntities.UnfreezeRequests);
             Complaints = new ObservableCollection<Complaint>(Core.kingEntities.Complaints);
+            AuthorRequests = new ObservableCollection<AuthorRequest>(Core.kingEntities.AuthorRequests);
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
 
@@ -91,8 +93,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 return new ObservableCollection<Book>(Books.Where(r => !r.IsFrozen));
             }
         }
-
-
 
 
         private ObservableCollection<Review> _AllReviews;
@@ -245,6 +245,114 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         }
         //public ObservableCollection<Complaint> GetComplaints => 
 
+
+        public bool AcceptUnfreezeRequest(UnfreezeRequest request)
+        {
+            var CompDB = unfreezeRequests.FirstOrDefault(c => c.RequestId == request.RequestId);
+            //if (CompDB.StatusesRequest != statusesRequests.First(a => a.Name == "На расмотрении")) return false;
+
+            CompDB.StatusesRequest = statusesRequests.First(a => a.Name == "Одобрена");
+            switch (CompDB.TargetType.Name)
+            {
+                case "Author":
+                    {
+                        Core.kingEntities.Users.First(a => a.UserId == CompDB.User.UserId).IsFrozen = true;
+                        break;
+                    }
+                case "Book":
+                    {
+                        //Books
+                        //Core.kingEntities.Users.First(a=>a.UserId == CompDB.User1.UserId).IsFrozen = true;
+                        var book = Books.First(b => b.BookId == CompDB.BookId);
+                        book.IsFrozen = true;
+                        //Books.Remove(book);
+                        break;
+                    }
+            }
+            Core.kingEntities.SaveChanges();
+            return true;
+        }
+        public bool CancelAcceptRejectUnfreezeRequest(UnfreezeRequest request)
+        {
+            var CompDB = unfreezeRequests.FirstOrDefault(c => c.RequestId == request.RequestId);
+            //if (CompDB.StatusesRequest != statusesRequests.First(a => a.Name == "На расмотрении")) return false;
+
+            CompDB.StatusesRequest = statusesRequests.First(a => a.Name == "На рассмотрении");
+            switch (CompDB.TargetType.Name)
+            {
+                case "Author":
+                    {
+                        Core.kingEntities.Users.First(a => a.UserId == CompDB.User.UserId).IsFrozen = false;
+                        break;
+                    }
+                case "Book":
+                    {
+                        //Books
+                        //Core.kingEntities.Users.First(a=>a.UserId == CompDB.User1.UserId).IsFrozen = true;
+                        Books.First(b => b.BookId == CompDB.BookId).IsFrozen = false;
+                        break;
+                    }
+            }
+            Core.kingEntities.SaveChanges();
+            return true;
+        }
+        public bool RejectUnfreezeRequest(UnfreezeRequest request)
+        {
+            var CompDB = unfreezeRequests.FirstOrDefault(c => c.RequestId == request.RequestId);
+            //if (CompDB.StatusesRequest != statusesRequests.First(a => a.Name == "На расмотрении")) return false;
+
+            CompDB.StatusesRequest = statusesRequests.First(a => a.Name == "Отклонена");
+            Core.kingEntities.SaveChanges();
+            return true;
+        }
+
+
+        public ObservableCollection<AuthorRequest> AuthorRequests { get; set; }
+
+
+
+        public bool AcceptAuthorRequest(AuthorRequest request)
+        {
+            var requestDB = AuthorRequests.FirstOrDefault(r => r.RequestId == request.RequestId);
+            if (requestDB == null) return false;
+
+            requestDB.StatusesRequest = statusesRequests.First(s => s.Name == "Одобрена");
+
+            var user = Core.kingEntities.Users.First(u => u.UserId == requestDB.UserId);
+            user.RoleId = Core.kingEntities.Roles.First(r => r.RoleName == "Автор").RoleId;
+
+            Core.kingEntities.SaveChanges();
+            return true;
+        }
+
+        public bool CancelAcceptRejectAuthorRequest(AuthorRequest request)
+        {
+            var requestDB = AuthorRequests.FirstOrDefault(r => r.RequestId == request.RequestId);
+            if (requestDB == null) return false;
+
+            requestDB.StatusesRequest = statusesRequests.First(s => s.Name == "На рассмотрении");
+
+            var user = Core.kingEntities.Users.First(u => u.UserId == requestDB.UserId);
+            user.RoleId = Core.kingEntities.Roles.First(r => r.RoleName == "Читатель").RoleId;
+
+            Core.kingEntities.SaveChanges();
+            return true;
+        }
+
+        public bool RejectAuthorRequest(AuthorRequest request)
+        {
+            var requestDB = AuthorRequests.FirstOrDefault(r => r.RequestId == request.RequestId);
+            if (requestDB == null) return false;
+
+            requestDB.StatusesRequest = statusesRequests.First(s => s.Name == "Отклонена");
+
+            Core.kingEntities.SaveChanges();
+            return true;
+        }
+
+
+
+
         public void SaveFreezeRequest(Object item, Reason reason)
         {
             Complaint complaint;
@@ -256,6 +364,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                     Book = book,
                     Reason = reason,
                     CreatedAt = DateTime.Now,
+                    StatusesRequest = statusesRequests.First(r => r.Name == "На рассмотрении"),
 
                     TargetType = targetTypes.First(a => a.Name == "Book")
                 };
@@ -268,6 +377,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                     Review = review,
                     Reason = reason,
                     CreatedAt = DateTime.Now,
+                    StatusesRequest = statusesRequests.First(r => r.Name == "На рассмотрении"),
 
                     TargetType = targetTypes.First(a => a.Name == "Review")
                 };
@@ -281,11 +391,29 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                     AuthorId = author.UserId,
                     Reason = reason,
                     CreatedAt = DateTime.Now,
-                    TargetType = targetTypes.First(a => a.Name == "Author")
-                    
+                    TargetType = targetTypes.First(a => a.Name == "Author"),
+                    StatusesRequest = statusesRequests.First(r=>r.Name == "На рассмотрении")
+
                 };
             }
+            Complaints.Add(complaint);
             Core.kingEntities.Complaints.Add(complaint);
+            Core.kingEntities.SaveChanges();
+        }
+
+        public void FreezeUserReviewAdmin(Object item, Reason reason)
+        {
+
+            if (item is Review review)
+            {
+                _AllReviews.First(r => r.ReviewId == review.ReviewId).IsFrozen = true;
+            }
+            else
+            {
+                var user = item as User;
+                var us = Core.kingEntities.Users.FirstOrDefault(u => u.UserId == user.UserId);
+                us.IsFrozen = true;
+            }
             Core.kingEntities.SaveChanges();
         }
 
@@ -299,6 +427,8 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 Core.kingEntities.SaveChanges();
             }
         }
+
+
         public bool UpdateBookStatus(Book book, string newStatus)
         {
             var existingRecord = ReadingLists
@@ -333,5 +463,9 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
             }
         }
+
+
+        public ObservableCollection<UnfreezeRequest> unfreezeRequests {  get; set; }
+
     }
 }

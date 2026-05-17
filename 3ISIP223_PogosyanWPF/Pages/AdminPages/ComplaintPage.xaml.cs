@@ -39,5 +39,10 @@ namespace _3ISIP223_PogosyanWPF.Pages.AdminPages
             var compl = (sender as Button).Tag as Complaint;
             (DataContext as ComplaintViewModel).RejectClick(compl);
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            (DataContext as ComplaintViewModel).UpdComplaints();
+        }
     }
 }

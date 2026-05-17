@@ -12,7 +12,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels.AdminViewModels
     {
         public ComplaintViewModel()
         {
-            Complaints = new ObservableCollection<Complaint>( dataBase.Complaints.OrderByDescending(com=>com.StatusesRequest.Name == "На рассмотрении"));
+            //Complaints = new ObservableCollection<Complaint>( dataBase.Complaints.OrderByDescending(com=>com.StatusesRequest.Name == "На рассмотрении"));
             MyMessageQueue = new SnackbarMessageQueue();
         }
 
@@ -27,7 +27,8 @@ namespace _3ISIP223_PogosyanWPF.ViewModels.AdminViewModels
         }
         public void UpdComplaints()
         {
-            Complaints = new ObservableCollection<Complaint>(dataBase.Complaints.OrderByDescending(com => com.StatusesRequest.Name == "На рассмотрении"));
+            Complaints = new ObservableCollection<Complaint>(dataBase.Complaints.OrderByDescending(com => com.StatusesRequest.Name == "На рассмотрении")
+                .ThenByDescending(com=>com.CreatedAt));
 
         }
 

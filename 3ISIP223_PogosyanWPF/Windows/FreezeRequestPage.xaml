@@ -7,7 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         WindowStartupLocation="CenterOwner"
         mc:Ignorable="d"
-        Title="Подать жалобу" MinHeight="180" MinWidth="422" Height="100" Width="422" Background="#FFF4F4FC" >
+        Title="Подать жалобу" MinHeight="250" MinWidth="450" Height="250" Width="450" Background="#FFF4F4FC" >
     <Window.DataContext>
         <local:FreezeRequestViewModel/>
     </Window.DataContext>
@@ -16,17 +16,19 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding AboutTitle, StringFormat='Подать жалобу на {0}.'}" Grid.Row="0"  
+        <TextBlock Text="{Binding AboutTitle}" Grid.Row="0"  
                    Margin="0 10" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="14"/>
 
-        <ComboBox Grid.Row="1" ItemsSource="{Binding ReasonLst}" DisplayMemberPath="Name" SelectedValuePath="Name" SelectedItem="{Binding SelReason}" MinWidth="150" VerticalAlignment="Center"  FontSize="15"/>
+        <ComboBox Grid.Row="1"  ItemsSource="{Binding ReasonLst}" DisplayMemberPath="Name" materialDesign:HintAssist.Hint="Причина" SelectedValuePath="Name" SelectedItem="{Binding SelReason}" MinWidth="150" VerticalAlignment="Center"  FontSize="15"/>
 
-        <StackPanel Grid.Row="4" Margin="0 15" Orientation="Horizontal">
+        <StackPanel Grid.Row="4" Margin="0 15" Orientation="Horizontal" VerticalAlignment="Bottom">
             <Button Content="Отмена" BorderBrush="Transparent"  HorizontalAlignment="Left" FontSize="14"  Style="{StaticResource MaterialDesignFlatLightBgButton}" Click="btnCancel_Click" />
             <Button Content="Отправить"  HorizontalAlignment="Left" FontSize="14" Margin="20 0" Click="btnSend_Click" />
 
         </StackPanel>
+        <materialDesign:Snackbar x:Name="MySnackbar" Margin="-15"  MessageQueue="{Binding MyMessageQueue}"  Foreground="White"  HorizontalAlignment="Right" Grid.RowSpan="6" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>

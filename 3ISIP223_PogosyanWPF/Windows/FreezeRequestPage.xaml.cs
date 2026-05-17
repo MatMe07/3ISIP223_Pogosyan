@@ -21,17 +21,20 @@ namespace _3ISIP223_PogosyanWPF.Windows
     public partial class FreezeRequestPage : Window
     {
         private Object Items;
-        public FreezeRequestPage(string types, object items)
+        private bool IsAdmin;
+        public FreezeRequestPage(string types, object items, bool isAdmin = false)
         {
             InitializeComponent();
-            (DataContext as FreezeRequestViewModel).ChangeTitle(types);
+
+            (DataContext as FreezeRequestViewModel).ChangeTitle(types, isAdmin);
             Items = items;
+            IsAdmin = isAdmin;
             //LoadTitles(types);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            //DialogResult = false;
+            DialogResult = false;
             this.Close();
         }
 
@@ -43,9 +46,13 @@ namespace _3ISIP223_PogosyanWPF.Windows
 
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
-            //DialogResult = true;
-            (DataContext as FreezeRequestViewModel).SaveRequest(Items);
-            this.Close();
+            if ((DataContext as FreezeRequestViewModel).SaveRequest(Items, IsAdmin))
+            {
+
+                DialogResult = true;
+                this.Close();
+
+            }
 
         }
     }

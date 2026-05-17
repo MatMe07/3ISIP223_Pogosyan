@@ -17,18 +17,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public CatalogViewModel() : base()
         {
             LoadBooks();
-            //SortStrings = new List<string> { "Все", "По названию", "По оценке" };
-            //FilterListStrings = dataBase.Genres.Select(a=>a.GenreName).ToList();
-            //FilterListStrings.Insert(0, "Все");
-
-            //StatusesReadings = dataBase.StatusesReading;
-            //StatusesReadingsString = new ObservableCollection<string>( StatusesReadings.Select(a=>a.Name));
-            //StatusesReadingsMItem = new ObservableCollection<MenuItem>();
-            //MyMessageQueue = new SnackbarMessageQueue();
-            //foreach (var it in StatusesReadingsString)
-            //{
-            //    StatusesReadingsMItem.Add(new MenuItem() { Header = it, IsCheckable= true });
-            //}
         }
         public void LoadBooks()
         {

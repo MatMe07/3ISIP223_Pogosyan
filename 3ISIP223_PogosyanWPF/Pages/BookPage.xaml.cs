@@ -50,14 +50,14 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 string status = menuItem.Header.ToString();
 
                 var SelectReview = menuItem.Tag as Review;
-
+                
                 viewModel.ShowMessage(SelectReview);
 
                 menuItem.IsChecked = false;
             }
             //int bookId = (int)menuItem.Tag;
 
-                (menuItem.Parent as ContextMenu).IsOpen = false;
+             (menuItem.Parent as ContextMenu).IsOpen = false;
         }
 
 
@@ -203,5 +203,10 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         }
 
+        private void FreezeAuthor_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.ShowMessage(Author: ((sender as Button).Tag as Book).User);
+
+        }
     }
 }

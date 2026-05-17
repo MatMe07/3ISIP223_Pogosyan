@@ -72,8 +72,8 @@
                     FontSize="12" Click="btnComplainUser_Click" Visibility="{Binding GetUser.IsUserAndAuthorVisibility}"/>
 
             <Button Content="🚩 Заморозить автора" Grid.Row="4" Style="{StaticResource MaterialDesignFlatButton}"
-                     Tag="{Binding SelectedBook}"
-                    HorizontalContentAlignment="Left" FontSize="12"  Visibility="{Binding GetUser.IsAdminVisibility}"/>
+                     Tag="{Binding SelectedBook}" 
+                    HorizontalContentAlignment="Left" FontSize="12"  Visibility="{Binding GetUser.IsAdminVisibility}" Click="FreezeAuthor_Click"/>
             
         </Grid>
         <ScrollViewer Grid.Column="1" Grid.Row="1" VerticalScrollBarVisibility="Auto" CanContentScroll="True">

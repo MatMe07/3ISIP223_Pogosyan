@@ -21,7 +21,8 @@ namespace _3ISIP223_PogosyanWPF
             this.UnfreezeRequests = new HashSet<UnfreezeRequest>();
             this.Complaints = new HashSet<Complaint>();
         }
-    
+
+
         public int StatusId { get; set; }
         public string Name { get; set; }
     

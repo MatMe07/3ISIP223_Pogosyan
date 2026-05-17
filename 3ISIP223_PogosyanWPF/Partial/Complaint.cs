@@ -70,30 +70,6 @@ namespace _3ISIP223_PogosyanWPF
             }
             set {}
         }
-        public string GetColorStatus
-        {
-            get
-            {
-                switch (StatusesRequest.Name)
-                {
-                    case "Одобрена":
-                        {
-                            return "#4CAF50";
-
-                        }
-                    case "Отклонена":
-                        {
-                            return "#F44336";
-                        }
-                    default:
-                        {
-                            return "#FF9800";
-
-                        }
-                }
-            }
-            set { }
-        }
 
         public Visibility VisibilityButtons
         {

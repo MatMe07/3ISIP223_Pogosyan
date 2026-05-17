@@ -150,9 +150,12 @@
     <Compile Include="Pages\WarningPage.xaml.cs">
       <DependentUpon>WarningPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Partial\AuthorRequests.cs" />
     <Compile Include="Partial\Book.cs" />
     <Compile Include="Partial\Complaint.cs" />
     <Compile Include="Partial\Review.cs" />
+    <Compile Include="Partial\StatusRequest.cs" />
+    <Compile Include="Partial\UnfreezeRequest.cs" />
     <Compile Include="Partial\Users.cs" />
     <Compile Include="ReadingList.cs">
       <DependentUpon>ShutAndKingEntities.tt</DependentUpon>
@@ -197,7 +200,9 @@
       <DependentUpon>ShutAndKingEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AddReviewViewModel.cs" />
+    <Compile Include="ViewModels\AdminViewModels\AuthorRequestsViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\ComplaintViewModel.cs" />
+    <Compile Include="ViewModels\AdminViewModels\UnfreezeRequestsViewModel.cs" />
     <Compile Include="ViewModels\BaseLibraryViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />

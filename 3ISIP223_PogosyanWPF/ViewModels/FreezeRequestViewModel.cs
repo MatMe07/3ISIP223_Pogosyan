@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         {
             ReasonLst = dataBase.GetReasons;
             //ReasonLst = new ObservableCollection<string>( dataBase.GetReasons.Select(a=>a.Name));
+            MyMessageQueue = new SnackbarMessageQueue();
         }
 
         private Reason _selReason;
@@ -37,9 +39,14 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             }
         }
 
-        public void ChangeTitle(string title)
+        public void ChangeTitle(string title, bool isAdmin = false)
         {
-            AboutTitle = title;
+            if (!isAdmin)
+                AboutTitle = $"Подать жалобу на {title}";
+            else
+            {
+                AboutTitle = $"Заморозить {title}";
+            }
         }
         private string _aboutTitle  = "";
         public string AboutTitle
@@ -54,12 +61,28 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 OnPropertyChanged(nameof(AboutTitle));
             }
         }
+        public SnackbarMessageQueue MyMessageQueue { get; set; }
 
-        public void SaveRequest(Object items)
+        public bool SaveRequest(Object items, bool IsAdmin)
         {
-            
-            dataBase.SaveFreezeRequest(items, SelReason);
+            if (SelReason == null)
+            {
+                ActionsClass.SnackBarEnqueue(
+                    text: "Пожалуйста, укажите причину жалобы",
+                    foregroundHEX: "#FFE74C3C",
+                    iconKind: PackIconKind.Alert,
+                    MyMessageQueue: MyMessageQueue
+                );
+                return false;
+            }
+            if (!IsAdmin)
+                dataBase.SaveFreezeRequest(items, SelReason);
+            else
+            {
+                dataBase.FreezeUserReviewAdmin(items, SelReason);
+            }
             Console.WriteLine(SelReason.Name);
+            return true;
         }
     }
 }

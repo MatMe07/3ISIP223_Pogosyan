@@ -74,6 +74,7 @@
 
                 </TabItem>
                 <TabItem ToolTip="Профиль">
+
                     <TabItem.Header>
                         <!--<Image Source="/Icons/profile.png"/>-->
                         <materialDesign:PackIcon Kind="AccountCircle" Width="30" Height="30"/>

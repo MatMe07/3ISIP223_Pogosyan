@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace _3ISIP223_PogosyanWPF.ViewModels
@@ -150,25 +151,36 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public void ShowMessage(Review SelReview = null, Book SelBook = null, User Author = null)
         {
             MainWindow mainWindow = MainWindow.GetInstance();
-
             mainWindow.BlurAdd(true);
             FreezeRequestPage wind;
+            bool? res;
+
+
+            string titl = "";
             if (SelReview != null)
             {
-                wind = new FreezeRequestPage("отзыв", SelReview);
+                wind = new FreezeRequestPage(titl = "отзыв", SelReview, IsAdmin);
             }
             else if (SelBook != null)
             {
-                wind = new FreezeRequestPage("книгу", SelBook);
+                wind = new FreezeRequestPage(titl = "книгу", SelBook, IsAdmin);
             }
             else
             {
-                wind = new FreezeRequestPage("автора", Author);
+                wind = new FreezeRequestPage(titl = "автора", Author, IsAdmin);
             }
             wind.Owner = mainWindow;
-            var res = wind.ShowDialog();
+            res = wind.ShowDialog();
 
             mainWindow.BlurAdd(false);
+            if (res == true)
+                ActionsClass.SnackBarEnqueue(
+                    text: IsAdmin ? $"{titl} заморожен!": "Жалоба успешно отправлена" ,
+                    foregroundHEX: "#FF04BE5A",
+                    iconKind: PackIconKind.CheckCircle,
+                    MyMessageQueue: MyMessageQueue,
+                    main: true
+                );
 
         }
 

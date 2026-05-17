@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.ViewModels.AdminViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,9 +25,27 @@ namespace _3ISIP223_PogosyanWPF.Pages.AdminPages
 
         public AuthorRequestsPage()
         {
-            lstRand = new List<string> { "fdf", "sdf", "sdf", "sdf" };
-            DataContext = this;
+            //lstRand = new List<string> { "fdf", "sdf", "sdf", "sdf" };
+            //DataContext = this;
             InitializeComponent();
+        }
+
+
+        private void BtnAccept_Click(object sender, RoutedEventArgs e)
+        {
+            var complaint = (sender as Button).Tag as AuthorRequest;
+            (DataContext as AuthorRequestsViewModel).AcceptClick(complaint);
+        }
+
+        private void BtnReject_Click(object sender, RoutedEventArgs e)
+        {
+            var compl = (sender as Button).Tag as AuthorRequest;
+            (DataContext as AuthorRequestsViewModel).RejectClick(compl);
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            (DataContext as AuthorRequestsViewModel).LoadData();
         }
     }
 }
