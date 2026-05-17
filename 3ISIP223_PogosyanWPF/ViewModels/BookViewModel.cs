@@ -52,19 +52,27 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             }
             return false;
         }
+        public bool CheckHaveReview()
+        {
+            return dataBase.CheckHaveReview(SelectedBook.BookId);
+        }
 
         public void RemoveBookFromReadingList(Book book)
         {
             dataBase.RemoveBookFromReadingList(book);
-            ActionsClass.RemoveBookFromReadingList(book, MyMessageQueue);
+            ActionsClass.SnackBarEnqueue($"\"{book.Title}\" удалена из всех списков", "#fffff", PackIconKind.CancelBold, MyMessageQueue, true);
+            //$"\"{book.Title}\" удалена из всех списков"
+
+            //ActionsClass.RemoveBookFromReadingList(book, MyMessageQueue);
 
         }
 
         public void UpdateToReadingList(Book book, string status)
         {
             var updOrAdd = dataBase.UpdateBookStatus(book, status);
-
-            ActionsClass.UpdateToReadingList(book, status, updOrAdd, MyMessageQueue);
+            string txt = updOrAdd ? $"\"{book.Title}\" перемещена в \"{status}\"" : $"\"{book.Title}\" добавлена в \"{status}\"";
+            ActionsClass.SnackBarEnqueue(txt, "#42A757", PackIconKind.CancelBold, MyMessageQueue, true);
+            //ActionsClass.UpdateToReadingList(book, status, updOrAdd, MyMessageQueue);
 
         }
 

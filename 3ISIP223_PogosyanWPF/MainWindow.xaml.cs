@@ -1,4 +1,5 @@
 ﻿using _3ISIP223_PogosyanWPF.Pages;
+using _3ISIP223_PogosyanWPF.ViewModels;
 using _3ISIP223_PogosyanWPF.Windows;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,34 @@ namespace _3ISIP223_PogosyanWPF
             //if (res != false) this.Close();
             InitializeComponent();
             frameCatalog.NavigationService.Navigate(new CatalogPage());
+
+            LoadItemControl();
         }
+
+        private void LoadItemControl()
+        {
+            bool isAdmin = WorkDataBase.Instanse.IsAdmin;
+            bool isAuthor= WorkDataBase.Instanse.IsAuthor;
+            if (isAdmin)
+            {
+                AdminTabItem.Visibility = Visibility.Visible;
+                AuthorTabItem.Visibility = Visibility.Collapsed;
+                NotificTabItem.Visibility = Visibility.Collapsed;
+            }
+            else if (isAuthor)
+            {
+                AdminTabItem.Visibility = Visibility.Collapsed;
+                AuthorTabItem.Visibility = Visibility.Visible;
+                NotificTabItem.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                AdminTabItem.Visibility = Visibility.Collapsed;
+                AuthorTabItem.Visibility = Visibility.Collapsed;
+                NotificTabItem.Visibility = Visibility.Visible;
+            }
+        }
+
         public static MainWindow GetInstance()
         {
             return Application.Current.MainWindow as MainWindow;

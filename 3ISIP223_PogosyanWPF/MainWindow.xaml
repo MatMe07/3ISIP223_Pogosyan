@@ -18,71 +18,71 @@
             <ColumnDefinition  Width="auto"/>
             <ColumnDefinition  Width="*"/>
         </Grid.ColumnDefinitions>-->
-        
-        <TabControl TabStripPlacement="Left">
-            <TabControl.Resources>
-                <Style TargetType="TabItem" BasedOn="{StaticResource MaterialDesignTabItem}">
-                    <Setter Property="MinWidth" Value="40"/>
-                    <Setter Property="MinHeight" Value="40"/>
-                    <Setter Property="Padding" Value="8"/>
-                </Style>
-            </TabControl.Resources>
-            <TabItem ToolTip="Каталог книг" >
-                <TabItem.Header>
-                    <materialDesign:PackIcon Kind="BookMultiple" Width="30" Height="30"/>
-                    <!--<Image Source="/Icons/book-bookmark.png"/>-->
-                </TabItem.Header>
-                <Frame Grid.Column="1" NavigationUIVisibility="Hidden" x:Name="frameCatalog" Source="/Pages/CatalogPage.xaml" Margin="10 0 0 0"/>
 
-            </TabItem>
-            <TabItem ToolTip="Списки книг">
-                <TabItem.Header>
-                    <materialDesign:PackIcon Kind="Bookshelf" Width="30" Height="30"/>
+            <TabControl TabStripPlacement="Left">
+                <TabControl.Resources>
+                    <Style TargetType="TabItem" BasedOn="{StaticResource MaterialDesignTabItem}">
+                        <Setter Property="MinWidth" Value="40"/>
+                        <Setter Property="MinHeight" Value="40"/>
+                        <Setter Property="Padding" Value="8"/>
+                    </Style>
+                </TabControl.Resources>
+                <TabItem ToolTip="Каталог книг" >
+                    <TabItem.Header>
+                        <materialDesign:PackIcon Kind="BookMultiple" Width="30" Height="30"/>
+                        <!--<Image Source="/Icons/book-bookmark.png"/>-->
+                    </TabItem.Header>
+                    <Frame Grid.Column="1" NavigationUIVisibility="Hidden" x:Name="frameCatalog" Source="/Pages/CatalogPage.xaml" Margin="10 0 0 0"/>
 
-                    <!--<Image Source="/Icons/wishlist.png"/>-->
+                </TabItem>
+                <TabItem ToolTip="Списки книг">
+                    <TabItem.Header>
+                        <materialDesign:PackIcon Kind="Bookshelf" Width="30" Height="30"/>
 
-                </TabItem.Header>
+                        <!--<Image Source="/Icons/wishlist.png"/>-->
+
+                    </TabItem.Header>
                     <Frame NavigationUIVisibility="Hidden" x:Name="frameListBook" Source="/Pages/ListsPage.xaml" Margin="10 0 0 0"/>
-            </TabItem>
-            <TabItem ToolTip="Администрирование">
-                <TabItem.Header>
-                    <!--<Image Source="/Icons/setting.png"/>-->
-                    <materialDesign:PackIcon Kind="Administrator" Width="30" Height="30"/>
+                </TabItem>
+                <TabItem ToolTip="Администрирование" Visibility="Collapsed" x:Name="AdminTabItem">
+                    <TabItem.Header>
+                        <!--<Image Source="/Icons/setting.png"/>-->
+                        <materialDesign:PackIcon Kind="Administrator" Width="30" Height="30"/>
 
-                </TabItem.Header>
-                <Frame  NavigationUIVisibility="Hidden" x:Name="frameAdmin" Source="/Pages/AdminPage.xaml" Margin="10 0 0 0"/>
+                    </TabItem.Header>
+                    <Frame  NavigationUIVisibility="Hidden" x:Name="frameAdmin" Source="/Pages/AdminPage.xaml" Margin="10 0 0 0"/>
 
-            </TabItem>
-            <TabItem ToolTip="Страница автора">
-                <TabItem.Header>
-                    <Image Source="/Icons/author.png"/>
-                    <!--<materialDesign:PackIcon Kind="TwoFactorAuthentication" Width="30" Height="30"/>-->
+                </TabItem>
+                <TabItem ToolTip="Страница автора" Visibility="Collapsed" x:Name="AuthorTabItem">
+                    <TabItem.Header>
+                        <Image Source="/Icons/author.png"/>
+                        <!--<materialDesign:PackIcon Kind="TwoFactorAuthentication" Width="30" Height="30"/>-->
 
-                </TabItem.Header>
-                <Frame  NavigationUIVisibility="Hidden" Source="/Pages/AuthorPage.xaml" Margin="10 0 0 0"/>
+                    </TabItem.Header>
+                    <Frame  NavigationUIVisibility="Hidden" Source="/Pages/AuthorPage.xaml" Margin="10 0 0 0"/>
 
-            </TabItem>
-            <TabItem ToolTip="Предупреждение о заморозке">
-                <TabItem.Header>
-                    <!--<Image Source="/Icons/Predupreоdenie.png"/>-->
-                    <materialDesign:PackIcon Kind="LockAlert" Width="30" Height="30"/>
-
-
-                </TabItem.Header>
-                <Frame  NavigationUIVisibility="Hidden" Source="/Pages/WarningPage.xaml" Margin="10 0 0 0"/>
+                </TabItem>
+                <TabItem ToolTip="Предупреждение о заморозке" Visibility="Collapsed" x:Name="NotificTabItem">
+                    <TabItem.Header>
+                        <!--<Image Source="/Icons/Predupreоdenie.png"/>-->
+                        <materialDesign:PackIcon Kind="LockAlert" Width="30" Height="30"/>
 
 
-            </TabItem>
-            <TabItem ToolTip="Профиль">
-                <TabItem.Header>
-                    <!--<Image Source="/Icons/profile.png"/>-->
-                    <materialDesign:PackIcon Kind="AccountCircle" Width="30" Height="30"/>
+                    </TabItem.Header>
+                    <Frame  NavigationUIVisibility="Hidden" Source="/Pages/WarningPage.xaml" Margin="10 0 0 0"/>
 
-                </TabItem.Header>
+
+                </TabItem>
+                <TabItem ToolTip="Профиль">
+                    <TabItem.Header>
+                        <!--<Image Source="/Icons/profile.png"/>-->
+                        <materialDesign:PackIcon Kind="AccountCircle" Width="30" Height="30"/>
+
+                    </TabItem.Header>
                     <Frame  NavigationUIVisibility="Hidden" x:Name="frameUserAccount" Source="/Pages/ProfilePage.xaml" Margin="10 0 0 0"/>
-            </TabItem>
-        </TabControl>
-        <materialDesign:Snackbar x:Name="MySnackbar"  Foreground="White"  HorizontalAlignment="Right" Grid.RowSpan="2"/>
+                </TabItem>
+            </TabControl>
+            <materialDesign:Snackbar x:Name="MySnackbar"  Foreground="White"  HorizontalAlignment="Right" Grid.RowSpan="2"/>
 
     </Grid>
 

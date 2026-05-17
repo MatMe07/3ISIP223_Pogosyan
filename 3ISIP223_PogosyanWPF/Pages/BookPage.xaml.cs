@@ -1,5 +1,6 @@
 ﻿using _3ISIP223_PogosyanWPF.ViewModels;
 using _3ISIP223_PogosyanWPF.Windows;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -105,6 +106,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
         }
 
 
+
         private void ReadingListItem_Click(object sender, RoutedEventArgs e)
         {
             var menuitem = sender as MenuItem;
@@ -150,12 +152,32 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         private void btnAddReview_Click(object sender, RoutedEventArgs e)
         {
+            if (viewModel.CheckHaveReview() == true)
+            {
+                ActionsClass.SnackBarEnqueue(
+                    text: "Вы уже оставляли отзыв на эту книгу. Можно оставить только один отзыв",
+                    foregroundHEX: "#FFFF9800",
+                    iconKind: PackIconKind.Alert,
+                    MyMessageQueue: new SnackbarMessageQueue(),
+                    main: true
+                );
+                return;
+            }
             mainWindow.BlurAdd(true);
             var wind = new AddReviewWindow();
             wind.Owner = mainWindow;
             var res = wind.ShowDialog();
             mainWindow.BlurAdd(false);
-            if (res == true) viewModel.LoadReviews();
+            if (res == true) { 
+                viewModel.LoadReviews(); 
+                ActionsClass.SnackBarEnqueue(
+                text: "Спасибо! Ваш отзыв успешно добавлен",
+                foregroundHEX: "#FF04BE5A",
+                iconKind: PackIconKind.CheckCircle,
+                MyMessageQueue: new SnackbarMessageQueue(),
+                main: true
+            );
+            }
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

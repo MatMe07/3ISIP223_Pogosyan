@@ -20,12 +20,11 @@ namespace _3ISIP223_PogosyanWPF.Pages.AdminPages
     /// </summary>
     public partial class ComplaintPage : Page
     {
-        public List<string> lstRand { get; set; }
+        //public List<string> lstRand { get; set; }
 
         public ComplaintPage()
         {
-            lstRand = new List<string> { "fdf", "sdf" , "sdf" , "sdf" };
-            DataContext = this;
+
             InitializeComponent();
         }
     }

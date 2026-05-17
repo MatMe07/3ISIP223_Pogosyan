@@ -27,8 +27,8 @@ namespace _3ISIP223_PogosyanWPF.Windows
 
         private void btnPublish_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as AddReviewViewModel).AddReview();
-            DialogResult = true;
+            if ((DataContext as AddReviewViewModel).AddReview())
+                DialogResult = true;
         }
     }
 }

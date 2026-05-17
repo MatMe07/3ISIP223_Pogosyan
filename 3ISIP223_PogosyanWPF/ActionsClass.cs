@@ -12,52 +12,26 @@ namespace _3ISIP223_PogosyanWPF
 {
     public static class ActionsClass
     {
-        public static void UpdateToReadingList(Book book, string status, bool updOrAdd, SnackbarMessageQueue MyMessageQueue)
+        public static void SnackBarEnqueue( string text, string foregroundHEX, PackIconKind iconKind,SnackbarMessageQueue MyMessageQueue, bool main = false)
         {
             var txt = new StackPanel() { Orientation = Orientation.Horizontal };
             txt.Children.Add(new PackIcon()
             {
 
-                Kind = updOrAdd ? PackIconKind.SwapHorizontalBold : PackIconKind.CheckBold,
+                Kind = iconKind,
                 Margin = new System.Windows.Thickness(0, 0, 7, 0),
                 Width = 20,
                 Height = 20,
-                Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString("#42A757")
+                Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(foregroundHEX)
             });
-            if (updOrAdd)
-            {
-                txt.Children.Add(new TextBlock() { Text = $"\"{book.Title}\" перемещена в \"{status}\"" });
-            }
-            else
-            {
-                txt.Children.Add(new TextBlock() { Text = $"\"{book.Title}\" добавлена в \"{status}\"" });
 
-            }
-
-            MyMessageQueue.Enqueue(txt);
-            MainWindow.GetInstance().MySnackbar.MessageQueue = MyMessageQueue;
-
-        }
-
-        public static void RemoveBookFromReadingList(Book book, SnackbarMessageQueue MyMessageQueue)
-        {
-            var txt = new StackPanel() { Orientation = Orientation.Horizontal };
-            txt.Children.Add(new PackIcon()
-            {
-
-                Kind =  PackIconKind.CancelBold,
-                Margin = new System.Windows.Thickness(0, 0, 7, 0),
-                Width = 20,
-                Height = 20,
-                Foreground = Brushes.IndianRed
-            });
-            
-            txt.Children.Add(new TextBlock() { Text = $"\"{book.Title}\" удалена из всех списков" });
+            txt.Children.Add(new TextBlock() { Text = text});
 
 
             MyMessageQueue.Enqueue(txt);
-            MainWindow.GetInstance().MySnackbar.MessageQueue = MyMessageQueue;
-
+            if (main) 
+                MainWindow.GetInstance().MySnackbar.MessageQueue = MyMessageQueue;
         }
+
     }
 }

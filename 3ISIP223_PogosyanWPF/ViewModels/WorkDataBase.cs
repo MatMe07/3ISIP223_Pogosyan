@@ -25,11 +25,13 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         {
             bookGenres = Core.kingEntities.BookGenres.ToList();
             _AllReviews = new ObservableCollection<Review>( Core.kingEntities.Reviews);
-            User = Core.kingEntities.Users.FirstOrDefault(u=>u.Role.RoleName == "Автор");
-            ReadingLists = new ObservableCollection<ReadingList>(Core.kingEntities.ReadingLists.Where(b=>b.UserId == User.UserId).ToList());
+            User = Core.kingEntities.Users.FirstOrDefault(u=>u.Role.RoleName == "Администратор");
+            ReadingLists = new ObservableCollection<ReadingList>(Core.kingEntities.ReadingLists.Where(b=>b.UserId == User.UserId));
             GetReasons = new ObservableCollection<Reason>( Core.kingEntities.Reasons);
             targetTypes = Core.kingEntities.TargetTypes.ToList();
             StatusesReading = new ObservableCollection<StatusesReading>( Core.kingEntities.StatusesReadings);
+
+            Complaints = new ObservableCollection<Complaint>(Core.kingEntities.Complaints);
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
 
@@ -137,6 +139,10 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 OnPropertyChanged(nameof(StatusesReading));
             }
         }
+        public bool CheckHaveReview(int bookID)
+        {
+            return GetReviewsToBook(bookID).FirstOrDefault(b=>b.UserId == User.UserId) != null;
+        }
 
         public void AddReview(double rating, string Comment)
         {
@@ -163,6 +169,10 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             Books = new ObservableCollection<Book>( Core.kingEntities.Books);
         }
 
+        //private ObservableCollection<Complaint> _complaints;
+        public ObservableCollection<Complaint> Complaints { get; set; }
+
+        //public ObservableCollection<Complaint> GetComplaints => 
 
         public void SaveFreezeRequest(Object item, Reason reason)
         {
