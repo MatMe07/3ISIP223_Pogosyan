@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.ViewModels.AdminViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,9 +25,14 @@ namespace _3ISIP223_PogosyanWPF.Pages.AdminPages
 
         public FrozenPage()
         {
-            lstRand = new List<string> { "fdf", "sdf", "sdf", "sdf" };
-            DataContext = this;
+            //lstRand = new List<string> { "fdf", "sdf", "sdf", "sdf" };
+            //DataContext = this;
             InitializeComponent();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            (DataContext as FrozenViewModel).LoadData();
         }
     }
 }

@@ -3,13 +3,15 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages.AdminPages"
+      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels.AdminViewModels"
       mc:Ignorable="d" 
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
        d:Background="White"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="FrozenPage">
-
+      Title="FrozenPage" Loaded="Page_Loaded">
+    <Page.DataContext>
+        <local:FrozenViewModel/>
+    </Page.DataContext>
     <Grid>
         <Grid HorizontalAlignment="Center" Visibility="Collapsed" x:Name="absenceVisible">
             <Grid.RowDefinitions>
@@ -37,85 +39,75 @@
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <ItemsControl x:Name="LstFrozenBooks" 
                               HorizontalContentAlignment="Stretch" 
-                              ItemsSource="{Binding lstRand}" d:ItemsSource="{d:SampleData ItemCount=5}">
+                              ItemsSource="{Binding FrozenBooks}" d:ItemsSource="{d:SampleData ItemCount=5}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="#FFE9EBF0" BorderThickness="0,0,0,1" Padding="10">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="auto"/>
-                                            <RowDefinition Height="auto"/>
-                                            <RowDefinition Height="auto"/>
-                                            <RowDefinition Height="auto"/>
-                                        </Grid.RowDefinitions>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
 
-                                        <Grid Grid.Row="0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="auto"/>
-                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Row="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                </Grid.ColumnDefinitions>
 
-                                            <StackPanel Orientation="Horizontal" Grid.Column="0">
-                                                <materialDesign:PackIcon Kind="Book" Height="25" Width="25" Margin="0,0,10,0" Foreground="#FF3D3DC7"/>
-                                                <TextBlock Style="{StaticResource H4Text}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center">
+                                                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                                                    <materialDesign:PackIcon Kind="Book" Height="25" Width="25" Margin="0,0,10,0" Foreground="#FF3D3DC7"/>
+                                                    <TextBlock Style="{StaticResource H4Text}" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center">
                                                         <Run Text="{Binding Title}"/>
-                                                </TextBlock>
-                                            </StackPanel>
-
-                                            <Border Grid.Column="1" Background="#FFE8F4FD" CornerRadius="10" Padding="10 5">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <materialDesign:PackIcon Kind="Snowflake" Height="16" Width="16" Foreground="#FF3D3DC7"/>
-                                                    <TextBlock Text=" Заморожена" FontSize="13" Foreground="#FF3D3DC7"/>
+                                                    </TextBlock>
                                                 </StackPanel>
-                                            </Border>
-                                        </Grid>
 
-                                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 7 0 5">
-                                            <materialDesign:PackIcon Kind="Account" Height="17" Width="17" Foreground="#FF70778F"/>
-                                            <TextBlock Margin="5,0,0,0" FontSize="14" Foreground="#FF70778F">
+                                                <Border Grid.Column="1" Background="#FFE8F4FD" CornerRadius="10" Padding="10 5">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="Snowflake" Height="16" Width="16" Foreground="#FF3D3DC7"/>
+                                                        <TextBlock Text=" Заморожена" FontSize="13" Foreground="#FF3D3DC7"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </Grid>
+
+                                            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 7 0 5">
+                                                <materialDesign:PackIcon Kind="Account" Height="17" Width="17" Foreground="#FF70778F"/>
+                                                <TextBlock Margin="5,0,0,0" FontSize="14" Foreground="#FF70778F">
                                             <Run Text="Автор:"/>
-                                            <Run Text="{Binding AuthorName}" Foreground="#FF3D3DC7" FontWeight="SemiBold"/>
+                                            <Run Text="{Binding User.DisplayName}" Foreground="#FF3D3DC7" FontWeight="SemiBold"/>
                                             <Run Text="(ID:" />
                                             <Run Text="{Binding AuthorId}" />
                                             <Run Text=")" />
-                                            </TextBlock>
-                                        </StackPanel>
-
-                                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,5">
-                                            <materialDesign:PackIcon Kind="Calendar" Height="17" Width="17" Foreground="#FF70778F"/>
-                                            <TextBlock Margin="5,0,0,0" FontSize="14" Foreground="#FF70778F">
-                                            <Run Text="Заморожена:"/>
-                                            <Run Text="{Binding FrozenAt}" Foreground="#FF13192E"/>
-                                            </TextBlock>
-                                        </StackPanel>
-
-                                        <StackPanel Grid.Row="3" Margin="0 0 0,5">
-                                            <StackPanel Orientation="Horizontal">
-                                                <materialDesign:PackIcon Kind="Message" Height="17" Width="17" Foreground="#FF70778F"/>
-
-                                                <TextBlock FontSize="14" Foreground="#FF70778F" Margin="5,0,0,3" VerticalAlignment="Center">
-                                                        <Run Text="Причина заморозки:"/>
                                                 </TextBlock>
-                                                
                                             </StackPanel>
-                                            <Border Background="#FFF4F4FC" CornerRadius="8" Padding="12,8,12,8">
-                                                <StackPanel>
-                                                    <TextBlock Text="{Binding FrozenReason}" FontSize="13" Foreground="#FF13192E" TextWrapping="WrapWithOverflow"
-                                                           Visibility="Visible"/>
-                                                    <TextBlock Text="Причина не указана" FontSize="13" Foreground="#FFA9A9B4"
-                                                           Visibility="Visible"/>
+
+
+                                            <StackPanel Grid.Row="2" Margin="0 0 0,5">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <materialDesign:PackIcon Kind="Message" Height="17" Width="17" Foreground="#FF70778F"/>
+
+                                                    <TextBlock FontSize="14" Foreground="#FF70778F" Margin="5,0,0,3" VerticalAlignment="Center">
+                                                        <Run Text="Причина заморозки:"/>
+                                                    </TextBlock>
 
                                                 </StackPanel>
-                                            </Border>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
+                                                <Border Background="#FFF4F4FC" CornerRadius="8" Padding="12 8">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding FrozenReason}" FontSize="13" Foreground="#FF13192E"
+                                                                   TextWrapping="WrapWithOverflow"/>
+
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
 
 
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        
+
                     </ScrollViewer>
 
                 </TabItem>
@@ -131,13 +123,12 @@
                     <ScrollViewer VerticalScrollBarVisibility="Auto" Visibility="Visible">
                         <ItemsControl x:Name="LstFrozenUsers" 
                       HorizontalContentAlignment="Stretch" 
-                      ItemsSource="{Binding lstRand}" d:ItemsSource="{d:SampleData ItemCount=5}">
+                      ItemsSource="{Binding FrozenUsers}" d:ItemsSource="{d:SampleData ItemCount=5}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="#FFE9EBF0" BorderThickness="0,0,0,1" Padding="10">
                                         <Grid>
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="auto"/>
                                                 <RowDefinition Height="auto"/>
                                                 <RowDefinition Height="auto"/>
                                                 <RowDefinition Height="auto"/>
@@ -179,19 +170,11 @@
                                                 <materialDesign:PackIcon Kind="GuyFawkesMask" Height="20" Width="17" Foreground="#FF70778F"/>
                                                 <TextBlock Margin="5,0,0,0" FontSize="14" Foreground="#FF70778F">
                                     <Run Text="Роль:"/>
-                                    <Run Text="{Binding RoleName}" Foreground="#FF3D3DC7" FontWeight="SemiBold"/>
+                                    <Run Text="{Binding Role.RoleName}" Foreground="#FF3D3DC7" FontWeight="SemiBold"/>
                                                 </TextBlock>
                                             </StackPanel>
 
-                                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,5">
-                                                <materialDesign:PackIcon Kind="Calendar" Height="17" Width="17" Foreground="#FF70778F"/>
-                                                <TextBlock Margin="5,0,0,0" FontSize="14" Foreground="#FF70778F">
-                                    <Run Text="Заморожен:"/>
-                                    <Run Text="{Binding FrozenAt}" Foreground="#FF13192E"/>
-                                                </TextBlock>
-                                            </StackPanel>
-
-                                            <StackPanel Grid.Row="3" Margin="0,0,0,5">
+                                            <StackPanel Grid.Row="2" Margin="0,0,0,5">
                                                 <StackPanel Orientation="Horizontal">
                                                     <materialDesign:PackIcon Kind="Message" Height="20" Width="17" Foreground="#FF70778F"/>
                                                     <TextBlock FontSize="14" Foreground="#FF70778F" Margin="5,0,0,3" VerticalAlignment="Center">
@@ -200,10 +183,20 @@
                                                 </StackPanel>
                                                 <Border Background="#FFF4F4FC" CornerRadius="8" Padding="12,8,12,8">
                                                     <StackPanel>
-                                                        <TextBlock Text="{Binding FrozenReason}" FontSize="13" Foreground="#FF13192E" TextWrapping="WrapWithOverflow"
-                                                   Visibility="Visible"/>
+                                                        <TextBlock Text="{Binding Reason.Name}" FontSize="13" Foreground="#FF13192E" TextWrapping="WrapWithOverflow"
+                                                   >
+                                                            <TextBlock.Style>
+                                                                <Style TargetType="TextBlock">
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding IsReason}" Value="Visible">
+                                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBlock.Style>
+                                                        </TextBlock>
                                                         <TextBlock Text="Причина не указана" FontSize="13" Foreground="#FFA9A9B4"
-                                                   Visibility="Visible"/>
+                                                   Visibility="{Binding IsReason}"/>
                                                     </StackPanel>
                                                 </Border>
                                             </StackPanel>
@@ -226,7 +219,7 @@
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <ItemsControl x:Name="LstFrozenReviews" 
                       HorizontalContentAlignment="Stretch" 
-                      ItemsSource="{Binding lstRand}" d:ItemsSource="{d:SampleData ItemCount=5}">
+                      ItemsSource="{Binding Reviews}" d:ItemsSource="{d:SampleData ItemCount=5}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="#FFE9EBF0" BorderThickness="0,0,0,1" Padding="10">
@@ -264,21 +257,13 @@
                                                 <materialDesign:PackIcon Kind="Account" Height="17" Width="17" Foreground="#FF70778F"/>
                                                 <TextBlock Margin="5,0,15,0" FontSize="14" Foreground="#FF70778F">
                                     <Run Text="Пользователь:"/>
-                                    <Run Text="{Binding UserName}" Foreground="#FF3D3DC7" FontWeight="SemiBold"/>
+                                    <Run Text="{Binding User.DisplayName}" Foreground="#FF3D3DC7" FontWeight="SemiBold"/>
                                                 </TextBlock>
 
                                                 <materialDesign:PackIcon Kind="Book" Height="17" Width="17" Foreground="#FF70778F"/>
                                                 <TextBlock Margin="5,0,0,0" FontSize="14" Foreground="#FF70778F">
                                     <Run Text="К книге:"/>
-                                    <Run Text="{Binding BookTitle}" Foreground="#FF13192E" FontWeight="SemiBold"/>
-                                                </TextBlock>
-                                            </StackPanel>
-
-                                            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,5">
-                                                <materialDesign:PackIcon Kind="Calendar" Height="17" Width="17" Foreground="#FF70778F"/>
-                                                <TextBlock Margin="5,0,0,0" FontSize="14" Foreground="#FF70778F">
-                                    <Run Text="Заморожен:"/>
-                                    <Run Text="{Binding FrozenAt}" Foreground="#FF13192E"/>
+                                    <Run Text="{Binding Book.Title}" Foreground="#FF13192E" FontWeight="SemiBold"/>
                                                 </TextBlock>
                                             </StackPanel>
 
@@ -290,7 +275,7 @@
                                                     </TextBlock>
                                                 </StackPanel>
                                                 <Border Background="#FFF4F4FC" CornerRadius="8" Padding="12 5">
-                                                    <TextBlock Text="{Binding ReviewText}" FontSize="13" Foreground="#FF13192E" TextWrapping="WrapWithOverflow"
+                                                    <TextBlock Text="{Binding Comment}" FontSize="13" Foreground="#FF13192E" TextWrapping="WrapWithOverflow"
                                                MaxHeight="80"/>
                                                 </Border>
                                             </StackPanel>
@@ -305,8 +290,6 @@
                                                 <Border Background="#FFF4F4FC" CornerRadius="8" Padding="12 5">
                                                     <StackPanel>
                                                         <TextBlock Text="{Binding FrozenReason}" FontSize="13" Foreground="#FF13192E" TextWrapping="WrapWithOverflow"
-                                                   Visibility="Visible"/>
-                                                        <TextBlock Text="Причина не указана" FontSize="13" Foreground="#FFA9A9B4"
                                                    Visibility="Visible"/>
                                                     </StackPanel>
                                                 </Border>

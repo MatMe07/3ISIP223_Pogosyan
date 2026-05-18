@@ -39,5 +39,13 @@ namespace _3ISIP223_PogosyanWPF
 
             }
         }
+
+        public Visibility IsReason
+        {
+            get
+            {
+                return Reason == null ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
     }
 }

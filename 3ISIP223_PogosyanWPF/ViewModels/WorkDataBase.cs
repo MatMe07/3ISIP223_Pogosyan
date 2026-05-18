@@ -25,7 +25,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public WorkDataBase()
         {
             bookGenres = Core.kingEntities.BookGenres.ToList();
-            _AllReviews = new ObservableCollection<Review>( Core.kingEntities.Reviews.Where(r=>!r.IsFrozen));
+            _AllReviews = new ObservableCollection<Review>( Core.kingEntities.Reviews);
             User = Core.kingEntities.Users.FirstOrDefault(u=>u.Role.RoleName == "Администратор");
             ReadingLists = new ObservableCollection<ReadingList>(Core.kingEntities.ReadingLists.Where(b=>b.UserId == User.UserId));
             GetReasons = new ObservableCollection<Reason>( Core.kingEntities.Reasons);
@@ -33,7 +33,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             StatusesReading = new ObservableCollection<StatusesReading>( Core.kingEntities.StatusesReadings);
             statusesRequests = Core.kingEntities.StatusesRequests.ToList();
 
-            Books = new ObservableCollection<Book>(Core.kingEntities.Books.Where(b=>!b.IsFrozen));
+            Books = new ObservableCollection<Book>(Core.kingEntities.Books);
             unfreezeRequests = new ObservableCollection<UnfreezeRequest>(Core.kingEntities.UnfreezeRequests);
             Complaints = new ObservableCollection<Complaint>(Core.kingEntities.Complaints);
             AuthorRequests = new ObservableCollection<AuthorRequest>(Core.kingEntities.AuthorRequests);
@@ -58,6 +58,21 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 OnPropertyChanged(nameof(ReadingLists));
             }
         }
+
+        private ObservableCollection<User> _users;
+        public ObservableCollection<User> Users
+        {
+            get { 
+                if (_users == null) _users = new ObservableCollection<User>( Core.kingEntities.Users);
+                return _users; 
+            }
+            set
+            {
+                _users = value;
+                OnPropertyChanged(nameof(Users));
+            }
+        }
+
 
         public ObservableCollection<ReadingList> GetReadingLists(string status)
         {
@@ -85,7 +100,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
 
         //private ObservableCollection<Book> _books;
-        public ObservableCollection<Book> Books;
+        public ObservableCollection<Book> Books { get; set; }
         public ObservableCollection<Book> GetAllBooks
         {
             get
@@ -95,7 +110,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         }
 
 
-        private ObservableCollection<Review> _AllReviews;
+        public ObservableCollection<Review> _AllReviews;
 
 
         public ObservableCollection<Review> GetReviewsToBook(int bookID)
@@ -196,7 +211,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                     }
                 case "Review":
                     {
-                        var revi = _AllReviews.First(r => r.ReviewId == CompDB.ReviewId);
+                        var revi = _AllReviews.FirstOrDefault(r => r.ReviewId == CompDB.ReviewId);
                         revi.IsFrozen = true;
                         //_AllReviews.Remove(revi);
                         break;

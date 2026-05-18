@@ -202,6 +202,7 @@
     <Compile Include="ViewModels\AddReviewViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\AuthorRequestsViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\ComplaintViewModel.cs" />
+    <Compile Include="ViewModels\AdminViewModels\FrozenViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\UnfreezeRequestsViewModel.cs" />
     <Compile Include="ViewModels\BaseLibraryViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
