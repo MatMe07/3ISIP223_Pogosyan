@@ -38,15 +38,15 @@ namespace _3ISIP223_PogosyanWPF
         {
             get
             {
-                return Role.RoleName == "Читатель" || Role.RoleName == "Автор" ? Visibility.Visible : Visibility.Collapsed;
+                return Role.RoleName != "Администратор" ? Visibility.Visible : Visibility.Collapsed;
 
             }
         }
-        public bool IsAdmin
+        public bool IsNotAdmin
         {
             get
             {
-                return Role.RoleName == "Администратор";
+                return Role.RoleName != "Администратор";
             }
             set { }
         }

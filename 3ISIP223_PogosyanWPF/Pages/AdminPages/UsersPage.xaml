@@ -53,7 +53,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ComboBox ItemsSource="{Binding AvailableRoles}" DisplayMemberPath="RoleName"
-                      SelectedValue="{Binding Role}" Visibility="{Binding IsAdminVisibility}" IsReadOnly="{Binding IsAdmin}"
+                      SelectedValue="{Binding Role}"  IsEnabled="{Binding IsNotAdmin}"
                       >
                                 <!--<ComboBox.Style>
                                     <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
