@@ -208,5 +208,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
             viewModel.ShowMessage(Author: ((sender as Button).Tag as Book).User);
 
         }
+
     }
 }

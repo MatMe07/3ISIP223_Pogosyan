@@ -33,6 +33,7 @@ namespace _3ISIP223_PogosyanWPF
         public bool IsFrozen { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public Nullable<int> Rating { get; set; }
+        public Nullable<int> ReasonId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookGenre> BookGenres { get; set; }
@@ -45,5 +46,6 @@ namespace _3ISIP223_PogosyanWPF
         public virtual ICollection<Review> Reviews { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UnfreezeRequest> UnfreezeRequests { get; set; }
+        public virtual Reason Reason { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,8 @@ namespace _3ISIP223_PogosyanWPF
 {
     public partial class User
     {
+        public int? ReasonIdHesh { get; set; }
+
         public Visibility IsAuthorVisibility
         {
             get
@@ -39,6 +42,14 @@ namespace _3ISIP223_PogosyanWPF
 
             }
         }
+        public bool IsAdmin
+        {
+            get
+            {
+                return Role.RoleName == "Администратор";
+            }
+            set { }
+        }
 
         public Visibility IsReason
         {
@@ -46,6 +57,14 @@ namespace _3ISIP223_PogosyanWPF
             {
                 return Reason == null ? Visibility.Visible : Visibility.Collapsed;
             }
+        }
+        public List<Role> AvailableRoles
+        {
+            get
+            {
+                return WorkDataBase.Instanse.GetRoles;
+            }
+            set { }
         }
     }
 }

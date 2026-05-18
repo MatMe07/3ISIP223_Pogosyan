@@ -53,7 +53,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels.AdminViewModels
             set
             {
                 _reviews = value;
-                OnPropertyChanged(nameof(Review));
+                OnPropertyChanged(nameof(Reviews));
             }
         }
 

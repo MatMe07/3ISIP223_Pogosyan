@@ -94,7 +94,7 @@
                                                 </StackPanel>
                                                 <Border Background="#FFF4F4FC" CornerRadius="8" Padding="12 8">
                                                     <StackPanel>
-                                                        <TextBlock Text="{Binding FrozenReason}" FontSize="13" Foreground="#FF13192E"
+                                                        <TextBlock Text="{Binding Reason.Name}" FontSize="13" Foreground="#FF13192E"
                                                                    TextWrapping="WrapWithOverflow"/>
 
                                                     </StackPanel>
@@ -289,7 +289,7 @@
                                                 </StackPanel>
                                                 <Border Background="#FFF4F4FC" CornerRadius="8" Padding="12 5">
                                                     <StackPanel>
-                                                        <TextBlock Text="{Binding FrozenReason}" FontSize="13" Foreground="#FF13192E" TextWrapping="WrapWithOverflow"
+                                                        <TextBlock Text="{Binding Reason.Name}" FontSize="13" Foreground="#FF13192E" TextWrapping="WrapWithOverflow"
                                                    Visibility="Visible"/>
                                                     </StackPanel>
                                                 </Border>

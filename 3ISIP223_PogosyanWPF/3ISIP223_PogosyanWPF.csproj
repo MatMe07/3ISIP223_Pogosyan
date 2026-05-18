@@ -204,6 +204,7 @@
     <Compile Include="ViewModels\AdminViewModels\ComplaintViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\FrozenViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\UnfreezeRequestsViewModel.cs" />
+    <Compile Include="ViewModels\AdminViewModels\UsersViewModel.cs" />
     <Compile Include="ViewModels\BaseLibraryViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />

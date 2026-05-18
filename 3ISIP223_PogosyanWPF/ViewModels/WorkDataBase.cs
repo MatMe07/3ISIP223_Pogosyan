@@ -37,6 +37,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             unfreezeRequests = new ObservableCollection<UnfreezeRequest>(Core.kingEntities.UnfreezeRequests);
             Complaints = new ObservableCollection<Complaint>(Core.kingEntities.Complaints);
             AuthorRequests = new ObservableCollection<AuthorRequest>(Core.kingEntities.AuthorRequests);
+            GetRoles = Core.kingEntities.Roles.ToList();
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
 
@@ -58,6 +59,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 OnPropertyChanged(nameof(ReadingLists));
             }
         }
+        public List<Role> GetRoles {  get; set; }
 
         private ObservableCollection<User> _users;
         public ObservableCollection<User> Users
@@ -197,7 +199,9 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             {
                 case "Author":
                     {
-                        Core.kingEntities.Users.First(a=>a.UserId == CompDB.User1.UserId).IsFrozen = true;
+                        var us = Users.First(a => a.UserId == CompDB.User1.UserId);
+                        us.IsFrozen = true;
+                        us.ReasonId = CompDB.ReasonId;
                         break;
                     }
                 case "Book":
@@ -206,6 +210,8 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                         //Core.kingEntities.Users.First(a=>a.UserId == CompDB.User1.UserId).IsFrozen = true;
                         var book = Books.First(b => b.BookId == CompDB.BookId);
                         book.IsFrozen = true;
+                        book.ReasonId = CompDB.ReasonId;
+
                         //Books.Remove(book);
                         break;
                     }
@@ -213,6 +219,8 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                     {
                         var revi = _AllReviews.FirstOrDefault(r => r.ReviewId == CompDB.ReviewId);
                         revi.IsFrozen = true;
+                        revi.ReasonId = CompDB.ReasonId;
+
                         //_AllReviews.Remove(revi);
                         break;
                     }
@@ -230,19 +238,26 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             {
                 case "Author":
                     {
-                        Core.kingEntities.Users.First(a => a.UserId == CompDB.User1.UserId).IsFrozen = false;
+                        var us = Users.First(a => a.UserId == CompDB.User1.UserId);
+                        us.IsFrozen = false;
+                        us.ReasonId = null;
                         break;
                     }
                 case "Book":
                     {
                         //Books
-                        //Core.kingEntities.Users.First(a=>a.UserId == CompDB.User1.UserId).IsFrozen = true;
-                        Books.First(b => b.BookId == CompDB.BookId).IsFrozen = false;
+                        var book = Books.First(b => b.BookId == CompDB.BookId);
+                        book.IsFrozen = false;
+                        book.ReasonId = null;
+
                         break;
                     }
                 case "Review":
                     {
-                        _AllReviews.First(r => r.ReviewId == CompDB.ReviewId).IsFrozen = false;
+                        var revi = _AllReviews.FirstOrDefault(r => r.ReviewId == CompDB.ReviewId);
+                        revi.IsFrozen = false;
+                        revi.ReasonId = null;
+
                         break;
                     }
             }
@@ -271,7 +286,10 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             {
                 case "Author":
                     {
-                        Core.kingEntities.Users.First(a => a.UserId == CompDB.User.UserId).IsFrozen = true;
+                        var us = Users.First(a => a.UserId == CompDB.User.UserId);
+                        us.ReasonIdHesh = us.ReasonId;
+                        us.IsFrozen = false;
+                        us.ReasonId = null;
                         break;
                     }
                 case "Book":
@@ -279,7 +297,9 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                         //Books
                         //Core.kingEntities.Users.First(a=>a.UserId == CompDB.User1.UserId).IsFrozen = true;
                         var book = Books.First(b => b.BookId == CompDB.BookId);
-                        book.IsFrozen = true;
+                        book.ReasonIdHesh = book.ReasonId;
+                        book.IsFrozen = false;
+                        book.ReasonId = null;
                         //Books.Remove(book);
                         break;
                     }
@@ -297,14 +317,18 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             {
                 case "Author":
                     {
-                        Core.kingEntities.Users.First(a => a.UserId == CompDB.User.UserId).IsFrozen = false;
+                        var auth = Users.First(a => a.UserId == CompDB.User.UserId);
+                        auth.IsFrozen = true;
+                        auth.ReasonId = auth.ReasonIdHesh;
                         break;
                     }
                 case "Book":
                     {
                         //Books
                         //Core.kingEntities.Users.First(a=>a.UserId == CompDB.User1.UserId).IsFrozen = true;
-                        Books.First(b => b.BookId == CompDB.BookId).IsFrozen = false;
+                        var book = Books.First(b => b.BookId == CompDB.BookId);
+                        book.IsFrozen = true;
+                        book.ReasonId = book.ReasonIdHesh;
                         break;
                     }
             }
@@ -421,13 +445,16 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
             if (item is Review review)
             {
-                _AllReviews.First(r => r.ReviewId == review.ReviewId).IsFrozen = true;
+                var revi = _AllReviews.First(r => r.ReviewId == review.ReviewId);
+                revi.IsFrozen = true;
+                revi.ReasonId = reason.ReasonId;
             }
             else
             {
                 var user = item as User;
                 var us = Core.kingEntities.Users.FirstOrDefault(u => u.UserId == user.UserId);
                 us.IsFrozen = true;
+                user.ReasonId = reason.ReasonId;
             }
             Core.kingEntities.SaveChanges();
         }

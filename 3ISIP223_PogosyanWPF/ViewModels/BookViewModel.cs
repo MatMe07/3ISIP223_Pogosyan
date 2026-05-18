@@ -174,6 +174,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
             mainWindow.BlurAdd(false);
             if (res == true)
+            {
                 ActionsClass.SnackBarEnqueue(
                     text: IsAdmin ? $"{titl} заморожен!": "Жалоба успешно отправлена" ,
                     foregroundHEX: "#FF04BE5A",
@@ -181,6 +182,8 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                     MyMessageQueue: MyMessageQueue,
                     main: true
                 );
+                LoadReviews();
+            }
 
         }
 

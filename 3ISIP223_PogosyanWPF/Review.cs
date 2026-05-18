@@ -27,10 +27,12 @@ namespace _3ISIP223_PogosyanWPF
         public string Comment { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public bool IsFrozen { get; set; }
+        public Nullable<int> ReasonId { get; set; }
     
         public virtual Book Book { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Complaint> Complaints { get; set; }
         public virtual User User { get; set; }
+        public virtual Reason Reason { get; set; }
     }
 }

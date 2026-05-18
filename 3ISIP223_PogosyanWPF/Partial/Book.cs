@@ -10,21 +10,23 @@ namespace _3ISIP223_PogosyanWPF
     public partial class Book
     {
         //public double RatingFive => (Rating ?? 0) / 2.0;
-        public string FrozenReason
-        {
-            get
-            {
-                var comb = Complaints.FirstOrDefault(c=>c.StatusesRequest.Name == "Одобрена");
-                if (comb != null)
-                {
-                    return comb.Reason.Name;
-                }
-                else
-                {
-                    return "Причина не указана";
-                }
-            }
-            set { }
-        }
+
+        public int? ReasonIdHesh {  get; set; }
+        //public string FrozenReason
+        //{
+        //    get
+        //    {
+        //        var comb = Complaints.FirstOrDefault(c=>c.StatusesRequest.Name == "Одобрена");
+        //        if (comb != null)
+        //        {
+        //            return comb.Reason.Name;
+        //        }
+        //        else
+        //        {
+        //            return "Причина не указана";
+        //        }
+        //    }
+        //    set { }
+        //}
     }
 }

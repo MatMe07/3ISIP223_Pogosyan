@@ -3,13 +3,15 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages.AdminPages"
+      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels.AdminViewModels"
                   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
        d:Background="White"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="UsersPage">
-
+      Title="UsersPage" Loaded="Page_Loaded">
+    <Page.DataContext>
+        <local:UsersViewModel/>
+    </Page.DataContext>
     <Grid>
         <DataGrid x:Name="DgUsers" 
           AutoGenerateColumns="False"
@@ -18,12 +20,12 @@
           Margin="0,10,0,10"
           BorderBrush="#FFE9EBF0" HorizontalContentAlignment="Stretch"
           BorderThickness="1"
-                  ItemsSource="{Binding adminUsers}" d:ItemsSource="{d:SampleData ItemCount=5}"
+                  ItemsSource="{Binding Users}" d:ItemsSource="{d:SampleData ItemCount=5}"
           Background="White" GridLinesVisibility="Horizontal">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" 
-                            Binding="{Binding ID}" IsReadOnly="True" CanUserResize="True" CanUserReorder="False"  
+                            Binding="{Binding UserId}" IsReadOnly="True" CanUserResize="True" CanUserReorder="False"  
                             >
                 </DataGridTextColumn>
 
@@ -44,15 +46,24 @@
 
 
                 <DataGridTextColumn Header="Имя" 
-                            Binding="{Binding Name}"
+                            Binding="{Binding DisplayName}" IsReadOnly="True"
                             MinWidth="100"/>
 
                 <DataGridTemplateColumn Header="Роль" MinWidth="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox ItemsSource="{Binding AvailableRoles}"
-                      SelectedValue="{Binding CurrentRole}"
+                            <ComboBox ItemsSource="{Binding AvailableRoles}" DisplayMemberPath="RoleName"
+                      SelectedValue="{Binding Role}" Visibility="{Binding IsAdminVisibility}" IsReadOnly="{Binding IsAdmin}"
                       >
+                                <!--<ComboBox.Style>
+                                    <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsAdmin}" Value="False">
+                                                <Setter Property="IsReadOnly" Value="True"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ComboBox.Style>-->
                             </ComboBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -62,7 +73,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button x:Name="BtnChangePassword"
-                                    Tag="{Binding ID}" 
+                                    Tag="{Binding}" 
                                     Style="{StaticResource MaterialDesignFlatButton}" Padding="0" Click="btnEditUser_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="Edit" Height="14" Width="14"/>

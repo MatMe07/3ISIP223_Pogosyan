@@ -35,6 +35,7 @@
           <Property Name="IsFrozen" Type="bit" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="Rating" Type="int" />
+          <Property Name="ReasonId" Type="int" />
         </EntityType>
         <EntityType Name="Complaints">
           <Key>
@@ -86,6 +87,7 @@
           <Property Name="Comment" Type="nvarchar(max)" />
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="IsFrozen" Type="bit" Nullable="false" />
+          <Property Name="ReasonId" Type="int" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -198,6 +200,18 @@
             </Principal>
             <Dependent Role="Books">
               <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Reasons">
+          <End Role="Reasons" Type="Self.Reasons" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reasons">
+              <PropertyRef Name="ReasonId" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="ReasonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -333,6 +347,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reviews_Reasons">
+          <End Role="Reasons" Type="Self.Reasons" Multiplicity="0..1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reasons">
+              <PropertyRef Name="ReasonId" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="ReasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Reviews_User">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
@@ -452,6 +478,10 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Books" EntitySet="Books" />
           </AssociationSet>
+          <AssociationSet Name="FK_Books_Reasons" Association="Self.FK_Books_Reasons">
+            <End Role="Reasons" EntitySet="Reasons" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
           <AssociationSet Name="FK_Complaints_Book" Association="Self.FK_Complaints_Book">
             <End Role="Books" EntitySet="Books" />
             <End Role="Complaints" EntitySet="Complaints" />
@@ -494,6 +524,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Reviews_Book" Association="Self.FK_Reviews_Book">
             <End Role="Books" EntitySet="Books" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Reasons" Association="Self.FK_Reviews_Reasons">
+            <End Role="Reasons" EntitySet="Reasons" />
             <End Role="Reviews" EntitySet="Reviews" />
           </AssociationSet>
           <AssociationSet Name="FK_Reviews_User" Association="Self.FK_Reviews_User">
@@ -569,6 +603,8 @@
           <NavigationProperty Name="ReadingLists" Relationship="Self.FK_ReadingLists_Book" FromRole="Books" ToRole="ReadingLists" />
           <NavigationProperty Name="Reviews" Relationship="Self.FK_Reviews_Book" FromRole="Books" ToRole="Reviews" />
           <NavigationProperty Name="UnfreezeRequests" Relationship="Self.FK_UnfreezeRequests_Book" FromRole="Books" ToRole="UnfreezeRequests" />
+          <Property Name="ReasonId" Type="Int32" />
+          <NavigationProperty Name="Reason" Relationship="ShutAndKingModel.FK_Books_Reasons" FromRole="Book" ToRole="Reason" />
         </EntityType>
         <EntityType Name="Complaint">
           <Key>
@@ -621,6 +657,8 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Complaints" Relationship="Self.FK_Complaints_Reason" FromRole="Reasons" ToRole="Complaints" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_FreezeReason" FromRole="Reasons" ToRole="Users" />
+          <NavigationProperty Name="Books" Relationship="ShutAndKingModel.FK_Books_Reasons" FromRole="Reason" ToRole="Book" />
+          <NavigationProperty Name="Reviews" Relationship="ShutAndKingModel.FK_Reviews_Reasons" FromRole="Reason" ToRole="Review" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
@@ -636,6 +674,8 @@
           <NavigationProperty Name="Book" Relationship="Self.FK_Reviews_Book" FromRole="Reviews" ToRole="Books" />
           <NavigationProperty Name="Complaints" Relationship="Self.FK_Complaints_Review" FromRole="Reviews" ToRole="Complaints" />
           <NavigationProperty Name="User" Relationship="Self.FK_Reviews_User" FromRole="Reviews" ToRole="Users" />
+          <Property Name="ReasonId" Type="Int32" />
+          <NavigationProperty Name="Reason" Relationship="ShutAndKingModel.FK_Reviews_Reasons" FromRole="Review" ToRole="Reason" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -1082,6 +1122,14 @@
             <End Role="StatusesRequest" EntitySet="StatusesRequests" />
             <End Role="Complaint" EntitySet="Complaints" />
           </AssociationSet>
+          <AssociationSet Name="FK_Books_Reasons" Association="ShutAndKingModel.FK_Books_Reasons">
+            <End Role="Reason" EntitySet="Reasons" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Reasons" Association="ShutAndKingModel.FK_Reviews_Reasons">
+            <End Role="Reason" EntitySet="Reasons" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_Complaints_StatusesRequest">
           <End Type="ShutAndKingModel.StatusesRequest" Role="StatusesRequest" Multiplicity="1" />
@@ -1092,6 +1140,30 @@
             </Principal>
             <Dependent Role="Complaint">
               <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Books_Reasons">
+          <End Type="ShutAndKingModel.Reason" Role="Reason" Multiplicity="0..1" />
+          <End Type="ShutAndKingModel.Book" Role="Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reason">
+              <PropertyRef Name="ReasonId" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="ReasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Reasons">
+          <End Type="ShutAndKingModel.Reason" Role="Reason" Multiplicity="0..1" />
+          <End Type="ShutAndKingModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reason">
+              <PropertyRef Name="ReasonId" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="ReasonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1123,6 +1195,7 @@
           <EntitySetMapping Name="Books">
             <EntityTypeMapping TypeName="ShutAndKingModel.Book">
               <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="ReasonId" ColumnName="ReasonId" />
                 <ScalarProperty Name="BookId" ColumnName="BookId" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -1181,6 +1254,7 @@
           <EntitySetMapping Name="Reviews">
             <EntityTypeMapping TypeName="ShutAndKingModel.Review">
               <MappingFragment StoreEntitySet="Reviews">
+                <ScalarProperty Name="ReasonId" ColumnName="ReasonId" />
                 <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
                 <ScalarProperty Name="BookId" ColumnName="BookId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />

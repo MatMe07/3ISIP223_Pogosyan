@@ -46,30 +46,43 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public void LoadBooks()
         {
-            _Allbooks = new ObservableCollection<Book>(dataBase.GetAllBooks.Join(
-                    dataBase.GetReadingLists("Все книги")
-                    .Select(r => r.Book),
-                    b => b.BookId,
-                    re => re.BookId,
-                    (b, re) => b
-                    )
-                );
+            readingLists = new ObservableCollection<ReadingList>(dataBase.GetReadingLists("Все книги"));
+            //_Allbooks = new ObservableCollection<Book>(dataBase.GetAllBooks.Join(
+            //        dataBase.GetReadingLists("Все книги")
+            //        .Select(r => r.Book),
+            //        b => b.BookId,
+            //        re => re.BookId,
+            //        (b, re) => b
+            //        )
+            //    );
 
-            Books = new ObservableCollection<Book>(_Allbooks);
+            Books = new ObservableCollection<Book>(readingLists.Select(r=>r.Book));
 
         }
 
         public void UpdateBooks()
         {
-            Books = new ObservableCollection<Book>(_Allbooks.Join(
-                dataBase.GetReadingLists(SelectTabItem.Tag.ToString())
-                .Select(r => r.Book),
-                b => b.BookId,
-                re => re.BookId,
-                (b, re) => b
-                )
-            );
+            //Books = new ObservableCollection<Book>(_Allbooks.Join(
+            //    dataBase.GetReadingLists(SelectTabItem.Tag.ToString())
+            //    .Select(r => r.Book),
+            //    b => b.BookId,
+            //    re => re.BookId,
+            //    (b, re) => b
+            //    )
+            //);
+            Books = new ObservableCollection<Book>(readingLists.Where(r => r.StatusesReading.Name == SelectTabItem.Tag.ToString()).Select(r => r.Book));
+
+            //Books = new ObservableCollection<Book>(_Allbooks.Join(
+            //    dataBase.GetReadingLists(SelectTabItem.Tag.ToString())
+            //    .Select(r => r.Book),
+            //    b => b.BookId,
+            //    re => re.BookId,
+            //    (b, re) => b
+            //    )
+            //);
+
         }
+        private ObservableCollection<ReadingList> readingLists;
 
         private Dictionary<string, PackIconKind> IconsTabItems;
         private ObservableCollection<Book> _Allbooks;
@@ -129,7 +142,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             List<Book> filt = null;
 
             //filt = null;
-            filt = _Allbooks.Where(b => b.Title.ToLower().Contains(Search.ToLower()) || b.User.DisplayName.ToLower().Contains(Search.ToLower())).ToList();
+            filt = readingLists.Select(a=>a.Book).Where(b => b.Title.ToLower().Contains(Search.ToLower()) || b.User.DisplayName.ToLower().Contains(Search.ToLower())).ToList();
 
             if (SelectedSortItem.ToString() != "Все")
             {
@@ -156,6 +169,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 (b, re) => b
                 )
             );
+
         }
 
     }

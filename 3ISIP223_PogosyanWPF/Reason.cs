@@ -19,6 +19,8 @@ namespace _3ISIP223_PogosyanWPF
         {
             this.Complaints = new HashSet<Complaint>();
             this.Users = new HashSet<User>();
+            this.Books = new HashSet<Book>();
+            this.Reviews = new HashSet<Review>();
         }
     
         public int ReasonId { get; set; }
@@ -28,5 +30,9 @@ namespace _3ISIP223_PogosyanWPF
         public virtual ICollection<Complaint> Complaints { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Book> Books { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

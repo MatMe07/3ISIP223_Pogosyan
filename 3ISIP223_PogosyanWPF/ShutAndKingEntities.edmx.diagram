@@ -42,6 +42,8 @@
         <AssociationConnector Association="ShutAndKingModel.FK_UnfreezeRequests_TargetType" ManuallyRouted="false" />
         <AssociationConnector Association="ShutAndKingModel.FK_UnfreezeRequests_User" ManuallyRouted="false" />
         <AssociationConnector Association="ShutAndKingModel.FK_Complaints_StatusesRequest" />
+        <AssociationConnector Association="ShutAndKingModel.FK_Books_Reasons" />
+        <AssociationConnector Association="ShutAndKingModel.FK_Reviews_Reasons" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
