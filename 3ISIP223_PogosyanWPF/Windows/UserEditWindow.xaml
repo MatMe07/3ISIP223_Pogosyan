@@ -5,9 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         
-        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Windows" WindowStartupLocation="CenterOwner"
+        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels" WindowStartupLocation="CenterOwner"
         mc:Ignorable="d"
-        Title="UserEditWindow" Height="485" Width="530" MinHeight="485" MinWidth="530">
+        Title="UserEditWindow" Height="400" Width="530" MinHeight="400" MinWidth="530">
+    <Window.DataContext>
+        <local:UserEditViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid Margin="15">
             <Grid.ColumnDefinitions>
@@ -22,6 +25,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -29,27 +33,27 @@
                 <materialDesign:PackIcon Kind="Account" Width="25" Height="25"/>
                 <TextBlock Text="Имя" VerticalAlignment="Center" Margin="5 0" FontSize="15" Foreground="#FF70778F"/>
             </StackPanel>
-            <TextBox Grid.Row="0" Grid.Column="1" Text="Иван Петров" VerticalAlignment="Center" FontSize="15"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding EditingUser.DisplayName}" VerticalAlignment="Center" FontSize="15"/>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="0 5 50 5">
                 <materialDesign:PackIcon Kind="AccountKey" Width="25" Height="25"/>
                 <TextBlock Text="Логин" VerticalAlignment="Center" Margin="5 0" FontSize="15" Foreground="#FF70778F"/>
             </StackPanel>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="ivan.petrov" VerticalAlignment="Center" FontSize="15"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding EditingUser.Login}" VerticalAlignment="Center" FontSize="15"/>
 
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Margin="0 5 50 5">
                 <materialDesign:PackIcon Kind="Email" Width="25" Height="25"/>
                 <TextBlock Text="Email" VerticalAlignment="Center" Margin="5 0" FontSize="15" Foreground="#FF70778F"/>
             </StackPanel>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="ivan@example.com" VerticalAlignment="Center" FontSize="15"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding EditingUser.Email}" VerticalAlignment="Center" FontSize="15"/>
 
             <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Margin="0 5 50 5">
                 <materialDesign:PackIcon Kind="GuyFawkesMask" Width="25" Height="25"/>
                 <TextBlock Text="Роль" VerticalAlignment="Center" Margin="5 0" FontSize="15" Foreground="#FF70778F"/>
             </StackPanel>
             <!--<TextBlock  Grid.Column="1" Text="Пользователь" VerticalAlignment="Center" FontSize="15"/>-->
-            <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding AvailableRoles}"
-                      SelectedValue="{Binding CurrentRole}"
+            <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding EditingUser.AvailableRoles}"
+                      SelectedValue="{Binding EditingUser.Role}" DisplayMemberPath="RoleName" IsEnabled="{Binding EditingUser.IsNotAdmin}"
                       MinWidth="100">
             </ComboBox>
 
@@ -59,7 +63,22 @@
             </StackPanel>
             <TextBox Grid.Row="4" Grid.Column="1" Text="ivan@example.com" VerticalAlignment="Center" FontSize="15"/>
 
-            <GroupBox Grid.Row="5" Margin="0 10" Grid.ColumnSpan="4">
+            <StackPanel Orientation="Horizontal" Grid.Row="5" Margin="0 15 50 5">
+                <materialDesign:PackIcon Kind="ListStatus" Width="25" Height="25"/>
+                <TextBlock Text="Статус" Grid.Row="5" VerticalAlignment="Center" Margin="5 0" FontSize="15" Foreground="#FF70778F"/>
+            </StackPanel>
+            <StackPanel Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"  Margin="0 15 50 5" Orientation="Horizontal">
+                <TextBlock Text="{Binding EditingUser.statusFrozen}" VerticalAlignment="Center" FontSize="15"/>
+                <Button Content="{Binding ButtonName}" IsEnabled="{Binding EditingUser.IsNotAdmin}" Grid.Row="2" Margin="10 0 0 0"  HorizontalAlignment="Left" Click="btnFreeze_Click"/>
+            </StackPanel>
+            <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="0 5 10 0" Visibility="{Binding IsNotReason}">
+                <materialDesign:PackIcon Kind="MessageText" Width="25" Height="25"/>
+                <TextBlock Text="Причина заморозки" VerticalAlignment="Center" Margin="5 0" FontSize="15" Foreground="#FF70778F"/>
+            </StackPanel>
+            <TextBox Grid.Row="6"  Visibility="{Binding IsNotReason}" Grid.Column="1" Grid.ColumnSpan="2" IsReadOnly="True" Text="{Binding GetEdintUserReason.Name}" VerticalAlignment="Center" FontSize="15"/>
+
+
+            <GroupBox Grid.Row="5" Margin="0 10" Visibility="Collapsed" Grid.ColumnSpan="4">
                 <GroupBox.Header >
                     <StackPanel Orientation="Horizontal" >
                         <materialDesign:PackIcon Kind="BrainFreeze" Width="20" Height="20" Foreground="White"/>
@@ -76,14 +95,14 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <StackPanel Orientation="Horizontal" Margin="0 0 50 5">
                         <materialDesign:PackIcon Kind="ListStatus" Width="25" Height="25"/>
                         <TextBlock Text="Статус" VerticalAlignment="Center" Margin="5 0" FontSize="15" Foreground="#FF70778F"/>
                     </StackPanel>
                     <TextBlock Grid.Row="0" Grid.Column="1" Text="Активно" VerticalAlignment="Center" FontSize="15"/>
-                    
-                    
+
+
                     <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 5 10 0">
                         <materialDesign:PackIcon Kind="MessageText" Width="25" Height="25"/>
                         <TextBlock Text="Причина заморозки" VerticalAlignment="Center" Margin="5 0" FontSize="15" Foreground="#FF70778F"/>
@@ -95,7 +114,7 @@
                 </Grid>
             </GroupBox>
 
-            <StackPanel Grid.Row="6" Margin="0 10" Grid.ColumnSpan="2" Orientation="Horizontal" >
+            <StackPanel Grid.Row="7" Margin="0 10" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Orientation="Horizontal" >
                 <Button Content="Отмена" BorderBrush="Transparent"  HorizontalAlignment="Left" FontSize="14"  Style="{StaticResource MaterialDesignFlatLightBgButton}" Click="btnCancel_Click" />
                 <Button Content="Сохранить" 
                                     HorizontalAlignment="Left" FontSize="14" Margin="20 0" Click="btnSave_Click" />
@@ -103,6 +122,25 @@
             </StackPanel>
 
         </Grid>
+        <materialDesign:Snackbar x:Name="MySnackbar" MessageQueue="{Binding MyMessageQueue}"
 
+                                     Foreground="White" FontFamily="{DynamicResource MaterialDesignFont}"  HorizontalAlignment="Right" Grid.RowSpan="2"/>
+
+        <materialDesign:DialogHost x:Name="myHost" IsOpen="False">
+            <!--<materialDesign:DialogHost.DialogContent>
+                --><!-- put your dialog content here--><!--
+                <StackPanel Margin="10">
+                    <TextBlock Text="Отменить изменения?" Margin="0 0 0 20"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" CommandParameter="false" Content="Нет" />
+                        <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" CommandParameter="true" 
+                                Style="{StaticResource MaterialDesignFlatLightButton}" Margin="10 0 0 0" Content="Да" />
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>-->
+            <!-- put the content over which the dialog is shown here (e.g. your main window grid)-->
+        </materialDesign:DialogHost>
     </Grid>
+    
+    
 </Window>

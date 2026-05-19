@@ -34,15 +34,24 @@ namespace _3ISIP223_PogosyanWPF.Pages.AdminPages
         {
             var mainWindow = MainWindow.GetInstance();
             mainWindow.BlurAdd(true);
-            var wind = new UserEditWindow();
+            var wind = new UserEditWindow((sender as Button).Tag as User);
             wind.Owner = mainWindow;
             var res = wind.ShowDialog();
             mainWindow.BlurAdd(false);
+            (DataContext as UsersViewModel).LoadUser();
+
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             (DataContext as UsersViewModel).LoadUser();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var comb = (sender as ComboBox);
+            (DataContext as UsersViewModel).SaveRole(comb.Tag as User, comb.SelectedItem as Role);
+
         }
     }
 }

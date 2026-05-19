@@ -12,6 +12,12 @@ namespace _3ISIP223_PogosyanWPF
     {
         public int? ReasonIdHesh { get; set; }
 
+        public string statusFrozen
+        {
+            get => IsFrozen == true ? "Заморожено" : "Активно";
+        }
+
+
         public Visibility IsAuthorVisibility
         {
             get
@@ -51,6 +57,8 @@ namespace _3ISIP223_PogosyanWPF
             set { }
         }
 
+
+
         public Visibility IsReason
         {
             get
@@ -58,6 +66,7 @@ namespace _3ISIP223_PogosyanWPF
                 return Reason == null ? Visibility.Visible : Visibility.Collapsed;
             }
         }
+
         public List<Role> AvailableRoles
         {
             get

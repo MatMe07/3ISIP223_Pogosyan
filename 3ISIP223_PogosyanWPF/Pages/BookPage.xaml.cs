@@ -23,7 +23,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
     /// </summary>
     public partial class BookPage : Page
     {
-        public List<string> lstRand {  get; set; }
         private MainWindow mainWindow;
         public string WhereFrom;
 
@@ -31,7 +30,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         public BookPage(string whereFrom)
         {
-            lstRand = new List<string> { "fdf", "sdf", "sdf", "sdf"};
             //DataContext = this;
             WhereFrom = whereFrom;
             InitializeComponent();

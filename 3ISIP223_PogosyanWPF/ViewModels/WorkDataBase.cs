@@ -59,6 +59,37 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 OnPropertyChanged(nameof(ReadingLists));
             }
         }
+        public void SaveRole(User us, Role newRole)
+        {
+            var _originalUser = Users.FirstOrDefault(u => u.UserId == us.UserId);
+            _originalUser.Role = newRole;
+            Core.kingEntities.SaveChanges();
+
+        }
+
+
+        public void SaveUserEdit(int _origId, User EditingUser)
+        {
+            var _originalUser = Users.FirstOrDefault(u=>u.UserId==_origId);
+            _originalUser.DisplayName = EditingUser.DisplayName;
+            _originalUser.Login = EditingUser.Login;
+            _originalUser.Email = EditingUser.Email;
+            _originalUser.Role = EditingUser.Role;
+            _originalUser.Password = EditingUser.Password;
+            _originalUser.IsFrozen = EditingUser.IsFrozen;
+            _originalUser.Reason = EditingUser.Reason;
+            Core.kingEntities.SaveChanges();
+        }
+
+        public void UnfreezeUser(int usId)
+        {
+            var _originalUser = Users.FirstOrDefault(u => u.UserId == usId);
+            _originalUser.IsFrozen = false;
+            _originalUser.Reason = null;
+            Core.kingEntities.SaveChanges();
+
+        }
+
         public List<Role> GetRoles {  get; set; }
 
         private ObservableCollection<User> _users;
@@ -452,9 +483,12 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             else
             {
                 var user = item as User;
-                var us = Core.kingEntities.Users.FirstOrDefault(u => u.UserId == user.UserId);
+                var us = Users.FirstOrDefault(u => u.UserId == user.UserId);
+                user.IsFrozen = true;
                 us.IsFrozen = true;
-                user.ReasonId = reason.ReasonId;
+
+                user.Reason = reason;
+                us.ReasonId = reason.ReasonId;
             }
             Core.kingEntities.SaveChanges();
         }

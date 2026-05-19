@@ -213,6 +213,7 @@
     <Compile Include="ViewModels\ListsViewModel.cs" />
     <Compile Include="ViewModels\ReadingBookViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
+    <Compile Include="ViewModels\UserEditViewModel.cs" />
     <Compile Include="ViewModels\WorkDataBase.cs" />
     <Compile Include="Windows\AddEditBookPage.xaml.cs">
       <DependentUpon>AddEditBookPage.xaml</DependentUpon>
