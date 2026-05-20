@@ -32,12 +32,17 @@ namespace _3ISIP223_PogosyanWPF.Pages.AuthorPages
 
         private void btnEditBook_Click(object sender, RoutedEventArgs e)
         {
+            Book book = (sender as Button).Tag as Book;
             var mainWindow = MainWindow.GetInstance();
             mainWindow.BlurAdd(true);
-            var wind = new AddEditBookPage(true);
+            var wind = new AddEditBookPage(true, book.BookId);
             wind.Owner = mainWindow;
             var res = wind.ShowDialog();
             mainWindow.BlurAdd(false);
+            if (res == true)
+            {
+
+            }
         }
 
         private void btnAddBook_Click(object sender, RoutedEventArgs e)

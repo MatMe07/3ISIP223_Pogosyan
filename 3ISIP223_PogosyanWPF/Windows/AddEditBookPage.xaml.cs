@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using _3ISIP223_PogosyanWPF.ViewModels.AuthorViewModels;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -33,7 +34,7 @@ namespace _3ISIP223_PogosyanWPF.Windows
         private BitmapImage bi = null;
         private string PathIm = "";
 
-        public AddEditBookPage(bool IsEdit)
+        public AddEditBookPage(bool IsEdit, int? bookId = null)
         {
             lst = new ObservableCollection<string>();
             AllLst = new ObservableCollection<string> { "Трагедия", "Комедия ", "Детектив", "Фантастика", "Поэма", "Элегия"};
@@ -80,6 +81,7 @@ namespace _3ISIP223_PogosyanWPF.Windows
 
         private void btnAttachFile_Click(object sender, RoutedEventArgs e)
         {
+            (DataContext as AddEditViewModel).AttachFile();
             var dialog = new OpenFileDialog();
             int maxChars = 500;
             dialog.DefaultExt = ".txt";
@@ -94,19 +96,18 @@ namespace _3ISIP223_PogosyanWPF.Windows
                 FileStream fileStream;
                 if (File.Exists(dialog.FileName))
                 {
-                    range = new TextRange(ContentFile.Document.ContentStart, ContentFile.Document.ContentEnd);
+                    //range = new TextRange(ContentFile.Document.ContentStart, ContentFile.Document.ContentEnd);
                     fileStream = new FileStream(dialog.FileName, FileMode.OpenOrCreate);
-                    range.Load(fileStream, DataFormats.Text);
-                    fileStream.Close();
+                    //range.Load(fileStream, DataFormats.Text);
+                    //ContentFile.Text = 
+                    //fileStream.Close();
 
-                    if (range.Text.Length > maxChars)
-                    {
-                        range.Text = range.Text.Substring(0, maxChars) + "...";
-                    }
+                    //if (range.Text.Length > maxChars)
+                    //{
+                    //    range.Text = range.Text.Substring(0, maxChars) + "...";
+                    //}
 
                 }
-
-
 
             }
         }
@@ -140,22 +141,24 @@ namespace _3ISIP223_PogosyanWPF.Windows
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = sender as ComboBox;  
-            var selectItm = comboBox.SelectedItem?.ToString();
-            if (comboBox.SelectedItem != null)
-            {
-                if(lst.FirstOrDefault(s => s == selectItm) == null)
-                    lst.Add(selectItm);
+            //var selectItm = comboBox.SelectedItem?.ToString();
+            comboBox.SelectedIndex = -1;
+            Keyboard.ClearFocus();
+            //if (comboBox.SelectedItem != null)
+            //{
+            //    if(lst.FirstOrDefault(s => s == selectItm) == null)
+            //        lst.Add(selectItm);
 
 
-                comboBox.SelectedIndex = -1;
-                Keyboard.ClearFocus();
-            }
+                
+            //}
         }
 
         private void Chip_DeleteClick(object sender, RoutedEventArgs e)
         {
             var ch = sender as MaterialDesignThemes.Wpf.Chip;
             lst.Remove(ch.Content.ToString());
+            //(DataContext as AddEditViewModel).BookTitle.RemoveGenre()
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

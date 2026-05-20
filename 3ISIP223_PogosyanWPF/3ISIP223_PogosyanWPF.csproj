@@ -205,6 +205,9 @@
     <Compile Include="ViewModels\AdminViewModels\FrozenViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\UnfreezeRequestsViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\UsersViewModel.cs" />
+    <Compile Include="ViewModels\AuthorViewModels\AddBookViewModel.cs" />
+    <Compile Include="ViewModels\AuthorViewModels\AddEditViewModel.cs" />
+    <Compile Include="ViewModels\AuthorViewModels\EditBookViewModel.cs" />
     <Compile Include="ViewModels\AuthorViewModels\FrozenBooksViewModel.cs" />
     <Compile Include="ViewModels\AuthorViewModels\PublishedBooksViewModel.cs" />
     <Compile Include="ViewModels\BaseLibraryViewModel.cs" />

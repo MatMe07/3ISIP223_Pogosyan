@@ -21,68 +21,73 @@
         <Button Content="➕ Добавить книгу" HorizontalAlignment="Left" Margin="0 0 0 10" Click="btnAddBook_Click"/>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Visibility="Visible" >
-            <ItemsControl  d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="LstReviews"  ItemsSource="{Binding lstRand}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0 8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Border Grid.Column="0" Width="150" Margin="0 0 10 0" HorizontalAlignment="Left">
-                            <Image Source="/poster.jpg"/>
-                        </Border>
-                        <Grid Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="Название книги" Style="{StaticResource MaterialDesignHeadline5TextBlock}"  Margin="0 5"/>
-                            <TextBlock Grid.Row="1" Text="Эдит Ева Эгер в юном возрасте была отправлена вместе со своей семьей в Аушвиц. Там ее родители погибли в газовой камере" TextWrapping="WrapWithOverflow" Style="{StaticResource ReviewText}" />
-                            <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0 10">
-                                <materialDesign:PackIcon Kind="MessageText" Foreground="#E5929292" Width="20" Height="20"/>
-                                <TextBlock Text="11" Margin="5 0" Width="20" VerticalAlignment="Top" FontSize="13"/>
-                            </StackPanel>
-                        </Grid>
-                        <StackPanel Grid.Column="2" Background="#33000000" Width="1" Margin="10 0"/>
-                        <Grid Grid.Column="3">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-                            <Button Style="{StaticResource MaterialDesignRaisedLightButton}" 
-                                    materialDesign:ElevationAssist.Elevation="Dp0" 
+            <ItemsControl  d:ItemsSource="{d:SampleData ItemCount=5}" x:Name="LstReviews"  ItemsSource="{Binding Books}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0 8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Width="120" Margin="0 0 10 0" HorizontalAlignment="Left">
+                                <Image Source="{Binding CoverPath}"/>
+                            </Border>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding Title}" Style="{StaticResource MaterialDesignHeadline5TextBlock}"  Margin="0 5"/>
+                                <TextBlock Grid.Row="1" Text="{Binding Description}" TextWrapping="WrapWithOverflow" Style="{StaticResource ReviewText}" />
+                                <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0 10">
+                                    <materialDesign:PackIcon Kind="MessageText" Foreground="#E5929292" Width="20" Height="20"/>
+                                    <TextBlock Text="{Binding CountReview}" Margin="5 0" Width="20" VerticalAlignment="Top" FontSize="13"/>
+                                </StackPanel>
+                            </Grid>
+                            <StackPanel Grid.Column="2" Background="#33000000" Width="1" Margin="10 0"/>
+                            <Grid Grid.Column="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Button Style="{StaticResource MaterialDesignRaisedLightButton}" 
+                                    materialDesign:ElevationAssist.Elevation="Dp0" Tag="{Binding}"
                                     BorderThickness="0" Background="#FCD7D7D7" Click="btnEditBook_Click"
                                     >
-                                <Button.Content>
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="BookEdit"/>
+                                            <TextBlock Text="Редактировать" Margin="5 0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                                <materialDesign:ColorZone Grid.Row="1" Background="#FF1D7FD3" Padding="5 4" Foreground="#E5FFFFFF" >
                                     <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Kind="BookEdit"/>
-                                        <TextBlock Text="Редактировать" Margin="5 0" VerticalAlignment="Center"/>
+                                        <materialDesign:PackIcon Kind="Update" Width="20" Height="20"/>
+                                        <TextBlock Text="{Binding CreatedAt, StringFormat='dd.MM.yyyy'}" Margin="10 0" VerticalAlignment="Center" FontSize="14"/>
                                     </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <materialDesign:ColorZone Grid.Row="1" Background="#FF1D7FD3" Padding="5 4" Foreground="#E5FFFFFF" >
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="Update" Width="20" Height="20"/>
-                                    <TextBlock Text="20.02.2023" Margin="10 0" VerticalAlignment="Center" FontSize="14"/>
+                                </materialDesign:ColorZone>
+                                <StackPanel Grid.Row="2" Margin="0 5" Orientation="Horizontal">
+                                    <TextBlock Text="Общий рейтинг:" FontSize="15"/>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5 0">
+                                        <materialDesign:PackIcon Kind="Star" Foreground="#FF5A617C"/>
+                                        <TextBlock Text="{Binding Rating}" FontSize="14"
+                                           Margin="3 0 "
+                                           Foreground="#FF5A617C" TextWrapping="WrapWithOverflow" VerticalAlignment="Center"/>
+                                    </StackPanel>
                                 </StackPanel>
-                            </materialDesign:ColorZone>
-                            <StackPanel Grid.Row="2" Margin="0 5" Orientation="Horizontal">
-                                <TextBlock Text="Общий рейтинг:" FontSize="15"/>
-                                <TextBlock Text="★ 4,9" FontSize="14" Margin="3 0"/>
-                            </StackPanel>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
 
 
-        </ItemsControl>
-            
+            </ItemsControl>
+
         </ScrollViewer>
 
     </Grid>

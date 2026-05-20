@@ -11,7 +11,15 @@ namespace _3ISIP223_PogosyanWPF
     {
         //public double RatingFive => (Rating ?? 0) / 2.0;
 
-        public int? ReasonIdHesh {  get; set; }
+        public int? ReasonIdHesh {  get; set; } 
+
+       public int CountReview
+        {
+            get
+            {
+                return Reviews.Count;
+            }
+        }
         //public string FrozenReason
         //{
         //    get

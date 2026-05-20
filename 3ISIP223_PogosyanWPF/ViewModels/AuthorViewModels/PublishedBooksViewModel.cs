@@ -11,7 +11,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels.AuthorViewModels
     {
         public PublishedBooksViewModel()
         {
-
+            Books = new ObservableCollection<Book>(dataBase.GetAllAuthorBooks(dataBase.User.UserId));
         }
 
         private ObservableCollection<Book> _books;

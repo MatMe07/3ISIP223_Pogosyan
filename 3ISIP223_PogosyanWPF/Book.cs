@@ -36,7 +36,8 @@ namespace _3ISIP223_PogosyanWPF
         public Nullable<int> ReasonId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BookGenre> BookGenres { get; set; }
+        public virtual ICollection<BookGenre> BookGenres { get;
+            set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Complaint> Complaints { get; set; }

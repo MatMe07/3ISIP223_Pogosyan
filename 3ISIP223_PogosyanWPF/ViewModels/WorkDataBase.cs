@@ -27,7 +27,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             bookGenres = Core.kingEntities.BookGenres.ToList();
             _AllReviews = new ObservableCollection<Review>( Core.kingEntities.Reviews);
             User = Core.kingEntities.Users.FirstOrDefault(u=>u.UserId == 7);
-            //User = Core.kingEntities.Users.FirstOrDefault(u=>u.Role.RoleName == "Автор");
+            //User = Core.kingEntities.Users.FirstOrDefault(u=>u.Role.RoleName == "Администратор");
             ReadingLists = new ObservableCollection<ReadingList>(Core.kingEntities.ReadingLists.Where(b=>b.UserId == User.UserId));
             GetReasons = new ObservableCollection<Reason>( Core.kingEntities.Reasons);
             targetTypes = Core.kingEntities.TargetTypes.ToList();
@@ -188,6 +188,11 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public ObservableCollection<Review> GetReviewsToBook(int bookID)
         {
             return new ObservableCollection<Review>(_AllReviews.Where(r => r.BookId == bookID && !r.IsFrozen));
+        }
+
+        public int GetLastIdBook
+        {
+            get => Books.Max(a => a.BookId);
         }
 
         private List<Genre> _genres;
