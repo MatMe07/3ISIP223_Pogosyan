@@ -13,6 +13,10 @@ namespace _3ISIP223_PogosyanWPF.ViewModels.AuthorViewModels
         {
             Books = new ObservableCollection<Book>(dataBase.GetAllAuthorBooks(dataBase.User.UserId));
         }
+        public bool CheckUserFreez()
+        {
+            return dataBase.User.IsFrozen;
+        }
 
         private ObservableCollection<Book> _books;
 
@@ -23,6 +27,11 @@ namespace _3ISIP223_PogosyanWPF.ViewModels.AuthorViewModels
                 _books = value;
                 OnPropertyChanged(nameof(Books));
             }
+        }
+        public void UpdateBooks()
+        {
+            Books = new ObservableCollection<Book>(dataBase.GetAllAuthorBooks(dataBase.User.UserId));
+
         }
     }
 }

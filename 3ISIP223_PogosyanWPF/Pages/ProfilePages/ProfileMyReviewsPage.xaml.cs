@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.ViewModels.ProfileViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,10 +25,15 @@ namespace _3ISIP223_PogosyanWPF.Pages.ProfilePages
 
         public ProfileMyReviewsPage()
         {
-            lstRand = new List<string> { "fdf", "sdf" };
-            DataContext = this;
+            //lstRand = new List<string> { "fdf", "sdf" };
+            //DataContext = this;
             InitializeComponent();
 
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            (DataContext as ProfileMyReviewsViewModel).UpdateReviews();
         }
     }
 }

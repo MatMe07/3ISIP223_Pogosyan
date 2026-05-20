@@ -1,4 +1,5 @@
 ﻿using _3ISIP223_PogosyanWPF.ViewModels.AuthorViewModels;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,19 +30,15 @@ namespace _3ISIP223_PogosyanWPF.Windows
     public partial class AddEditBookPage : Window
     {
      
-        public ObservableCollection<string> lst { get; set; }
-        public ObservableCollection<string> AllLst { get; set; }
-            
-        private BitmapImage bi = null;
-        private string PathIm = "";
+        public AddEditViewModel viewModel;
 
         public AddEditBookPage(bool IsEdit, int? bookId = null)
         {
-            lst = new ObservableCollection<string>();
-            AllLst = new ObservableCollection<string> { "Трагедия", "Комедия ", "Детектив", "Фантастика", "Поэма", "Элегия"};
-            DataContext = this;
+
             InitializeComponent();
+            viewModel = DataContext as AddEditViewModel;
             LoadData(IsEdit);
+            viewModel.LoadData(IsEdit, bookId);
         }
 
         public void LoadData(bool IsEdit)
@@ -48,18 +46,78 @@ namespace _3ISIP223_PogosyanWPF.Windows
             if (IsEdit)
             {
                 textTitle.Text = "Редактировать произведение";
-
+                btnSend.Content = "Обновить";
             }
             else
             {
                 textTitle.Text = "Новое произведение";
+                btnSend.Content = "Создать";
 
             }
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private async void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = false;
+            if (viewModel.HasChanges())
+            {
+                var dialogCont = new StackPanel
+                {
+                    Margin = new Thickness(20),
+                    MinWidth = 250,
+                    Children =
+                {
+                    new TextBlock
+                    {
+                        Text = "Отменить изменения?",
+                        FontSize = 16,
+                        FontWeight = FontWeights.Bold,
+                        Margin = new Thickness(0, 0, 0, 15)
+                    },
+                    new TextBlock
+                    {
+                        Text = "Все несохранённые изменения будут потеряны.",
+                        Margin = new Thickness(0, 0, 0, 20)
+                    },
+                    new StackPanel
+                    {
+                        Orientation = Orientation.Horizontal,
+                        HorizontalAlignment = HorizontalAlignment.Right,
+                        Children =
+                        {
+                            new Button
+                            {
+                                Content = "Нет",
+                                Margin = new Thickness(0, 0, 10, 0),
+                                Command = DialogHost.CloseDialogCommand,
+                                CommandParameter = false
+                            },
+                            new Button
+                            {
+                                Content = "Да",
+                                Style = (Style) FindResource("MaterialDesignFlatButton"),
+                                Command = DialogHost.CloseDialogCommand,
+                                CommandParameter = true
+                            }
+    }
+                    }
+                }
+                };
+
+                var result = await myHost.ShowDialog(dialogCont);
+
+                if (result is true)
+                {
+                    DialogResult = false;
+                    //viewModel.Cancel();
+                    //Close();
+                }
+
+            }
+            else
+            {
+                Close();
+            }
+            //DialogResult = false;
         }
 
         private void btnMaximize_Click(object sender, RoutedEventArgs e)
@@ -81,61 +139,15 @@ namespace _3ISIP223_PogosyanWPF.Windows
 
         private void btnAttachFile_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as AddEditViewModel).AttachFile();
-            var dialog = new OpenFileDialog();
-            int maxChars = 500;
-            dialog.DefaultExt = ".txt";
-            dialog.Filter = "Text documents (.txt)|*.txt";
-            bool? res = dialog.ShowDialog();
-            if (res == true)
-            {
-                var ind = dialog.FileName.LastIndexOf('\\')+1;
-                txtFileAttach.Text = dialog.FileName.Substring(ind);
-                //Paragraph paragraph = new Paragraph();
-                TextRange range;
-                FileStream fileStream;
-                if (File.Exists(dialog.FileName))
-                {
-                    //range = new TextRange(ContentFile.Document.ContentStart, ContentFile.Document.ContentEnd);
-                    fileStream = new FileStream(dialog.FileName, FileMode.OpenOrCreate);
-                    //range.Load(fileStream, DataFormats.Text);
-                    //ContentFile.Text = 
-                    //fileStream.Close();
+            viewModel.AttachFile();
 
-                    //if (range.Text.Length > maxChars)
-                    //{
-                    //    range.Text = range.Text.Substring(0, maxChars) + "...";
-                    //}
-
-                }
-
-            }
         }
 
         private void btnLoadCover_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new OpenFileDialog();
-            dialog.DefaultExt = ".jpg";
-            dialog.Filter = "Image documents (.jpg)|*.jpg";
-            bool? res = dialog.ShowDialog();
-            if (res == true)
-            {
-                var ind = dialog.FileName.LastIndexOf('\\')+1;
-                var imgPath = dialog.FileName.Substring(ind);
-                var p = Environment.CurrentDirectory;
-                var firstInd = p.Substring(0, p.LastIndexOf("\\"));
-                var df = firstInd.Substring(0, firstInd.LastIndexOf("\\"));
+            viewModel.AttachCover();
 
-                PathIm = $"{df}\\Images\\Covers\\{imgPath}";
 
-                bi = new BitmapImage();
-                bi.BeginInit();
-                bi.UriSource = new Uri(dialog.FileName);
-                bi.EndInit();
-
-                ImageCover.Source = bi;
-
-            }
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -157,26 +169,24 @@ namespace _3ISIP223_PogosyanWPF.Windows
         private void Chip_DeleteClick(object sender, RoutedEventArgs e)
         {
             var ch = sender as MaterialDesignThemes.Wpf.Chip;
-            lst.Remove(ch.Content.ToString());
-            //(DataContext as AddEditViewModel).BookTitle.RemoveGenre()
+            var bg = ch.DataContext as BookGenre;
+            //lst.Remove(ch.Content.ToString());
+            viewModel.RemoveGenre(bg.Genre);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
+            //viewModel.CancelData();
             DialogResult = false;
         }
 
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
-            JpegBitmapEncoder jpg = new JpegBitmapEncoder();
-            jpg.Frames.Add(BitmapFrame.Create(bi));
-
-            using (Stream stm = File.Create(PathIm))
+            if (viewModel.SaveBook())
             {
-                jpg.Save(stm);
-            }
+                DialogResult = true;
 
-            DialogResult = true;
+            }
         }
     }
 }

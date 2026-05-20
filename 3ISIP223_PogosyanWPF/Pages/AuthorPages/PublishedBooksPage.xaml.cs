@@ -1,4 +1,6 @@
-﻿using _3ISIP223_PogosyanWPF.Windows;
+﻿using _3ISIP223_PogosyanWPF.ViewModels.AuthorViewModels;
+using _3ISIP223_PogosyanWPF.Windows;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,19 @@ namespace _3ISIP223_PogosyanWPF.Pages.AuthorPages
 
         private void btnEditBook_Click(object sender, RoutedEventArgs e)
         {
+            if ((DataContext as PublishedBooksViewModel).CheckUserFreez())
+            {
+                ActionsClass.SnackBarEnqueue(
+                    text: "Ваш аккаунт заморожен! Обратитесь к администратору",
+                    foregroundHEX: "#FFBE0404",
+                    iconKind: PackIconKind.Block,
+                    MyMessageQueue: new SnackbarMessageQueue(),
+                    true
+                );
+                return;
+
+            }
+
             Book book = (sender as Button).Tag as Book;
             var mainWindow = MainWindow.GetInstance();
             mainWindow.BlurAdd(true);
@@ -41,18 +56,54 @@ namespace _3ISIP223_PogosyanWPF.Pages.AuthorPages
             mainWindow.BlurAdd(false);
             if (res == true)
             {
-
+                (DataContext as PublishedBooksViewModel).UpdateBooks();
+                ActionsClass.SnackBarEnqueue(
+                        text: "Книга успешно обновлена!",
+                    foregroundHEX: "#FF04BE5A",
+                    iconKind: PackIconKind.CheckCircle,
+                    MyMessageQueue: new SnackbarMessageQueue(),
+                    true
+                );
             }
         }
 
         private void btnAddBook_Click(object sender, RoutedEventArgs e)
         {
+            if ((DataContext as PublishedBooksViewModel).CheckUserFreez())
+            {
+                ActionsClass.SnackBarEnqueue(
+                    text: "Ваш аккаунт заморожен! Обратитесь к администратору",
+                    foregroundHEX: "#FFBE0404",
+                    iconKind: PackIconKind.Block,
+                    MyMessageQueue: new SnackbarMessageQueue(),
+                    true
+                );
+                return;
+
+            }
             var mainWindow = MainWindow.GetInstance();
             mainWindow.BlurAdd(true);
             var wind = new AddEditBookPage(false);
             wind.Owner = mainWindow;
             var res = wind.ShowDialog();
             mainWindow.BlurAdd(false);
+            if (res == true)
+            {
+                (DataContext as PublishedBooksViewModel).UpdateBooks();
+                ActionsClass.SnackBarEnqueue(
+                    text: "Книга успешно сохранена!",
+                    foregroundHEX: "#FF04BE5A",
+                    iconKind: PackIconKind.CheckCircle,
+                    MyMessageQueue: new SnackbarMessageQueue(),
+                    true
+                );
+            }   
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            (DataContext as PublishedBooksViewModel).UpdateBooks();
+
         }
     }
 }

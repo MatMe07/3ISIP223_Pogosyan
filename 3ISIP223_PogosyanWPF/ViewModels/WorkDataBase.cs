@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using static MaterialDesignThemes.Wpf.Theme.ToolBar;
@@ -24,9 +25,9 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public WorkDataBase()
         {
-            bookGenres = Core.kingEntities.BookGenres.ToList();
+            BookGenres = Core.kingEntities.BookGenres.ToList();
             _AllReviews = new ObservableCollection<Review>( Core.kingEntities.Reviews);
-            User = Core.kingEntities.Users.FirstOrDefault(u=>u.UserId == 7);
+            User = Core.kingEntities.Users.FirstOrDefault(u=>u.UserId == 4);
             //User = Core.kingEntities.Users.FirstOrDefault(u=>u.Role.RoleName == "Администратор");
             ReadingLists = new ObservableCollection<ReadingList>(Core.kingEntities.ReadingLists.Where(b=>b.UserId == User.UserId));
             GetReasons = new ObservableCollection<Reason>( Core.kingEntities.Reasons);
@@ -39,9 +40,24 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             Complaints = new ObservableCollection<Complaint>(Core.kingEntities.Complaints);
             AuthorRequests = new ObservableCollection<AuthorRequest>(Core.kingEntities.AuthorRequests);
             GetRoles = Core.kingEntities.Roles.ToList();
+            //AuthorRoleRequests = Core.kingEntities.AuthorRequests.ToList();
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
-
+        //public List<AuthorRequest> AuthorRoleRequests { get; set; }
+        public void GetAuthorReq()
+        {
+            var authorReq = new AuthorRequest
+            {
+                User = User,
+                StatusId = 1,
+                CreatedAt = DateTime.Now,
+            };
+            AuthorRequests.Add(
+                authorReq
+                );
+            Core.kingEntities.AuthorRequests.Add(authorReq);
+            Core.kingEntities.SaveChanges();
+        }
         public bool IsAuthor => User.Role.RoleName == "Автор";
         public bool IsAdmin => User.Role.RoleName == "Администратор";
 
@@ -60,10 +76,62 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 OnPropertyChanged(nameof(ReadingLists));
             }
         }
+
+        public bool CheckIsUnfreezeReq()
+        {
+            return unfreezeRequests.LastOrDefault(c=>c.UserId == User.UserId) != null;
+        }
+
         public void SaveRole(User us, Role newRole)
         {
             var _originalUser = Users.FirstOrDefault(u => u.UserId == us.UserId);
             _originalUser.Role = newRole;
+            Core.kingEntities.SaveChanges();
+
+        }
+
+        public void SaveNewBook(Book book, ObservableCollection<BookGenre> bookGenres)
+        {
+            book.CreatedAt = DateTime.Now;
+            book.AuthorId = User.UserId;
+            book.Rating = 0;
+            Books.Add(book);
+            Core.kingEntities.Books.Add(book);
+
+            foreach (var item in bookGenres)
+            {
+                BookGenres.Add(item);
+                Core.kingEntities.BookGenres.Add(item);
+
+            }
+            Core.kingEntities.SaveChanges();
+        }
+
+        public void UpdateBook(Book newBook, ObservableCollection<BookGenre> bookGenres)
+        {
+            var exBook = Books.FirstOrDefault(b => b.BookId == newBook.BookId);
+            exBook.Title = newBook.Title;
+            exBook.Description = newBook.Description;
+            exBook.Content = newBook.Content;
+            exBook.CoverPath = newBook.CoverPath;
+            var existingGenres = BookGenres.Where(bg => bg.BookId == newBook.BookId).ToList();
+            foreach (var item in existingGenres)
+            {
+                BookGenres.Remove(item);
+                Core.kingEntities.BookGenres.Remove(item);
+            }
+            //BookGenres.RemoveRange(existingGenres);
+            foreach (var bookGenre in bookGenres)
+            {
+                var bookG = new BookGenre
+                {
+                    BookId = newBook.BookId,
+                    Genre = bookGenre.Genre
+                };
+                BookGenres.Add(bookG);
+                Core.kingEntities.BookGenres.Add(bookG);
+
+            }
             Core.kingEntities.SaveChanges();
 
         }
@@ -160,9 +228,9 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         }
 
 
-        public List<BookGenre> bookGenres {  get; set; }
+        public List<BookGenre> BookGenres {  get; set; }
 
-        public List<BookGenre> GetBookGenres(int bookID) => bookGenres.Where(b=>b.BookId == bookID).ToList();
+        public List<BookGenre> GetBookGenres(int bookID) => BookGenres.Where(b=>b.BookId == bookID).ToList();
 
 
         //private ObservableCollection<Book> _books;

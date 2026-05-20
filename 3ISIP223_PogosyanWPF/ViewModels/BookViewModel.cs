@@ -34,6 +34,11 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             ReviewsBooks = dataBase.GetReviewsToBook(SelectedBook.BookId);
 
         }
+        public bool CheckUserFreez()
+        {
+            return dataBase.User.IsFrozen;
+        }
+
 
         public ObservableCollection<StatusesReading> StatusesReadings { get; set; }
 

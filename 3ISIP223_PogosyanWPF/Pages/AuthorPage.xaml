@@ -11,7 +11,7 @@
       Title="AuthorPage">
 
     <Grid>
-        <TabControl Style="{StaticResource MaterialDesignNavigationRailTabControl}" TabStripPlacement="Top">
+        <TabControl Style="{StaticResource MaterialDesignNavigationRailTabControl}" TabStripPlacement="Top" Background="White">
             <TabItem Header="Мои книги" Width="110">
                 <Frame  NavigationUIVisibility="Hidden" Source="/Pages/AuthorPages/PublishedBooksPage.xaml" Margin="10"/>
 

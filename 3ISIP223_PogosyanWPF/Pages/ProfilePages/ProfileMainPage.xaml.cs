@@ -1,4 +1,6 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.ViewModels.ProfileViewModels;
+using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,18 @@ namespace _3ISIP223_PogosyanWPF.Pages.ProfilePages
         public ProfileMainPage()
         {
             InitializeComponent();
+        }
+
+        private void btnAuthorRole_Click(object sender, MouseButtonEventArgs e)
+        {
+            (DataContext as ProfileMainViewModel).SendAuthorRequest();
+
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            (DataContext as ProfileMainViewModel).UpdateUser();
+
         }
     }
 }

@@ -11,9 +11,9 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 {
     public class UserEditViewModel : BaseViewModel
     {
-        private User _origUser;
+        private User origUser;
         private User _editingUser;
-        private bool _isChanged = false;
+        //private bool _isChanged = false;
         public UserEditViewModel()
         {
             //User = dataBase.User;
@@ -75,10 +75,10 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         }
         public User User
         {
-            get { return _origUser; }
+            get { return origUser; }
             set
             {
-                _origUser = CloneUs(value);
+                origUser = CloneUs(value);
                 EditingUser = CloneUs(value);
                 OnPropertyChanged(nameof(User));
                 OnPropertyChanged(nameof(ButtonName));
@@ -154,11 +154,11 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public bool HasChanges()
         {
-            if (_origUser == null || EditingUser == null) return false;
+            if (origUser == null || EditingUser == null) return false;
 
-            return _origUser.DisplayName != EditingUser.DisplayName || _origUser.Login != EditingUser.Login ||
-                   _origUser.Email != EditingUser.Email || _origUser.Role != EditingUser.Role ||
-                   _origUser.Password != EditingUser.Password || _origUser.IsFrozen != EditingUser.IsFrozen;
+            return origUser.DisplayName != EditingUser.DisplayName || origUser.Login != EditingUser.Login ||
+                   origUser.Email != EditingUser.Email || origUser.Role != EditingUser.Role ||
+                   origUser.Password != EditingUser.Password || origUser.IsFrozen != EditingUser.IsFrozen;
         }
 
     }

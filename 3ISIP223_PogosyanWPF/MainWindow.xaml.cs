@@ -51,14 +51,14 @@ namespace _3ISIP223_PogosyanWPF
             {
                 AdminTabItem.Visibility = Visibility.Collapsed;
                 AuthorTabItem.Visibility = Visibility.Visible;
-                NotificTabItem.Visibility = Visibility.Visible;
             }
             else
             {
                 AdminTabItem.Visibility = Visibility.Collapsed;
                 AuthorTabItem.Visibility = Visibility.Collapsed;
-                NotificTabItem.Visibility = Visibility.Visible;
             }
+            if (WorkDataBase.Instanse.User.IsFrozen) NotificTabItem.Visibility=Visibility.Visible;
+            else NotificTabItem.Visibility = Visibility.Collapsed;
         }
 
         public static MainWindow GetInstance()

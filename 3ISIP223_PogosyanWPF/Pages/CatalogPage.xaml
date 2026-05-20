@@ -92,7 +92,7 @@
                             <Grid>
                                 <Border CornerRadius="10" ClipToBounds="True" Height="190" MouseLeftButtonDown="Border_MouseLeftButtonDown" Tag="{Binding}">
                                     <Border.Background>
-                                        <ImageBrush ImageSource="{Binding CoverPath}" Stretch="UniformToFill"/>
+                                        <ImageBrush ImageSource="{Binding CoverFullPath}" Stretch="UniformToFill"/>
                                     </Border.Background>
                                     <Border.Style>
                                         <Style TargetType="Border">

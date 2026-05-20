@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages"
+      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       
       d:Background="White"
@@ -11,7 +11,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="WarningPage">
-
+    <Page.DataContext>
+        <local:WarningVIewModel/>
+    </Page.DataContext>
     <Grid Margin="10">
         <GroupBox VerticalAlignment="Top" >
             <GroupBox.Header>
@@ -29,15 +31,15 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
+                    <!--<RowDefinition Height="auto"/>-->
                 </Grid.RowDefinitions>
                 <materialDesign:PackIcon Kind="BrainFreeze" Width="90" Height="90" HorizontalAlignment="Center" Foreground="#FF673AB7" />
                 <TextBlock Grid.Row="1"
                                Margin="5"
-                        Text="Причина: [текст причины от администратора]" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
-                <TextBlock Grid.Row="2"
+                        Text="{Binding User.Reason.Name, StringFormat='Причина: {0}'}" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                <!--<TextBlock Grid.Row="2"
                                Margin="5"
-                        Text="Дата: [дата заморозки]" Style="{StaticResource MaterialDesignBody2TextBlock}"/>
+                        Text="Дата: {cre}" Style="{StaticResource MaterialDesignBody2TextBlock}"/>-->
                 <Button Grid.Row="3" Content="Оспорить" Margin="5" Click="btnContest_Click" />
             </Grid>
 

@@ -127,18 +127,6 @@
                                      Foreground="White" FontFamily="{DynamicResource MaterialDesignFont}"  HorizontalAlignment="Right" Grid.RowSpan="2"/>
 
         <materialDesign:DialogHost x:Name="myHost" IsOpen="False">
-            <!--<materialDesign:DialogHost.DialogContent>
-                --><!-- put your dialog content here--><!--
-                <StackPanel Margin="10">
-                    <TextBlock Text="Отменить изменения?" Margin="0 0 0 20"/>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" CommandParameter="false" Content="Нет" />
-                        <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" CommandParameter="true" 
-                                Style="{StaticResource MaterialDesignFlatLightButton}" Margin="10 0 0 0" Content="Да" />
-                    </StackPanel>
-                </StackPanel>
-            </materialDesign:DialogHost.DialogContent>-->
-            <!-- put the content over which the dialog is shown here (e.g. your main window grid)-->
         </materialDesign:DialogHost>
     </Grid>
     

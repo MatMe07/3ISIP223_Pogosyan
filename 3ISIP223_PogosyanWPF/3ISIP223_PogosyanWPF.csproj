@@ -205,9 +205,7 @@
     <Compile Include="ViewModels\AdminViewModels\FrozenViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\UnfreezeRequestsViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\UsersViewModel.cs" />
-    <Compile Include="ViewModels\AuthorViewModels\AddBookViewModel.cs" />
     <Compile Include="ViewModels\AuthorViewModels\AddEditViewModel.cs" />
-    <Compile Include="ViewModels\AuthorViewModels\EditBookViewModel.cs" />
     <Compile Include="ViewModels\AuthorViewModels\FrozenBooksViewModel.cs" />
     <Compile Include="ViewModels\AuthorViewModels\PublishedBooksViewModel.cs" />
     <Compile Include="ViewModels\BaseLibraryViewModel.cs" />
@@ -216,10 +214,15 @@
     <Compile Include="ViewModels\CatalogViewModel.cs" />
     <Compile Include="ViewModels\FreezeRequestViewModel.cs" />
     <Compile Include="ViewModels\ListsViewModel.cs" />
+    <Compile Include="ViewModels\ProfileViewModels\ProfileMyReviewsViewModel.cs" />
+    <Compile Include="ViewModels\ProfileViewModels\ProfileNotificationViewModel.cs" />
+    <Compile Include="ViewModels\ProfileViewModels\ProfileEditViewModel.cs" />
+    <Compile Include="ViewModels\ProfileViewModels\ProfileMainViewModel.cs" />
     <Compile Include="ViewModels\ReadingBookViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
     <Compile Include="ViewModels\UnfreezeRequestsViewModel.cs" />
     <Compile Include="ViewModels\UserEditViewModel.cs" />
+    <Compile Include="ViewModels\WarningVIewModel.cs" />
     <Compile Include="ViewModels\WorkDataBase.cs" />
     <Compile Include="Windows\AddEditBookPage.xaml.cs">
       <DependentUpon>AddEditBookPage.xaml</DependentUpon>

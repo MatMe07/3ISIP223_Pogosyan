@@ -55,7 +55,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Image Source="{Binding SelectedBook.CoverPath}" Width="185" MinHeight="100" VerticalAlignment="Top">
+            <Image Source="{Binding SelectedBook.CoverFullPath}" Width="185" MinHeight="100" VerticalAlignment="Top">
                 <Image.Effect>
                     <DropShadowEffect BlurRadius="10" Opacity="0.5" ShadowDepth="0"/>
                 </Image.Effect>

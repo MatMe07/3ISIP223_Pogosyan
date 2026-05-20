@@ -68,7 +68,17 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" >
-                    <Image Source="/Images/Covers/empty_cover_booknet.jpg" Width="150" x:Name="ImageCover"/>
+                    <Image  Width="150" x:Name="ImageCover" Source="{Binding FullPath}">
+                        <!--<Image.Style>
+                            <Style TargetType="Image">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding PathIm}" Value="{x:Null}">
+                                        <Setter Property="Source" Value="/Images/Covers/empty_cover_booknet.jpg"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>-->
+                    </Image>
                     <Button Content="Загрузить обложку" Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="btnLoadCover_Click"/>
                 </StackPanel>
                 <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" >
@@ -89,7 +99,7 @@
                                       Padding="10 6" HorizontalAlignment="Left" DisplayMemberPath="GenreName"  BorderBrush="#FFE2E4EA"
                                       Style="{StaticResource MaterialDesignOutlinedComboBox}" SelectedItem="{Binding SelectGenre}"
                                       SelectionChanged="ComboBox_SelectionChanged" materialDesign:HintAssist.Hint="Жанры"/>
-                            <ItemsControl Grid.Row="1" ItemsSource="{Binding BookGenresCur, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ItemsControl Grid.Row="1" ItemsSource="{Binding BookGenresCur}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <materialDesign:Chip Content="{Binding Genre.GenreName}" IsDeletable="True" DeleteClick="Chip_DeleteClick" >
@@ -136,20 +146,20 @@
                             </Button>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10 0">
                                 <materialDesign:PackIcon Kind="Paper"/>
-                                <TextBlock Text="Текст.txt" x:Name="txtFileAttach"/>
+                                <TextBlock Text="{Binding FileName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="txtFileAttach"/>
                             </StackPanel>
                         </StackPanel>
                         <TextBox Grid.Row="4" Margin="0 5"  x:Name="ContentFile" IsReadOnly="True"
-                     Style="{StaticResource MaterialDesignOutlinedTextBox}" Text="{Binding CurBook.Content}"
+                     Style="{StaticResource MaterialDesignOutlinedTextBox}" Text="{Binding CurBook.Content}" TextWrapping="WrapWithOverflow"
                      VerticalContentAlignment="Top" Padding="10" ScrollViewer.VerticalScrollBarVisibility="Auto" MinHeight="90" MaxHeight="120"
-                     materialDesign:HintAssist.Hint="Текст"  Background="White" BorderBrush="#FFE2E4EA" >
+                     materialDesign:HintAssist.Hint="Содержимое книги (первые 200 символов)"  Background="White" BorderBrush="#FFE2E4EA" >
 
 
                         </TextBox>
 
                         <StackPanel Grid.Row="5" Margin="0 5" Orientation="Horizontal">
-                            <Button Content="Отмена" BorderBrush="Transparent"  HorizontalAlignment="Left" FontSize="14"  Style="{StaticResource MaterialDesignFlatLightBgButton}" Click="btnCancel_Click" />
-                            <Button Content="Создать" 
+                            <Button Content="Отмена" BorderBrush="Transparent"  HorizontalAlignment="Left" FontSize="14"  Style="{StaticResource MaterialDesignFlatLightBgButton}" Click="btnBack_Click" />
+                            <Button Content="Создать" x:Name="btnSend"
                                     HorizontalAlignment="Left" FontSize="14" Margin="20 0" Click="btnSend_Click" />
 
                         </StackPanel>
@@ -159,9 +169,13 @@
 
 
         </Grid>
-        
-        
-        
-        
+
+
+
+        <materialDesign:DialogHost x:Name="myHost" IsOpen="False" Grid.RowSpan="2">
+                </materialDesign:DialogHost>
+        <materialDesign:Snackbar x:Name="MySnackbar" MessageQueue="{Binding MyMessageQueue}"
+
+                                     Foreground="White" FontFamily="{DynamicResource MaterialDesignFont}"  HorizontalAlignment="Right" Grid.RowSpan="2"/>
     </Grid>
 </Window>
