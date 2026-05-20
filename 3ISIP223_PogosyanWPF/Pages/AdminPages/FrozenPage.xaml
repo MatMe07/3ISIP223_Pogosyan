@@ -181,7 +181,7 @@
                                         <Run Text="Причина заморозки:"/>
                                                     </TextBlock>
                                                 </StackPanel>
-                                                <Border Background="#FFF4F4FC" CornerRadius="8" Padding="12,8,12,8">
+                                                <Border Background="#FFF4F4FC" CornerRadius="8" Padding="12 8">
                                                     <StackPanel>
                                                         <TextBlock Text="{Binding Reason.Name}" FontSize="13" Foreground="#FF13192E" TextWrapping="WrapWithOverflow"
                                                    >

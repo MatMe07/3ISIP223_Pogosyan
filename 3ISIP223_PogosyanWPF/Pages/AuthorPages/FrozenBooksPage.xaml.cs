@@ -1,4 +1,5 @@
 ﻿using _3ISIP223_PogosyanWPF.Windows;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,19 +26,30 @@ namespace _3ISIP223_PogosyanWPF.Pages.AuthorPages
 
         public FrozenBooksPage()
         {
-            lstRand = new List<string> { "fdf", "sdf", "sdf", "sdf" };
-            DataContext = this;
+            //lstRand = new List<string> { "fdf", "sdf", "sdf", "sdf" };
+            //DataContext = this;
             InitializeComponent();
         }
 
         private void btnChallengeBook_Click(object sender, RoutedEventArgs e)
         {
+            Book book = (sender as Button).Tag as Book;
             var mainWindow = MainWindow.GetInstance();
             mainWindow.BlurAdd(true);
-            var wind = new UnfreezeRequestsWindow("Book");
+            var wind = new UnfreezeRequestsWindow("Book", book.BookId);
             wind.Owner = mainWindow;
             var res = wind.ShowDialog();
             mainWindow.BlurAdd(false);
+            if (res == true)
+            {
+                ActionsClass.SnackBarEnqueue(
+                    text: $"Запрос на оспаривание отправлено!",
+                    foregroundHEX: "#42A757",
+                    iconKind: PackIconKind.CheckBold,
+                    MyMessageQueue: new SnackbarMessageQueue(),
+                    main: true
+                );
+            }
         }
     }
 }

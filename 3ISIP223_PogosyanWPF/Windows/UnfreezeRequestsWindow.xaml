@@ -3,12 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Windows"
+        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         WindowStartupLocation="CenterOwner"
         
         mc:Ignorable="d"
-        Title="Оспорение" MinHeight="285" MinWidth="422" Height="285" Width="422" Background="#FFF4F4FC" >
+        Title="Оспорение" MinHeight="285" MinWidth="480" Height="285" Width="480" Background="#FFF4F4FC" >
+
+    <Window.DataContext>
+        <local:UnfreezeRequestsViewModel/>
+    </Window.DataContext>
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -17,25 +21,27 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Объясните причину, почему стоит разморозить аккаунт" Grid.Row="1"  
+        <TextBlock Text="Объясните причину, почему стоит разморозить аккаунт" x:Name="RequestIitle" Grid.Row="1"  
                    Margin="0 10" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="14"/>
 
-        <RichTextBox Grid.Row="2" Margin="0 5" 
-                     Style="{StaticResource MaterialDesignOutlinedRichTextBox}" x:Name="richTextsUnfreeze"
-                     VerticalContentAlignment="Top" Padding="10" ScrollViewer.VerticalScrollBarVisibility="Auto" MinHeight="80" MaxHeight="120"
-                     materialDesign:HintAssist.Hint="Текст причины оспаривания..." Background="White" BorderBrush="#FFE2E4EA"  TextChanged="richTextsUnfreeze_TextChanged" >
-            <FlowDocument>
-                <Block.LineHeight >
-                    1
-                </Block.LineHeight>
-            </FlowDocument>
-        </RichTextBox>
+        <TextBox Grid.Row="2" Margin="0 5" 
+                      x:Name="TextBoxUnfreeze" Style="{StaticResource  MaterialDesignOutlinedTextBox}"
+                     VerticalContentAlignment="Top" Padding="10" 
+                 MinHeight="80" MaxHeight="120" 
+                 Text="{Binding TextUnfreeze, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="Текст причины оспаривания..." >
+
+        </TextBox>
         <TextBlock Text="{Binding LengthUnfreezeText, StringFormat='\{0}/20'}" Grid.Row="3" Margin="15 0" FontSize="10" FontWeight="Medium" Foreground="#FF9D9C9F" HorizontalAlignment="Right" />
 
         <StackPanel Grid.Row="4" Margin="0 15" Orientation="Horizontal">
             <Button Content="Отмена" BorderBrush="Transparent"  HorizontalAlignment="Left" FontSize="14"  Style="{StaticResource MaterialDesignFlatLightBgButton}" Click="btnCancel_Click" />
-            <Button Content="Отправить"  HorizontalAlignment="Left" FontSize="14" Margin="20 0" />
+            <Button Content="Отправить"  HorizontalAlignment="Left" FontSize="14" Margin="20 0" Click="btnSend_Click" />
 
         </StackPanel>
+        <materialDesign:Snackbar x:Name="MySnackbar" MessageQueue="{Binding MyMessageQueue}"
+                                     Foreground="White" FontFamily="{DynamicResource MaterialDesignFont}" 
+                                 HorizontalAlignment="Right" VerticalAlignment="Top" Grid.RowSpan="5"/>
+
     </Grid>
 </Window>

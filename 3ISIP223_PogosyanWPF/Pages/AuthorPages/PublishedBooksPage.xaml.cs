@@ -21,12 +21,12 @@ namespace _3ISIP223_PogosyanWPF.Pages.AuthorPages
     /// </summary>
     public partial class PublishedBooksPage : Page
     {
-        public List<string> lstRand { get; set; }
+        //public List<string> lstRand { get; set; }
 
         public PublishedBooksPage()
         {
-            lstRand = new List<string> { "fdf", "sdf", "sdf", "sdf", "sdf" };
-            DataContext = this;
+            //lstRand = new List<string> { "fdf", "sdf", "sdf", "sdf", "sdf" };
+            //DataContext = this;
             InitializeComponent();
         }
 

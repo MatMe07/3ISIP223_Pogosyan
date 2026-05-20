@@ -205,6 +205,8 @@
     <Compile Include="ViewModels\AdminViewModels\FrozenViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\UnfreezeRequestsViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModels\UsersViewModel.cs" />
+    <Compile Include="ViewModels\AuthorViewModels\FrozenBooksViewModel.cs" />
+    <Compile Include="ViewModels\AuthorViewModels\PublishedBooksViewModel.cs" />
     <Compile Include="ViewModels\BaseLibraryViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />
@@ -213,6 +215,7 @@
     <Compile Include="ViewModels\ListsViewModel.cs" />
     <Compile Include="ViewModels\ReadingBookViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
+    <Compile Include="ViewModels\UnfreezeRequestsViewModel.cs" />
     <Compile Include="ViewModels\UserEditViewModel.cs" />
     <Compile Include="ViewModels\WorkDataBase.cs" />
     <Compile Include="Windows\AddEditBookPage.xaml.cs">

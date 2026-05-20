@@ -26,7 +26,8 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         {
             bookGenres = Core.kingEntities.BookGenres.ToList();
             _AllReviews = new ObservableCollection<Review>( Core.kingEntities.Reviews);
-            User = Core.kingEntities.Users.FirstOrDefault(u=>u.Role.RoleName == "Администратор");
+            User = Core.kingEntities.Users.FirstOrDefault(u=>u.UserId == 7);
+            //User = Core.kingEntities.Users.FirstOrDefault(u=>u.Role.RoleName == "Автор");
             ReadingLists = new ObservableCollection<ReadingList>(Core.kingEntities.ReadingLists.Where(b=>b.UserId == User.UserId));
             GetReasons = new ObservableCollection<Reason>( Core.kingEntities.Reasons);
             targetTypes = Core.kingEntities.TargetTypes.ToList();
@@ -67,6 +68,38 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         }
 
+        public void SendRequest(string txt, string target, int? bookId = null)
+        {
+            var targReq = targetTypes.First(t=>t.Name == target);
+            UnfreezeRequest unfreezeRequest;
+            if (bookId == null)
+            {
+                unfreezeRequest = new UnfreezeRequest
+                {
+                    User = User,
+                    TargetType = targReq,
+                    StatusId = 1,
+                    Reason= txt,
+                    CreatedAt = DateTime.Now,
+                };
+            }
+            else
+            {
+                unfreezeRequest = new UnfreezeRequest
+                {
+                    User = User,
+                    TargetType = targReq,
+                    StatusId = 1,
+                    Reason = txt,
+                    BookId = bookId,
+                    CreatedAt = DateTime.Now,
+                };
+            }
+            unfreezeRequests.Add(unfreezeRequest);
+            Core.kingEntities.UnfreezeRequests.Add(unfreezeRequest);
+            Core.kingEntities.SaveChanges();
+
+        }
 
         public void SaveUserEdit(int _origId, User EditingUser)
         {
@@ -141,6 +174,12 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 return new ObservableCollection<Book>(Books.Where(r => !r.IsFrozen));
             }
         }
+        public ObservableCollection<Book> GetAllAuthorBooks (int AuthId)
+        {
+            return new ObservableCollection<Book>(Books.Where(b=>b.AuthorId == AuthId));
+            
+        }
+
 
 
         public ObservableCollection<Review> _AllReviews;

@@ -5,11 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:Background="White"
-      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Pages.AuthorPages"
+      xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels.AuthorViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PublishedBooksPage">
-
+    <Page.DataContext>
+        <local:PublishedBooksViewModel/>
+    </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

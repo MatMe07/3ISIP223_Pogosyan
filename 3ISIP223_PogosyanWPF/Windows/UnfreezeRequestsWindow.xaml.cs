@@ -1,4 +1,6 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.ViewModels;
+using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,11 +22,22 @@ namespace _3ISIP223_PogosyanWPF.Windows
     public partial class UnfreezeRequestsWindow : Window
     {
 
-        public int LengthUnfreezeText { get; set; } = 0;
-        public UnfreezeRequestsWindow(string types)
+        //public int LengthUnfreezeText { get; set; } = 0;
+        public int? BookId = null;
+        public UnfreezeRequestsWindow(string types, int? bookId = null)
         {
-            DataContext = this;
+            //DataContext = this;
             InitializeComponent();
+            BookId = bookId;
+            (DataContext as UnfreezeRequestsViewModel).TypeRequest = types;
+            if (types == "Book")
+            {
+                RequestIitle.Text = $"Объясните причину, почему стоит разморозить книгу";
+            }
+            else if (types == "Account")
+            {
+                RequestIitle.Text = $"Объясните причину, почему стоит разморозить аккаунт";
+            }
 
         }
 
@@ -33,13 +46,14 @@ namespace _3ISIP223_PogosyanWPF.Windows
             DialogResult = false;
         }
 
-        private void richTextsUnfreeze_TextChanged(object sender, TextChangedEventArgs e)
+        private void btnSend_Click(object sender, RoutedEventArgs e)
         {
-            TextRange textRange = new TextRange(
-                richTextsUnfreeze.Document.ContentStart,
-                richTextsUnfreeze.Document.ContentEnd
-            );
-            LengthUnfreezeText = textRange.Text.Length;
+            if ((DataContext as UnfreezeRequestsViewModel).SendRequest(BookId))
+            {
+
+                DialogResult = true;
+
+            }
         }
     }
 }
