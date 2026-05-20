@@ -104,7 +104,14 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             }
         }
 
+        /// <summary>
+        /// Авторизация пользователя
+        /// </summary>
+        /// <param name="login">Логин</param>
+        /// <param name="password">Пароль</param>
+        /// <returns>True - вход выполнен, False - ошибка</returns>
         public bool LoginToAccc(string login, string password)
+
         {
             if (string.IsNullOrWhiteSpace(login))
             {
@@ -143,7 +150,17 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             ShowMessage($"Добро пожаловать, {user.DisplayName}!", "#FF04BE5A", PackIconKind.CheckCircle);
             return true;
         }
+        /// <summary>
+        /// Регистрация нового пользователя
+        /// </summary>
+        /// <param name="login">Логин</param>
+        /// <param name="displayName">Отображаемое имя</param>
+        /// <param name="email">Email</param>
+        /// <param name="password">Пароль</param>
+        /// <param name="confirmPassword">Подтверждение пароля</param>
+        /// <returns>True - регистрация успешна, False - ошибка</returns>
         public bool Register(string login, string displayName, string email, string password, string confirmPassword)
+
         {
             if (string.IsNullOrWhiteSpace(login) || login.Length < 3 || login.Length > 20)
             {

@@ -27,7 +27,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         {
             if (User != null)
                 LoadData();
-            //AuthorRoleRequests = Core.kingEntities.AuthorRequests.ToList();
         }
         public void LoadData()
         {
@@ -48,7 +47,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             GetRoles = Core.kingEntities.Roles.ToList();
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
-        //public List<AuthorRequest> AuthorRoleRequests { get; set; }
+
         public bool RegisterUser(string login, string displayName, string email, string password)
         {
             var newUser = new User
@@ -366,7 +365,13 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public ObservableCollection<Complaint> Complaints { get; set; }
 
         public List<StatusesRequest> statusesRequests { get; set; }
+        /// <summary>
+        /// Одобрение жалобы: заморозка автора, книги или отзыва
+        /// </summary>
+        /// <param name="complaint">Объект жалобы</param>
+        /// <returns>True - операция выполнена успешно</returns>
         public bool AcceptComplain(Complaint complaint)
+
         {
             var CompDB = Complaints.FirstOrDefault(c=>c.ComplaintId==complaint.ComplaintId);
             //if (CompDB.StatusesRequest != statusesRequests.First(a => a.Name == "На расмотрении")) return false;
@@ -568,8 +573,13 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
 
 
+        /// <summary>
+        /// Подача жалобы на книгу, отзыв или автора
+        /// </summary>
+        /// <param name="item">Объект, на который подаётся жалоба (Book, Review, User)</param>
+        /// <param name="reason">Причина жалобы</param>
+        public void SaveFreezeRequest(object item, Reason reason)
 
-        public void SaveFreezeRequest(Object item, Reason reason)
         {
             Complaint complaint;
             if (item is Book book)

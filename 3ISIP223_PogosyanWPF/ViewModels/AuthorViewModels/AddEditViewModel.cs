@@ -15,15 +15,12 @@ namespace _3ISIP223_PogosyanWPF.ViewModels.AuthorViewModels
 {
     public class AddEditViewModel : BaseViewModel
     {
-        //public BitmapImage bi = null;
-        //private string _tempImagePath;
         private Book origBook;
         public AddEditViewModel()
         {
             Genres = new ObservableCollection<Genre>(dataBase.Genres);
             CurBook = new Book()
             {
-                //BookId = dataBase.GetLastIdBook + 1
             };
             BookGenresCur = new ObservableCollection<BookGenre>( CurBook.BookGenres);
             MyMessageQueue = new SnackbarMessageQueue();
@@ -41,7 +38,11 @@ namespace _3ISIP223_PogosyanWPF.ViewModels.AuthorViewModels
                 BookGenres = source.BookGenres?.ToList()
             };
         }
-
+        /// <summary>
+        /// Загрузка данных книги для редактирования
+        /// </summary>
+        /// <param name="IsEdit">Режим редактирования</param>
+        /// <param name="bookId">ID книги (если редактирование)</param>
         public void LoadData(bool IsEdit, int? bookId = null)
         {
             if (IsEdit && bookId.HasValue)
@@ -205,7 +206,11 @@ namespace _3ISIP223_PogosyanWPF.ViewModels.AuthorViewModels
             }
         }
 
+        /// <summary>
+        /// Прикрепление обложки к книге (копирование файла в проект)
+        /// </summary>
         public void AttachCover()
+
         {
             var dialog = new OpenFileDialog();
             dialog.DefaultExt = ".jpg";
@@ -268,8 +273,13 @@ namespace _3ISIP223_PogosyanWPF.ViewModels.AuthorViewModels
         }
         public string BookTitle { get;  set; } = "";
 
-        public SnackbarMessageQueue MyMessageQueue { get; set; }    
+        public SnackbarMessageQueue MyMessageQueue { get; set; }
+        /// <summary>
+        /// Сохранение книги (добавление или обновление)
+        /// </summary>
+        /// <returns>True - сохранение успешно, False - ошибка валидации</returns>
         public bool SaveBook()
+
         {
             if (string.IsNullOrWhiteSpace(CurBook.Title))
             {

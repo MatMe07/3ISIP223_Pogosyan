@@ -93,12 +93,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
                     MainWindow.GetInstance().Close();
                     newMainWindow.Show();
 
-                    //if (mainWindow != null)
-                    //{
-                    //    var loginWindow = new LoginRegisterWindows();
-                    //    loginWindow.ShowDialog();
-                    //    mainWindow.Close();
-                    //}
                 }
             }
         }

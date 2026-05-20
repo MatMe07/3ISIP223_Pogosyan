@@ -84,7 +84,12 @@ namespace _3ISIP223_PogosyanWPF.ViewModels.ProfileViewModels
         }
         public SnackbarMessageQueue MyMessageQueue { get; set; }
 
+        /// <summary>
+        /// Сохранение изменений профиля
+        /// </summary>
+        /// <returns>True - сохранение успешно, False - ошибка валидации</returns>
         public bool SaveChanges()
+
         {
             if (string.IsNullOrWhiteSpace(User.DisplayName))
             {
