@@ -34,7 +34,7 @@
                          HorizontalAlignment="Left" Click="btnEditProfile_Click" >
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Mat Me" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBlock Text="Профиль" VerticalAlignment="Center" FontWeight="Bold"/>
                             <materialDesign:PackIcon Kind="GreaterThan" Margin="5 5" Height="15" Width="15"/>
                         </StackPanel>
                     </Button.Content>
@@ -68,8 +68,8 @@
                 </TabItem>
             </TabControl>
             <Button Content="Выход" Grid.Row="2" Margin="5 15" 
-                    materialDesign:RippleAssist.RippleSizeMultiplier="0"
-                    HorizontalAlignment="Left">
+                    materialDesign:RippleAssist.RippleSizeMultiplier="0" 
+                    HorizontalAlignment="Left" Click="btnExitAcc_Click">
                 <Button.Style>
                     <Style  BasedOn="{StaticResource MaterialDesignToolButton}" TargetType="Button">
                         <Setter Property="Foreground" Value="#868ca2"/>

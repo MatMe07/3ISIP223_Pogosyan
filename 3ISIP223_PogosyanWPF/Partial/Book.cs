@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace _3ISIP223_PogosyanWPF
 {
     public partial class Book
     {
         //public double RatingFive => (Rating ?? 0) / 2.0;
-
+        private static string _projectDirectory;
         public int? ReasonIdHesh {  get; set; } 
 
         
@@ -22,11 +23,30 @@ namespace _3ISIP223_PogosyanWPF
                 return Reviews.Count;
             }
         }
+        public BitmapImage CoverImage
+        {
+            get
+            {
+                string fullPath = CoverFullPath;
+
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.CreateOptions = BitmapCreateOptions.IgnoreColorProfile;
+                bitmap.UriSource = new Uri(fullPath);
+                bitmap.DecodePixelWidth = 300; 
+                bitmap.DecodePixelHeight = 400;
+                bitmap.EndInit();
+                //bitmap.Freeze();
+
+                return bitmap;
+            }
+        }
         public string CoverFullPath
         {
             get
             {
-                if (CoverPath == null) return "/Images/Covers/empty_cover_booknet.jpg";
+                if (CoverPath == null) return @"pack://application:,,,/Images/Covers/empty_cover_booknet.jpg";
                 string fullPath = GetFullPath(CoverPath);
                 return fullPath;
             }
@@ -35,14 +55,18 @@ namespace _3ISIP223_PogosyanWPF
         {
             string path = relativePath.TrimStart('/', '\\').Replace('/', '\\');
 
-            string current = Environment.CurrentDirectory;
-            for (int i = 0; i < 2; i++)
+            if (_projectDirectory == null)
             {
-                current = Path.GetDirectoryName(current);
-                if (current == null) break;
+                string current = Environment.CurrentDirectory;
+                for (int i = 0; i < 2; i++)
+                {
+                    current = Path.GetDirectoryName(current);
+                    if (current == null) break;
+                }
+                _projectDirectory = current;
             }
 
-            return Path.Combine(current, path);
+            return Path.Combine(_projectDirectory, path);
         }
     }
 }

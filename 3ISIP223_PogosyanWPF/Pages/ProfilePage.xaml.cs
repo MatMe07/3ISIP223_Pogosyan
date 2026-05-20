@@ -1,5 +1,9 @@
-﻿using System;
+﻿using _3ISIP223_PogosyanWPF.Pages.ProfilePages;
+using _3ISIP223_PogosyanWPF.ViewModels;
+using _3ISIP223_PogosyanWPF.Windows;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +16,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using _3ISIP223_PogosyanWPF.Pages.ProfilePages;
 
 namespace _3ISIP223_PogosyanWPF.Pages
 {
@@ -71,6 +74,33 @@ namespace _3ISIP223_PogosyanWPF.Pages
             frameProfilePage.NavigationService.Navigate(new ProfileEditPage(BackToMainPage));
             tabControlPage.SelectedIndex = -1;
 
+        }
+
+        private void btnExitAcc_Click(object sender, RoutedEventArgs e)
+        {
+            {
+                var result = MessageBox.Show("Вы уверены, что хотите выйти из аккаунта?",
+                    "Подтверждение выхода",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    WorkDataBase.Instanse.User = null;
+
+                    var newMainWindow = new MainWindow();
+
+                    MainWindow.GetInstance().Close();
+                    newMainWindow.Show();
+
+                    //if (mainWindow != null)
+                    //{
+                    //    var loginWindow = new LoginRegisterWindows();
+                    //    loginWindow.ShowDialog();
+                    //    mainWindow.Close();
+                    //}
+                }
+            }
         }
     }
 }

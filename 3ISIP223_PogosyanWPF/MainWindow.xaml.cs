@@ -28,9 +28,10 @@ namespace _3ISIP223_PogosyanWPF
         public static Frame GetFrameCatalog {  get; set; }
         public MainWindow()
         {
-            //var wind = new LoginRegisterWindows();
-            //var res = wind.ShowDialog();
-            //if (res != false) this.Close();
+            var wind = new LoginRegisterWindows();
+            var res = wind.ShowDialog();
+            if (res == false) this.Close();
+            WorkDataBase.Instanse.LoadData();
             InitializeComponent();
             frameCatalog.NavigationService.Navigate(new CatalogPage());
 

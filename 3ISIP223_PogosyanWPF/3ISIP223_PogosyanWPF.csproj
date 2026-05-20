@@ -214,6 +214,7 @@
     <Compile Include="ViewModels\CatalogViewModel.cs" />
     <Compile Include="ViewModels\FreezeRequestViewModel.cs" />
     <Compile Include="ViewModels\ListsViewModel.cs" />
+    <Compile Include="ViewModels\LoginRegisterViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModels\ProfileMyReviewsViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModels\ProfileNotificationViewModel.cs" />
     <Compile Include="ViewModels\ProfileViewModels\ProfileEditViewModel.cs" />

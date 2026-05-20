@@ -4,15 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.Windows"
+        xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF.ViewModels"
         mc:Ignorable="d"
         Title="LoginRegisterWindows"
-        Height="500" Width="450" d:Height="1000">
-
+        Height="500" Width="450" 
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource MaterialDesignPaper}">
+    <Window.DataContext>
+        <local:LoginRegisterViewModel/>
+    </Window.DataContext>
     <Grid>
-        <TabControl>
-            <TabItem Header="🔐 Вход">
-                <Grid Margin="20">
+        <TabControl Background="Transparent" x:Name="tabControlMain">
+
+            <TabItem Header="ВХОД" x:Name="item1" FontWeight="SemiBold" FontSize="14">
+                <Grid Margin="30">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -22,27 +28,43 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Вход в аккаунт" FontSize="20" FontWeight="Bold" 
-                               HorizontalAlignment="Center" Margin="0,0,0,20" />
+                    <TextBlock Text="Вход в аккаунт" 
+                               FontSize="24" 
+                               FontWeight="Bold" 
+                               HorizontalAlignment="Center" 
+                               Margin="0 0 0 30" />
 
-                    <TextBlock Grid.Row="1" Text="Логин" FontWeight="Medium" FontSize="16"/>
-                    <TextBox x:Name="txtLogin" Grid.Row="2" Margin="0,0,0,20" Padding="8" materialDesign:HintAssist.Hint="Введите логин"/>
+                    <TextBlock Grid.Row="1"   Text="Логин"  FontWeight="Medium"  FontSize="14" Margin="0 0 0 5"/>
 
-                    <TextBlock Grid.Row="3" Text="Пароль" FontWeight="Medium" FontSize="16"/>
-                    <PasswordBox x:Name="txtPassword" Grid.Row="4" Margin="0,0,0,20" Padding="8" materialDesign:HintAssist.Hint="Введите пароль" />
+                    <TextBox Grid.Row="2"  Margin="0 0 0 20" 
+                             Padding="12 10"   materialDesign:HintAssist.Hint="Введите логин"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             FontSize="14"
+                             Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <Button Content="Войти" Grid.Row="5"
-                                 Click="Login_Click"/>
+                    <TextBlock Grid.Row="3"  Text="Пароль" 
+                               FontWeight="Medium"  FontSize="14" Margin="0 0 0 5"/>
+
+                    <PasswordBox Grid.Row="4" 
+                                 Margin="0 0 0 25"  Padding="12 10"  x:Name="passWordLog"
+                                 materialDesign:HintAssist.Hint="Введите пароль" 
+                                 Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                                 FontSize="14">
+                    </PasswordBox>
+
+                    <Button Content="ВОЙТИ" 
+                            Grid.Row="5"  Style="{StaticResource MaterialDesignRaisedButton}"
+                            Foreground="White" FontWeight="Bold" FontSize="14"
+                            Click="Login_Click"
+                            Cursor="Hand"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="📝 Регистрация">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <Grid Margin="20">
+
+            <TabItem Header="РЕГИСТРАЦИЯ" x:Name="item2" FontWeight="SemiBold" FontSize="14">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                              HorizontalScrollBarVisibility="Disabled">
+                    <Grid Margin="30">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -57,30 +79,70 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="Регистрация" FontSize="20" FontWeight="Bold" 
-                                   HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                        <TextBlock Text="Регистрация" 
+                                   FontSize="24"  FontWeight="Bold"  HorizontalAlignment="Center" 
+                                   Margin="0 0 0 30"/>
 
-                        <TextBlock Grid.Row="1" Text="Логин" FontWeight="Medium" FontSize="16"/>
-                        <TextBox x:Name="txtRegLogin" Grid.Row="2" Margin="0,0,0,20" Padding="8" materialDesign:HintAssist.Hint="Введите логин"/>
+                        <TextBlock Grid.Row="1" 
+                                   Text="Логин"  FontWeight="Medium" 
+                                   FontSize="14" Margin="0 0 0 5"/>
 
-                        <TextBlock Grid.Row="3" Text="Отображаемое имя" FontWeight="Medium" FontSize="16"/>
-                        <TextBox x:Name="txtRegFirstName" Grid.Row="4" Margin="0,0,0,20" Padding="8" materialDesign:HintAssist.Hint="Введите имя"/>
+                        <TextBox Grid.Row="2"  Margin="0 0 0 20" 
+                                 Padding="12 10"  materialDesign:HintAssist.Hint="Придумайте логин"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 FontSize="14"
+                                 Text="{Binding RegLogin, UpdateSourceTrigger=PropertyChanged}"/>
 
-                        <TextBlock Grid.Row="5" Text="Email" FontWeight="Medium" FontSize="16"/>
-                        <TextBox x:Name="txtRegEmail" Grid.Row="6" Margin="0,0,0,20" Padding="8" materialDesign:HintAssist.Hint="Введите email"/>
+                        <TextBlock Grid.Row="3"  Text="Отображаемое имя" 
+                                   FontWeight="Medium" 
+                                   FontSize="14" Margin="0 0 0 5"/>
 
-                        <TextBlock Grid.Row="7" Text="Пароль" FontWeight="Medium" FontSize="16"/>
-                        <PasswordBox x:Name="txtRegPassword" Grid.Row="8" Margin="0,0,0,20" Padding="8" materialDesign:HintAssist.Hint="Введите пароль"/>
+                        <TextBox Grid.Row="4" 
+                                 Margin="0 0 0 20"  Padding="12 10"  materialDesign:HintAssist.Hint="Как вас называть"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 FontSize="14"
+                                 Text="{Binding RegDisplayName, UpdateSourceTrigger=PropertyChanged}"/>
 
-                        <TextBlock Grid.Row="9" Text="Подтверждение пароля" FontWeight="Medium" FontSize="16"/>
-                        <PasswordBox x:Name="txtRegConfirmPassword" Grid.Row="10" Margin="0,5,0,20" Padding="8" materialDesign:HintAssist.Hint="Подтвердите пароль"/>
+                        <TextBlock Grid.Row="5" 
+                                   Text="Email"  FontWeight="Medium"  FontSize="14"
+                                   Margin="0 0 0 5"/>
 
-                        <Button Content="Зарегистрироваться" Grid.Row="11" Margin="5" 
-                                     Click="Register_Click"/>
+                        <TextBox Grid.Row="6"  Margin="0 0 0 20"  Padding="12 10" 
+                                 materialDesign:HintAssist.Hint="example@mail.com" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 FontSize="14"
+                                 Text="{Binding RegEmail, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <TextBlock Grid.Row="7" 
+                                   Text="Пароль"  FontWeight="Medium"   FontSize="14"
+                                   Margin="0 0 0 5"/>
+
+                        <PasswordBox Grid.Row="8"  Margin="0 0 0 20"  x:Name="passWordReg"  Padding="12 10"  materialDesign:HintAssist.Hint="Придумайте пароль"
+                                     Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                                     FontSize="14">
+                        </PasswordBox>
+
+                        <TextBlock Grid.Row="9" 
+                                   Text="Подтверждение пароля"  FontWeight="Medium"  FontSize="14"
+                                   Margin="0 0 0 5"/>
+
+                        <PasswordBox Grid.Row="10"  Margin="0 0 0 30" x:Name="passWordRegRep"  Padding="12 10"  materialDesign:HintAssist.Hint="Повторите пароль"
+                                     Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                                     FontSize="14">
+                        </PasswordBox>
+
+                        <Button Content="ЗАРЕГИСТРИРОВАТЬСЯ"  Grid.Row="11" Style="{StaticResource MaterialDesignRaisedButton}"
+                                Foreground="White" FontWeight="Bold" FontSize="14"  Click="Register_Click"
+                                Cursor="Hand"/>
+
                     </Grid>
                 </ScrollViewer>
             </TabItem>
         </TabControl>
 
+        <materialDesign:Snackbar x:Name="MySnackbar"
+                                 MessageQueue="{Binding MyMessageQueue}" Foreground="White"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Bottom"
+                                 Margin="10"/>
     </Grid>
 </Window>

@@ -123,7 +123,7 @@
                                             MouseLeftButtonDown="Border_MouseLeftButtonDown" Tag="{Binding}">
                                         
                                         <Border.Background>
-                                            <ImageBrush ImageSource="{Binding CoverFullPath}" Stretch="UniformToFill"/>
+                                            <ImageBrush ImageSource="{Binding CoverImage}" Stretch="UniformToFill"/>
                                         </Border.Background>
                                         <Border.Style>
                                             <Style TargetType="Border">

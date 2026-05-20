@@ -25,14 +25,20 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public WorkDataBase()
         {
+            if (User != null)
+                LoadData();
+            //AuthorRoleRequests = Core.kingEntities.AuthorRequests.ToList();
+        }
+        public void LoadData()
+        {
             BookGenres = Core.kingEntities.BookGenres.ToList();
-            _AllReviews = new ObservableCollection<Review>( Core.kingEntities.Reviews);
-            User = Core.kingEntities.Users.FirstOrDefault(u=>u.UserId == 4);
+            _AllReviews = new ObservableCollection<Review>(Core.kingEntities.Reviews);
+            //User = Core.kingEntities.Users.FirstOrDefault(u=>u.UserId == 1);
             //User = Core.kingEntities.Users.FirstOrDefault(u=>u.Role.RoleName == "Администратор");
-            ReadingLists = new ObservableCollection<ReadingList>(Core.kingEntities.ReadingLists.Where(b=>b.UserId == User.UserId));
-            GetReasons = new ObservableCollection<Reason>( Core.kingEntities.Reasons);
+            ReadingLists = new ObservableCollection<ReadingList>(Core.kingEntities.ReadingLists.Where(b => b.UserId == User.UserId));
+            GetReasons = new ObservableCollection<Reason>(Core.kingEntities.Reasons);
             targetTypes = Core.kingEntities.TargetTypes.ToList();
-            StatusesReading = new ObservableCollection<StatusesReading>( Core.kingEntities.StatusesReadings);
+            StatusesReading = new ObservableCollection<StatusesReading>(Core.kingEntities.StatusesReadings);
             statusesRequests = Core.kingEntities.StatusesRequests.ToList();
 
             Books = new ObservableCollection<Book>(Core.kingEntities.Books);
@@ -40,10 +46,27 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             Complaints = new ObservableCollection<Complaint>(Core.kingEntities.Complaints);
             AuthorRequests = new ObservableCollection<AuthorRequest>(Core.kingEntities.AuthorRequests);
             GetRoles = Core.kingEntities.Roles.ToList();
-            //AuthorRoleRequests = Core.kingEntities.AuthorRequests.ToList();
         }
         //-------------------------------------------------------------------------------------------------------------------------------------
         //public List<AuthorRequest> AuthorRoleRequests { get; set; }
+        public bool RegisterUser(string login, string displayName, string email, string password)
+        {
+            var newUser = new User
+            {
+                Login = login,
+                DisplayName = displayName,
+                Email = email,
+                Password = password,
+                RoleId = 1,
+                IsFrozen = false,
+                CreatedAt = DateTime.Now
+            };
+
+            Users.Add(newUser);
+            Core.kingEntities.Users.Add(newUser);
+            Core.kingEntities.SaveChanges();
+            return true;
+        }
         public void GetAuthorReq()
         {
             var authorReq = new AuthorRequest
@@ -57,6 +80,17 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 );
             Core.kingEntities.AuthorRequests.Add(authorReq);
             Core.kingEntities.SaveChanges();
+        }
+        public void UpdateUserProfile(string displayName, string email)
+        {
+            //var user = Users.FirstOrDefault(u => u.UserId == userId);
+
+            if (User != null)
+            {
+                User.DisplayName = displayName;
+                User.Email = email;
+                Core.kingEntities.SaveChanges();
+            }
         }
         public bool IsAuthor => User.Role.RoleName == "Автор";
         public bool IsAdmin => User.Role.RoleName == "Администратор";

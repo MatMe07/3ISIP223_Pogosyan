@@ -83,6 +83,8 @@
                     <Frame  NavigationUIVisibility="Hidden" x:Name="frameUserAccount" Source="/Pages/ProfilePage.xaml" Margin="10 0 0 0"/>
                 </TabItem>
             </TabControl>
+            <materialDesign:DialogHost  x:Name="myHost"  Grid.RowSpan="6">
+            </materialDesign:DialogHost>
             <materialDesign:Snackbar x:Name="MySnackbar" 
 
                                      Foreground="White" FontFamily="{DynamicResource MaterialDesignFont}"  HorizontalAlignment="Right" Grid.RowSpan="2"/>
