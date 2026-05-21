@@ -152,18 +152,9 @@ namespace _3ISIP223_PogosyanWPF.Windows
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var comboBox = sender as ComboBox;  
-            //var selectItm = comboBox.SelectedItem?.ToString();
+            var comboBox = sender as ComboBox;
             comboBox.SelectedIndex = -1;
             Keyboard.ClearFocus();
-            //if (comboBox.SelectedItem != null)
-            //{
-            //    if(lst.FirstOrDefault(s => s == selectItm) == null)
-            //        lst.Add(selectItm);
-
-
-                
-            //}
         }
 
         private void Chip_DeleteClick(object sender, RoutedEventArgs e)

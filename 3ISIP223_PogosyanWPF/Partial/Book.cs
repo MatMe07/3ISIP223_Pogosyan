@@ -9,20 +9,31 @@ using System.Windows.Media.Imaging;
 
 namespace _3ISIP223_PogosyanWPF
 {
+    /// <summary>
+    /// Частичный класс Book для добавления вычисляемых свойств
+    /// </summary>
     public partial class Book
     {
         //public double RatingFive => (Rating ?? 0) / 2.0;
         private static string _projectDirectory;
-        public int? ReasonIdHesh {  get; set; } 
+        /// <summary>
+        /// ID причины заморозки (хеш для восстановления)
+        /// </summary>
+        public int? ReasonIdHesh {  get; set; }
 
-        
-       public int CountReview
+        /// <summary>
+        /// Количество отзывов на книгу
+        /// </summary>
+        public int CountReview
         {
             get
             {
                 return Reviews.Count;
             }
         }
+        /// <summary>
+        /// Изображение обложки книги (BitmapImage)
+        /// </summary>
         public BitmapImage CoverImage
         {
             get
@@ -42,6 +53,9 @@ namespace _3ISIP223_PogosyanWPF
                 return bitmap;
             }
         }
+        /// <summary>
+        /// Полный путь к файлу обложки
+        /// </summary>
         public string CoverFullPath
         {
             get
@@ -51,6 +65,11 @@ namespace _3ISIP223_PogosyanWPF
                 return fullPath;
             }
         }
+        /// <summary>
+        /// Преобразование относительного пути в абсолютный
+        /// </summary>
+        /// <param name="relativePath">Относительный путь</param>
+        /// <returns>Абсолютный путь</returns>
         private string GetFullPath(string relativePath)
         {
             string path = relativePath.TrimStart('/', '\\').Replace('/', '\\');

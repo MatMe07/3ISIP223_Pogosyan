@@ -162,9 +162,9 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public bool Register(string login, string displayName, string email, string password, string confirmPassword)
 
         {
-            if (string.IsNullOrWhiteSpace(login) || login.Length < 3 || login.Length > 20)
+            if (string.IsNullOrWhiteSpace(login) || login.Length < 3)
             {
-                ShowMessage("Логин должен быть от 3 до 20 символов", "#FFBE0404", PackIconKind.Error);
+                ShowMessage("Логин должен быть от 3", "#FFBE0404", PackIconKind.Error);
                 return false;
             }
 

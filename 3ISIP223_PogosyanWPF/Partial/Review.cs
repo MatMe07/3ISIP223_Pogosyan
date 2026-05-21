@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace _3ISIP223_PogosyanWPF
 {
+    /// <summary>
+    /// Частичный класс Review для добавления вычисляемых свойств
+    /// </summary>
     public partial class Review
     {
-        //public double RatingFive => Rating / 2.0;
+        /// <summary>
+        /// Причина заморозки отзыва (из одобренной жалобы)
+        /// </summary>
         public string FrozenReason
         {
             get

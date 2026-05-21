@@ -82,7 +82,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         }
         public void UpdateUserProfile(string displayName, string email)
         {
-            //var user = Users.FirstOrDefault(u => u.UserId == userId);
 
             if (User != null)
             {
@@ -153,7 +152,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 BookGenres.Remove(item);
                 Core.kingEntities.BookGenres.Remove(item);
             }
-            //BookGenres.RemoveRange(existingGenres);
             foreach (var bookGenre in bookGenres)
             {
                 var bookG = new BookGenre
@@ -266,7 +264,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public List<BookGenre> GetBookGenres(int bookID) => BookGenres.Where(b=>b.BookId == bookID).ToList();
 
 
-        //private ObservableCollection<Book> _books;
         public ObservableCollection<Book> Books { get; set; }
         public ObservableCollection<Book> GetAllBooks
         {
@@ -353,18 +350,13 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
             Core.kingEntities.Entry(SelectedBook).Reload();
 
-            //UpdBooks();
         }
 
-        //public void UpdBooks()
-        //{
-        //    Books = new ObservableCollection<Book>( Core.kingEntities.Books);
-        //}
 
-        //private ObservableCollection<Complaint> _complaints;
         public ObservableCollection<Complaint> Complaints { get; set; }
 
         public List<StatusesRequest> statusesRequests { get; set; }
+
         /// <summary>
         /// Одобрение жалобы: заморозка автора, книги или отзыва
         /// </summary>
@@ -374,7 +366,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         {
             var CompDB = Complaints.FirstOrDefault(c=>c.ComplaintId==complaint.ComplaintId);
-            //if (CompDB.StatusesRequest != statusesRequests.First(a => a.Name == "На расмотрении")) return false;
 
             CompDB.StatusesRequest = statusesRequests.First(a=>a.Name == "Одобрена");
             switch (CompDB.TargetType.Name)
@@ -388,13 +379,10 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                     }
                 case "Book":
                     {
-                        //Books
-                        //Core.kingEntities.Users.First(a=>a.UserId == CompDB.User1.UserId).IsFrozen = true;
                         var book = Books.First(b => b.BookId == CompDB.BookId);
                         book.IsFrozen = true;
                         book.ReasonId = CompDB.ReasonId;
 
-                        //Books.Remove(book);
                         break;
                     }
                 case "Review":
@@ -403,7 +391,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                         revi.IsFrozen = true;
                         revi.ReasonId = CompDB.ReasonId;
 
-                        //_AllReviews.Remove(revi);
                         break;
                     }
             }
@@ -413,7 +400,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public bool CancelAcceptRejectComplaint(Complaint complaint)
         {
             var CompDB = Complaints.FirstOrDefault(c=>c.ComplaintId==complaint.ComplaintId);
-            //if (CompDB.StatusesRequest != statusesRequests.First(a => a.Name == "На расмотрении")) return false;
 
             CompDB.StatusesRequest = statusesRequests.First(a=>a.Name == "На рассмотрении");
             switch (CompDB.TargetType.Name)
@@ -427,7 +413,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                     }
                 case "Book":
                     {
-                        //Books
                         var book = Books.First(b => b.BookId == CompDB.BookId);
                         book.IsFrozen = false;
                         book.ReasonId = null;
@@ -449,19 +434,15 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public bool RejectComplain(Complaint complaint)
         {
             var CompDB = Complaints.FirstOrDefault(c=>c.ComplaintId==complaint.ComplaintId);
-            //if (CompDB.StatusesRequest != statusesRequests.First(a => a.Name == "На расмотрении")) return false;
 
             CompDB.StatusesRequest = statusesRequests.First(a=>a.Name == "Отклонена");
             Core.kingEntities.SaveChanges();
             return true;
         }
-        //public ObservableCollection<Complaint> GetComplaints => 
-
 
         public bool AcceptUnfreezeRequest(UnfreezeRequest request)
         {
             var CompDB = unfreezeRequests.FirstOrDefault(c => c.RequestId == request.RequestId);
-            //if (CompDB.StatusesRequest != statusesRequests.First(a => a.Name == "На расмотрении")) return false;
 
             CompDB.StatusesRequest = statusesRequests.First(a => a.Name == "Одобрена");
             switch (CompDB.TargetType.Name)
@@ -476,8 +457,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                     }
                 case "Book":
                     {
-                        //Books
-                        //Core.kingEntities.Users.First(a=>a.UserId == CompDB.User1.UserId).IsFrozen = true;
                         var book = Books.First(b => b.BookId == CompDB.BookId);
                         book.ReasonIdHesh = book.ReasonId;
                         book.IsFrozen = false;
@@ -492,7 +471,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public bool CancelAcceptRejectUnfreezeRequest(UnfreezeRequest request)
         {
             var CompDB = unfreezeRequests.FirstOrDefault(c => c.RequestId == request.RequestId);
-            //if (CompDB.StatusesRequest != statusesRequests.First(a => a.Name == "На расмотрении")) return false;
 
             CompDB.StatusesRequest = statusesRequests.First(a => a.Name == "На рассмотрении");
             switch (CompDB.TargetType.Name)
@@ -506,8 +484,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                     }
                 case "Book":
                     {
-                        //Books
-                        //Core.kingEntities.Users.First(a=>a.UserId == CompDB.User1.UserId).IsFrozen = true;
                         var book = Books.First(b => b.BookId == CompDB.BookId);
                         book.IsFrozen = true;
                         book.ReasonId = book.ReasonIdHesh;
@@ -520,7 +496,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public bool RejectUnfreezeRequest(UnfreezeRequest request)
         {
             var CompDB = unfreezeRequests.FirstOrDefault(c => c.RequestId == request.RequestId);
-            //if (CompDB.StatusesRequest != statusesRequests.First(a => a.Name == "На расмотрении")) return false;
 
             CompDB.StatusesRequest = statusesRequests.First(a => a.Name == "Отклонена");
             Core.kingEntities.SaveChanges();
@@ -659,7 +634,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 Core.kingEntities.SaveChanges();
             }
         }
-
 
         public bool UpdateBookStatus(Book book, string newStatus)
         {
