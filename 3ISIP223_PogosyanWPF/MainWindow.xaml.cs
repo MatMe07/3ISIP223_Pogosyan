@@ -30,8 +30,11 @@ namespace _3ISIP223_PogosyanWPF
         {
             var wind = new LoginRegisterWindows();
             var res = wind.ShowDialog();
-            if (res == false) this.Close();
-            WorkDataBase.Instanse.LoadData();
+            if (res == false)
+            {
+                this.Close(); return;
+            }
+                WorkDataBase.Instanse.LoadData();
             InitializeComponent();
             frameCatalog.NavigationService.Navigate(new CatalogPage());
 

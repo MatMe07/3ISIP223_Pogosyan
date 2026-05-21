@@ -30,10 +30,9 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         }
         public void LoadData()
         {
+            //if (User == null) return;
             BookGenres = Core.kingEntities.BookGenres.ToList();
             _AllReviews = new ObservableCollection<Review>(Core.kingEntities.Reviews);
-            //User = Core.kingEntities.Users.FirstOrDefault(u=>u.UserId == 1);
-            //User = Core.kingEntities.Users.FirstOrDefault(u=>u.Role.RoleName == "Администратор");
             ReadingLists = new ObservableCollection<ReadingList>(Core.kingEntities.ReadingLists.Where(b => b.UserId == User.UserId));
             GetReasons = new ObservableCollection<Reason>(Core.kingEntities.Reasons);
             targetTypes = Core.kingEntities.TargetTypes.ToList();
@@ -461,7 +460,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                         book.ReasonIdHesh = book.ReasonId;
                         book.IsFrozen = false;
                         book.ReasonId = null;
-                        //Books.Remove(book);
                         break;
                     }
             }
