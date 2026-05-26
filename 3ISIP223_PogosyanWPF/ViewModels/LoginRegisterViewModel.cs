@@ -168,7 +168,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 return false;
             }
 
-            if (dataBase.Users.Any(u => u.Login == login))
+            if (dataBase.Users?.Any(u => u.Login == login) ?? true)
             {
                 ShowMessage("Пользователь с таким логином уже существует", "#FFBE0404", PackIconKind.Error);
                 return false;

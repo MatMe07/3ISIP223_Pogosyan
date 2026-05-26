@@ -31,14 +31,45 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         }
         public void LoadReviews()
         {
+
             ReviewsBooks = dataBase.GetReviewsToBook(SelectedBook.BookId);
+
+            //OnPropertyChanged(nameof(SelectedBook));
+        }
+        public void UpdSelBook()
+        {
+            SelectedBook = dataBase.GetBookDB(SelectedBook.BookId);
 
         }
         public bool CheckUserFreez()
         {
-            return dataBase.User.IsFrozen;
+            if (dataBase.User.IsFrozen)
+            {
+                ActionsClass.SnackBarEnqueue(
+                    text: "Ваш аккаунт заморожен! Обратитесь к администратору",
+                    foregroundHEX: "#FFBE0404",
+                    iconKind: PackIconKind.Block,
+                    MyMessageQueue: new SnackbarMessageQueue(),
+                    true
+                );
+                return true;
+            }
+            return false;
         }
 
+        public bool CheckHaveRequestComplain(Book book)
+        {
+            return dataBase.CheckHaveRequestComplainBook(book.BookId);
+        }
+        public bool CheckHaveRequestComplain(User author)
+        {
+            return dataBase.CheckHaveRequestComplainAuthor(author.UserId);
+        }
+
+        public bool CheckHaveRequestComplain(Review review)
+        {
+            return dataBase.CheckHaveRequestComplainReview(review.ReviewId);
+        }
 
         public ObservableCollection<StatusesReading> StatusesReadings { get; set; }
 
@@ -155,27 +186,86 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public void ShowMessage(Review SelReview = null, Book SelBook = null, User Author = null)
         {
+            if (CheckUserFreez())
+            {
+                return;
+            }
             MainWindow mainWindow = MainWindow.GetInstance();
-            mainWindow.BlurAdd(true);
             FreezeRequestPage wind;
-            bool? res;
+
 
 
             string titl = "";
             if (SelReview != null)
             {
+                if (SelReview.IsFrozen)
+                {
+                    ActionsClass.SnackBarEnqueue(
+                        text: "Этот отзыв уже заморожен",
+                        foregroundHEX: "#FFFFA500",
+                        iconKind: PackIconKind.Information,
+                        MyMessageQueue: MyMessageQueue,
+                        true
+                    );
+                    return;
+                }
+                if (CheckHaveRequestComplain(SelReview))
+                {
+                    ActionsClass.SnackBarEnqueue(
+                        text: "Вы уже отправляли жалобу на этот отзыв",
+                        foregroundHEX: "#FFFFA500",
+                        iconKind: PackIconKind.Information,
+                        MyMessageQueue: MyMessageQueue,
+                        true
+                    );
+                    return;
+                }
                 wind = new FreezeRequestPage(titl = "отзыв", SelReview, IsAdmin);
             }
             else if (SelBook != null)
             {
+                if (CheckHaveRequestComplain(SelBook))
+                {
+                    ActionsClass.SnackBarEnqueue(
+                        text: "Вы уже отправляли жалобу на эту книгу",
+                        foregroundHEX: "#FFFFA500",
+                        iconKind: PackIconKind.Information,
+                        MyMessageQueue: MyMessageQueue,
+                        true
+                    );
+                    return;
+                }
                 wind = new FreezeRequestPage(titl = "книгу", SelBook, IsAdmin);
             }
             else
             {
+                if (Author.IsFrozen)
+                {
+                    ActionsClass.SnackBarEnqueue(
+                        text: "Этот автор уже заморожен",
+                        foregroundHEX: "#FFFFA500",
+                        iconKind: PackIconKind.Information,
+                        MyMessageQueue: MyMessageQueue,
+                        true
+                    );
+                    return;
+                }
+                if (CheckHaveRequestComplain(Author))
+                {
+                    ActionsClass.SnackBarEnqueue(
+                        text: "Вы уже отправляли жалобу на этого автора",
+                        foregroundHEX: "#FFFFA500",
+                        iconKind: PackIconKind.Information,
+                        MyMessageQueue: MyMessageQueue,
+                        true
+                    );
+                    return;
+                }
                 wind = new FreezeRequestPage(titl = "автора", Author, IsAdmin);
             }
+            mainWindow.BlurAdd(true);
             wind.Owner = mainWindow;
-            res = wind.ShowDialog();
+            var res = wind.ShowDialog();
 
             mainWindow.BlurAdd(false);
             if (res == true)
@@ -188,6 +278,9 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                     main: true
                 );
                 LoadReviews();
+                //dataBase.UpdSelectedBook();
+                UpdSelBook();
+
             }
 
         }

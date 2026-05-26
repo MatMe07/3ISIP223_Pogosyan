@@ -245,17 +245,8 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         }
 
 
-        private Book _selectedBook;
-        public Book SelectedBook
-        {
-            get { 
-                return _selectedBook; 
-            }
-            set { 
-                _selectedBook = value; 
-                OnPropertyChanged(nameof(SelectedBook));
-            }
-        }
+        //private Book _selectedBook;
+        public Book SelectedBook { get; set; }
 
 
         public List<BookGenre> BookGenres {  get; set; }
@@ -285,6 +276,13 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         public ObservableCollection<Review> GetReviewsToBook(int bookID)
         {
             return new ObservableCollection<Review>(_AllReviews.Where(r => r.BookId == bookID && !r.IsFrozen));
+        }
+
+        public Book GetBookDB(int bookID)
+        {
+            var book = GetAllBooks.First(b => b.BookId == bookID);
+            Core.kingEntities.Entry(book).Reload();
+            return book;
         }
 
         public int GetLastIdBook
@@ -329,8 +327,23 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         }
         public bool CheckHaveReview(int bookID)
         {
-            return GetReviewsToBook(bookID).FirstOrDefault(b=>b.UserId == User.UserId) != null;
+            return User.Reviews.Any(r => r.BookId == bookID);
         }
+
+        public bool CheckHaveRequestComplainBook(int bookId)
+        {
+            return User.Complaints.FirstOrDefault(c=>c.BookId == bookId) != null;
+        }
+        public bool CheckHaveRequestComplainAuthor(int authorID)
+        {
+            return User.Complaints.FirstOrDefault(c=>c.AuthorId == authorID) != null;
+        }
+        public bool CheckHaveRequestComplainReview(int reviewId)
+        {
+            return User.Complaints.FirstOrDefault(c=>c.ReviewId == reviewId) != null;
+        }
+
+
 
         public void AddReview(double rating, string Comment)
         {

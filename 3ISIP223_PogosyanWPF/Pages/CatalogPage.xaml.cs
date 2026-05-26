@@ -26,12 +26,14 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         //public List<string> lst {  get; set; }
         private CatalogViewModel viewModel;
+        private MainWindow MWind;
         public CatalogPage()
         {
             //lst = new List<string> { "hello", "world" , "world" , "world" , "world" , "world" , "world" , "world" , "world" };
             //DataContext = this;
             InitializeComponent();
             viewModel = DataContext as CatalogViewModel;
+            MWind = MainWindow.GetInstance();
             //listB.ItemsSource = lst;
         }
 
@@ -94,7 +96,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var wind = MainWindow.GetInstance();
             Book book = (sender as Border)?.Tag as Book;
 
             if ( book == null)
@@ -102,7 +103,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 book = (sender as TextBlock).Tag as Book;
             }
             viewModel.SetSelectBook(book);
-            wind.frameCatalog.NavigationService.Navigate(new BookPage("CatalogPage"));
+            MWind.frameCatalog.NavigationService.Navigate(new BookPage("CatalogPage"));
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

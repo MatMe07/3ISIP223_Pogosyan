@@ -65,15 +65,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
         {
             if (viewModel.CheckUserFreez())
             {
-                ActionsClass.SnackBarEnqueue(
-                    text: "Ваш аккаунт заморожен! Обратитесь к администратору",
-                    foregroundHEX: "#FFBE0404",
-                    iconKind: PackIconKind.Block,
-                    MyMessageQueue: new SnackbarMessageQueue(),
-                    true
-                );
                 return;
-
             }
             var button = sender as Button;
             var SelectReview = button.Tag as Review;
@@ -165,13 +157,6 @@ namespace _3ISIP223_PogosyanWPF.Pages
         {
             if (viewModel.CheckUserFreez())
             {
-                ActionsClass.SnackBarEnqueue(
-                    text: "Ваш аккаунт заморожен! Обратитесь к администратору",
-                    foregroundHEX: "#FFBE0404",
-                    iconKind: PackIconKind.Block,
-                    MyMessageQueue: new SnackbarMessageQueue(),
-                    true
-                );
                 return;
 
             }
@@ -216,44 +201,25 @@ namespace _3ISIP223_PogosyanWPF.Pages
 
         private void btnComplainBook_Click(object sender, RoutedEventArgs e)
         {
-            if (viewModel.CheckUserFreez())
-            {
-                ActionsClass.SnackBarEnqueue(
-                    text: "Ваш аккаунт заморожен! Обратитесь к администратору",
-                    foregroundHEX: "#FFBE0404",
-                    iconKind: PackIconKind.Block,
-                    MyMessageQueue: new SnackbarMessageQueue(),
-                    true
-                );
-                return;
 
-            }
-            viewModel.ShowMessage(SelBook: (sender as Button).Tag as Book);
+            var book = (sender as Button).Tag as Book;
+
+            viewModel.ShowMessage(SelBook: book);
 
         }
 
         private void btnComplainUser_Click(object sender, RoutedEventArgs e)
         {
-            if (viewModel.CheckUserFreez())
-            {
-                ActionsClass.SnackBarEnqueue(
-                    text: "Ваш аккаунт заморожен! Обратитесь к администратору",
-                    foregroundHEX: "#FFBE0404",
-                    iconKind: PackIconKind.Block,
-                    MyMessageQueue: new SnackbarMessageQueue(),
-                    true
-                );
-                return;
 
-            }
-            viewModel.ShowMessage(Author:((sender as Button).Tag as Book).User);
+            var author = ((sender as Button).Tag as Book).User;
+
+            viewModel.ShowMessage(Author:author);
 
         }
 
         private void FreezeAuthor_Click(object sender, RoutedEventArgs e)
         {
             viewModel.ShowMessage(Author: ((sender as Button).Tag as Book).User);
-
         }
 
     }

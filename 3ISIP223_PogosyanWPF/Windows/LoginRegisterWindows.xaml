@@ -17,7 +17,7 @@
     <Grid>
         <TabControl Background="Transparent" x:Name="tabControlMain">
 
-            <TabItem Header="ВХОД" x:Name="item1" FontWeight="SemiBold" FontSize="14">
+            <TabItem Header="ВХОД" x:Name="item1"  FontSize="14">
                 <Grid Margin="30">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -38,7 +38,7 @@
 
                     <TextBox Grid.Row="2"  Margin="0 0 0 20" 
                              Padding="12 10"   materialDesign:HintAssist.Hint="Введите логин"
-                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Style="{StaticResource  MaterialDesignTextBoxBase}"
                              FontSize="14"
                              Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"/>
 
@@ -48,7 +48,7 @@
                     <PasswordBox Grid.Row="4" 
                                  Margin="0 0 0 25"  Padding="12 10"  x:Name="passWordLog"
                                  materialDesign:HintAssist.Hint="Введите пароль" 
-                                 Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                                 Style="{StaticResource  MaterialDesignRevealPasswordBox}"
                                  FontSize="14">
                     </PasswordBox>
 
@@ -60,7 +60,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="РЕГИСТРАЦИЯ" x:Name="item2" FontWeight="SemiBold" FontSize="14">
+            <TabItem Header="РЕГИСТРАЦИЯ" x:Name="item2"  FontSize="14">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" 
                               HorizontalScrollBarVisibility="Disabled">
                     <Grid Margin="30">
@@ -89,8 +89,8 @@
 
                         <TextBox Grid.Row="2"  Margin="0 0 0 20" 
                                  Padding="12 10"  materialDesign:HintAssist.Hint="Придумайте логин"
-                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                 FontSize="14"
+                                 Style="{StaticResource MaterialDesignTextBoxBase}"
+                                 FontSize="14" materialDesign:HintAssist.HelperTextFontSize="13"
                                  Text="{Binding RegLogin, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <TextBlock Grid.Row="3"  Text="Отображаемое имя" 
@@ -99,7 +99,7 @@
 
                         <TextBox Grid.Row="4" 
                                  Margin="0 0 0 20"  Padding="12 10"  materialDesign:HintAssist.Hint="Как вас называть"
-                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 Style="{StaticResource MaterialDesignTextBoxBase}"
                                  FontSize="14"
                                  Text="{Binding RegDisplayName, UpdateSourceTrigger=PropertyChanged}"/>
 
@@ -108,7 +108,7 @@
                                    Margin="0 0 0 5"/>
 
                         <TextBox Grid.Row="6"  Margin="0 0 0 20"  Padding="12 10" 
-                                 materialDesign:HintAssist.Hint="example@mail.com" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 materialDesign:HintAssist.Hint="example@mail.com" Style="{StaticResource MaterialDesignTextBoxBase}"
                                  FontSize="14"
                                  Text="{Binding RegEmail, UpdateSourceTrigger=PropertyChanged}"/>
 
@@ -117,7 +117,7 @@
                                    Margin="0 0 0 5"/>
 
                         <PasswordBox Grid.Row="8"  Margin="0 0 0 20"  x:Name="passWordReg"  Padding="12 10"  materialDesign:HintAssist.Hint="Придумайте пароль"
-                                     Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                                     Style="{StaticResource  MaterialDesignRevealPasswordBox}"
                                      FontSize="14">
                         </PasswordBox>
 
@@ -126,7 +126,7 @@
                                    Margin="0 0 0 5"/>
 
                         <PasswordBox Grid.Row="10"  Margin="0 0 0 30" x:Name="passWordRegRep"  Padding="12 10"  materialDesign:HintAssist.Hint="Повторите пароль"
-                                     Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                                     Style="{StaticResource  MaterialDesignRevealPasswordBox}"
                                      FontSize="14">
                         </PasswordBox>
 

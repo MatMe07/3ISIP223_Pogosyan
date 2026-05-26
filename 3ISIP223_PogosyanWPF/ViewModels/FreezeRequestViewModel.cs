@@ -76,7 +76,10 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 return false;
             }
             if (!IsAdmin)
+            {
                 dataBase.SaveFreezeRequest(items, SelReason);
+
+            }
             else
             {
                 dataBase.FreezeUserReviewAdmin(items, SelReason);
