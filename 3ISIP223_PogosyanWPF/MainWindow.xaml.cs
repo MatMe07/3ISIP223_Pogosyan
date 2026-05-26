@@ -34,11 +34,15 @@ namespace _3ISIP223_PogosyanWPF
             {
                 this.Close(); return;
             }
-                WorkDataBase.Instanse.LoadData();
-            InitializeComponent();
-            frameCatalog.NavigationService.Navigate(new CatalogPage());
+            else if (res == true)
+                {
+                    WorkDataBase.Instanse.LoadData();
+                    InitializeComponent();
+                    frameCatalog.NavigationService.Navigate(new CatalogPage());
+                    Application.Current.MainWindow = this;
+                    LoadItemControl();
 
-            LoadItemControl();
+                }
         }
 
         private void LoadItemControl()

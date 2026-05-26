@@ -13,6 +13,7 @@ namespace _3ISIP223_PogosyanWPF
 {
     public static class ActionsClass
     {
+
         public static void SnackBarEnqueue( string text, string foregroundHEX, PackIconKind iconKind,SnackbarMessageQueue MyMessageQueue, bool main = false)
         {
             var txt = new StackPanel() { Orientation = Orientation.Horizontal };

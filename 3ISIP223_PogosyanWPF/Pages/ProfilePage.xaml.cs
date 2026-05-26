@@ -87,11 +87,16 @@ namespace _3ISIP223_PogosyanWPF.Pages
                 if (result == MessageBoxResult.Yes)
                 {
                     WorkDataBase.Instanse.User = null;
-
                     var newMainWindow = new MainWindow();
+                    if (newMainWindow.AdminTabItem != null)
+                        newMainWindow.Show();
+                    else
+                    {
+                         Application.Current.Shutdown();
+                    }
 
-                    MainWindow.GetInstance().Close();
-                    newMainWindow.Show();
+                        Window.GetWindow(this).Close();
+
 
                 }
             }
