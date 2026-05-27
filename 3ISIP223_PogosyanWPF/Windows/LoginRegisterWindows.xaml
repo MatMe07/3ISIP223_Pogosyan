@@ -9,8 +9,7 @@
         Title="LoginRegisterWindows"
         Height="500" Width="450" 
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen"
-        Background="{DynamicResource MaterialDesignPaper}">
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <local:LoginRegisterViewModel/>
     </Window.DataContext>

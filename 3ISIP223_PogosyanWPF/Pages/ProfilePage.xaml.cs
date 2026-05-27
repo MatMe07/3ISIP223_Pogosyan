@@ -96,7 +96,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
                     }
 
                         Window.GetWindow(this).Close();
-
+                    Application.Current.MainWindow = newMainWindow;
 
                 }
             }

@@ -34,7 +34,7 @@ namespace _3ISIP223_PogosyanWPF.Windows
             {
                 RequestIitle.Text = $"Объясните причину, почему стоит разморозить книгу";
             }
-            else if (types == "Account")
+            else if (types == "Author")
             {
                 RequestIitle.Text = $"Объясните причину, почему стоит разморозить аккаунт";
             }

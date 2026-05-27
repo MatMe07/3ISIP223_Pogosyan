@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterOwner"
         
         mc:Ignorable="d"
-        Title="Оспорение" MinHeight="285" MinWidth="480" Height="285" Width="480" Background="#FFF4F4FC" >
+        Title="Оспорение" MinHeight="285" MinWidth="480" Height="300" Width="480" Background="#FFF4F4FC" >
 
     <Window.DataContext>
         <local:UnfreezeRequestsViewModel/>
@@ -27,7 +27,7 @@
         <TextBox Grid.Row="2" Margin="0 5" 
                       x:Name="TextBoxUnfreeze" Style="{StaticResource  MaterialDesignOutlinedTextBox}"
                      VerticalContentAlignment="Top" Padding="10" 
-                 MinHeight="80" MaxHeight="120" 
+                 MinHeight="80" MaxHeight="120"  TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True"   
                  Text="{Binding TextUnfreeze, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      materialDesign:HintAssist.Hint="Текст причины оспаривания..." >
 

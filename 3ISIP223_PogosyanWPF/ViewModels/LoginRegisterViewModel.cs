@@ -139,13 +139,6 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 return false;
             }
 
-            if (user.IsFrozen)
-            {
-                string reason = string.IsNullOrEmpty(user.Reason.Name) ? "без указания причины" : $"Причина: {user.Reason.Name}";
-                ShowMessage($"Аккаунт заморожен. {reason}", "#FFBE0404", PackIconKind.Block);
-                return false;
-            }
-
             dataBase.User = user;
             ShowMessage($"Добро пожаловать, {user.DisplayName}!", "#FF04BE5A", PackIconKind.CheckCircle);
             return true;

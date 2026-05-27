@@ -38,7 +38,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public string statusFrozen
         {
-            get => EditingUser?.IsFrozen == true ? "Заморожено" : "Активно";
+            get => _editingUser?.IsFrozen == true ? "Заморожено" : "Активно";
         }
 
         public string ButtonName
@@ -51,7 +51,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
         }
         public Visibility IsNotReason
         {
-            get => EditingUser?.Reason != null ? Visibility.Visible : Visibility.Collapsed;
+            get => statusFrozen == "Заморожено" ? Visibility.Visible : Visibility.Collapsed;
         }
         public Reason GetEdintUserReason
         {
@@ -124,7 +124,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
                 //EditingUser.Reason = User.Reason;
                 //LoadReviews();
             }
-            //OnPropertyChanged(nameof(statusFrozen));
+            OnPropertyChanged(nameof(statusFrozen));
             OnPropertyChanged(nameof(IsNotReason));
             OnPropertyChanged(nameof(GetEdintUserReason));
             OnPropertyChanged(nameof(ButtonName));
@@ -137,7 +137,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
             EditingUser.IsFrozen = false;
             EditingUser.Reason = null;
 
-            //OnPropertyChanged(nameof(statusFrozen));
+            OnPropertyChanged(nameof(statusFrozen));
             OnPropertyChanged(nameof(IsNotReason));
             OnPropertyChanged(nameof(GetEdintUserReason));
             OnPropertyChanged(nameof(ButtonName));

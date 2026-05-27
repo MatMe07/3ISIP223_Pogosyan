@@ -43,7 +43,7 @@ namespace _3ISIP223_PogosyanWPF.Pages.ProfilePages
             }
             var mainWindow = MainWindow.GetInstance();
             mainWindow.BlurAdd(true);
-            var wind = new UnfreezeRequestsWindow("Account");
+            var wind = new UnfreezeRequestsWindow("Author");
             wind.Owner = mainWindow;
             var res = wind.ShowDialog();
             mainWindow.BlurAdd(false);

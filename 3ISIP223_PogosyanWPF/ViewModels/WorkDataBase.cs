@@ -168,7 +168,7 @@ namespace _3ISIP223_PogosyanWPF.ViewModels
 
         public void SendRequest(string txt, string target, int? bookId = null)
         {
-            var targReq = targetTypes.First(t=>t.Name == target);
+            var targReq = targetTypes.FirstOrDefault(t=>t.Name == target); // TUT
             UnfreezeRequest unfreezeRequest;
             if (bookId == null)
             {

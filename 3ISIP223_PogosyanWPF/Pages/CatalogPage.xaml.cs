@@ -33,7 +33,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
             //DataContext = this;
             InitializeComponent();
             viewModel = DataContext as CatalogViewModel;
-            MWind = MainWindow.GetInstance();
+
             //listB.ItemsSource = lst;
         }
 
@@ -109,6 +109,7 @@ namespace _3ISIP223_PogosyanWPF.Pages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             viewModel.UpdBooks();
+            MWind = MainWindow.GetInstance();
         }
     }
 }
