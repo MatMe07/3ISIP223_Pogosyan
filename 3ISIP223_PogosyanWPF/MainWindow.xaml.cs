@@ -29,7 +29,15 @@ namespace _3ISIP223_PogosyanWPF
 
             mainFrame.NavigationService.Navigate(new _1MainPage());
         }
-
+        private bool IsLoading = false   ;
+        private void Window_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (IsLoading)
+            {
+                e.Handled = true; // Событие не дойдет до кнопок и не вызовет их Click
+                MessageBox.Show("Подождите, идет загрузка!");
+            }
+        }
 
 
         private void btnPersonalAcc_Click(object sender, RoutedEventArgs e)

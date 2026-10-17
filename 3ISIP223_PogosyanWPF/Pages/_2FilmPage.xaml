@@ -93,7 +93,7 @@
                     <ComboBoxItem Content="3D"/>-->
                 </ComboBox>
             </StackPanel>
-            
+
 
             <StackPanel Grid.Row="5">
                 <ListBox x:Name="ListSessionBox" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding SessionsList}" Background="{x:Null}" BorderBrush="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MouseDoubleClick="ListBox_MouseDoubleClick"  >

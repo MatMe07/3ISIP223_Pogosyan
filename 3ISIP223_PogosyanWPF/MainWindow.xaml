@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_3ISIP223_PogosyanWPF"
         mc:Ignorable="d"
-        Title="CineMAX" Height="620" Width="722" WindowStartupLocation="CenterScreen">
+        Title="CineMAX" Height="620" Width="722" WindowStartupLocation="CenterScreen" PreviewMouseDown="Window_OnPreviewMouseDown">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
